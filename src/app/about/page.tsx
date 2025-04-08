@@ -11,7 +11,7 @@ const profiles = [
   {
     name: "Olofi Adetokunbo Emmanuelking",
     title: "Executive Vice Chairman Adron Group",
-    imageSrc: "/images/vc.png",
+    imageSrc: "/images/GED.png",
   },
   {
     name: "Adenike Ajobo",
@@ -21,7 +21,7 @@ const profiles = [
   {
     name: "Olubunmi Akinfe",
     title: "Deputy Managing Director",
-    imageSrc: "/images/akintie.png",
+    imageSrc: "/images/akinfe.png",
   },
   {
     name: "Shola Orunmuyiwa",
@@ -34,9 +34,9 @@ const profiles = [
     imageSrc: "/images/ihuoma.png",
   },
   {
-    name: "Barbie Etie",
+    name: "Barbie Ette",
     title: "AMD Northern Nigeria",
-    imageSrc: "/images/etie.png",
+    imageSrc: "/images/ette.png",
   },
   {
     name: "Arinaitwe Olaniyan",
@@ -59,9 +59,9 @@ const profiles = [
     imageSrc: "/images/samson.png",
   },
   {
-    name: "Ayodele Bobai",
+    name: "Ayodele Bolaji",
     title: "Director of Corporate Finance",
-    imageSrc: "/images/bobai.png",
+    imageSrc: "/images/ayodele.png",
   },
   {
     name: "Omobola Alonge",
@@ -69,9 +69,9 @@ const profiles = [
     imageSrc: "/images/alonge.png",
   },
   {
-    name: "Sumbo Ogunbote",
+    name: "Sumbo Oguntoye",
     title: "AMD Marketing and Design",
-    imageSrc: "/images/ogunbote.png",
+    imageSrc: "/images/oguntoye.png",
   },
 ];
 
@@ -79,7 +79,7 @@ export default function AboutPage() {
   return (
     <section className="max-w-7xl space-y-12">
       <div className="text-left pt-12 md:pt-20 p-5 md:px-20 mx-auto p-6 md:pb-12 bg-adron-gray">
-        <h1 className="text-4xl font-bold mb-4">
+        <h1 className="text-4xl font-bold mb-4 w-full md:w-[550px]">
           Building Affordable Homes, Creating Endless Possibilities
         </h1>
         <p className="text-gray-600 max-w-2xl text-left">
@@ -89,7 +89,7 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-24 w-screen">
+      <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-24 w-full">
         <div className="grid md:grid-cols-2 gap-10 items-center justify-between p-4 md:p-24">
           <Image
             width={545}
@@ -171,7 +171,7 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col bg-transparent justify-center">
+      <div className="flex flex-col bg-transparent justify-center p-4">
         <div className="flex flex-col text-center">
           <h3 className="text-3xl">Our Leadership</h3>
           <p className="text-sm">
@@ -186,7 +186,7 @@ export default function AboutPage() {
                 key={index}
                 name={profile.name}
                 title={profile.title}
-                imageSrc="/images/ceo.png"
+                imageSrc={profile.imageSrc}
               />
             ))}
           </div>
@@ -196,7 +196,7 @@ export default function AboutPage() {
                 key={index}
                 name={profile.name}
                 title={profile.title}
-                imageSrc="/images/ceo.png"
+                imageSrc={profile.imageSrc}
               />
             ))}
           </div>
