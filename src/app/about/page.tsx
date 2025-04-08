@@ -77,7 +77,7 @@ const profiles = [
 
 export default function AboutPage() {
   return (
-    <section className="max-w-7xl space-y-12">
+    <section className="w-full space-y-12">
       <div className="text-left pt-12 md:pt-20 p-5 md:px-20 mx-auto p-6 md:pb-12 bg-adron-gray">
         <h1 className="text-4xl font-bold mb-4 w-full md:w-[550px]">
           Building Affordable Homes, Creating Endless Possibilities

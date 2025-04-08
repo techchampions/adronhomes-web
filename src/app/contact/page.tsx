@@ -1,7 +1,174 @@
+import Map from "@/components/Map";
+import { LuMail, LuPhone } from "react-icons/lu";
+
+const branches = [
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+  {
+    store_name: "Lekki Office",
+    address: "34b Freedom way, Ikate, Lekki, Lagos",
+    contacts: "+2348051011951, +2348051011951",
+    email: "telesales@adronhomes",
+  },
+];
 const ContactPage = () => {
   return (
-    <div className="contact-page">
-      <h1 className="contact-title">Contact Us</h1>
+    <div className="py-5 px-4 md:px-10 space-y-10">
+      <div className="py-0">
+        <h1 className="contact-title text-center text-4xl font-bold">
+          Get in Touch
+        </h1>
+        <p className=" text-center text-xs">
+          Please reach out to us, we would be happy to help and advice if you
+          have any questions and enquiries.
+        </p>
+      </div>
+      <Map lat={6.6213} lng={3.3678} />
+      <div className="flex flex-col w-full px-4 md:px-32 mx-auto">
+        <h3 className="text-sm font-bold text-black mb-3">
+          For Inquiries, contact
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 w-full text-xs mx-auto gap-10 text-gray-500">
+          <div className="flex flex-col space-y-2">
+            <h3 className="text-sm font-bold text-black">
+              Corporate Headquarters
+            </h3>
+            <p>75, Adron Court, Adeyemo Akapo, Omole Phase 1, Lagos</p>
+            <div className="flex gap-1">
+              <LuPhone />
+              <span>+2348051011951</span>
+            </div>
+            <div className="flex gap-1">
+              <LuMail />
+              <span>telesales@adronhomes</span>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <h3 className="text-sm font-bold text-black">Client Services</h3>
+            <p>Adron Experience Centre</p>
+            <div className="flex gap-1">
+              <LuPhone />
+              <span>+2348051011951, +2349058590357, +2349058590356</span>
+            </div>
+            <div className="flex gap-1">
+              <LuMail />
+              <span>clientservice@adronhomesproperties.com</span>
+            </div>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <h3 className="text-sm font-bold text-black">
+              24 Hours Call Centre
+            </h3>
+            <div className="flex gap-1">
+              <LuPhone />
+              <span>+2348108338099</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col bg-white rounded-[50px] py-24 mb-8 px-4 md:px-10">
+        <h1 className="text-center pb-20 text-black text-3xl font-bold">
+          Office Locations
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-x-[400px] gap-y-10 w-[75%] mx-auto">
+          {branches.map((branch, index) => (
+            <div className="text-xs text-gray-500 w-fit space-y-1" key={index}>
+              <div className="text-black text-sm">{branch.store_name}</div>
+              <p>{branch.address}</p>
+              <p>{branch.contacts}</p>
+              <p>{branch.email}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
