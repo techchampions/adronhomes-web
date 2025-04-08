@@ -6,7 +6,7 @@ import { LuPhone } from "react-icons/lu";
 
 export default function Footer() {
   return (
-    <footer className="bg-adron-body text-black py-10 px-4 md:px-20">
+    <footer className="bg-adron-body text-black py-10 px-4 md:px-20 relative bottom-0 left-0">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 text-sm">
         {/* LOGO + ADDRESS */}
         <div className="space-y-4">
