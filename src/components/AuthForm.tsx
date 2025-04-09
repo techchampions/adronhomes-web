@@ -46,7 +46,10 @@ const AuthForm = ({ isLogin = false }: AuthFormProps) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form className="space-y-6 flex flex-col">
+      <Form className="space-y-3 flex flex-col">
+        <h1 className="font-bold text-3xl text-black text-center py-6">
+          {isLogin ? "Login" : "Register"}
+        </h1>
         {!isLogin && <InputField name="fullName" placeholder="Full Name" />}
         <InputField
           name="email"
@@ -82,7 +85,7 @@ const AuthForm = ({ isLogin = false }: AuthFormProps) => {
             )
           }
         />
-        <div className="flex items-center space-x-2 text-sm">
+        <div className="flex items-center space-x-2 text-sm px-6">
           <input type="checkbox" id="remember" className="text-adron-green" />
           <label htmlFor="remember">Remember me</label>
         </div>

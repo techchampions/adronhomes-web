@@ -3,6 +3,7 @@ import "../globals.css";
 
 import { Geist, Geist_Mono } from "next/font/google";
 import Image from "next/image";
+import AuthNavbar from "@/components/AuthNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,7 +42,7 @@ export default function AuthLayout({
           </div>
 
           {/* Signup Form Section */}
-          <div className="bg-white flex flex-col justify-center px-4 md:px-36 py-4">
+          <div className="bg-white flex flex-col justify-center px-4 md:px-20 py-4">
             <div className="text-center mb-10">
               <Image
                 src="/logo.svg"
@@ -50,14 +51,15 @@ export default function AuthLayout({
                 height={50}
                 className="mx-auto"
               />
-              <h1 className="text-xl font-semibold mt-6">
+              <h1 className="text-3xl font-semibold mt-6">
                 Welcome to Adron Homes
               </h1>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-xs text-gray-600 mt-1">
                 Referred by <strong>Mamoosh Dwayn</strong>
               </p>
             </div>
-            {children}
+            <div className="px-0 md:px-24 py-10">{children}</div>
+            <AuthNavbar />
           </div>
         </div>
       </body>
