@@ -1,0 +1,137 @@
+// app/properties/page.tsx
+
+import PropertyList from "@/components/PropertyList";
+
+const sampleProperties = [
+  {
+    id: "1",
+    imageUrl: "/images/property.png",
+    title: "Treasure Parks and Gardens",
+    address: "34, Shimawa, Ogun State, Nigeria",
+    price: "₦56,000,000",
+    size: "648 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "2",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "3",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "4",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "5",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "6",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "7",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "8",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "9",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "10",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "12",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+  {
+    id: "13",
+    imageUrl: "/images/property.png",
+    title: "Royal City Estate",
+    address: "Abeokuta, Ogun State, Nigeria",
+    price: "₦38,000,000",
+    size: "500 Sq M",
+    hasStreetLights: true,
+    hasGym: true,
+  },
+];
+
+export default function VirtualTourPage() {
+  return (
+    <div className="p-6 max-w-6xl mx-auto">
+      <div className="bg-white rounded-[50px] px-6 py-24">
+        <h1 className="text-3xl font-bold mb-10 text-center">Properties</h1>
+        <PropertyList properties={sampleProperties} />
+      </div>
+    </div>
+  );
+}
