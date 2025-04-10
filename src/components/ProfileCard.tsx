@@ -22,7 +22,7 @@ export default function ProfileCard({
           className="rounded-lg object-cover"
         />
       </div>
-      <h3 className="font-semibold text-sm ">{name}</h3>
+      <h4 className="font-semibold text-sm ">{name}</h4>
       <p className="text-xs text-gray-400">{title}</p>
     </div>
   );

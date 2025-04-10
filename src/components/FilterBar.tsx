@@ -1,0 +1,100 @@
+// components/FilterBar.tsx
+"use client";
+
+import { Formik, Form } from "formik";
+import InputField from "./InputField";
+import SelectField from "./SelectField";
+import {
+  FaClock,
+  FaHome,
+  FaLocationArrow,
+  FaMarker,
+  FaTag,
+} from "react-icons/fa";
+import { BedIcon } from "lucide-react";
+
+export default function FilterBar() {
+  return (
+    <Formik
+      initialValues={{
+        location: "",
+        propertyType: "",
+        bedrooms: "",
+        status: "",
+        min: "",
+        max: "",
+      }}
+      onSubmit={(values) => {
+        console.log("Filter values:", values);
+      }}
+    >
+      <Form className="hidden md:block">
+        <div className="bg-white p-4 rounded-2xl mb-8 md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="location" className="flex gap-2 items-center">
+              <FaLocationArrow /> Location
+            </label>
+            <InputField
+              className="py-4"
+              placeholder="What are you looking?"
+              type="text"
+              name="location"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="location" className="flex gap-2 items-center">
+              <FaHome /> Property Type
+            </label>
+
+            <SelectField
+              name="propertyType"
+              placeholder="Property Type"
+              options={["Bungalow", "Duplex", "Flat", "Land"]}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="location" className="flex gap-2 items-center">
+              <BedIcon /> Number of Bedrooms
+            </label>
+
+            <SelectField
+              name="bedrooms"
+              placeholder="Bedrooms"
+              options={["1", "2", "3", "4", "5+"]}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="location" className="flex gap-2 items-center">
+              <FaClock /> Avialability status
+            </label>
+
+            <SelectField
+              name="status"
+              placeholder="Status"
+              options={["For Sale", "For Rent"]}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="location" className="flex gap-2 items-center">
+              <FaTag /> Price
+            </label>
+            <div className="flex justify-between gap-2">
+              <InputField
+                className="py-4"
+                placeholder="Min"
+                type="number"
+                name="min"
+              />
+              <InputField
+                className="py-4"
+                placeholder="Max"
+                type="number"
+                name="max"
+              />
+            </div>
+          </div>
+        </div>
+      </Form>
+    </Formik>
+  );
+}

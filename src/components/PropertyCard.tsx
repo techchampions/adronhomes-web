@@ -1,12 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import {
-  FaMapMarkerAlt,
-  FaRulerCombined,
-  FaFlag,
-  FaDumbbell,
-} from "react-icons/fa";
+import { FaMapMarkerAlt, FaDumbbell, FaRegHeart } from "react-icons/fa";
+import { GiStreetLight } from "react-icons/gi";
+import { TfiRulerAlt2 } from "react-icons/tfi";
+import Button from "./Button";
 
 interface PropertyCardProps {
   imageUrl: string;
@@ -30,26 +28,31 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   onViewTour,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row items-center gap-5 bg-transparent rounded-3xl p-4 w-full max-w-3xl">
+    <div className="flex flex-col md:flex-row items-center gap-10 bg-transparent rounded-3xl p-4 w-full md:w-[500px] max-w-3xl">
       <div className="relative w-full md:w-1/2 h-48 md:h-50 rounded-2xl overflow-hidden">
         <Image src={imageUrl} alt={title} fill className="object-cover" />
       </div>
 
       <div className="flex flex-col space-y-2 justify-between w-full md:w-1/2">
         <div className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-900 mb-2">{title}</h3>
+          <div className="text-sm font-semibold text-gray-800 mb-2">
+            {title}
+          </div>
           <p className="flex items-center text-xs text-gray-600 mb-2">
             <FaMapMarkerAlt className="mr-1 text-gray-500" /> {address}
           </p>
-          <p className="text-sm font-bold text-gray-800 mb-3">{price}</p>
+          <p className="text-sm font-bold text-gray-800 mb-3 flex items-center justify-between w-full md:w-[180px]">
+            {price}
+            <FaRegHeart className="ml-1 text-gray-800 " />
+          </p>
 
-          <div className="flex items-center gap-4 text-xs text-gray-700">
+          <div className="flex items-center gap-4 text-xs text-gray-500">
             <span className="flex items-center gap-1">
-              <FaRulerCombined /> {size}
+              <TfiRulerAlt2 /> {size}
             </span>
             {hasStreetLights && (
               <span className="flex items-center gap-1">
-                <FaFlag /> Str Lights
+                <GiStreetLight /> Str Lights
               </span>
             )}
             {hasGym && (
@@ -62,7 +65,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
         <button
           onClick={onViewTour}
-          className="mt-4 bg-lime-600 text-white px-6 py-2 rounded-full hover:bg-lime-700 transition"
+          className="mt-4 bg-adron-green text-sm text-white px-6 py-2 w-fit rounded-full hover:bg-lime-700 transition"
         >
           View Tour
         </button>
