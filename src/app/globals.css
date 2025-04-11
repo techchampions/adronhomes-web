@@ -1,5 +1,27 @@
 @import "tailwindcss";
 
+/* ✅ Add custom Gotham font */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,16 +36,12 @@
   --color-adron-green: #79B833;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
+.font-gotham {
+  font-family: 'Gotham', sans-serif;
+}
 
 body {
-  /* background: var(--background); */
   background: var(--color-adron-body);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Gotham', sans-serif;
 }
