@@ -168,10 +168,10 @@ const HeroBanner = () => {
                 { value: "20+", label: "Yrs of exp." },
               ].map((stat, index) => (
                 <div key={index} className="flex flex-col items-center p-2 md:p-0">
-                  <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-600">
+                  <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-600 font-Gotham">
                     {stat.value}
                   </p>
-                  <p className="text-xs md:text-sm text-gray-500">{stat.label}</p>
+                  <p className="text-xs md:text-sm text-gray-500 font-Gotham">{stat.label}</p>
                 </div>
               ))}
             </div>

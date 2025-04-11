@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "../globals.css";
 import "leaflet/dist/leaflet.css"; // ✅ Add Leaflet CSS
-import Navbar from "@/components/navbar";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const geistSans = Geist({
@@ -33,9 +35,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${adronTitle.variable} antialiased`}>
-        {/* <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      > */}
+      
         <Navbar />
         <main className="mb-10">{children}</main>
         <Footer />
