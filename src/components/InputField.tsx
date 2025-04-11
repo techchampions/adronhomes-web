@@ -39,7 +39,7 @@ const InputField: React.FC<InputFieldProps> = ({
       <div
         className={`w-full relative flex ${
           isTextarea ? "flex-col" : "flex-row"
-        } border bg-adron-body rounded-full py-[1px] ${
+        } border bg-adron-body rounded-full py-2 ${
           hasError ? "border-red-500" : "border-transparent"
         } ${className}`}
       >
@@ -55,7 +55,7 @@ const InputField: React.FC<InputFieldProps> = ({
           type={isTextarea ? undefined : type}
           placeholder={placeholder}
           rows={isTextarea ? rows : undefined}
-          className={` text-gray-900 text-sm rounded-lg focus:ring-0 block w-full py-4 px-5 outline-none resize-none ${
+          className={` text-gray-900 text-sm rounded-lg focus:ring-0 block w-full px-5 outline-none resize-none ${
             isTextarea ? "min-h-[100px]" : ""
           }`}
         />
