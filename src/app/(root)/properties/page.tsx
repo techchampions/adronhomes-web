@@ -22,9 +22,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -35,9 +35,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -48,9 +48,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -61,9 +61,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -74,9 +74,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -87,9 +87,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -100,9 +100,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -113,9 +113,9 @@ export const properties: Property[] = [
     price: "₦56,000,000",
     features: ["648 Sq M", "Str Lights", "Gym"],
     images: [
-      "/images/property.png",
-      "/images/property.png",
-      "/images/property.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
+      "/images/house-pty.png",
     ],
     type: "Land",
   },
@@ -125,7 +125,7 @@ export const properties: Property[] = [
 export default function HomePage() {
   return (
     <div className="max-w-7xl mx-auto p-2 md:p-6">
-      <div className="bg-transparent w-full mb-10">
+      <div className="bg-transparent w-full mt-6 mb-10">
         <div className="flex flex-col justify-center mx-auto text-center space-y-2">
           <h1 className="text-4xl text-black font-bold">Properties</h1>
           <p className="text-sm w-[200px] md:w-full mx-auto">

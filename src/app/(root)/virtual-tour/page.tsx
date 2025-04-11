@@ -146,12 +146,12 @@ export default function VirtualTourPage() {
         src="/half-globe.png"
         alt="globe"
         width={800}
-        height={300}
+        height={800}
         // className="relative bottom-[-170px] -z-50 mx-auto"
         className="mx-auto mt-6 "
       />
-      <div className="bg-white rounded-[50px] px-6 py-10 md:py-24 w-full relative -top-[100px] md:-top-[170px]">
-        <h1 className="text-3xl font-bold mb-10 text-center">Properties</h1>
+      <div className="bg-white rounded-[50px] px-6 py-10 md:py-18 w-full relative -top-[100px] md:-top-[170px]">
+        <h1 className="text-3xl font-bold mb-12 text-center">Properties</h1>
         <PropertyList properties={sampleProperties} />
       </div>
     </div>

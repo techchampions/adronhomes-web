@@ -78,19 +78,19 @@ const profiles = [
 export default function AboutPage() {
   return (
     <section className="w-full space-y-12">
-      <div className="text-left pt-12 md:pt-20 p-5 md:px-32 mx-auto p-6 md:pb-12 bg-adron-gray">
+      <div className="text-left pt-12 md:pt-20 p-5 md:px-32 mx-auto md:pb-12 bg-adron-gray">
         <h1 className="text-4xl md:text-[45px] font-bold mb-4 w-full md:w-[550px]">
           Building Affordable Homes, Creating Endless Possibilities
         </h1>
-        <p className="text-black max-w-2xl text-left text-sm">
+        <p className="text-black max-w-[750px] text-left text-sm">
           At Adron Homes, we are committed to delivering quality, accessible,
           and affordable housing solutions. Our mission is to make homeownership
           a reality for everyone.
         </p>
       </div>
 
-      <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-24 w-full">
-        <div className="flex flex-col md:flex-row gap-10 items-center justify-between p-4 md:p-24">
+      <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-14 w-full space-y-32">
+        <div className="flex flex-col md:flex-row gap-10 items-center justify-between px-4 md:px-24">
           <Image
             width={545}
             height={316}
@@ -108,7 +108,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="flex flex-col-reverse justify-between md:flex-row gap-10 items-center p-4 md:p-24">
+        <div className="flex flex-col-reverse justify-between md:flex-row gap-10 items-center px-4 md:px-24">
           <div className="w-full md:w-[400px]">
             <h2 className="text-3xl font-semibold mb-2">Our Vision</h2>
             <p className="text-gray-600 text-sm">
@@ -126,7 +126,7 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between gap-10 items-center p-4 md:p-24">
+        <div className="flex flex-col md:flex-row justify-between gap-10 items-center px-4 md:px-24">
           <Image
             width={545}
             height={316}
@@ -134,35 +134,35 @@ export default function AboutPage() {
             alt="Core Values"
             className="rounded-lg "
           />
-          <div>
+          <div className="w-full md:w-[43%]">
             <h2 className="text-3xl font-semibold mb-2">Core Values</h2>
-            <ul className="list-disc ml-5 text-gray-600 space-y-1 text-sm">
+            <ul className="list-none text-gray-600 space-y-1 text-sm">
               <li>
-                <strong className="text-black">A - </strong>AFFORDABLE At ADRON,
+                <strong className="text-black">A </strong>- AFFORDABLE At ADRON,
                 affordability is a key value. We are committed to making
                 homeownership accessible to everyone by providing cost-effective
                 property solutions without compromising on quality.
               </li>
               <li>
-                <strong className="text-black">D - </strong>DEPENDABLE
+                <strong className="text-black">D </strong>- DEPENDABLE
                 Dependability defines ADRON’s approach. We build trust with our
                 clients by consistently delivering on our promises and providing
                 reliable support throughout the real estate process.
               </li>
               <li>
-                <strong className="text-black">R - </strong>RELIABLE Reliability
+                <strong className="text-black">R </strong>- RELIABLE Reliability
                 is a cornerstone of our operations. At ADRON, we ensure that
                 every interaction and transaction is handled with the utmost
                 care and professionalism, giving you peace of mind.
               </li>
               <li>
-                <strong className="text-black">O - </strong>OFFER Our offers
+                <strong className="text-black">O </strong>- OFFER Our offers
                 reflect our dedication to value and excellence. ADRON is
                 committed to presenting unique opportunities and solutions that
                 align with our clients’ needs and aspirations.
               </li>
               <li>
-                <strong className="text-black">N - </strong>NOW We believe in
+                <strong className="text-black">N </strong>- NOW We believe in
                 the power of acting now. At ADRON, we are proactive and
                 responsive, ensuring that our clients never miss out on the best
                 opportunities available in the real estate market.
@@ -180,7 +180,7 @@ export default function AboutPage() {
           </p>
         </div>
         <div className="flex flex-col justify-center gap-6">
-          <div className="grid grid-cols-2 mx-auto gap-6">
+          <div className="grid grid-cols-2 mx-auto gap-10">
             {profiles.slice(0, 2).map((profile, index) => (
               <ProfileCard
                 key={index}
@@ -190,7 +190,7 @@ export default function AboutPage() {
               />
             ))}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 mx-auto gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 mx-auto gap-10">
             {profiles.slice(2, 14).map((profile, index) => (
               <ProfileCard
                 key={index}

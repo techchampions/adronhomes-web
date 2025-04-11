@@ -1,67 +1,3 @@
-// "use client";
-
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/css";
-// import {
-//   FaMapMarkerAlt,
-//   FaHeart,
-//   FaRulerCombined,
-//   FaLightbulb,
-//   FaDumbbell,
-// } from "react-icons/fa";
-// import Image from "next/image";
-
-// export default function SwiperPropertyCard({ property }: Props) {
-//   return (
-//     <div className="bg-white rounded-2xl shadow p-4">
-//       <div className="relative">
-//         <Swiper spaceBetween={10} slidesPerView={1} className=" h-[300px]">
-//           {property.images.map((img, idx) => (
-//             <SwiperSlide key={idx}>
-//               <Image
-//                 fill
-//                 src={img}
-//                 alt="Property"
-//                 className="rounded-md md:rounded-xl w-full h-56 object-cover"
-//               />
-//             </SwiperSlide>
-//           ))}
-//         </Swiper>
-//       </div>
-
-//       <div className="mt-4">
-//         <h3 className="text-lg font-semibold">{property.name}</h3>
-//         <p className="text-sm text-gray-500 flex items-center mt-1">
-//           <FaMapMarkerAlt className="mr-1" /> {property.location}
-//         </p>
-
-//         <p className="text-xl font-bold text-gray-800 mt-2">{property.price}</p>
-
-//         <div className="flex items-center text-sm text-gray-500 mt-2 gap-4">
-//           <span className="flex items-center gap-1">
-//             <FaRulerCombined /> {property.features[0]}
-//           </span>
-//           <span className="flex items-center gap-1">
-//             <FaLightbulb /> {property.features[1]}
-//           </span>
-//           <span className="flex items-center gap-1">
-//             <FaDumbbell /> {property.features[2]}
-//           </span>
-//         </div>
-
-//         <div className="flex items-center justify-between mt-4">
-//           <button className="bg-green-500 text-white px-4 py-1.5 rounded-full text-sm hover:bg-green-600 transition">
-//             View Property
-//           </button>
-//           <div className="text-gray-400 flex items-center gap-1 text-sm">
-//             <FaHeart /> {property.type}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
 import { useRef } from "react";
@@ -72,18 +8,12 @@ import "swiper/css/navigation";
 
 import {
   FaMapMarkerAlt,
-  FaHeart,
-  FaRulerCombined,
-  FaLightbulb,
-  FaDumbbell,
-  FaChevronCircleLeft,
   FaChevronLeft,
   FaChevronRight,
   FaRegHeart,
 } from "react-icons/fa";
 import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
-import { TfiRulerAlt2 } from "react-icons/tfi";
 import Button from "./Button";
 
 interface Props {
@@ -140,18 +70,18 @@ export default function SwiperPropertyCard({ property }: Props) {
           ref={prevRef}
           className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
         >
-          <FaChevronLeft />
+          <FaChevronLeft size={30} />
         </button>
         <button
           ref={nextRef}
           className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
         >
-          <FaChevronRight />
+          <FaChevronRight size={30} />
         </button>
       </div>
 
       {/* Property Info */}
-      <div className="mt-4">
+      <div className="mt-4 space-y-2">
         <h4 className="text-lg font-semibold">{property.name}</h4>
         <p className="text-sm text-gray-500 flex items-center mt-1">
           <FaMapMarkerAlt className="mr-1" /> {property.location}
@@ -162,7 +92,7 @@ export default function SwiperPropertyCard({ property }: Props) {
         </p>
 
         <div className="flex justify-between items-center">
-          <div className="flex items-center text-sm text-gray-500 mt-2 gap-4">
+          <div className="flex items-center text-sm text-gray-500 gap-4">
             <span className="flex items-center gap-1">
               {/* <TfiRulerAlt2 />  */}
               <Image src="/ruler.svg" width={14} height={14} alt="dumbbell" />
@@ -188,7 +118,7 @@ export default function SwiperPropertyCard({ property }: Props) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center justify-between mt-6">
           <Button
             label="View Property"
             className="bg-adron-green max-w-fit text-sm px-10 py-1"

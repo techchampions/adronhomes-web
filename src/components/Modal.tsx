@@ -51,7 +51,7 @@ const Modal: FC<ModalProps> = ({
       >
         {closeButton && (
           <button
-            className="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
+            className="absolute top-4 right-3 text-gray-600 hover:text-gray-900"
             onClick={onClose}
             aria-label="Close Modal"
           >
