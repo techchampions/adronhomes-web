@@ -79,6 +79,7 @@ import {
   FaChevronCircleLeft,
   FaChevronLeft,
   FaChevronRight,
+  FaRegHeart,
 } from "react-icons/fa";
 import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
@@ -103,7 +104,7 @@ export default function SwiperPropertyCard({ property }: Props) {
 
   return (
     <div className=" rounded-2xl p-4">
-      <div className="relative w-full h-[300px] rounded-xl overflow-hidden">
+      <div className="relative w-full h-[250px] md:h-[500px] rounded-xl overflow-hidden">
         {/* Swiper Carousel */}
         <Swiper
           spaceBetween={10}
@@ -157,19 +158,29 @@ export default function SwiperPropertyCard({ property }: Props) {
         </p>
 
         <p className="text-lg font-bold text-gray-800 mt-2 flex justify-between">
-          {property.price} <FaHeart />
+          {property.price} <FaRegHeart />
         </p>
 
         <div className="flex justify-between items-center">
           <div className="flex items-center text-sm text-gray-500 mt-2 gap-4">
             <span className="flex items-center gap-1">
-              <TfiRulerAlt2 /> {property.features[0]}
+              {/* <TfiRulerAlt2 />  */}
+              <Image src="/ruler.svg" width={14} height={14} alt="dumbbell" />
+
+              {property.features[0]}
             </span>
             <span className="flex items-center gap-1">
               <GiStreetLight /> {property.features[1]}
             </span>
             <span className="flex items-center gap-1">
-              <FaDumbbell /> {property.features[2]}
+              {/* <FaDumbbell /> */}
+              <Image
+                src="/dumbbell.svg"
+                width={24}
+                height={24}
+                alt="dumbbell"
+              />
+              {property.features[2]}
             </span>
           </div>
           <div className="text-gray-400 flex items-center gap-1 text-sm">
@@ -180,7 +191,7 @@ export default function SwiperPropertyCard({ property }: Props) {
         <div className="flex items-center justify-between mt-4">
           <Button
             label="View Property"
-            className="bg-adron-green max-w-fit px-6"
+            className="bg-adron-green max-w-fit text-sm px-10 py-1"
           />
         </div>
       </div>

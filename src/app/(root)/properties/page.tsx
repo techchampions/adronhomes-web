@@ -128,7 +128,7 @@ export default function HomePage() {
       <div className="bg-transparent w-full mb-10">
         <div className="flex flex-col justify-center mx-auto text-center space-y-2">
           <h1 className="text-4xl text-black font-bold">Properties</h1>
-          <p className="text-sm">
+          <p className="text-sm w-[200px] md:w-full mx-auto">
             Discover affordable properties within your budget
           </p>
           <div className="bg-white flex w-fit mx-auto shadow rounded-full px-4 text-xs justify-between items-center gap-2">
@@ -140,7 +140,7 @@ export default function HomePage() {
       </div>
 
       <FilterBar />
-      <div className="bg-white rounded-2xl px-4 md-px-8 py-6 md:py-2 w-full mx-auto">
+      <div className="bg-white rounded-2xl px-4 md-px-10 py-6 md:py-10 w-full mx-auto">
         <SwiperPropertyList properties={properties} />
       </div>
     </div>
