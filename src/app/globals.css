@@ -21,9 +21,20 @@
   }
 } */
 
+/* .cormorant-garamond {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+} */
+
 body {
   /* background: var(--background); */
   background: var(--color-adron-body);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  line-height: 1.4;
 }

@@ -78,11 +78,11 @@ const profiles = [
 export default function AboutPage() {
   return (
     <section className="w-full space-y-12">
-      <div className="text-left pt-12 md:pt-20 p-5 md:px-20 mx-auto p-6 md:pb-12 bg-adron-gray">
-        <h1 className="text-4xl font-bold mb-4 w-full md:w-[550px]">
+      <div className="text-left pt-12 md:pt-20 p-5 md:px-32 mx-auto p-6 md:pb-12 bg-adron-gray">
+        <h1 className="text-4xl md:text-[45px] font-bold mb-4 w-full md:w-[550px]">
           Building Affordable Homes, Creating Endless Possibilities
         </h1>
-        <p className="text-gray-600 max-w-2xl text-left">
+        <p className="text-black max-w-2xl text-left text-sm">
           At Adron Homes, we are committed to delivering quality, accessible,
           and affordable housing solutions. Our mission is to make homeownership
           a reality for everyone.
@@ -90,7 +90,7 @@ export default function AboutPage() {
       </div>
 
       <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-24 w-full">
-        <div className="grid md:grid-cols-2 gap-10 items-center justify-between p-4 md:p-24">
+        <div className="flex flex-col md:flex-row gap-10 items-center justify-between p-4 md:p-24">
           <Image
             width={545}
             height={316}
@@ -108,7 +108,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-10 items-center p-4 md:p-24">
+        <div className="flex flex-col-reverse justify-between md:flex-row gap-10 items-center p-4 md:p-24">
           <div className="w-full md:w-[400px]">
             <h2 className="text-3xl font-semibold mb-2">Our Vision</h2>
             <p className="text-gray-600 text-sm">
@@ -126,7 +126,7 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-10 items-center p-4 md:p-24">
+        <div className="flex flex-col md:flex-row justify-between gap-10 items-center p-4 md:p-24">
           <Image
             width={545}
             height={316}
@@ -138,43 +138,43 @@ export default function AboutPage() {
             <h2 className="text-3xl font-semibold mb-2">Core Values</h2>
             <ul className="list-disc ml-5 text-gray-600 space-y-1 text-sm">
               <li>
-                <strong>A - </strong>AFFORDABLE At ADRON, affordability is a key
-                value. We are committed to making homeownership accessible to
-                everyone by providing cost-effective property solutions without
-                compromising on quality.
+                <strong className="text-black">A - </strong>AFFORDABLE At ADRON,
+                affordability is a key value. We are committed to making
+                homeownership accessible to everyone by providing cost-effective
+                property solutions without compromising on quality.
               </li>
               <li>
-                <strong>D - </strong>DEPENDABLE Dependability defines ADRON’s
-                approach. We build trust with our clients by consistently
-                delivering on our promises and providing reliable support
-                throughout the real estate process.
+                <strong className="text-black">D - </strong>DEPENDABLE
+                Dependability defines ADRON’s approach. We build trust with our
+                clients by consistently delivering on our promises and providing
+                reliable support throughout the real estate process.
               </li>
               <li>
-                <strong>R - </strong>RELIABLE Reliability is a cornerstone of
-                our operations. At ADRON, we ensure that every interaction and
-                transaction is handled with the utmost care and professionalism,
-                giving you peace of mind.
+                <strong className="text-black">R - </strong>RELIABLE Reliability
+                is a cornerstone of our operations. At ADRON, we ensure that
+                every interaction and transaction is handled with the utmost
+                care and professionalism, giving you peace of mind.
               </li>
               <li>
-                <strong>O - </strong>OFFER Our offers reflect our dedication to
-                value and excellence. ADRON is committed to presenting unique
-                opportunities and solutions that align with our clients’ needs
-                and aspirations.
+                <strong className="text-black">O - </strong>OFFER Our offers
+                reflect our dedication to value and excellence. ADRON is
+                committed to presenting unique opportunities and solutions that
+                align with our clients’ needs and aspirations.
               </li>
               <li>
-                <strong>N - </strong>NOW We believe in the power of acting now.
-                At ADRON, we are proactive and responsive, ensuring that our
-                clients never miss out on the best opportunities available in
-                the real estate market.
+                <strong className="text-black">N - </strong>NOW We believe in
+                the power of acting now. At ADRON, we are proactive and
+                responsive, ensuring that our clients never miss out on the best
+                opportunities available in the real estate market.
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div className="flex flex-col bg-transparent justify-center p-4">
-        <div className="flex flex-col text-center">
-          <h3 className="text-3xl">Our Leadership</h3>
-          <p className="text-sm">
+        <div className="flex flex-col text-center py-6">
+          <h3 className="text-4xl font-bold mb-2">Our Leadership</h3>
+          <p className="text-xs text-gray-500 w-[360px] mx-auto">
             Our success is intrinsically linked to the excellent quality of our
             staff and management team.
           </p>

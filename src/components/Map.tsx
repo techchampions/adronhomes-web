@@ -7,7 +7,7 @@ import "leaflet/dist/leaflet.css";
 // Fix Leaflet marker icon path
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconUrl: "/leaflet/marker-icon.png",
+  iconUrl: "/leaflet/marker-icon.svg",
   iconRetinaUrl: "/leaflet/marker-icon-2x.png",
   shadowUrl: "/leaflet/marker-shadow.png",
 });
