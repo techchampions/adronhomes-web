@@ -4,14 +4,8 @@
 import { Formik, Form } from "formik";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
-import {
-  FaClock,
-  FaHome,
-  FaLocationArrow,
-  FaMarker,
-  FaTag,
-} from "react-icons/fa";
-import { BedIcon } from "lucide-react";
+import { FaBed, FaCheckCircle, FaHome, FaLocationArrow } from "react-icons/fa";
+import { IoPricetag } from "react-icons/io5";
 
 export default function FilterBar() {
   return (
@@ -54,7 +48,7 @@ export default function FilterBar() {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="location" className="flex gap-2 items-center">
-              <BedIcon /> Number of Bedrooms
+              <FaBed /> Number of Bedrooms
             </label>
 
             <SelectField
@@ -65,7 +59,7 @@ export default function FilterBar() {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="location" className="flex gap-2 items-center">
-              <FaClock /> Avialability status
+              <FaCheckCircle /> Avialability status
             </label>
 
             <SelectField
@@ -76,7 +70,7 @@ export default function FilterBar() {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="location" className="flex gap-2 items-center">
-              <FaTag /> Price
+              <IoPricetag /> Price
             </label>
             <div className="flex justify-between gap-2">
               <InputField
