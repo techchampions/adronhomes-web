@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { CgMail } from "react-icons/cg";
+import { IoMail } from "react-icons/io5";
 import { LuPhone } from "react-icons/lu";
 
 export default function Footer() {
@@ -20,14 +21,15 @@ export default function Footer() {
           <p className="text-gray-400">
             75, Adron Court, Adeyemo Akapo, Omole Phase 1, Lagos
           </p>
-          <div className="space-y-1 text-adron-green font-medium">
+          <div className="space-y-1 text-[#636363] font-medium">
             <h4 className="font-bold text-black">FOR ENQUIRIES</h4>
             <div className="flex items-center gap-2">
               <LuPhone />
               <a href="tel:+2348051011951">+2348051011951</a>
             </div>
             <div className="flex items-center gap-2">
-              <CgMail />
+              {/* <IoMail className="text-adron-green h-5 w-5" /> */}
+              <Image src="/mail.svg" width={14} height={14} alt="mail" />
               <a href="mailto:telesales@adronhomes.com">telesales@adronhomes</a>
             </div>
           </div>
@@ -87,7 +89,7 @@ export default function Footer() {
       </div>
 
       {/* COPYRIGHT */}
-      <div className="text-center text-xs text-gray-500 mt-10">
+      <div className="text-center text-xs text-gray-500 mt-10 md:mt-32">
         © {new Date().getFullYear()} Adron Homes - All rights reserved
       </div>
     </footer>

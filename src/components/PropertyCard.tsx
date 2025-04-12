@@ -28,7 +28,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   onViewTour,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row items-center gap-10 bg-transparent rounded-3xl p-4 w-full md:w-[500px] max-w-3xl">
+    <div className="flex flex-col md:flex-row items-center gap-10 bg-transparent rounded-3xl p-4 w-full md:w-[48%]">
       <div className="relative w-full md:w-1/2 h-48 md:h-50 rounded-2xl overflow-hidden">
         <Image src={imageUrl} alt={title} fill className="object-cover" />
       </div>
@@ -48,16 +48,25 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
           <div className="flex items-center gap-4 text-xs text-gray-500">
             <span className="flex items-center gap-1">
-              <TfiRulerAlt2 /> {size}
+              {/* <TfiRulerAlt2 />  */}
+              <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
+              {size}
             </span>
             {hasStreetLights && (
               <span className="flex items-center gap-1">
-                <GiStreetLight /> Str Lights
+                <GiStreetLight className="h-4 w-4" /> Str Lights
               </span>
             )}
             {hasGym && (
               <span className="flex items-center gap-1">
-                <FaDumbbell /> Gym
+                {/* <FaDumbbell /> */}
+                <Image
+                  src="/dumbbell.svg"
+                  width={16}
+                  height={16}
+                  alt="dumbbell"
+                />
+                Gym
               </span>
             )}
           </div>

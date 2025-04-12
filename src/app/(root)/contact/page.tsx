@@ -113,14 +113,14 @@ const ContactPage = () => {
       </div>
       <Map lat={6.6213} lng={3.3678} />
       <div className="flex flex-col w-full px-4 md:px-32 mx-auto">
-        <h3 className="text-sm font-bold text-black mb-3">
+        <h4 className="text-sm font-bold text-black mb-3">
           For Inquiries, contact
-        </h3>
+        </h4>
         <div className="grid grid-cols-1 md:grid-cols-3 w-full text-xs mx-auto gap-10 text-gray-500">
           <div className="flex flex-col space-y-2">
-            <h3 className="text-sm font-bold text-black">
+            <h4 className="text-sm font-bold text-black">
               Corporate Headquarters
-            </h3>
+            </h4>
             <p>75, Adron Court, Adeyemo Akapo, Omole Phase 1, Lagos</p>
             <div className="flex gap-1">
               <LuPhone />
@@ -132,7 +132,7 @@ const ContactPage = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-2">
-            <h3 className="text-sm font-bold text-black">Client Services</h3>
+            <h4 className="text-sm font-bold text-black">Client Services</h4>
             <p>Adron Experience Centre</p>
             <div className="flex gap-1">
               <LuPhone />
@@ -144,9 +144,9 @@ const ContactPage = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-2">
-            <h3 className="text-sm font-bold text-black">
+            <h4 className="text-sm font-bold text-black">
               24 Hours Call Centre
-            </h3>
+            </h4>
             <div className="flex gap-1">
               <LuPhone />
               <span>+2348108338099</span>
@@ -160,8 +160,10 @@ const ContactPage = () => {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 justify-between gap-x-[400px] gap-y-10 w-[75%] mx-auto">
           {branches.map((branch, index) => (
-            <div className="text-xs text-gray-500 w-fit space-y-1" key={index}>
-              <div className="text-black text-sm">{branch.store_name}</div>
+            <div className="text-xs text-gray-600 w-fit space-y-1" key={index}>
+              <div className="text-black font-medium text-sm">
+                {branch.store_name}
+              </div>
               <p>{branch.address}</p>
               <p>{branch.contacts}</p>
               <p>{branch.email}</p>

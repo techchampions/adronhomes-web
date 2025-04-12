@@ -23,7 +23,7 @@ export default function ProfileCard({
         />
       </div>
       <h4 className="font-semibold text-sm ">{name}</h4>
-      <p className="text-xs text-gray-400">{title}</p>
+      <p className="text-[10px] text-gray-400">{title}</p>
     </div>
   );
 }
