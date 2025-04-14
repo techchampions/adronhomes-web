@@ -1,10 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { FaMapMarkerAlt, FaDumbbell, FaRegHeart } from "react-icons/fa";
+import { FaMapMarkerAlt, FaRegHeart } from "react-icons/fa";
 import { GiStreetLight } from "react-icons/gi";
-import { TfiRulerAlt2 } from "react-icons/tfi";
-import Button from "./Button";
 
 interface PropertyCardProps {
   imageUrl: string;
@@ -29,19 +27,17 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 }) => {
   return (
     <div className="flex flex-col md:flex-row items-center gap-10 bg-transparent rounded-3xl p-4 w-full md:w-[48%]">
-      <div className="relative w-full md:w-1/2 h-48 md:h-50 rounded-2xl overflow-hidden">
+      <div className="relative w-full md:w-1/2 h-48 md:h-50 rounded-3xl overflow-hidden">
         <Image src={imageUrl} alt={title} fill className="object-cover" />
       </div>
 
       <div className="flex flex-col space-y-2 justify-between w-full md:w-1/2">
-        <div className="space-y-4">
-          <div className="text-sm font-semibold text-gray-800 mb-2">
-            {title}
-          </div>
+        <div className="flex flex-col gap-1">
+          <div className="text-md font-bold text-gray-800 mb-2">{title}</div>
           <p className="flex items-center text-xs text-gray-600 mb-2">
             <FaMapMarkerAlt className="mr-1 text-gray-500" /> {address}
           </p>
-          <p className="text-sm font-bold text-gray-800 mb-3 flex items-center justify-between w-full md:w-[180px]">
+          <p className="text-md font-bold text-gray-800 mb-3 flex items-center justify-between w-full pr-5">
             {price}
             <FaRegHeart className="ml-1 text-gray-800 " />
           </p>
@@ -74,7 +70,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
         <button
           onClick={onViewTour}
-          className="mt-4 bg-adron-green text-sm text-white px-6 py-2 w-fit rounded-full hover:bg-lime-700 transition"
+          className="mt-4 bg-adron-green text-sm text-white px-7 py-2.5 w-fit rounded-full transition"
         >
           View Tour
         </button>

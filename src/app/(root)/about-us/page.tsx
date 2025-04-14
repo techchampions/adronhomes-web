@@ -78,40 +78,41 @@ const profiles = [
 export default function AboutPage() {
   return (
     <section className="w-full space-y-12">
-      <div className="text-left pt-12 md:pt-20 p-5 md:px-32 mx-auto md:pb-12 bg-adron-gray">
-        <h1 className="text-4xl md:text-[45px] font-bold mb-4 w-full md:w-[550px]">
-          Building Affordable Homes, Creating Endless Possibilities
+      <div className="text-left pt-12 md:pt-20 p-5 md:px-[160px] mx-auto md:pb-2 bg-adron-gray">
+        <h1 className="text-4xl md:text-6xl font-bold mb-2 w-full leading-0">
+          Building Affordable Homes,
+          <br /> Creating Endless Possibilities
         </h1>
-        <p className="text-black max-w-[750px] text-left text-sm">
+        <p className="text-adron-black font-bold text-left text-[15px] leading-relaxed">
           At Adron Homes, we are committed to delivering quality, accessible,
-          and affordable housing solutions. Our mission is to make homeownership
-          a reality for everyone.
+          and affordable housing solutions. Our mission is to <br /> make
+          homeownership a reality for everyone.
         </p>
       </div>
 
       <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-14 w-full space-y-32">
-        <div className="flex flex-col md:flex-row gap-10 items-center justify-between px-4 md:px-24">
+        <div className="flex flex-col md:flex-row gap-10 items-center justify-between px-4 md:px-18">
           <Image
-            width={545}
+            width={445}
             height={316}
             src="/images/mission.png"
             alt="Mission"
             className="rounded-lg"
           />
-          <div className="w-full md:w-[400px]">
-            <h2 className="text-3xl font-semibold mb-2">Our Mission</h2>
-            <p className="text-gray-600 text-sm">
-              We are daily driven to surpass our promises, increase our land
-              bank, and offer affordable housing products with a singular
-              mission to exceed expectations.
+          <div className="w-full md:w-[500px]">
+            <h2 className="text-5xl font-bold mb-2">Our Mission</h2>
+            <p className="text-gray-600 text-[13px]">
+              We are daily driven to keep our promise, increase our land bank,
+              expand our client base offering excellent services and affordable
+              housing products with a singular mission to exceed expectations.{" "}
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col-reverse justify-between md:flex-row gap-10 items-center px-4 md:px-24">
-          <div className="w-full md:w-[400px]">
-            <h2 className="text-3xl font-semibold mb-2">Our Vision</h2>
-            <p className="text-gray-600 text-sm">
+        <div className="flex flex-col-reverse justify-between md:flex-row gap-10 items-center px-4 md:px-18">
+          <div className="w-full md:w-[500px]">
+            <h2 className="text-5xl font-semibold mb-2">Our Vision</h2>
+            <p className="text-gray-600 text-[13px]">
               To be the leading PAN-AFRICAN Real Estate Development company that
               will provide the highest number of decent, accessible, comfortable
               and affordable housing while achieving global housing standards.
@@ -135,8 +136,8 @@ export default function AboutPage() {
             className="rounded-lg "
           />
           <div className="w-full md:w-[43%]">
-            <h2 className="text-3xl font-semibold mb-2">Core Values</h2>
-            <ul className="list-none text-gray-600 space-y-1 text-sm">
+            <h2 className="text-5xl font-bold mb-2">Core Values</h2>
+            <ul className="list-none text-gray-600 space-y-1 text-xs leading-relaxed">
               <li>
                 <strong className="text-black">A </strong>- AFFORDABLE At ADRON,
                 affordability is a key value. We are committed to making

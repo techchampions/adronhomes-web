@@ -9,14 +9,14 @@
 }
 
 @font-face {
-  font-family: 'Gotham';
+  font-family: 'Gotham-normal';
   src: url('/fonts/Gotham-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Gotham';
+  font-family: 'Gotham-bold';
   src: url('/fonts/Gotham-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
@@ -36,11 +36,13 @@
   --color-adron-black: #272727;
   --color-adron-green: #79B833;
   --color-adron-red: #D70E0E;
+  --color-adron-gray-50: #f5f5f5;
   --color-adron-gray-200: #8F8F8F;
   --color-adron-gray-300: #767676;
   --color-adron-gray-400: #717171;
   --color-adron-gray-500: #4F4F4F;
-  --font-adron-text-body: 'Gotham', sans-serif;
+  --font-adron-title: 'Cormorant Garamond', sans-serif;
+  --font-adron-text-body: Gotham;
 }
 
 .font-gotham {
@@ -50,8 +52,8 @@
 body {
   background: var(--color-adron-body);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  font-family: var(--fot-adron-text-body);
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: var(--font-adron-text-body);
 }
 
 h1, h2, h3 {

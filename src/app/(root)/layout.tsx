@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${adronTitle.variable} antialiased`}>
         <Navbar />
-        <main className="mb-10">{children}</main>
+        <main className="mb-0">{children}</main>
         <Footer />
       </body>
     </html>

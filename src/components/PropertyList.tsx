@@ -34,7 +34,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
     //     />
     //   ))}
     // </div>
-    <div className="flex flex-wrap justify-between gap-y-10 md:px-[80px] mx-auto">
+    <div className="flex flex-wrap justify-between gap-y-10 md:px-[10px] mx-auto">
       {properties.map((property) => (
         <PropertyCard
           key={property.id}

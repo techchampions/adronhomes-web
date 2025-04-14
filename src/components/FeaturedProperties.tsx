@@ -5,7 +5,7 @@ import {
   HiOutlineLightBulb,
   HiOutlineHome,
 } from "react-icons/hi";
-import { GiGymBag } from "react-icons/gi";
+import { GiGymBag, GiStreetLight } from "react-icons/gi";
 import { FaHome } from "react-icons/fa";
 
 interface PropertyProps {
@@ -29,47 +29,47 @@ const PropertyCard = ({
 }: PropertyProps) => {
   return (
     <div className="w-full max-w-[472px] space-y-6 mx-auto">
-      <div className="relative w-full h-[300px] sm:h-[400px] rounded-[30px] overflow-hidden bg-gray-100">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+      <div className="relative w-full h-[300px] md:h-[350px] rounded-[30px] overflow-hidden">
+        <Image src={image} alt={title} fill className="object-cover" />
       </div>
 
-      <div className="w-full bg-white rounded-[30px] shadow-md p-6 sm:p-8 space-y-5 flex flex-col h-auto sm:h-[280px]">
+      <div className="w-full bg-white rounded-[30px] p-6 space-y-5 flex flex-col h-auto">
         <div className="flex-grow space-y-4">
-          <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
+          <h4 className="text-lg font-semibold text-gray-800 line-clamp-2">
             {title}
-          </h3>
+          </h4>
           <div className="flex items-center text-gray-500 text-sm">
             <HiOutlineLocationMarker className="mr-2 flex-shrink-0" />
             <p className="truncate">{location}</p>
           </div>
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
-            <div className="flex items-center">
+          <div className="flex items-center justify-between gap-4 text-xs text-gray-600">
+            <div className="flex items-center gap-1">
+              <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
+
               <span className="mr-1">{squareFeet} Sq M</span>
             </div>
 
             {hasLights && (
               <div className="flex items-center">
-                <HiOutlineLightBulb className="mr-2" />
-                <span>24h Lights</span>
+                <GiStreetLight className="h-4 w-4" />
+                <span>Str Lights</span>
               </div>
             )}
 
             {hasGym && (
-              <div className="flex items-center">
-                <GiGymBag className="mr-2" />
+              <div className="flex gap-1 items-center">
+                <Image
+                  src="/dumbbell.svg"
+                  width={16}
+                  height={16}
+                  alt="dumbbell"
+                />
                 <span>Gym</span>
               </div>
             )}
 
             {isLand && (
               <div className="flex items-center">
-                <HiOutlineHome className="mr-2" />
                 <span>Land</span>
               </div>
             )}
@@ -158,25 +158,19 @@ const FeaturedProperties = () => {
     <section className="py-16 bg-gray-50">
       <div className="max-w-8xl mx-auto px-8">
         <div className="mb-12 ml-4 sm:ml-50">
-          <div className="flex items-center text-sm text-gray-500 mb-3 space-x-1">
-            <Link
-              href="/"
-              className="flex items-center hover:text-gray-700 space-x-1"
-            >
-              <FaHome className="text-base" />
-              <span>Hand picked </span>
-            </Link>
-            <span>Specifically for You</span>
+          <div className="flex items-center text-sm w-fit px-4 py-2 text-black bg-white rounded-full mb-3 space-x-1">
+            <FaHome className="text-base" />
+            <span>Handpick Specifically for You</span>
           </div>
 
-          <h2 className="text-4xl font-serif font-medium text-[#272727]">
+          <h2 className="text-6xl font-bold">
             Discover Our <br />
             Featured Properties
           </h2>
         </div>
 
         {/* Property Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-18 justify-center px-4">
           {properties.map((property) => (
             <PropertyCard
               key={property.id}

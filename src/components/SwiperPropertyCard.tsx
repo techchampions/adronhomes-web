@@ -68,13 +68,13 @@ export default function SwiperPropertyCard({ property }: Props) {
         {/* Navigation Buttons */}
         <button
           ref={prevRef}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
+          className="absolute cursor-pointer left-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
         >
           <FaChevronLeft size={30} />
         </button>
         <button
           ref={nextRef}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
+          className="absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
         >
           <FaChevronRight size={30} />
         </button>
@@ -82,17 +82,19 @@ export default function SwiperPropertyCard({ property }: Props) {
 
       {/* Property Info */}
       <div className="mt-4 space-y-2">
-        <h4 className="text-lg font-semibold">{property.name}</h4>
-        <p className="text-sm text-gray-500 flex items-center mt-1">
+        <h4 className="text-[25px] font-adron-text-body font-semibold">
+          {property.name}
+        </h4>
+        <p className="text-md text-adron-black flex items-center mt-1">
           <FaMapMarkerAlt className="mr-1" /> {property.location}
         </p>
 
-        <p className="text-lg font-bold text-gray-800 mt-2 flex justify-between">
-          {property.price} <FaRegHeart />
+        <p className="text-[20px] font-black text-adron-black mt-2 flex justify-between">
+          {property.price} <FaRegHeart className="mr-2" />
         </p>
 
         <div className="flex justify-between items-center">
-          <div className="flex items-center text-sm text-gray-500 gap-4">
+          <div className="flex items-center text-[10px] font-bold text-gray-500 gap-4">
             <span className="flex items-center gap-1">
               {/* <TfiRulerAlt2 />  */}
               <Image src="/ruler.svg" width={14} height={14} alt="dumbbell" />
@@ -118,10 +120,10 @@ export default function SwiperPropertyCard({ property }: Props) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-6">
+        <div className="flex items-center justify-between mt-[50px]">
           <Button
             label="View Property"
-            className="bg-adron-green max-w-fit text-sm px-10 py-1"
+            className="bg-adron-green max-w-fit text-xs px-10 py-3"
           />
         </div>
       </div>
