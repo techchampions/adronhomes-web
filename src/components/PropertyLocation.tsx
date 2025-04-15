@@ -1,6 +1,10 @@
 "use client";
 import Image from "next/image";
-import { HiChevronLeft, HiChevronRight, HiLocationMarker } from "react-icons/hi";
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  HiLocationMarker,
+} from "react-icons/hi";
 import Slider from "react-slick";
 import { useRef, useState } from "react";
 
@@ -16,17 +20,42 @@ const PropertyLocations = () => {
   const sliderRef = useRef<Slider>(null);
 
   const locations: Location[] = [
-    { id: 1, name: "Abuja", properties: 7, image: "/images/tressure-park-phase2.png" },
-    { id: 2, name: "Lagos", properties: 12, image: "/images/tressure-park-phase2.png" },
-    { id: 3, name: "Ibadan", properties: 5, image: "/images/tressure-park-phase2.png" },
-    { id: 4, name: "Port Harcourt", properties: 8, image: "/images/tressure-park-phase2.png" },
-    { id: 5, name: "Enugu", properties: 4, image: "/images/tressure-park-phase2.png" },
+    {
+      id: 1,
+      name: "Abuja",
+      properties: 7,
+      image: "/images/tressure-park-phase2.png",
+    },
+    {
+      id: 2,
+      name: "Lagos",
+      properties: 12,
+      image: "/images/tressure-park-phase2.png",
+    },
+    {
+      id: 3,
+      name: "Ibadan",
+      properties: 5,
+      image: "/images/tressure-park-phase2.png",
+    },
+    {
+      id: 4,
+      name: "Port Harcourt",
+      properties: 8,
+      image: "/images/tressure-park-phase2.png",
+    },
+    {
+      id: 5,
+      name: "Enugu",
+      properties: 4,
+      image: "/images/tressure-park-phase2.png",
+    },
   ];
 
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4.3,
     centerMode: true,
     centerPadding: "0px",
     focusOnSelect: true,
@@ -56,7 +85,7 @@ const PropertyLocations = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
+      <div className="w-full mx-auto px-4 relative z-10">
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
             <HiLocationMarker className="mr-2" />
@@ -65,18 +94,22 @@ const PropertyLocations = () => {
         </div>
 
         <h2 className="text-3xl sm:text-4xl font-serif font-medium text-center text-gray-800 mb-16">
-  Explore Our Property Locations
-</h2>
+          Explore Our Property Locations
+        </h2>
 
         <div className="relative mb-12">
-          <Slider ref={sliderRef} {...settings} className="property-slider">
+          <Slider
+            ref={sliderRef}
+            {...settings}
+            className="property-slider flex items-end"
+          >
             {locations.map((location, index) => (
               <div key={location.id} className="px-2">
                 <div
                   className={`relative overflow-hidden rounded-3xl transition-all duration-500 ${
                     index === activeSlide
-                      ? "w-full h-90 scale-100 brightness-100 grayscale-0 shadow-xl"
-                      : "w-full h-56 scale-90 brightness-75 grayscale"
+                      ? "w-full h-70 scale-100 brightness-100 grayscale-0 "
+                      : "w-full h-70 scale-60 brightness-75 grayscale"
                   }`}
                 >
                   <Image

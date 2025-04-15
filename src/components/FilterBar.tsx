@@ -15,6 +15,8 @@ import Modal from "./Modal";
 import { useState } from "react";
 import Button from "./Button";
 import { GoHomeFill } from "react-icons/go";
+import { TbLocationFilled } from "react-icons/tb";
+import Image from "next/image";
 
 export default function FilterBar() {
   const [showModal, setShowModal] = useState(false);
@@ -34,20 +36,32 @@ export default function FilterBar() {
     >
       <>
         <Form className="hidden md:block">
-          <div className="bg-white p-4 rounded-2xl mb-8 md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="location" className="flex gap-2 items-center">
-                <FaLocationArrow /> Location
+          <div className="bg-white px-8 py-6 rounded-3xl mb-8 md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div className="flex flex-col justify-between gap-4">
+              <label
+                htmlFor="location"
+                className="flex font-bold gap-2 items-center"
+              >
+                <TbLocationFilled /> Location
               </label>
-              <InputField
-                className="py-4"
+              <SelectField
+                name="location"
+                placeholder="What are you looking?"
+                options={["Bungalow", "Duplex", "Flat", "Land"]}
+              />
+
+              {/* <InputField
+                className="py-2.5"
                 placeholder="What are you looking?"
                 type="text"
                 name="location"
-              />
+              /> */}
             </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="location" className="flex gap-2 items-center">
+            <div className="flex flex-col justify-between gap-4">
+              <label
+                htmlFor="location"
+                className="flex font-bold gap-2 items-center"
+              >
                 <GoHomeFill /> Property Type
               </label>
 
@@ -57,8 +71,11 @@ export default function FilterBar() {
                 options={["Bungalow", "Duplex", "Flat", "Land"]}
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="location" className="flex gap-2 items-center">
+            <div className="flex flex-col justify-between gap-4">
+              <label
+                htmlFor="location"
+                className="flex font-bold gap-2 items-center"
+              >
                 <FaBed /> Number of Bedrooms
               </label>
 
@@ -68,8 +85,11 @@ export default function FilterBar() {
                 options={["1", "2", "3", "4", "5+"]}
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="location" className="flex gap-2 items-center">
+            <div className="flex flex-col justify-between gap-4">
+              <label
+                htmlFor="location"
+                className="flex font-bold gap-2 items-center"
+              >
                 <FaCheckCircle /> Avialability status
               </label>
 
@@ -79,19 +99,29 @@ export default function FilterBar() {
                 options={["For Sale", "For Rent"]}
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="location" className="flex gap-2 items-center">
-                <IoPricetag /> Price
+            <div className="flex flex-col justify-between gap-4">
+              <label
+                htmlFor="location"
+                className="flex gap-2 font-bold items-center"
+              >
+                {/* <IoPricetag /> */}
+                <Image
+                  src="/price-tag.svg"
+                  width={20}
+                  height={20}
+                  alt="price tag"
+                />
+                Price ₦
               </label>
-              <div className="flex justify-between gap-2">
+              <div className="flex justify-between gap-4">
                 <InputField
-                  className="py-4"
+                  className="py-2.5"
                   placeholder="Min"
                   type="number"
                   name="min"
                 />
                 <InputField
-                  className="py-4"
+                  className="py-2.5"
                   placeholder="Max"
                   type="number"
                   name="max"

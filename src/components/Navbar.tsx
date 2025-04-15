@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react"; // or use any icon you prefer
 import clsx from "clsx";
+import SocialIcons from "./SocialIcons";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -128,6 +129,7 @@ export default function Navbar() {
           </ul>
 
           {/* Socials and Buttons */}
+          <SocialIcons className="block md:hidden my-8" />
           <div className="mt-10 flex gap-4 text-gray-600 text-xl">
             {/* Replace with your actual social icons */}
             <i className="ri-facebook-fill"></i>

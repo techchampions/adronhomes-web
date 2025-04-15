@@ -17,7 +17,7 @@ const sampleProperties = [
   {
     id: "2",
     imageUrl: "/images/property.png",
-    title: "Royal City Estate",
+    title: "Treasure Parks and Gardens",
     address: "Abeokuta, Ogun State, Nigeria",
     price: "₦38,000,000",
     size: "500 Sq M",
@@ -47,7 +47,7 @@ const sampleProperties = [
   {
     id: "5",
     imageUrl: "/images/property.png",
-    title: "Royal City Estate",
+    title: "Treasure Parks and Gardens",
     address: "Abeokuta, Ogun State, Nigeria",
     price: "₦38,000,000",
     size: "500 Sq M",
@@ -57,7 +57,7 @@ const sampleProperties = [
   {
     id: "6",
     imageUrl: "/images/property.png",
-    title: "Royal City Estate",
+    title: "Treasure Parks and Gardens",
     address: "Abeokuta, Ogun State, Nigeria",
     price: "₦38,000,000",
     size: "500 Sq M",
@@ -67,7 +67,7 @@ const sampleProperties = [
   {
     id: "7",
     imageUrl: "/images/property.png",
-    title: "Royal City Estate",
+    title: "Treasure Parks and Gardens",
     address: "Abeokuta, Ogun State, Nigeria",
     price: "₦38,000,000",
     size: "500 Sq M",
@@ -77,7 +77,7 @@ const sampleProperties = [
   {
     id: "8",
     imageUrl: "/images/property.png",
-    title: "Royal City Estate",
+    title: "Treasure Parks and Gardens",
     address: "Abeokuta, Ogun State, Nigeria",
     price: "₦38,000,000",
     size: "500 Sq M",
@@ -128,14 +128,14 @@ const sampleProperties = [
 
 export default function VirtualTourPage() {
   return (
-    <div className="p-2 md:p-10 w-full mx-auto">
+    <div className="p-2 md:pt-12 w-full mx-auto">
       <div className="bg-transparent w-full">
         <div className="flex flex-col justify-center mx-auto text-center space-y-2">
-          <h1 className="text-4xl text-black font-bold">Virtual Tour</h1>
-          <p className="text-sm">
+          <h1 className="text-6xl text-black font-bold">Virtual Tour</h1>
+          <p className="text-md font-medium">
             3d tours of our real estates via google maps
           </p>
-          <div className="bg-white flex w-fit mx-auto shadow rounded-full px-4 text-xs justify-between items-center gap-2">
+          <div className="bg-white flex w-fit mx-auto shadow rounded-full px-4 my-1 text-xs justify-between items-center gap-2">
             <span>24 Tours</span>
             <span className="text-lg">•</span>
             <span>16 Locations</span>
@@ -150,8 +150,8 @@ export default function VirtualTourPage() {
         // className="relative bottom-[-170px] -z-50 mx-auto"
         className="mx-auto mt-6 "
       />
-      <div className="bg-white rounded-[50px] px-6 py-10 md:py-18 w-full relative -top-[100px] md:-top-[170px]">
-        <h1 className="text-3xl font-bold mb-12 text-center">Properties</h1>
+      <div className="bg-white rounded-[50px] px-8 py-10 md:py-12 w-full relative -top-[100px] md:-top-[170px]">
+        <h1 className="text-[44px] font-bold mb-14 text-center">Properties</h1>
         <PropertyList properties={sampleProperties} />
       </div>
     </div>

@@ -22,7 +22,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
     <div className="w-full relative bg-adron-body rounded-full">
       <select
         {...field}
-        className={`w-full py-4 px-4 pr-10 rounded-full appearance-none text-sm text-gray-500 bg-transparent focus:outline-none ${
+        className={`w-full py-2.5 px-4 pr-10 rounded-full appearance-none text-xs text-gray-500 bg-transparent focus:outline-none ${
           hasError ? "border border-red-500" : "border border-transparent"
         }`}
       >
