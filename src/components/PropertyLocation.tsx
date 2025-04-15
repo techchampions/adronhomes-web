@@ -77,23 +77,30 @@ const PropertyLocations = () => {
 
   return (
     <section className="py-16 relative overflow-hidden">
-      <div
+      {/* <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
+          backgroundImage: "/property-loaction-bg.png",
+          // backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
           backgroundSize: "20px 20px",
         }}
+      /> */}
+      <Image
+        src="/property-location-bg.png"
+        alt="bg"
+        className="absolute inset-0 bg-black/20"
+        fill
       />
 
       <div className="w-full mx-auto px-4 relative z-10">
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
             <HiLocationMarker className="mr-2" />
-            <span className="font-medium">Estate Locations</span>
+            <span className="font-bold text-xs">Estate Locations</span>
           </div>
         </div>
 
-        <h2 className="text-3xl sm:text-4xl font-serif font-medium text-center text-gray-800 mb-16">
+        <h2 className="text-3xl md:text-5xl font-bold text-center text-adron-black mb-16">
           Explore Our Property Locations
         </h2>
 
@@ -129,24 +136,27 @@ const PropertyLocations = () => {
         <div className="flex items-center justify-center gap-6">
           <button
             onClick={goToPrev}
-            className="bg-white hover:bg-gray-100 p-3 rounded-full shadow-md z-10 transition"
+            className="bg-white/40 hover:bg-gray-100 p-3 rounded-full z-10 transition"
             aria-label="Previous"
           >
             <HiChevronLeft size={24} />
           </button>
 
-          <div className="bg-white rounded-full py-3 px-8 shadow-md text-center min-w-48">
-            <h3 className="text-xl font-medium text-gray-800">
+          <div className="bg-white/40 rounded-3xl space-y-2 py-3 px-10 text-center min-w-48">
+            <h4 className="text-2xl font-bold text-gray-800">
               {locations[activeSlide]?.name}
-            </h3>
-            <p className="text-gray-600">
-              {locations[activeSlide]?.properties} Properties
+            </h4>
+            <p className="text-gray-600 flex items-center text-center w-full justify-center text-xs mx-auto">
+              <span className="w-3 h-3 p-3 mr-2 flex justify-center items-center rounded-full bg-white">
+                {locations[activeSlide]?.properties}
+              </span>
+              Properties
             </p>
           </div>
 
           <button
             onClick={goToNext}
-            className="bg-white hover:bg-gray-100 p-3 rounded-full shadow-md z-10 transition"
+            className="bg-white/40 hover:bg-gray-100 p-3 rounded-full z-10 transition"
             aria-label="Next"
           >
             <HiChevronRight size={24} />
