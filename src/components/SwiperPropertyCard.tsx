@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
 import Button from "./Button";
+import { useRouter } from "next/navigation";
 
 interface Props {
   property: {
@@ -40,6 +41,18 @@ export default function SwiperPropertyCard({ property }: Props) {
       swiper.navigation.update(); // Ensure the navigation buttons are updated after initialization
     }
   }, [swiper]); // Ensure this effect runs when the swiper instance is available
+
+  const router = useRouter();
+
+  const handleViewProperty = () => {
+    router.push(
+      `/properties/${property.id}?title=${encodeURIComponent(
+        property.name
+      )}&price=${property.price}&address=${encodeURIComponent(
+        property.location
+      )}`
+    );
+  };
 
   return (
     <div className="rounded-2xl p-4">
@@ -126,6 +139,7 @@ export default function SwiperPropertyCard({ property }: Props) {
         <div className="flex items-center justify-between mt-[20px] md:mt-[43px]">
           <Button
             label="View Property"
+            onClick={handleViewProperty}
             className="bg-adron-green max-w-fit text-xs px-10 py-3"
           />
         </div>
