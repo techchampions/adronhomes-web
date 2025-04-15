@@ -19,21 +19,6 @@ interface PropertyListProps {
 
 const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
   return (
-    // <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[100px] gap-y-10 ">
-    //   {properties.map((property) => (
-    //     <PropertyCard
-    //       key={property.id}
-    //       imageUrl={property.imageUrl}
-    //       title={property.title}
-    //       address={property.address}
-    //       price={property.price}
-    //       size={property.size}
-    //       hasStreetLights={property.hasStreetLights}
-    //       hasGym={property.hasGym}
-    //       onViewTour={() => alert(`Viewing ${property.title}`)}
-    //     />
-    //   ))}
-    // </div>
     <div className="flex flex-wrap justify-between gap-y-10 md:px-[10px] mx-auto">
       {properties.map((property) => (
         <PropertyCard
