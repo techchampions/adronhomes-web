@@ -120,7 +120,7 @@ export default function SwiperPropertyCard({ property }: Props) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-[50px]">
+        <div className="flex items-center justify-between mt-[20px] md:mt-[43px]">
           <Button
             label="View Property"
             className="bg-adron-green max-w-fit text-xs px-10 py-3"

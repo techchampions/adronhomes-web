@@ -78,12 +78,16 @@ const profiles = [
 export default function AboutPage() {
   return (
     <section className="w-full space-y-12">
-      <div className="text-left pt-12 md:pt-20 p-5 md:px-[160px] mx-auto md:pb-2 bg-adron-gray">
-        <h1 className="text-4xl md:text-6xl font-bold mb-2 w-full leading-0">
+      <div className="text-left pt-8 md:pt-20 p-5 ml-[20px] md:ml-0 md:px-[160px] mx-auto md:pb-2 bg-adron-gray">
+        <h1 className="text-4xl hidden md:block md:text-6xl font-bold mb-2 w-full leading-0">
           Building Affordable Homes,
           <br /> Creating Endless Possibilities
         </h1>
-        <p className="text-adron-black font-bold text-left text-[15px] leading-relaxed">
+        <h1 className="text-4xl md:hidden block md:text-6xl font-bold mb-2 w-full leading-0">
+          Building Affordable <br /> Homes, Creating <br /> Endless
+          Possibilities
+        </h1>
+        <p className="text-adron-black font-bold text-left text-[14px] md:text-[15px] leading-relaxed">
           At Adron Homes, we are committed to delivering quality, accessible,
           and affordable housing solutions. Our mission is to <br /> make
           homeownership a reality for everyone.
@@ -100,7 +104,9 @@ export default function AboutPage() {
             className="rounded-lg"
           />
           <div className="w-full md:w-[500px]">
-            <h2 className="text-5xl font-bold mb-2">Our Mission</h2>
+            <h2 className="text-[28px] md:text-5xl font-bold mb-2">
+              Our Mission
+            </h2>
             <p className="text-gray-600 text-[13px]">
               We are daily driven to keep our promise, increase our land bank,
               expand our client base offering excellent services and affordable
@@ -111,7 +117,9 @@ export default function AboutPage() {
 
         <div className="flex flex-col-reverse justify-between md:flex-row gap-10 items-center px-4 md:px-18">
           <div className="w-full md:w-[500px]">
-            <h2 className="text-5xl font-semibold mb-2">Our Vision</h2>
+            <h2 className="text-[28px] md:text-5xl font-semibold mb-2">
+              Our Vision
+            </h2>
             <p className="text-gray-600 text-[13px]">
               To be the leading PAN-AFRICAN Real Estate Development company that
               will provide the highest number of decent, accessible, comfortable
@@ -136,7 +144,9 @@ export default function AboutPage() {
             className="rounded-lg "
           />
           <div className="w-full md:w-[43%]">
-            <h2 className="text-5xl font-bold mb-2">Core Values</h2>
+            <h2 className="text-[28px] md:text-5xl font-bold mb-2">
+              Core Values
+            </h2>
             <ul className="list-none text-gray-600 space-y-1 text-xs leading-relaxed">
               <li>
                 <strong className="text-black">A </strong>- AFFORDABLE At ADRON,
@@ -174,7 +184,9 @@ export default function AboutPage() {
       </div>
       <div className="flex flex-col bg-transparent justify-center p-4">
         <div className="flex flex-col text-center py-6">
-          <h3 className="text-4xl font-bold mb-2">Our Leadership</h3>
+          <h3 className="text-[28px] md:text-4xl font-bold mb-2">
+            Our Leadership
+          </h3>
           <p className="text-xs text-gray-500 w-[360px] mx-auto">
             Our success is intrinsically linked to the excellent quality of our
             staff and management team.
