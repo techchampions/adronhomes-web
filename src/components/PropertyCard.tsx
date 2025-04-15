@@ -35,7 +35,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
         <div className="flex flex-col gap-1">
           <div className="text-md font-bold text-gray-800 mb-2">{title}</div>
           <p className="flex items-center text-xs text-gray-600 mb-2">
-            <FaMapMarkerAlt className="mr-1 text-gray-500" /> {address}
+            <FaMapMarkerAlt className="mr-1 text-adron-gray-500" /> {address}
           </p>
           <p className="text-md font-bold text-gray-800 mb-3 flex items-center justify-between w-full pr-5">
             {price}

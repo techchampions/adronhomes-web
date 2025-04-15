@@ -131,11 +131,13 @@ export default function VirtualTourPage() {
     <div className="p-2 md:pt-12 w-full mx-auto">
       <div className="bg-transparent w-full">
         <div className="flex flex-col justify-center mx-auto text-center space-y-2">
-          <h1 className="text-6xl text-black font-bold">Virtual Tour</h1>
-          <p className="text-md font-medium">
+          <h1 className="text-4xl md:text-6xl text-black font-bold">
+            Virtual Tour
+          </h1>
+          <p className="text-sm md:text-md w-[65%] md:w-full mx-auto font-bold mb-5">
             3d tours of our real estates via google maps
           </p>
-          <div className="bg-white flex w-fit mx-auto shadow rounded-full px-4 my-1 text-xs justify-between items-center gap-2">
+          <div className="bg-white flex w-fit mx-auto shadow rounded-full px-4 my-1 text-xs justify-between items-center gap-2 mb-4 md:mb-0">
             <span>24 Tours</span>
             <span className="text-lg">•</span>
             <span>16 Locations</span>
