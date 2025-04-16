@@ -102,6 +102,7 @@
 
 import Image from "next/image";
 import SocialIcons from "./SocialIcons";
+import AutoCarousel from "./HomeCarousel";
 
 const HeroBanner = () => {
   return (
@@ -113,14 +114,14 @@ const HeroBanner = () => {
         {/* Banner Content */}
         {/* Hero Banner Image */}
         <div className="w-full aspect-[16/9] md:h-[700px] rounded-3xl md:rounded-[50px] overflow-hidden relative mx-auto">
-          <Image
+          {/* <Image
             src="/images/hero-image.png"
             alt="Lemon Friday Promo - Become A Property Owner This Season"
             fill
             className="object-cover"
             priority
-            // sizes="(max-width: 768px) 100vw, 1485px"
-          />
+          /> */}
+          <AutoCarousel />
         </div>
       </div>
       <div className="flex-1">

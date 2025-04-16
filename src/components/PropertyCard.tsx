@@ -113,7 +113,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
   const handleViewTour = () => {
     router.push(
-      `/properties/${id}?title=${encodeURIComponent(
+      `/virtual-tour/${id}?title=${encodeURIComponent(
         title
       )}&imageUrl=${encodeURIComponent(
         imageUrl

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
 import Button from "./Button";
+import { useRouter } from "next/navigation";
 
 interface Props {
   property: {
@@ -31,24 +32,39 @@ interface Props {
 export default function SwiperPropertyCard({ property }: Props) {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const [swiper, setSwiper] = useState(null); // State to store the swiper instance
+
+  useEffect(() => {
+    if (swiper) {
+      swiper.params.navigation.prevEl = prevRef.current;
+      swiper.params.navigation.nextEl = nextRef.current;
+      swiper.navigation.update(); // Ensure the navigation buttons are updated after initialization
+    }
+  }, [swiper]); // Ensure this effect runs when the swiper instance is available
+
+  const router = useRouter();
+
+  const handleViewProperty = () => {
+    router.push(
+      `/properties/${property.id}?title=${encodeURIComponent(
+        property.name
+      )}&price=${property.price}&address=${encodeURIComponent(
+        property.location
+      )}`
+    );
+  };
 
   return (
-    <div className=" rounded-2xl p-4">
+    <div className="rounded-2xl p-4">
       <div className="relative w-full h-[250px] md:h-[500px] rounded-xl overflow-hidden">
         {/* Swiper Carousel */}
         <Swiper
           spaceBetween={10}
           slidesPerView={1}
+          onInit={(swiperInstance) => setSwiper(swiperInstance)} // Store swiper instance when it's initialized
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
-          }}
-          onBeforeInit={(swiper) => {
-            // attach navigation buttons
-            //@ts-ignore
-            swiper.params.navigation.prevEl = prevRef.current;
-            //@ts-ignore
-            swiper.params.navigation.nextEl = nextRef.current;
           }}
           modules={[Navigation]}
           className="w-full h-full"
@@ -123,6 +139,7 @@ export default function SwiperPropertyCard({ property }: Props) {
         <div className="flex items-center justify-between mt-[20px] md:mt-[43px]">
           <Button
             label="View Property"
+            onClick={handleViewProperty}
             className="bg-adron-green max-w-fit text-xs px-10 py-3"
           />
         </div>
