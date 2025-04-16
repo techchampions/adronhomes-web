@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import HeroBanner from "@/components/HeroBanner";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import PropertyLocations from "@/components/PropertyLocation";
