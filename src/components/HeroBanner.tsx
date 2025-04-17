@@ -100,7 +100,6 @@
 
 // export default HeroBanner;
 
-import Image from "next/image";
 import SocialIcons from "./SocialIcons";
 import AutoCarousel from "./HomeCarousel";
 
@@ -113,7 +112,7 @@ const HeroBanner = () => {
 
         {/* Banner Content */}
         {/* Hero Banner Image */}
-        <div className="w-full max-w-[1125px] aspect-[16/9] md:h-[600px] overflow-hidden relative">
+        <div className="w-full md:max-w-[1125px] 2xl:max-w-[1280px] aspect-[16/9] md:h-[600px] overflow-hidden relative">
           {/* <Image
             src="/images/hero-image.png"
             alt="Lemon Friday Promo - Become A Property Owner This Season"

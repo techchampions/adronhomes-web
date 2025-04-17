@@ -25,7 +25,7 @@ const AutoCarousel = () => {
       {images.map((img, index) => (
         <div
           key={index}
-          className="w-full max-w-[1125px] aspect-[16/9] md:h-[580px] rounded-3xl md:rounded-[50px] overflow-hidden relative mx-auto"
+          className="w-full md:max-w-[1125px] lg:max-w-[1280px] max-w-[1280px] aspect-[16/9] md:h-[580px] rounded-3xl md:rounded-[50px] overflow-hidden relative mx-auto"
         >
           <Image
             src={img}
@@ -41,6 +41,11 @@ const AutoCarousel = () => {
             padding: 10px;
             width: 1125px;
           }
+            @media screen and (max-width: 1100px) {
+            .slick-slide {
+            padding:10px;
+            width: 1280px;
+        }
         `}
       </style>
     </Slider>
