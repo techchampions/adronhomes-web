@@ -28,7 +28,7 @@ export default function Navbar() {
     { name: "Virtual Tour", href: "/virtual-tour" },
     { name: "About us", href: "/about-us" },
     { name: "Contact Us", href: "/contact" },
-    { name: "Blog", href: "/blog" },
+    { name: "Career", href: "/careers" },
   ];
 
   return (
