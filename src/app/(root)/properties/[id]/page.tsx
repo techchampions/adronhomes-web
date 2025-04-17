@@ -11,6 +11,7 @@ import Button from "@/components/Button";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { useParams, useSearchParams } from "next/navigation";
 import { useGetPropertyByID } from "@/data/hooks";
+import Loader from "@/components/Loader";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,7 +21,7 @@ const PropertyImageSlider = () => {
 
   const { data, isLoading, error } = useGetPropertyByID(id);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
   if (error) return <p>Error loading property.</p>;
   const name = data?.data.properties[0].name;
   const price = data?.data.properties[0].price;

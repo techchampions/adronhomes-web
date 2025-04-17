@@ -4,22 +4,18 @@
 import Slider from "react-slick";
 import Image from "next/image";
 
-const images = [
-  "/images/hero-image.png",
-  "/images/hero-image.png",
-  "/images/hero-image.png",
-];
+const images = ["/hero-banner-1.png", "/hero-banner-2.png"];
 
 const AutoCarousel = () => {
   const settings = {
     dots: true,
-    infinite: true,
+    // infinite: true,
     speed: 800,
     autoplay: true,
     autoplaySpeed: 3000, // 3 seconds
     slidesToShow: 1,
     slidesToScroll: 1,
-    pauseOnHover: true,
+    pauseOnHover: false,
     arrows: false,
     variableWidth: true,
   };
@@ -29,7 +25,7 @@ const AutoCarousel = () => {
       {images.map((img, index) => (
         <div
           key={index}
-          className="w-full aspect-[16/9] md:h-[700px] rounded-3xl md:rounded-[50px] overflow-hidden relative mx-auto"
+          className="w-full max-w-[1125px] aspect-[16/9] md:h-[580px] rounded-3xl md:rounded-[50px] overflow-hidden relative mx-auto"
         >
           <Image
             src={img}
@@ -43,6 +39,7 @@ const AutoCarousel = () => {
         {`
           .slick-slide {
             padding: 10px;
+            width: 1125px;
           }
         `}
       </style>

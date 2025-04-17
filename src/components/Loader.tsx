@@ -5,11 +5,11 @@ interface LoaderProps {
 
 const Loader: React.FC<LoaderProps> = ({ className = "" }) => {
   return (
-    <div className="flex bg-white justify-center items-center rounded-lg p-2 fixed inset-0">
+    <div className="flex bg-white justify-center items-center rounded-lg p-2 fixed inset-0 z-50">
       <svg
         aria-hidden="true"
         role="status"
-        className={`inline w-4 h-4 me-3 text-white animate-spin ${className} `}
+        className={`inline w-96 h-94 me-3 text-white animate-spin ${className} `}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

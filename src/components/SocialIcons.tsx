@@ -29,7 +29,7 @@ const SocialIcons: React.FC<SocialIconsProps> = ({ className = "" }) => {
       </div>
 
       {/* Social Icons - Desktop (Vertical) */}
-      <div className="hidden md:flex flex-col gap-6 mr-8 lg:mr-12 mt-40 px-4">
+      <div className="hidden md:flex flex-col gap-6 mr-0 mt-20 pl-12 pr-4">
         {[FaFacebook, FaInstagram, FaTwitter, FaTiktok, FaWhatsapp].map(
           (Icon, index) => (
             <a

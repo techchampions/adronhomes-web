@@ -25,10 +25,10 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Properties", href: "/properties" },
-    { name: "Virtual Tour", href: "/virtual-tour" },
     { name: "About us", href: "/about-us" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Virtual Tour", href: "/virtual-tour" },
     { name: "Career", href: "/careers" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   return (
@@ -37,7 +37,7 @@ export default function Navbar() {
         scrolled ? "bg-white shadow" : "bg-transparent"
       }`}
     >
-      <nav className="w-full flex justify-between items-center py-4 px-2 md:px-8">
+      <nav className="w-full mx-auto flex justify-between items-center pt-4 pb-1 px-2 md:px-[120px]">
         <div className="flex items-center space-x-2">
           <Image
             src="/logo.svg"
@@ -49,7 +49,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <ul className="hidden md:flex space-x-6 text-sm">
+        <ul className="hidden md:flex space-x-10 text-sm">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -57,7 +57,7 @@ export default function Navbar() {
                 className={`transition-colors duration-300 ${
                   pathname === link.href
                     ? "text-adron-green font-semibold"
-                    : "text-gray-700 hover:text-adron-green"
+                    : "text-adron-black hover:text-adron-green"
                 }`}
               >
                 {link.name}

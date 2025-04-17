@@ -106,14 +106,14 @@ import AutoCarousel from "./HomeCarousel";
 
 const HeroBanner = () => {
   return (
-    <div className="relative w-full px-4 sm:px-6 md:px-8 py-8 mx-auto">
+    <div className="relative w-full px-4 sm:px-6 md:px-8 pb-8 pt-0 mx-auto">
       <div className="flex flex-col md:flex-row">
         {/* Social Icons - Mobile (Horizontal) */}
         <SocialIcons className="hidden md:block" />
 
         {/* Banner Content */}
         {/* Hero Banner Image */}
-        <div className="w-full aspect-[16/9] md:h-[700px] rounded-3xl md:rounded-[50px] overflow-hidden relative mx-auto">
+        <div className="w-full max-w-[1125px] aspect-[16/9] md:h-[600px] overflow-hidden relative">
           {/* <Image
             src="/images/hero-image.png"
             alt="Lemon Friday Promo - Become A Property Owner This Season"
