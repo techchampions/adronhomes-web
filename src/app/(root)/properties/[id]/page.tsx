@@ -5,30 +5,27 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { Form, Formik } from "formik";
 import InputField from "@/components/InputField";
-import {
-  FaCheckCircle,
-  FaHeart,
-  FaMailBulk,
-  FaMapMarker,
-  FaPhone,
-  FaUser,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { FaHeart, FaMapMarker } from "react-icons/fa";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
-import { BiLogoWhatsapp } from "react-icons/bi";
 import { IoLogoWhatsapp } from "react-icons/io";
-
-const images = [
-  "/images/house-pty.png",
-  "/images/house-pty.png",
-  "/images/house-pty.png",
-  "/images/house-pty.png",
-];
+import { useParams, useSearchParams } from "next/navigation";
+import { useGetPropertyByID } from "@/data/hooks";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slider1 = useRef<Slider>(null);
+  const params = useParams();
+  const id = params?.id;
+
+  const { data, isLoading, error } = useGetPropertyByID(id);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading property.</p>;
+  const name = data?.data.properties[0].name;
+  const price = data?.data.properties[0].price;
+  const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+  const images = data?.data.properties[0].photos;
 
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
@@ -82,13 +79,20 @@ const PropertyImageSlider = () => {
     <div className="flex flex-col w-full px-10">
       <div className="w-[100%] flex justify-between items-center my-5">
         <div className="flex flex-col">
-          <h1 className="text-6xl font-bold">Treasure Parks and Gardens</h1>
+          <h1 className="text-6xl font-bold">
+            {/* Treasure Parks and Gardens  */}
+            {name}
+          </h1>
           <p className="flex gap-2">
             <FaMapMarker />
-            <span>34, Shimawa, Ogun State, Nigeria</span>
+            {/* <span>34, Shimawa, Ogun State, Nigeria</span> */}
+            <span>{address}</span>
           </p>
         </div>
-        <p className="text-4xl font-bold">₦56,000,000</p>
+        <p className="text-4xl font-bold">
+          {/* ₦56,000,000 */}
+          {price}
+        </p>
       </div>
       <div className="flex justify-between gap-10">
         {/* Property details */}
@@ -146,18 +150,20 @@ const PropertyImageSlider = () => {
             <div className="flex flex-col">
               <h4 className="font-bold text-md">Overview</h4>
               <p className="text-xs text-gray-500">
-                Discover your dream home in 34, Shimawa, Ogun State, Nigeria!
+                {data?.data.properties[0].overview}
+                {/* Discover your dream home in 34, Shimawa, Ogun State, Nigeria!
                 This stunning 4-bedroom, 3-bathroom modern home offers a perfect
                 blend of comfort, elegance, and convenience. With breathtaking
                 city views and a spacious backyard with a private pool, this
-                property is designed to meet all your lifestyle needs.
+                property is designed to meet all your lifestyle needs. */}
               </p>
             </div>
 
             <div className="flex flex-col">
               <h4 className="font-bold text-md">Description</h4>
               <p className="text-xs text-gray-500">
-                Step inside this beautifully designed home and experience an
+                {data?.data.properties[0].description}
+                {/* Step inside this beautifully designed home and experience an
                 open-concept living space filled with natural light. The gourmet
                 kitchen features high-end appliances, granite countertops and
                 stainless-steel appliances, perfect for entertaining guests. The
@@ -165,17 +171,20 @@ const PropertyImageSlider = () => {
                 bathrooms boast luxurious spa-like finishes. Whether you're
                 enjoying a quiet evening on the [outdoor feature, or exploring
                 the vibrant local community, this home provides the ideal
-                setting for modern living.{" "}
+                setting for modern living.{" "} */}
               </p>
             </div>
             <div className="flex flex-col">
               <h4 className="font-bold text-md">Features</h4>
               <ul className="text-xs list-disc ml-5 text-gray-500">
-                <li>Spacious open-concept living area</li>
+                {data?.data.properties[0].features?.map((list) => (
+                  <li key={list}>{list}</li>
+                ))}
+                {/* <li>Spacious open-concept living area</li>
                 <li>State-of-the-art kitchen with granite countertops</li>
                 <li>Master suite with walk-in closet and en-suite bathroom</li>
                 <li>Large backyard with a deck and fire pit</li>
-                <li>Two-car garage and ample storage space</li>
+                <li>Two-car garage and ample storage space</li> */}
               </ul>
             </div>
             <div className="flex flex-col">

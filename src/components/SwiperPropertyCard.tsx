@@ -43,20 +43,22 @@ export default function SwiperPropertyCard({ property }: Props) {
   }, [swiper]); // Ensure this effect runs when the swiper instance is available
 
   const router = useRouter();
+  const address = `${property.street_address}, ${property.lga}, ${property.state} ${property.country}`;
+  const features = property.features;
 
   const handleViewProperty = () => {
     router.push(
       `/properties/${property.id}?title=${encodeURIComponent(
         property.name
       )}&price=${property.price}&address=${encodeURIComponent(
-        property.location
-      )}`
+        address
+      )}&features=${features}`
     );
   };
 
   return (
     <div className="rounded-2xl p-4">
-      <div className="relative w-full h-[250px] md:h-[500px] rounded-xl overflow-hidden">
+      <div className="relative w-full h-[250px] md:h-[480px] rounded-xl overflow-hidden">
         {/* Swiper Carousel */}
         <Swiper
           spaceBetween={10}
@@ -67,9 +69,9 @@ export default function SwiperPropertyCard({ property }: Props) {
             nextEl: nextRef.current,
           }}
           modules={[Navigation]}
-          className="w-full h-full"
+          className="w-full h-full rounded-[40px]"
         >
-          {property.images.map((img, idx) => (
+          {property.photos.map((img, idx) => (
             <SwiperSlide key={idx}>
               <Image
                 src={img}
@@ -102,7 +104,8 @@ export default function SwiperPropertyCard({ property }: Props) {
           {property.name}
         </h4>
         <p className="text-md text-adron-black flex items-center mt-1">
-          <FaMapMarkerAlt className="mr-1" /> {property.location}
+          <FaMapMarkerAlt className="mr-1" />{" "}
+          {`${property.street_address}, ${property.lga}, ${property.state} ${property.country}`}
         </p>
 
         <p className="text-[20px] font-black text-adron-black mt-2 flex justify-between">
