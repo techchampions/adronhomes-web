@@ -26,13 +26,13 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled || isLoading}
-      className={`w-full bg-brand text-white py-2 rounded-full transition duration-300
+      className={`w-full bg-brand py-2 rounded-full transition duration-300 text-white ${className}
         ${
           disabled || isLoading
             ? "opacity-50 cursor-not-allowed"
             : "hover:bg-brand-dark"
         }
-        ${className}`}
+        `}
     >
       {isLoading ? (
         <div className="flex items-center justify-center">
