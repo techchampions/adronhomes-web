@@ -3,8 +3,10 @@ import {
   fetchAboutPageData,
   fetchContactPageData,
   fetchHomePageData,
+  fetchJobsPageData,
   fetchPropertiesPageData,
   fetchVirtualTourPageData,
+  getJobByID,
   getPropertyByID,
 } from "./api";
 import { HomepageResponse } from "./types/homepageTypes";
@@ -13,6 +15,7 @@ import { ContactPageResponse } from "./types/contactPageTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
 import { PropertiesResponse } from "./types/propertiesPageTypes";
 import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
+import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 
 // Query hook for homepage data with
 export const useHomepage = () => {
@@ -55,6 +58,21 @@ export const useGetPropertyByID = (id: number | string) => {
   return useQuery<GetPropertyByIdResponse>({
     queryKey: ["property", id], // include id in the key to avoid collisions
     queryFn: () => getPropertyByID(id),
+    enabled: !!id, // prevents the query from running if id is undefined/null
+  });
+};
+// Query hook for properties page data with
+export const useJobListPage = () => {
+  return useQuery<JobsApiResponse>({
+    queryKey: ["jobs-page"],
+    queryFn: fetchJobsPageData,
+  });
+};
+// Query hook for Jobs by ID data with
+export const useGetJobByID = (id: number | string) => {
+  return useQuery<GetJobByIdResponse>({
+    queryKey: ["job", id], // include id in the key to avoid collisions
+    queryFn: () => getJobByID(id),
     enabled: !!id, // prevents the query from running if id is undefined/null
   });
 };

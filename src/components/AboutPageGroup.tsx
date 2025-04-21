@@ -2,11 +2,12 @@
 import Image from "next/image";
 import ProfileCard from "./ProfileCard";
 import { useAboutpage } from "@/data/hooks";
+import Loader from "./Loader";
 
 export default function AboutPageGroup() {
   const { data, isLoading, isError } = useAboutpage();
 
-  if (isLoading) return <div className="text-center p-10">Loading...</div>;
+  if (isLoading) return <Loader />;
   if (isError)
     return (
       <div className="text-center text-red-500 p-10">

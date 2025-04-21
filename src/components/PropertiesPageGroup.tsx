@@ -2,11 +2,12 @@
 import { usePropertiespage } from "@/data/hooks";
 import FilterBar from "./FilterBar";
 import SwiperPropertyList from "./SwiperPropertyList";
+import Loader from "./Loader";
 
 export default function PropertiesPageGroup() {
   const { data, isLoading, isError } = usePropertiespage();
 
-  if (isLoading) return <div className="text-center p-10">Loading...</div>;
+  if (isLoading) return <Loader />;
   if (isError)
     return (
       <div className="text-center text-red-500 p-10">

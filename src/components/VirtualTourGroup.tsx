@@ -3,11 +3,12 @@
 import Image from "next/image";
 import PropertyList from "./PropertyList";
 import { useVirtualTourpage } from "@/data/hooks";
+import Loader from "./Loader";
 
 export default function VirtualTourGroup() {
   const { data, isLoading, isError } = useVirtualTourpage();
 
-  if (isLoading) return <div className="text-center p-10">Loading...</div>;
+  if (isLoading) return <Loader />;
   if (isError)
     return (
       <div className="text-center text-red-500 p-10">

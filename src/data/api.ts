@@ -3,6 +3,7 @@ import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
 import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { HomepageResponse } from "./types/homepageTypes";
+import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertiesResponse } from "./types/propertiesPageTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
 
@@ -39,5 +40,17 @@ export const getPropertyByID = async (
   id: number | string
 ): Promise<GetPropertyByIdResponse> => {
   const response = await apiClient.get(`/property/${id}`);
+  return response.data;
+};
+//jobList Page Data
+export const fetchJobsPageData = async (): Promise<JobsApiResponse> => {
+  const response = await apiClient.get("/jobs-page");
+  return response.data;
+};
+//Get Job by ID Data
+export const getJobByID = async (
+  id: number | string
+): Promise<GetJobByIdResponse> => {
+  const response = await apiClient.get(`/job/${id}`);
   return response.data;
 };

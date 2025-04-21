@@ -2,11 +2,12 @@
 import { useContactpage } from "@/data/hooks";
 import { LuMail, LuPhone } from "react-icons/lu";
 import Map from "./Map";
+import Loader from "./Loader";
 
 export default function ContactPageGroup() {
   const { data, isLoading, isError } = useContactpage();
 
-  if (isLoading) return <div className="text-center p-10">Loading...</div>;
+  if (isLoading) return <Loader />;
   if (isError)
     return (
       <div className="text-center text-red-500 p-10">
