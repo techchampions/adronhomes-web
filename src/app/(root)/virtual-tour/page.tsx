@@ -1,6 +1,7 @@
 // app/properties/page.tsx
 
 import PropertyList from "@/components/PropertyList";
+import VirtualTourGroup from "@/components/VirtualTourGroup";
 import Image from "next/image";
 
 const sampleProperties = [
@@ -127,35 +128,5 @@ const sampleProperties = [
 ];
 
 export default function VirtualTourPage() {
-  return (
-    <div className="p-2 md:pt-12 w-full mx-auto">
-      <div className="bg-transparent w-full">
-        <div className="flex flex-col justify-center mx-auto text-center space-y-2">
-          <h1 className="text-4xl md:text-6xl text-black font-bold">
-            Virtual Tour
-          </h1>
-          <p className="text-sm md:text-md w-[65%] md:w-full mx-auto font-bold mb-5">
-            3d tours of our real estates via google maps
-          </p>
-          <div className="bg-white flex w-fit mx-auto shadow rounded-full px-4 my-1 text-xs justify-between items-center gap-2 mb-4 md:mb-0">
-            <span>24 Tours</span>
-            <span className="text-lg">•</span>
-            <span>16 Locations</span>
-          </div>
-        </div>
-      </div>
-      <Image
-        src="/half-globe.png"
-        alt="globe"
-        width={800}
-        height={800}
-        // className="relative bottom-[-170px] -z-50 mx-auto"
-        className="mx-auto mt-6 "
-      />
-      <div className="bg-white rounded-[50px] px-8 py-10 md:py-12 w-full relative -top-[100px] md:-top-[170px]">
-        <h1 className="text-[44px] font-bold mb-14 text-center">Properties</h1>
-        <PropertyList properties={sampleProperties} />
-      </div>
-    </div>
-  );
+  return <VirtualTourGroup />;
 }

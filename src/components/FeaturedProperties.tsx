@@ -46,7 +46,7 @@ const PropertyCard = ({
             <div className="flex items-center gap-1">
               <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
 
-              <span className="mr-1">{squareFeet} Sq M</span>
+              <span className="mr-1">{squareFeet}</span>
             </div>
 
             {hasLights && (
@@ -90,8 +90,8 @@ interface Property extends PropertyProps {
   id: number;
 }
 
-const FeaturedProperties = () => {
-  const properties: Property[] = [
+const FeaturedProperties = ({ data }) => {
+  const properties1: Property[] = [
     {
       id: 1,
       image: "/images/tresure-park-3.png",
@@ -153,6 +153,8 @@ const FeaturedProperties = () => {
       isLand: true,
     },
   ];
+  const properties = data.handpackProperty;
+  const address = `${properties[0].street_address}, ${properties[0].lga}, ${properties[0].state} ${properties[0].country}`;
 
   return (
     <section className="py-16 bg-gray-50">
@@ -160,24 +162,26 @@ const FeaturedProperties = () => {
         <div className="mb-12 ml-4 sm:ml-50">
           <div className="flex items-center text-sm w-fit px-4 py-2 text-black bg-white rounded-full mb-3 space-x-1">
             <FaHome className="text-base" />
-            <span>Handpick Specifically for You</span>
+            {/* <span>Handpick Specifically for You</span> */}
+            <span>{data.handpackText[0].header}</span>
           </div>
 
-          <h2 className="text-6xl font-bold">
-            Discover Our <br />
-            Featured Properties
+          <h2 className="text-3xl md:text-6xl font-bold">
+            {/* Discover Our <br />
+            Featured Properties */}
+            {data.handpackText[0].description}
           </h2>
         </div>
 
         {/* Property Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-18 justify-center px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-18 justify-center">
           {properties.map((property) => (
             <PropertyCard
               key={property.id}
-              image={property.image}
-              title={property.title}
-              location={property.location}
-              squareFeet={property.squareFeet}
+              image={property.display_image}
+              title={property.name}
+              location={address}
+              squareFeet={property.size}
               hasLights={property.hasLights}
               hasGym={property.hasGym}
               isLand={property.isLand}

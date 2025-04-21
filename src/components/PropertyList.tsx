@@ -23,9 +23,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
       {properties.map((property) => (
         <PropertyCard
           key={property.id}
-          imageUrl={property.imageUrl}
-          title={property.title}
-          address={property.address}
+          imageUrl={property.display_image}
+          title={property.name}
+          address={`${property.street_address}, ${property.lga}, ${property.state} ${property.country}`}
           price={property.price}
           size={property.size}
           hasStreetLights={property.hasStreetLights}

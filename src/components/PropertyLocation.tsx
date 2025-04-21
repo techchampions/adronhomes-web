@@ -15,11 +15,11 @@ interface Location {
   image: string;
 }
 
-const PropertyLocations = () => {
+const PropertyLocations = ({ data }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const sliderRef = useRef<Slider>(null);
 
-  const locations: Location[] = [
+  const locations2: Location[] = [
     {
       id: 1,
       name: "Abuja",
@@ -51,7 +51,7 @@ const PropertyLocations = () => {
       image: "/images/tressure-park-phase2.png",
     },
   ];
-
+  const locations = data.locationProperty;
   const settings = {
     infinite: true,
     speed: 500,
@@ -96,12 +96,15 @@ const PropertyLocations = () => {
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
             <HiLocationMarker className="mr-2" />
-            <span className="font-bold text-xs">Estate Locations</span>
+            <span className="font-bold text-xs">
+              {data.locationText[0].name}
+            </span>
           </div>
         </div>
 
         <h2 className="text-3xl md:text-5xl font-bold text-center text-adron-black mb-16">
-          Explore Our Property Locations
+          {/* Explore Our Property Locations */}
+          {data.locationText[0].header}
         </h2>
 
         <div className="relative mb-12">
@@ -120,7 +123,7 @@ const PropertyLocations = () => {
                   }`}
                 >
                   <Image
-                    src={location.image}
+                    src={location.photo}
                     alt={location.name}
                     fill
                     className="object-cover"

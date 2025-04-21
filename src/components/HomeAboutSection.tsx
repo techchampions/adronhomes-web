@@ -1,19 +1,18 @@
 "use client";
 import Image from "next/image";
-import { HiUsers } from "react-icons/hi";
 
-const AboutUsSection = () => {
+const AboutUsSection = ({ data }) => {
   return (
-    <section className="py-16 px-10 w-full mx-auto bg-white">
+    <section className="py-16 px-4 md:px-10 w-full mx-auto bg-white">
       <div className="flex flex-col lg:flex-row gap-12 items-center">
         {/* Image Container */}
         <div className="w-full md:w-[45%]">
-          <div className="relative w-full h-96 md:h-[350px] overflow-hidden">
+          <div className="relative w-full h-[250px] md:h-[350px] overflow-hidden">
             <Image
               src="/images/home-about-us.png"
               alt="Modern skyscrapers viewed from below"
               fill
-              className="object-cover"
+              className="object-cover rounded-2xl"
             />
           </div>
         </div>
@@ -30,26 +29,28 @@ const AboutUsSection = () => {
                 width={16}
                 height={16}
               />
-              <span className="font-bold">About Us</span>
+              <span className="font-bold">{data[0].name}</span>
             </div>
           </div>
 
           {/* Section Title */}
           <h2 className="text-3xl md:text-6xl font-bold text-adron-black mb-6">
-            Learn About Our <br /> History
+            {/* Learn About Our <br /> History */}
+            {data[0].header}
           </h2>
 
           {/* Description */}
           <p className="text-gray-600 mb-8 text-xs leading-relaxed">
-            We are driven to keep our promise, expand our land bank, and provide{" "}
+            {data[0].description}
+            {/* We are driven to keep our promise, expand our land bank, and provide{" "}
             <br />
             excellent services with affordable housing solutions. Our singular
-            mission <br /> is to exceed expectations.
+            mission <br /> is to exceed expectations. */}
           </p>
 
           {/* CTA Button */}
           <a
-            href="/about"
+            href={data[0].action_link}
             className="inline-block bg-adron-green text-white font-medium py-3 px-8 text-sm rounded-full transition-colors"
           >
             About Us

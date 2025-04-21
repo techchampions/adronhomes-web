@@ -14,7 +14,7 @@ interface Testimonial {
   country: string;
 }
 
-const TestimonialsSection = () => {
+const TestimonialsSection = ({ data }) => {
   const [activeSlide, setActiveSlide] = useState(3);
 
   const testimonials: Testimonial[] = [

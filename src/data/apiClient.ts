@@ -8,11 +8,14 @@ type ApiResponse<T = any> = {
 };
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  // baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: "http://adron.microf10.sg-host.com/api/",
   headers: {
     "Content-Type": "application/json",
-    "identifier": process.env.NEXT_PUBLIC_IDENTIFIER || "",
-    "device_id": process.env.NEXT_PUBLIC_X_DEVICE_ID || "",
+    // "identifier": process.env.NEXT_PUBLIC_IDENTIFIER || "",
+    identifier: "dMNOcdMNOPefFGHIlefFGHIJKLmno",
+    // "device_id": process.env.NEXT_PUBLIC_X_DEVICE_ID || "",
+    device_id: 1234567,
   },
 });
 

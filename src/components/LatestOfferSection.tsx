@@ -2,18 +2,21 @@ import Image from "next/image";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Button from "./Button";
 
-export default function LatestOfferSection() {
+export default function LatestOfferSection({ data }) {
+  console.log("Latest Offer Section", data);
   return (
     <div className="w-full overflow-hidden mt-5 relative">
       {/* Background image */}
-      <Image
-        src="/treasure-park-bg.png"
-        alt="Treasure park"
-        width={800}
-        height={461}
-        className="w-full object-cover"
-        priority
-      />
+      <div className="w-full h-[450px] md:h-[600px]">
+        <Image
+          src="/treasure-park-bg.png"
+          alt="Treasure park"
+          width={800}
+          height={461}
+          className="w-full object-cover"
+          priority
+        />
+      </div>
 
       {/* Gradient overlay on the left side */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10" />
@@ -29,10 +32,12 @@ export default function LatestOfferSection() {
               width={18}
               className=""
             />
-            Latest Offers
+            {data[0].name}
+            {/* Latest Offers */}
           </div>
-          <h2 className="text-white text-6xl w-[700px] mb-2 font-bold">
-            Treasure Parks and <br /> Gardens
+          <h2 className="text-white text-4xl md:text-6xl w-[700px] mb-2 font-bold">
+            {data[0].header}
+            {/* Treasure Parks and <br /> Gardens */}
           </h2>
           <div className="flex flex-row gap-3 items-center mb-4 text-xs">
             <div className="flex flex-row w-fit bg-white/30 text-white rounded-full px-4 py-1.5">
