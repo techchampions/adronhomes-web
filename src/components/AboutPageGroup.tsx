@@ -3,6 +3,7 @@ import Image from "next/image";
 import ProfileCard from "./ProfileCard";
 import { useAboutpage } from "@/data/hooks";
 import Loader from "./Loader";
+import ApiErrorBlock from "./ApiErrorBlock";
 
 export default function AboutPageGroup() {
   const { data, isLoading, isError } = useAboutpage();
@@ -10,9 +11,10 @@ export default function AboutPageGroup() {
   if (isLoading) return <Loader />;
   if (isError)
     return (
-      <div className="text-center text-red-500 p-10">
-        Failed to load About Page data.
-      </div>
+      <ApiErrorBlock />
+      // <div className="text-center text-red-500 p-10">
+      //   Failed to load About Page data.
+      // </div>
     );
   if (!isError) {
     console.log("image", data?.data.mission[0].image);

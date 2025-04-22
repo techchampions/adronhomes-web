@@ -3,17 +3,13 @@ import { useContactpage } from "@/data/hooks";
 import { LuMail, LuPhone } from "react-icons/lu";
 import Map from "./Map";
 import Loader from "./Loader";
+import ApiErrorBlock from "./ApiErrorBlock";
 
 export default function ContactPageGroup() {
   const { data, isLoading, isError } = useContactpage();
 
   if (isLoading) return <Loader />;
-  if (isError)
-    return (
-      <div className="text-center text-red-500 p-10">
-        Failed to load About Page data.
-      </div>
-    );
+  if (isError) return <ApiErrorBlock />;
   if (!isError) {
     console.log("image", data);
   }

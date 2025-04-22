@@ -45,14 +45,6 @@ const PropertyLocations = ({ data }) => {
 
   return (
     <section className="py-16 relative overflow-hidden">
-      {/* <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "/property-loaction-bg.png",
-          // backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-        }}
-      /> */}
       <Image
         src="/property-location-bg.png"
         alt="bg"
@@ -81,7 +73,7 @@ const PropertyLocations = ({ data }) => {
             {...settings}
             className="property-slider flex items-end"
           >
-            {locations.map((location, index) => (
+            {/* {locations.map((location, index) => (
               <div key={location.id} className="px-2">
                 <div
                   className={`relative overflow-hidden rounded-3xl transition-all duration-500 ${
@@ -89,6 +81,29 @@ const PropertyLocations = ({ data }) => {
                       ? "w-full h-70 scale-100 brightness-100 grayscale-0 "
                       : "w-full h-70 scale-60 brightness-75 grayscale"
                   }`}
+                >
+                  <Image
+                    src={location.photo}
+                    alt={location.name}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+            ))} */}
+            {locations.map((location, index) => (
+              <div
+                key={location.id}
+                className="px-2 h-[350px] md:h-[420px] flex items-end"
+              >
+                <div
+                  className={`relative overflow-hidden rounded-3xl transition-all duration-500 w-full ${
+                    index === activeSlide
+                      ? "scale-100 brightness-100 grayscale-0 self-center"
+                      : "scale-75 brightness-75 grayscale self-end"
+                  }`}
+                  style={{ height: index === activeSlide ? "100%" : "80%" }}
                 >
                   <Image
                     src={location.photo}
@@ -136,7 +151,7 @@ const PropertyLocations = ({ data }) => {
       </div>
 
       {/* Custom Slide Styling */}
-      <style jsx global>{`
+      {/* <style jsx global>{`
         .property-slider .slick-track {
           display: flex;
           align-items: center;
@@ -150,6 +165,17 @@ const PropertyLocations = ({ data }) => {
         }
         .property-slider .slick-center {
           z-index: 10;
+        }
+      `}</style> */}
+      <style jsx global>{`
+        .property-slider .slick-track {
+          display: flex;
+          align-items: flex-end;
+        }
+        .property-slider .slick-slide {
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
         }
       `}</style>
     </section>
