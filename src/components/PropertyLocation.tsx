@@ -19,38 +19,6 @@ const PropertyLocations = ({ data }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const sliderRef = useRef<Slider>(null);
 
-  const locations2: Location[] = [
-    {
-      id: 1,
-      name: "Abuja",
-      properties: 7,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 2,
-      name: "Lagos",
-      properties: 12,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 3,
-      name: "Ibadan",
-      properties: 5,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 4,
-      name: "Port Harcourt",
-      properties: 8,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 5,
-      name: "Enugu",
-      properties: 4,
-      image: "/images/tressure-park-phase2.png",
-    },
-  ];
   const locations = data.locationProperty;
   const settings = {
     infinite: true,
@@ -147,11 +115,11 @@ const PropertyLocations = ({ data }) => {
 
           <div className="bg-white/40 rounded-3xl space-y-2 py-3 px-10 text-center min-w-48">
             <h4 className="text-2xl font-bold text-gray-800">
-              {locations[activeSlide]?.name}
+              {locations[activeSlide]?.state_name}
             </h4>
             <p className="text-gray-600 flex items-center text-center w-full justify-center text-xs mx-auto">
               <span className="w-3 h-3 p-3 mr-2 flex justify-center items-center rounded-full bg-white">
-                {locations[activeSlide]?.properties}
+                {locations[activeSlide]?.total_property}
               </span>
               Properties
             </p>

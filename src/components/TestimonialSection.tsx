@@ -8,59 +8,61 @@ import "slick-carousel/slick/slick-theme.css";
 
 interface Testimonial {
   id: number;
-  name: string;
-  image: string;
-  text: string;
+  client_name: string;
+  client_image: string;
+  client_comment: string;
   country: string;
+  client_country: string;
 }
 
 const TestimonialsSection = ({ data }) => {
   const [activeSlide, setActiveSlide] = useState(3);
 
-  const testimonials: Testimonial[] = [
-    {
-      id: 1,
-      name: "John Smith",
-      image: "/images/testimonial-image.png",
-      text: "The entire process was smooth from start to finish. I'm extremely satisfied with my investment and would definitely work with Adron Homes again.",
-      country: "Nigeria",
-    },
-    {
-      id: 2,
-      name: "Sarah Johnson",
-      image: "/images/testimonial-image.png",
-      text: "I was hesitant at first, but the team at Adron Homes made everything clear and straightforward. My family now has our dream property thanks to them.",
-      country: "Nigeria",
-    },
-    {
-      id: 3,
-      name: "Michael Brown",
-      image: "/images/testimonial-image.png",
-      text: "The payment plans were flexible enough to accommodate my budget. The customer service was exceptional throughout my journey.",
-      country: "Nigeria",
-    },
-    {
-      id: 4,
-      name: "Gafar Olalekan",
-      image: "/images/testimonial-image.png",
-      text: "Buying land with Adron Homes was seamless and stress-free. Their team provided clear guidance, flexible payment options, and excellent service. The process was transparent, and I received my property as promised. Highly recommend for anyone seeking reliable real estate investment!",
-      country: "Nigeria",
-    },
-    {
-      id: 5,
-      name: "Daniel Harris",
-      image: "/images/testimonial-image.png",
-      text: "What impressed me the most was how Adron Homes handled all the documentation and legal aspects. It saved me a lot of time and worry.",
-      country: "Nigeria",
-    },
-    {
-      id: 6,
-      name: "Christopher Wilson",
-      image: "/images/testimonial-image.png",
-      text: "The location options they provided were excellent. I found exactly what I was looking for in terms of both price and accessibility.",
-      country: "Nigeria",
-    },
-  ];
+  const testimonials: Testimonial[] = data.clientsFeedback;
+  // const testimonials: Testimonial[] = [
+  //   {
+  //     id: 1,
+  //     name: "John Smith",
+  //     image: "/images/testimonial-image.png",
+  //     text: "The entire process was smooth from start to finish. I'm extremely satisfied with my investment and would definitely work with Adron Homes again.",
+  //     country: "Nigeria",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Sarah Johnson",
+  //     image: "/images/testimonial-image.png",
+  //     text: "I was hesitant at first, but the team at Adron Homes made everything clear and straightforward. My family now has our dream property thanks to them.",
+  //     country: "Nigeria",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Michael Brown",
+  //     image: "/images/testimonial-image.png",
+  //     text: "The payment plans were flexible enough to accommodate my budget. The customer service was exceptional throughout my journey.",
+  //     country: "Nigeria",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Gafar Olalekan",
+  //     image: "/images/testimonial-image.png",
+  //     text: "Buying land with Adron Homes was seamless and stress-free. Their team provided clear guidance, flexible payment options, and excellent service. The process was transparent, and I received my property as promised. Highly recommend for anyone seeking reliable real estate investment!",
+  //     country: "Nigeria",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Daniel Harris",
+  //     image: "/images/testimonial-image.png",
+  //     text: "What impressed me the most was how Adron Homes handled all the documentation and legal aspects. It saved me a lot of time and worry.",
+  //     country: "Nigeria",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Christopher Wilson",
+  //     image: "/images/testimonial-image.png",
+  //     text: "The location options they provided were excellent. I found exactly what I was looking for in terms of both price and accessibility.",
+  //     country: "Nigeria",
+  //   },
+  // ];
 
   const sliderRef = useRef<Slider>(null);
 
@@ -137,14 +139,14 @@ const TestimonialsSection = ({ data }) => {
               height={20}
             />
             <span className="font-medium text-xs text-gray-800">
-              Testimonials
+              {data?.testimonialsText[0].name}
             </span>
           </div>
         </div>
 
         {/* Section Title */}
         <h2 className="text-3xl md:text-6xl font-bold text-center text-gray-800 mb-8 sm:mb-12">
-          What Our Clients Have to Say
+          {data.testimonialsText[0].header}{" "}
         </h2>
 
         {/* Avatar Slider */}
@@ -173,8 +175,8 @@ const TestimonialsSection = ({ data }) => {
                     }`}
                 >
                   <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
+                    src={testimonial.client_image}
+                    alt={testimonial.client_name}
                     fill
                     className="object-cover"
                     // sizes="(max-width: 640px) 60px, 80px"
@@ -196,18 +198,21 @@ const TestimonialsSection = ({ data }) => {
         {/* Testimonial Content */}
         <div className="bg-white rounded-[55px] p-6 md:p-10 text-center mx-auto max-w-3xl">
           <p className="text-adron-black font-black leading-relaxed mb-6">
-            {testimonials[activeSlide]?.text}
+            {testimonials[activeSlide]?.client_comment}
           </p>
 
           <div>
             <p className="font-medium text-adron-black text-[10px]">
-              {testimonials[activeSlide]?.name}
+              {testimonials[activeSlide]?.client_name}
             </p>
 
             {/* Nigerian Flag */}
             <div className="flex justify-center items-center mt-3 mx-auto">
               <Image
-                src="/ng-flag.svg"
+                // src="/ng-flag.svg"
+                src={
+                  testimonials[activeSlide]?.client_country || "/ng-flag.svg"
+                }
                 alt="Nigerian Flag"
                 height={24}
                 width={24}
