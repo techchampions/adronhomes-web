@@ -163,7 +163,7 @@ const AutoCarousel = ({ slides }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       {isSingleSlide ? (
         <div className="relative w-full aspect-[4/5] md:aspect-[16/9] rounded-2xl md:rounded-[40px] overflow-hidden">
           <Image
@@ -193,7 +193,7 @@ const AutoCarousel = ({ slides }) => {
         </Slider>
       )}
 
-      <style jsx global>{`
+      {/* <style jsx global>{`
         .slick-slide {
           padding: 10px;
         }
@@ -205,6 +205,39 @@ const AutoCarousel = ({ slides }) => {
 
         .slick-dots li.slick-active button:before {
           color: #ffffff;
+          opacity: 1;
+        }
+      `}</style> */}
+      <style jsx global>{`
+        .slick-slide {
+          padding: 10px;
+        }
+
+        .slick-dots {
+          position: absolute;
+          bottom: 20px;
+          left: 0;
+          right: 0;
+          display: flex !important;
+          justify-content: center;
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          z-index: 10;
+        }
+
+        .slick-dots li {
+          margin: 0 4px;
+        }
+
+        .slick-dots li button:before {
+          font-size: 10px;
+          color: white;
+          opacity: 0.5;
+        }
+
+        .slick-dots li.slick-active button:before {
+          color: #fff;
           opacity: 1;
         }
       `}</style>
