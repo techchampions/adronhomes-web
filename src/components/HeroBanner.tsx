@@ -1,5 +1,5 @@
 import SocialIcons from "./SocialIcons";
-import AutoCarousel from "./HomeCarousel";
+import { AutoCarousel, MobileAutoCarousel } from "./HomeCarousel";
 
 const HeroBanner = ({ data, settings }) => {
   console.log("HeroBanner data", settings.social_link);
@@ -13,9 +13,17 @@ const HeroBanner = ({ data, settings }) => {
         />
 
         {/* Banner Content */}
-        <div className="aspect-[4/5] md:aspect-[16/9] overflow-hidden relative">
+        <div className="aspect-[4/5] md:aspect-[16/9] overflow-hidden relative hidden md:block">
           <AutoCarousel slides={data} />
         </div>
+        <div className="block md:hidden">
+          <MobileAutoCarousel slides={data} />
+        </div>
+        {/* {window.innerWidth >= 765 ? (
+          <AutoCarousel slides={data} />
+        ) : (
+          <MobileAutoCarousel slides={data} />
+        )} */}
       </div>
       <div className="flex-1">
         {/* Company Stats */}
@@ -31,7 +39,7 @@ const HeroBanner = ({ data, settings }) => {
       `}
                 >
                   <p className="text-xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
-                    {stat.numeric}
+                    {stat.value}
                   </p>
                   <p className="text-[11px] text-adron-gray-500 font-Gotham">
                     {stat.name}
