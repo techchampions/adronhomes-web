@@ -4,7 +4,7 @@ import AutoCarousel from "./HomeCarousel";
 const HeroBanner = ({ data, settings }) => {
   console.log("HeroBanner data", settings.social_link);
   return (
-    <div className="relative w-full px-4 sm:px-6 md:px-8 pb-8 pt-0 mx-auto">
+    <div className="relative w-full px-0 md:px-8 pb-8 pt-0 mx-auto">
       <div className="flex flex-col md:flex-row">
         {/* Social Icons - Mobile (Horizontal) */}
         <SocialIcons
