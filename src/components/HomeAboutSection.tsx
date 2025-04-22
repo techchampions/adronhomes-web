@@ -4,12 +4,13 @@ import Image from "next/image";
 const AboutUsSection = ({ data }) => {
   return (
     <section className="py-16 px-4 md:px-10 w-full mx-auto bg-white">
-      <div className="flex flex-col lg:flex-row gap-12 items-center">
+      <div className="flex flex-col lg:flex-row gap-12 items-center md:w-[80%] mx-auto">
         {/* Image Container */}
         <div className="w-full md:w-[45%]">
           <div className="relative w-full h-[250px] md:h-[350px] overflow-hidden">
             <Image
-              src="/images/home-about-us.png"
+              // src="/images/home-about-us.png"
+              src={data[0].image}
               alt="Modern skyscrapers viewed from below"
               fill
               className="object-cover rounded-2xl"
@@ -40,7 +41,7 @@ const AboutUsSection = ({ data }) => {
           </h2>
 
           {/* Description */}
-          <p className="text-gray-600 mb-8 text-xs leading-relaxed">
+          <p className="text-gray-600 mb-8 text-sm leading-relaxed">
             {data[0].description}
             {/* We are driven to keep our promise, expand our land bank, and provide{" "}
             <br />
@@ -53,7 +54,7 @@ const AboutUsSection = ({ data }) => {
             href={data[0].action_link}
             className="inline-block bg-adron-green text-white font-medium py-3 px-8 text-sm rounded-full transition-colors"
           >
-            About Us
+            Learn more
           </a>
         </div>
       </div>

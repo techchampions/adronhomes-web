@@ -7,11 +7,12 @@ import { useJobListPage } from "@/data/hooks";
 import Loader from "./Loader";
 import Button from "./Button";
 import JobsList from "./JobsList";
+import ApiErrorBlock from "./ApiErrorBlock";
 
 const JobsPageGroup = () => {
   const { data, isLoading, isError } = useJobListPage();
   if (isLoading) return <Loader />;
-  if (isError) return <div>Error loading data</div>;
+  if (isError) return <ApiErrorBlock />;
   return (
     <div className="flex flex-col items-center justify-center w-full px-8">
       <div className="flex flex-col justify-center mx-auto text-center space-y-2 py-20">

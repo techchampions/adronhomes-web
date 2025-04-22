@@ -19,43 +19,11 @@ const PropertyLocations = ({ data }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const sliderRef = useRef<Slider>(null);
 
-  const locations2: Location[] = [
-    {
-      id: 1,
-      name: "Abuja",
-      properties: 7,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 2,
-      name: "Lagos",
-      properties: 12,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 3,
-      name: "Ibadan",
-      properties: 5,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 4,
-      name: "Port Harcourt",
-      properties: 8,
-      image: "/images/tressure-park-phase2.png",
-    },
-    {
-      id: 5,
-      name: "Enugu",
-      properties: 4,
-      image: "/images/tressure-park-phase2.png",
-    },
-  ];
   const locations = data.locationProperty;
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 4.3,
+    slidesToShow: 3,
     centerMode: true,
     centerPadding: "0px",
     focusOnSelect: true,
@@ -66,7 +34,7 @@ const PropertyLocations = ({ data }) => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 1,
-          centerPadding: "40px",
+          centerPadding: "0px",
         },
       },
     ],
@@ -77,14 +45,6 @@ const PropertyLocations = ({ data }) => {
 
   return (
     <section className="py-16 relative overflow-hidden">
-      {/* <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "/property-loaction-bg.png",
-          // backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-        }}
-      /> */}
       <Image
         src="/property-location-bg.png"
         alt="bg"
@@ -102,7 +62,7 @@ const PropertyLocations = ({ data }) => {
           </div>
         </div>
 
-        <h2 className="text-3xl md:text-5xl font-bold text-center text-adron-black mb-16">
+        <h2 className="text-3xl md:text-5xl font-bold text-center text-adron-black mb-4">
           {/* Explore Our Property Locations */}
           {data.locationText[0].header}
         </h2>
@@ -113,7 +73,7 @@ const PropertyLocations = ({ data }) => {
             {...settings}
             className="property-slider flex items-end"
           >
-            {locations.map((location, index) => (
+            {/* {locations.map((location, index) => (
               <div key={location.id} className="px-2">
                 <div
                   className={`relative overflow-hidden rounded-3xl transition-all duration-500 ${
@@ -121,6 +81,32 @@ const PropertyLocations = ({ data }) => {
                       ? "w-full h-70 scale-100 brightness-100 grayscale-0 "
                       : "w-full h-70 scale-60 brightness-75 grayscale"
                   }`}
+                >
+                  <Image
+                    src={location.photo}
+                    alt={location.name}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+            ))} */}
+            {locations.map((location, index) => (
+              <div
+                key={location.id}
+                className="px-2 h-[450px] md:h-[420px] flex items-end"
+              >
+                <div
+                  className={`relative overflow-hidden rounded-3xl transition-all duration-500 w-full ${
+                    index === activeSlide
+                      ? "scale-100 brightness-100 grayscale-0 self-center"
+                      : "scale-75 brightness-75 grayscale self-end"
+                  }`}
+                  style={{
+                    height: index === activeSlide ? "100%" : "80%",
+                    // marginTop: "70px",
+                  }}
                 >
                   <Image
                     src={location.photo}
@@ -147,11 +133,11 @@ const PropertyLocations = ({ data }) => {
 
           <div className="bg-white/40 rounded-3xl space-y-2 py-3 px-10 text-center min-w-48">
             <h4 className="text-2xl font-bold text-gray-800">
-              {locations[activeSlide]?.name}
+              {locations[activeSlide]?.state_name}
             </h4>
             <p className="text-gray-600 flex items-center text-center w-full justify-center text-xs mx-auto">
               <span className="w-3 h-3 p-3 mr-2 flex justify-center items-center rounded-full bg-white">
-                {locations[activeSlide]?.properties}
+                {locations[activeSlide]?.total_property}
               </span>
               Properties
             </p>
@@ -168,7 +154,7 @@ const PropertyLocations = ({ data }) => {
       </div>
 
       {/* Custom Slide Styling */}
-      <style jsx global>{`
+      {/* <style jsx global>{`
         .property-slider .slick-track {
           display: flex;
           align-items: center;
@@ -182,6 +168,20 @@ const PropertyLocations = ({ data }) => {
         }
         .property-slider .slick-center {
           z-index: 10;
+        }
+      `}</style> */}
+      <style jsx global>{`
+        .property-slider .slick-track {
+          display: flex;
+          align-items: flex-end;
+        }
+        .slick-slide div {
+          width: 100%;
+        }
+        .property-slider .slick-slide {
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
         }
       `}</style>
     </section>
