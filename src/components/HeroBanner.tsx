@@ -27,14 +27,14 @@ const HeroBanner = ({ data, settings }) => {
       </div>
       <div className="flex-1">
         {/* Company Stats */}
-        <div className="mb-6 md:mb-6 md:mt-6 w-full md:w-[75%] mx-auto">
+        <div className="mb-0 -mt-4 md:mb-6 md:mt-6 w-full md:w-[75%] mx-auto">
           <div className="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 text-center">
             {settings.digital_count
               // .filter((_, index) => index < 3 || typeof window === "undefined") // fallback for SSR
               .map((stat, index) => (
                 <div
                   key={index}
-                  className={`flex flex-col items-center p-2 md:p-0 gap-1 md:gap-6
+                  className={`flex flex-col items-center md:p-0 gap-1 md:gap-6
         ${index >= 3 ? "hidden md:flex" : ""}
       `}
                 >
