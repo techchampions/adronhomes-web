@@ -1,12 +1,54 @@
 // components/Footer.tsx
 
 import Image from "next/image";
+import {
+  FaEnvelope,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaTiktok,
+  FaTwitter,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { LuPhone } from "react-icons/lu";
 
 export default function Footer() {
+  const socialLinks = [
+    { name: "Facebook", value: "https://www.facebook.com/adronhomes" },
+    { name: "Instagram", value: "https://www.instagram.com/adronhomes" },
+    { name: "X", value: "https://twitter.com/adronhomes" },
+    { name: "Tiktok", value: "https://www.tiktok.com/@adronhomes" },
+    { name: "Whatsapp", value: "+2348051011951" },
+    {
+      name: "Linkedin",
+      value:
+        "https://www.linkedin.com/company/adron-homes-and-properties-limited/",
+    },
+  ];
+  const platformIcons: Record<string, JSX.Element> = {
+    Facebook: <FaFacebook size={20} className="text-white" />,
+    Instagram: <FaInstagram size={20} className="text-white" />,
+    X: <FaTwitter size={20} className="text-white" />,
+    Tiktok: <FaTiktok size={20} className="text-white" />,
+    Whatsapp: <FaWhatsapp size={20} className="text-white" />,
+    Linkedin: <FaLinkedin size={20} className="text-white" />,
+    Location: <FaMapMarkerAlt size={20} className="text-white" />,
+    Email: <FaEnvelope size={20} className="text-white" />,
+    "Phone Number": <FaPhone size={20} className="text-white" />,
+  };
+  const buildHref = (name: string, value: string) => {
+    if (name === "Whatsapp") return `https://wa.me/${value.replace(/\D/g, "")}`;
+    if (name === "Email") return `mailto:${value}`;
+    if (name === "Phone Number") return `tel:${value}`;
+    if (name === "Location" || name === "Address") return "#";
+    return value.startsWith("http") ? value : `https://${value}`;
+  };
+
   return (
-    <footer className="bg-white text-black py-10 px-4 md:px-20 relative bottom-0 left-0">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 text-sm">
+    <footer className="bg-white text-black pt-10  relative bottom-0 left-0">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 text-sm px-4 md:px-10">
         {/* LOGO + ADDRESS */}
         <div className="space-y-4">
           <Image
@@ -16,10 +58,10 @@ export default function Footer() {
             height={50}
             className="object-contain"
           />
-          <p className="text-gray-400">
+          <p className="">
             75, Adron Court, Adeyemo Akapo, Omole Phase 1, Lagos
           </p>
-          <div className="space-y-1 text-[#636363] font-medium">
+          <div className="space-y-1 text-adron-black font-medium">
             <h4 className="font-bold text-black">FOR ENQUIRIES</h4>
             <div className="flex items-center gap-2">
               <LuPhone />
@@ -36,10 +78,11 @@ export default function Footer() {
         {/* PRODUCT */}
         <div className="grid grid-cols-2 gap-10 col-span-2">
           <div>
-            <h4 className="font-bold mb-3 text-black">PRODUCT</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>Corporate Social Responsibility</li>
-              <li>Estates</li>
+            <h4 className="font-bold mb-3 text-black">QUICK ACTIONS</h4>
+            <ul className="space-y-2">
+              <li>Client Login</li>
+              <li>Buy Properties</li>
+              <li>Estates Locations</li>
               <li>Home Listings</li>
               <li>Testimonials</li>
             </ul>
@@ -48,10 +91,11 @@ export default function Footer() {
           {/* COMPANY */}
           <div>
             <h4 className="font-bold mb-3 text-black">COMPANY</h4>
-            <ul className="space-y-2 text-gray-400">
+            <ul className="space-y-2 ">
               <li>About Us</li>
               <li>Client Partnership</li>
-              <li>Contact Us</li>
+              <li>Our Team</li>
+              <li>Careers</li>
             </ul>
           </div>
         </div>
@@ -59,16 +103,17 @@ export default function Footer() {
         {/* HELP & RESOURCES */}
         <div>
           <h4 className="font-bold mb-3 text-black">HELP & RESOURCES</h4>
-          <ul className="space-y-2 text-gray-400">
+          <ul className="space-y-2">
             <li>FAQ</li>
             <li>Terms & Conditions</li>
             <li>Privacy Policy</li>
             <li>Blog</li>
+            <li>Corporate Social responsibilities</li>
           </ul>
         </div>
 
         {/* NEWSLETTER */}
-        <div className="hidden md:block">
+        {/* <div className="hidden md:block">
           <h4 className="font-bold mb-3 text-black">JOIN OUR NEWSLETTER</h4>
           <p className="text-gray-400 mb-4">
             Be the first to access valuable insights, updates on our policies.
@@ -83,12 +128,30 @@ export default function Footer() {
               SUBSCRIBE
             </button>
           </div>
+        </div> */}
+        <div className="hidden md:block">
+          <h4 className="font-bold mb-3 text-black">CLIENT SERVICES</h4>
+          <p className=" mb-4">Adron Experience Center</p>
+          <p>+2348051011951, +2349058590357, +2349058590356</p>
         </div>
       </div>
 
       {/* COPYRIGHT */}
-      <div className="text-center text-xs text-gray-500 mt-10 md:mt-32">
-        © {new Date().getFullYear()} Adron Homes - All rights reserved
+      <div className="text-center bg-adron-green text-xs text-white mt-10 md:mt-20 p-10 flex justify-between items-center">
+        <p>© {new Date().getFullYear()} Adron Homes - All rights reserved</p>
+        <div className="flex justify-center gap-6">
+          {socialLinks.map((link, index) => (
+            <a
+              key={index}
+              href={buildHref(link.name, link.value)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              {platformIcons[link.name]}
+            </a>
+          ))}
+        </div>
       </div>
     </footer>
   );
