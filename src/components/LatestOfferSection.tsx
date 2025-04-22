@@ -9,10 +9,12 @@ export default function LatestOfferSection({ data }) {
       {/* Background image */}
       <div className="w-full h-[450px] md:h-[600px]">
         <Image
-          src="/treasure-park-bg.png"
+          // src="/treasure-park-bg.png"
+          src={data[0].image}
           alt="Treasure park"
-          width={800}
-          height={461}
+          fill
+          // width={800}
+          // height={461}
           className="w-full object-cover"
           priority
         />
@@ -35,7 +37,7 @@ export default function LatestOfferSection({ data }) {
             {data[0].name}
             {/* Latest Offers */}
           </div>
-          <h2 className="text-white text-4xl md:text-6xl w-[700px] mb-2 font-bold">
+          <h2 className="text-white text-4xl md:text-6xl w-[80%] mb-2 font-bold">
             {data[0].header}
             {/* Treasure Parks and <br /> Gardens */}
           </h2>
