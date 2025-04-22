@@ -11,6 +11,7 @@ import { FaHome } from "react-icons/fa";
 interface PropertyProps {
   image: string;
   title: string;
+  price: number;
   location: string;
   squareFeet: string;
   hasLights: boolean;
@@ -21,6 +22,7 @@ interface PropertyProps {
 const PropertyCard = ({
   image,
   title,
+  price,
   location,
   squareFeet,
   hasLights,
@@ -74,12 +76,15 @@ const PropertyCard = ({
               </div>
             )}
           </div>
-          <Link
-            href="#"
-            className="inline-block mt-4 px-6 py-2 bg-[#79B833] text-white rounded-full text-sm hover:bg-green-600 transition-colors"
-          >
-            View Details
-          </Link>
+          <div className="flex justify-between w-full mt-6 items-center">
+            <Link
+              href="#"
+              className="inline-block px-6 py-2 bg-[#79B833] text-white rounded-full text-sm hover:bg-green-600 transition-colors"
+            >
+              View Details
+            </Link>
+            <div className="text 4xl font-bold">₦{price} </div>
+          </div>
         </div>
       </div>
     </div>
@@ -91,76 +96,14 @@ interface Property extends PropertyProps {
 }
 
 const FeaturedProperties = ({ data }) => {
-  const properties1: Property[] = [
-    {
-      id: 1,
-      image: "/images/tresure-park-3.png",
-      title: "Treasure Park and Gardens phase 3",
-      location: "Shimawa Ogun State, Nigeria",
-      squareFeet: "648",
-      hasLights: true,
-      hasGym: true,
-      isLand: true,
-    },
-    {
-      id: 2,
-      image: "/images/treasure-park-homes.png",
-      title: "Treasure Park and Gardens",
-      location: "Shimawa Ogun State, Nigeria",
-      squareFeet: "648",
-      hasLights: true,
-      hasGym: true,
-      isLand: true,
-    },
-    {
-      id: 3,
-      image: "/images/glass-house.png",
-      title: "Glass House Estate",
-      location: "Shimawa Ogun State, Nigeria",
-      squareFeet: "648",
-      hasLights: true,
-      hasGym: true,
-      isLand: true,
-    },
-    {
-      id: 4,
-      image: "/images/rehobot-park.png",
-      title: "Rehoboth Park Gardens",
-      location: "Ibeju, Ibeju Lekki, Nigeria",
-      squareFeet: "648",
-      hasLights: true,
-      hasGym: true,
-      isLand: true,
-    },
-    {
-      id: 5,
-      image: "/images/treasure-park-city-of-david.png",
-      title: "Treasure Park and Gardens Phase 2 Extension",
-      location: "Shimawa Ogun State, Nigeria",
-      squareFeet: "648",
-      hasLights: true,
-      hasGym: true,
-      isLand: true,
-    },
-    {
-      id: 6,
-      image: "/images/tressure-park-phase2.png",
-      title: "Treasure Park and Gardens Phase 2",
-      location: "Shimawa Ogun State, Nigeria",
-      squareFeet: "648",
-      hasLights: true,
-      hasGym: true,
-      isLand: true,
-    },
-  ];
   const properties = data.handpackProperty;
   const address = `${properties[0].street_address}, ${properties[0].lga}, ${properties[0].state} ${properties[0].country}`;
 
   return (
     <section className="py-16 bg-gray-50">
-      <div className="max-w-8xl mx-auto px-8">
-        <div className="mb-12 ml-4 sm:ml-50">
-          <div className="flex items-center text-sm w-fit px-4 py-2 text-black bg-white rounded-full mb-3 space-x-1">
+      <div className="max-w-[1240px] mx-auto px-8 md:px-0">
+        <div className="text-center flex flex-col justify-center">
+          <div className="flex items-center text-sm w-fit mx-auto px-4 py-2 text-black bg-white rounded-full mb-3 space-x-1">
             <FaHome className="text-base" />
             {/* <span>Handpick Specifically for You</span> */}
             <span>{data.handpackText[0].header}</span>
@@ -180,6 +123,7 @@ const FeaturedProperties = ({ data }) => {
               key={property.id}
               image={property.display_image}
               title={property.name}
+              price={property.price}
               location={address}
               squareFeet={property.size}
               hasLights={property.hasLights}

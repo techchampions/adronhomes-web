@@ -37,7 +37,7 @@ export default function Navbar() {
         scrolled ? "bg-white shadow" : "bg-transparent"
       }`}
     >
-      <nav className="w-full px-4 md:px-0 md:max-w-[1125px] xl:max-w-[1240px] mx-auto flex justify-between items-center pt-4 pb-1">
+      <nav className="w-full px-4 md:px-0 md:max-w-[1240px] mx-auto flex justify-between items-center pt-4 pb-1">
         <div className="flex items-center space-x-2">
           <Image
             src="/logo.svg"
