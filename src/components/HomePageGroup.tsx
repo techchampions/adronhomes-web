@@ -9,6 +9,7 @@ import FeaturedProperties from "./FeaturedProperties";
 import PropertyLocations from "./PropertyLocation";
 import TestimonialsSection from "./TestimonialSection";
 import ApiErrorBlock from "./ApiErrorBlock";
+import PropertyLocations2 from "./NewPropertyLocation";
 
 export default function HomePageGroup() {
   const { data, isLoading, isError } = useHomepage();
@@ -32,6 +33,7 @@ export default function HomePageGroup() {
       <AboutUsSection data={data?.data.about_us} />
       <FeaturedProperties data={data?.data.featured_properties} />
       <PropertyLocations data={data?.data.locations} />
+      {/* <PropertyLocations2 data={data?.data.locations} /> */}
       <TestimonialsSection data={data?.data.testimonials} />
     </div>
   );

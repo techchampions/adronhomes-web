@@ -20,7 +20,7 @@ interface Location {
 const PropertyLocations2 = ({ data }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    align: "center",
+    align: "center", // centers the active slide
   });
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -69,7 +69,8 @@ const PropertyLocations2 = ({ data }) => {
             {locations.map((location, index) => (
               <div
                 key={location.id}
-                className="relative flex-[0_0_80%] md:flex-[0_0_30%] px-2 h-[350px] md:h-[420px] flex items-end transition-transform duration-300"
+                className="px-2 h-[350px] md:h-[420px] flex items-end
+                  flex-[0_0_80%] sm:flex-[0_0_50%] md:flex-[0_0_20%]"
               >
                 <div
                   className={`relative w-full rounded-3xl overflow-hidden transition-all duration-500 ${

@@ -1,9 +1,10 @@
+import Image from "next/image";
 import React from "react";
 
 const ApiErrorBlock: React.FC = () => {
   return (
     <div className="flex items-center justify-center w-[30em] h-[30em] mx-auto">
-      <div className="flex flex-col items-center justify-center mt-20">
+      {/* <div className="flex flex-col items-center justify-center mt-20">
         <div className="relative w-[5em] h-[5em] rounded-full border-2 border-black bg-[#f27405] mb-[-6em]">
           <div className="absolute bg-transparent w-[50px] h-[56px] ml-[1.68em] rounded-[45%] rotate-[140deg] border-4 border-transparent shadow-inner inset-[0px_16px_#a85103,_0px_16px_1px_1px_#a85103]" />
           <div className="absolute top-[-9.4em] left-[0.4em] rotate-[-25deg] w-[1em] h-[0.5em] rounded-full bg-[#f69e50]" />
@@ -64,7 +65,8 @@ const ApiErrorBlock: React.FC = () => {
           <div className="w-[2em] h-[1em] border-2 border-[#171717] bg-[#4d4d4d] mt-[-0.15em]" />
           <div className="absolute w-[17.5em] h-[0.15em] bg-[#171717] mt-[0.8em]" />
         </div>
-      </div>
+      </div> */}
+      <Image src="/500.svg" alt="error" fill className="" />
     </div>
   );
 };

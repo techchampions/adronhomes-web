@@ -19,50 +19,6 @@ const TestimonialsSection = ({ data }) => {
   const [activeSlide, setActiveSlide] = useState(3);
 
   const testimonials: Testimonial[] = data.clientsFeedback;
-  // const testimonials: Testimonial[] = [
-  //   {
-  //     id: 1,
-  //     name: "John Smith",
-  //     image: "/images/testimonial-image.png",
-  //     text: "The entire process was smooth from start to finish. I'm extremely satisfied with my investment and would definitely work with Adron Homes again.",
-  //     country: "Nigeria",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Sarah Johnson",
-  //     image: "/images/testimonial-image.png",
-  //     text: "I was hesitant at first, but the team at Adron Homes made everything clear and straightforward. My family now has our dream property thanks to them.",
-  //     country: "Nigeria",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Michael Brown",
-  //     image: "/images/testimonial-image.png",
-  //     text: "The payment plans were flexible enough to accommodate my budget. The customer service was exceptional throughout my journey.",
-  //     country: "Nigeria",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Gafar Olalekan",
-  //     image: "/images/testimonial-image.png",
-  //     text: "Buying land with Adron Homes was seamless and stress-free. Their team provided clear guidance, flexible payment options, and excellent service. The process was transparent, and I received my property as promised. Highly recommend for anyone seeking reliable real estate investment!",
-  //     country: "Nigeria",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Daniel Harris",
-  //     image: "/images/testimonial-image.png",
-  //     text: "What impressed me the most was how Adron Homes handled all the documentation and legal aspects. It saved me a lot of time and worry.",
-  //     country: "Nigeria",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Christopher Wilson",
-  //     image: "/images/testimonial-image.png",
-  //     text: "The location options they provided were excellent. I found exactly what I was looking for in terms of both price and accessibility.",
-  //     country: "Nigeria",
-  //   },
-  // ];
 
   const sliderRef = useRef<Slider>(null);
 
@@ -165,21 +121,38 @@ const TestimonialsSection = ({ data }) => {
             className="testimonial-avatar-slider w-full md:w-[80%] mx-auto"
           >
             {testimonials.map((testimonial, index) => (
-              <div key={testimonial.id} className=" outline-none">
+              // <div key={testimonial.id} className=" outline-none h-14 w-14">
+              //   <div
+              //     className={`relative w-14 h-14 mx-auto rounded-full overflow-hidden transition-all duration-300 cursor-pointer
+              //       ${
+              //         index === activeSlide
+              //           ? "ring-3 ring-green-500 scale-100"
+              //           : "grayscale-75 scale-90 ring-1 ring-white"
+              //       }`}
+              //   >
+              //     <Image
+              //       src={testimonial.client_image}
+              //       alt={testimonial.client_name}
+              //       fill
+              //       className="object-cover"
+              //       // sizes="(max-width: 640px) 60px, 80px"
+              //     />
+              //   </div>
+              // </div>
+              <div key={testimonial.id} className="outline-none px-2">
                 <div
-                  className={`relative w-14 h-14 mx-auto rounded-full overflow-hidden transition-all duration-300 cursor-pointer
-                    ${
-                      index === activeSlide
-                        ? "ring-3 ring-green-500 scale-100"
-                        : "grayscale-75 scale-90 ring-1 ring-white"
-                    }`}
+                  className={`relative !w-20 h-20 rounded-full overflow-hidden mx-auto transition-all duration-300 cursor-pointer ${
+                    index === activeSlide
+                      ? "ring-4 ring-green-500 scale-100"
+                      : "grayscale scale-90 ring-1 ring-white"
+                  }`}
                 >
                   <Image
                     src={testimonial.client_image}
                     alt={testimonial.client_name}
                     fill
                     className="object-cover"
-                    // sizes="(max-width: 640px) 60px, 80px"
+                    sizes="(max-width: 768px) 64px, 80px"
                   />
                 </div>
               </div>

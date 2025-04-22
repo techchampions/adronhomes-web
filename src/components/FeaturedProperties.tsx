@@ -35,12 +35,12 @@ const PropertyCard = ({
     currency: "NGN",
   }).format(price);
   return (
-    <div className="w-full max-w-[472px] space-y-6 mx-auto">
-      <div className="relative w-full h-[300px] md:h-[350px] rounded-[30px] overflow-hidden">
+    <div className="w-full max-w-[472px] mx-auto rounded-[30px] overflow-hidden">
+      <div className="relative w-full h-[300px] md:h-[350px] overflow-hidden">
         <Image src={image} alt={title} fill className="object-cover" />
       </div>
 
-      <div className="w-full bg-white rounded-[30px] p-6 space-y-5 flex flex-col h-auto">
+      <div className="w-full bg-white p-6 space-y-5 flex flex-col h-auto">
         <div className="flex-grow space-y-4">
           <h4 className="text-lg font-semibold text-gray-800 line-clamp-2">
             {title}
@@ -106,7 +106,7 @@ const FeaturedProperties = ({ data }) => {
 
   return (
     <section className="py-16 bg-gray-50">
-      <div className="max-w-[1240px] mx-auto px-8 md:px-0">
+      <div className="max-w-[1240px] mx-auto px-[1rem] md:px-0">
         <div className="text-center flex flex-col justify-center">
           <div className="flex items-center text-sm w-fit mx-auto px-4 py-2 text-black bg-white rounded-full mb-3 space-x-1">
             <FaHome className="text-base" />
