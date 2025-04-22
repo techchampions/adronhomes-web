@@ -54,7 +54,7 @@ const AboutUsSection = ({ data }) => {
             href={data[0].action_link}
             className="inline-block bg-adron-green text-white font-medium py-3 px-8 text-sm rounded-full transition-colors"
           >
-            About Us
+            Learn more
           </a>
         </div>
       </div>
