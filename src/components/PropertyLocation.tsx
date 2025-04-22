@@ -23,7 +23,7 @@ const PropertyLocations = ({ data }) => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 4.3,
+    slidesToShow: 3,
     centerMode: true,
     centerPadding: "0px",
     focusOnSelect: true,
@@ -103,7 +103,10 @@ const PropertyLocations = ({ data }) => {
                       ? "scale-100 brightness-100 grayscale-0 self-center"
                       : "scale-75 brightness-75 grayscale self-end"
                   }`}
-                  style={{ height: index === activeSlide ? "100%" : "80%" }}
+                  style={{
+                    height: index === activeSlide ? "100%" : "80%",
+                    marginTop: "70px",
+                  }}
                 >
                   <Image
                     src={location.photo}
@@ -171,6 +174,9 @@ const PropertyLocations = ({ data }) => {
         .property-slider .slick-track {
           display: flex;
           align-items: flex-end;
+        }
+        .slick-slide div {
+          width: 100%;
         }
         .property-slider .slick-slide {
           display: flex;
