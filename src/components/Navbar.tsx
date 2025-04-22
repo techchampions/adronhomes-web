@@ -393,7 +393,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
 
   useEffect(() => {
     const handleScroll = () => {
@@ -403,20 +402,25 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About us", href: "/about-us" },
-    { name: "Virtual Tour", href: "/virtual-tour" },
-    { name: "Career", href: "/careers" },
-    { name: "Contact Us", href: "/contact" },
-  ];
-
   // Dropdown menu links
   const dropdownLinks = [
     { name: "Abuja", href: "/properties" },
     { name: "Lagos", href: "/properties" },
     { name: "Ogun", href: "/properties" },
+  ];
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    {
+      name: "Properties",
+      href: "/properties",
+      dropdown: true,
+      dropdownLinks: dropdownLinks,
+    },
+    { name: "About us", href: "/about-us" },
+    { name: "Virtual Tour", href: "/virtual-tour" },
+    { name: "Career", href: "/careers" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   return (
@@ -437,9 +441,12 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <ul className="hidden md:flex space-x-10 text-sm">
+        <ul className="hidden md:flex space-x-10 text-sm relative">
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li
+              key={link.href}
+              className={clsx("relative", link.dropdown && "group")}
+            >
               <Link
                 href={link.href}
                 className={`transition-colors duration-300 ${
@@ -450,36 +457,26 @@ export default function Navbar() {
               >
                 {link.name}
               </Link>
+
+              {/* Dropdown on hover */}
+              {link.dropdown && (
+                <div className="absolute top-full left-0 mt-2 w-40 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 pointer-events-auto">
+                  <ul className="py-2">
+                    {link.dropdownLinks?.map((drop) => (
+                      <li key={drop.name}>
+                        <Link
+                          href={drop.href}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          {drop.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </li>
           ))}
-
-          {/* Dropdown Link */}
-          <li className="relative group">
-            <button
-              className={`transition-colors duration-300 ${
-                dropdownOpen
-                  ? "text-adron-green font-semibold"
-                  : "text-adron-black hover:text-adron-green"
-              }`}
-              onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown
-            >
-              Properties
-            </button>
-
-            {/* Dropdown menu */}
-            <ul className="absolute left-0 hidden group-hover:block mt-2 w-48 bg-white shadow-lg rounded-md">
-              {dropdownLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
         </ul>
 
         {/* Desktop Buttons */}
@@ -542,35 +539,6 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-
-            {/* Mobile Dropdown */}
-            <li>
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className={`block w-full text-left text-base ${
-                  dropdownOpen
-                    ? "text-adron-green font-semibold"
-                    : "text-gray-700 hover:text-adron-green"
-                }`}
-              >
-                Properties
-              </button>
-              {dropdownOpen && (
-                <ul className="pl-4 mt-2 space-y-2">
-                  {dropdownLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block text-sm text-gray-700 hover:text-adron-green"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
           </ul>
 
           {/* Socials and Buttons */}

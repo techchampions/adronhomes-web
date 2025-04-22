@@ -134,18 +134,20 @@ export default function Footer() {
             <h4 className="font-bold mb-3 text-black">CLIENT SERVICES</h4>
             <p className=" mb-4">Adron Experience Center</p>
             <p>+2348051011951, +2349058590357, +2349058590356</p>
-            <p className="text-wrap">clientservice@adronhomeproperties.com</p>
+            <p className="text-wrap break-words">
+              clientservice@adronhomeproperties.com
+            </p>
 
             <h4 className="font-bold mt-3 text-black">
               Online Complaints & Resolution:
             </h4>
-            <p>complaintresolution@adronhomes.com</p>
+            <p className="break-words">complaintresolution@adronhomes.com</p>
           </div>
         </div>
       </div>
 
       {/* COPYRIGHT */}
-      <div className="text-center bg-adron-green text-xs text-white mt-10 md:mt-20 px-32 md:px-10 py-4 flex flex-col md:flex-row justify-between gap-4 items-center">
+      <div className="text-center bg-adron-green text-xs text-white mt-10 md:mt-20 px-0 md:px-32 py-4 flex flex-col md:flex-row justify-between gap-4 w-full md:items-center">
         <p>© {new Date().getFullYear()} Adron Homes - All rights reserved</p>
         <div className="flex justify-center gap-6">
           {socialLinks.map((link, index) => (
