@@ -29,6 +29,11 @@ const PropertyCard = ({
   hasGym,
   isLand,
 }: PropertyProps) => {
+  // Format the price using Intl.NumberFormat
+  const formattedPrice = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+  }).format(price);
   return (
     <div className="w-full max-w-[472px] space-y-6 mx-auto">
       <div className="relative w-full h-[300px] md:h-[350px] rounded-[30px] overflow-hidden">
@@ -83,7 +88,7 @@ const PropertyCard = ({
             >
               View Details
             </Link>
-            <div className="text 4xl font-bold">₦{price} </div>
+            <div className="text 4xl font-bold">{formattedPrice} </div>
           </div>
         </div>
       </div>
@@ -109,7 +114,7 @@ const FeaturedProperties = ({ data }) => {
             <span>{data.handpackText[0].header}</span>
           </div>
 
-          <h2 className="text-3xl md:text-6xl font-bold">
+          <h2 className="text-3xl md:text-6xl -mt-3 md:-mt-4 font-bold mb-8 md:mb-10">
             {/* Discover Our <br />
             Featured Properties */}
             {data.handpackText[0].description}
@@ -117,7 +122,7 @@ const FeaturedProperties = ({ data }) => {
         </div>
 
         {/* Property Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-18 justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-18 justify-center">
           {properties.map((property) => (
             <PropertyCard
               key={property.id}
