@@ -101,19 +101,20 @@ export default function Footer() {
         </div>
 
         {/* HELP & RESOURCES */}
-        <div>
-          <h4 className="font-bold mb-3 text-black">HELP & RESOURCES</h4>
-          <ul className="space-y-2">
-            <li>FAQ</li>
-            <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
-            <li>Blog</li>
-            <li>Corporate Social responsibilities</li>
-          </ul>
-        </div>
+        <div className="grid grid-cols-2 gap-10 col-span-2">
+          <div>
+            <h4 className="font-bold mb-3 text-black">HELP & RESOURCES</h4>
+            <ul className="space-y-2">
+              <li>FAQ</li>
+              <li>Terms & Conditions</li>
+              <li>Privacy Policy</li>
+              <li>Blog</li>
+              <li>Corporate Social responsibilities</li>
+            </ul>
+          </div>
 
-        {/* NEWSLETTER */}
-        {/* <div className="hidden md:block">
+          {/* NEWSLETTER */}
+          {/* <div className="hidden md:block">
           <h4 className="font-bold mb-3 text-black">JOIN OUR NEWSLETTER</h4>
           <p className="text-gray-400 mb-4">
             Be the first to access valuable insights, updates on our policies.
@@ -129,21 +130,22 @@ export default function Footer() {
             </button>
           </div>
         </div> */}
-        <div className="hidden md:block">
-          <h4 className="font-bold mb-3 text-black">CLIENT SERVICES</h4>
-          <p className=" mb-4">Adron Experience Center</p>
-          <p>+2348051011951, +2349058590357, +2349058590356</p>
-          <p>clientservice@adronhomeproperties.com</p>
+          <div className="block">
+            <h4 className="font-bold mb-3 text-black">CLIENT SERVICES</h4>
+            <p className=" mb-4">Adron Experience Center</p>
+            <p>+2348051011951, +2349058590357, +2349058590356</p>
+            <p className="text-wrap">clientservice@adronhomeproperties.com</p>
 
-          <h4 className="font-bold mt-3 text-black">
-            Online Complaints & Resolution:
-          </h4>
-          <p>complaintresolution@adronhomes.com</p>
+            <h4 className="font-bold mt-3 text-black">
+              Online Complaints & Resolution:
+            </h4>
+            <p>complaintresolution@adronhomes.com</p>
+          </div>
         </div>
       </div>
 
       {/* COPYRIGHT */}
-      <div className="text-center bg-adron-green text-xs text-white mt-10 md:mt-20 px-32 md:px-10 py-4 flex justify-between items-center">
+      <div className="text-center bg-adron-green text-xs text-white mt-10 md:mt-20 px-32 md:px-10 py-4 flex flex-col md:flex-row justify-between gap-4 items-center">
         <p>© {new Date().getFullYear()} Adron Homes - All rights reserved</p>
         <div className="flex justify-center gap-6">
           {socialLinks.map((link, index) => (
