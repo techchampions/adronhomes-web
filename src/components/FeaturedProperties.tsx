@@ -7,6 +7,7 @@ import {
 } from "react-icons/hi";
 import { GiGymBag, GiStreetLight } from "react-icons/gi";
 import { FaHome } from "react-icons/fa";
+import { MdOutlinePower, MdPower } from "react-icons/md";
 
 interface PropertyProps {
   image: string;
@@ -14,26 +15,43 @@ interface PropertyProps {
   price: number;
   location: string;
   squareFeet: string;
-  hasLights: boolean;
-  hasGym: boolean;
-  isLand: boolean;
+  features: string[];
 }
 
+// const PropertyCard = ({
+//   image,
+//   title,
+//   price,
+//   location,
+//   squareFeet,
+//   hasLights,
+//   hasGym,
+//   isLand,
+// }: PropertyProps) => {
+//   // Format the price using Intl.NumberFormat
+//   const formattedPrice = new Intl.NumberFormat("en-NG", {
+//     style: "currency",
+//     currency: "NGN",
+//   }).format(price);
 const PropertyCard = ({
   image,
   title,
   price,
   location,
   squareFeet,
-  hasLights,
-  hasGym,
-  isLand,
+  features,
 }: PropertyProps) => {
-  // Format the price using Intl.NumberFormat
   const formattedPrice = new Intl.NumberFormat("en-NG", {
     style: "currency",
     currency: "NGN",
   }).format(price);
+
+  // const hasLights = features.includes("Street Lighting") || features.includes("Good Road Network");
+  // const hasGym = features.some((f) => f.toLowerCase().includes("gym"));
+  // const hasWater = features.some((f) => f.toLowerCase().includes("water"));
+  // const hasPool = features.some((f) => f.toLowerCase().includes("pool"));
+  // const isLand = true; // assume it's land unless you have a field saying otherwise
+
   return (
     <div className="w-full max-w-[472px] mx-auto rounded-[30px] overflow-hidden">
       <div className="relative w-full h-[300px] md:h-[350px] overflow-hidden">
@@ -49,14 +67,14 @@ const PropertyCard = ({
             <HiOutlineLocationMarker className="mr-2 flex-shrink-0" />
             <p className="truncate">{location}</p>
           </div>
-          <div className="flex items-center justify-between gap-4 text-xs text-gray-600">
+          <div className="flex items-center justify-between gap-4 text-[10px] text-gray-600">
             <div className="flex items-center gap-1">
               <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
 
               <span className="mr-1">{squareFeet}</span>
             </div>
 
-            {hasLights && (
+            {/* {!hasLights && (
               <div className="flex items-center">
                 <GiStreetLight className="h-4 w-4" />
                 <span>Str Lights</span>
@@ -79,7 +97,24 @@ const PropertyCard = ({
               <div className="flex items-center">
                 <span>Land</span>
               </div>
-            )}
+            )} */}
+            <div className="flex items-center">
+              <GiStreetLight className="h-4 w-4" />
+              <span>Str Lights</span>
+            </div>
+            <div className="flex items-center">
+              <MdOutlinePower className="h-4 w-4" />
+              <span>Electricity</span>
+            </div>
+            <div className="flex gap-1 items-center">
+              <Image
+                src="/dumbbell.svg"
+                width={16}
+                height={16}
+                alt="dumbbell"
+              />
+              <span>Gym</span>
+            </div>
           </div>
           <div className="flex justify-between w-full mt-6 items-center">
             <Link

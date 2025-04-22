@@ -34,7 +34,7 @@ const PropertyLocations = ({ data }) => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 1,
-          centerPadding: "40px",
+          centerPadding: "0px",
         },
       },
     ],
@@ -62,7 +62,7 @@ const PropertyLocations = ({ data }) => {
           </div>
         </div>
 
-        <h2 className="text-3xl md:text-5xl font-bold text-center text-adron-black mb-16">
+        <h2 className="text-3xl md:text-5xl font-bold text-center text-adron-black mb-4">
           {/* Explore Our Property Locations */}
           {data.locationText[0].header}
         </h2>
@@ -95,7 +95,7 @@ const PropertyLocations = ({ data }) => {
             {locations.map((location, index) => (
               <div
                 key={location.id}
-                className="px-2 h-[350px] md:h-[420px] flex items-end"
+                className="px-2 h-[450px] md:h-[420px] flex items-end"
               >
                 <div
                   className={`relative overflow-hidden rounded-3xl transition-all duration-500 w-full ${
@@ -105,7 +105,7 @@ const PropertyLocations = ({ data }) => {
                   }`}
                   style={{
                     height: index === activeSlide ? "100%" : "80%",
-                    marginTop: "70px",
+                    // marginTop: "70px",
                   }}
                 >
                   <Image
