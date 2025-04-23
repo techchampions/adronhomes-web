@@ -388,11 +388,16 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react"; // or use any icon you prefer
 import clsx from "clsx";
 import SocialIcons from "./SocialIcons";
+import { IoCaretDown } from "react-icons/io5";
+import { useGetAllPropertyLocations, useHomepage } from "@/data/hooks";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data } = useGetAllPropertyLocations();
+  const { data: homeData } = useHomepage();
+  const social_link = homeData?.data.settings.social_link;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -403,19 +408,19 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   // Dropdown menu links
-  const dropdownLinks = [
-    { name: "Abuja", href: "/properties" },
-    { name: "Lagos", href: "/properties" },
-    { name: "Ogun", href: "/properties" },
-  ];
-
+  const locations = data?.locations;
   const navLinks = [
     { name: "Home", href: "/" },
     {
       name: "Properties",
       href: "/properties",
       dropdown: true,
-      dropdownLinks: dropdownLinks,
+      // dropdownLinks: dropdownLinks,
+      dropdownLinks: locations?.map((location) => ({
+        name: location.state_name,
+        href: `/properties?location=${location.state_name}`,
+        total_properties: location.total_property,
+      })),
     },
     { name: "About us", href: "/about-us" },
     { name: "Virtual Tour", href: "/virtual-tour" },
@@ -453,9 +458,10 @@ export default function Navbar() {
                   pathname === link.href
                     ? "text-adron-green font-semibold"
                     : "text-adron-black hover:text-adron-green"
-                }`}
+                } ${link.dropdown ? "flex items-center" : ""}`}
               >
                 {link.name}
+                {link.dropdown && <IoCaretDown className="ml-1" />}
               </Link>
 
               {/* Dropdown on hover */}
@@ -466,9 +472,13 @@ export default function Navbar() {
                       <li key={drop.name}>
                         <Link
                           href={drop.href}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
                           {drop.name}
+                          <span className="bg-adron-green text-white rounded-full px-2 text-[10px]">
+                            {" "}
+                            {drop.total_properties}{" "}
+                          </span>
                         </Link>
                       </li>
                     ))}
@@ -542,7 +552,10 @@ export default function Navbar() {
           </ul>
 
           {/* Socials and Buttons */}
-          <SocialIcons social_link={[]} className="block md:hidden my-8" />
+          <SocialIcons
+            social_link={social_link}
+            className="block md:hidden my-8"
+          />
           <div className="mt-10 flex gap-4 text-gray-600 text-xl">
             <i className="ri-facebook-fill"></i>
             <i className="ri-twitter-fill"></i>

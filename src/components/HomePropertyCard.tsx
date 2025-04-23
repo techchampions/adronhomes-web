@@ -1,44 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  HiOutlineLocationMarker,
-  HiOutlineLightBulb,
-  HiOutlineHome,
-} from "react-icons/hi";
-import { GiGymBag, GiStreetLight } from "react-icons/gi";
-import { FaHome } from "react-icons/fa";
-import { MdOutlinePower, MdPower } from "react-icons/md";
-import HomePropertyList from "./HomePagePropertyList";
+import { useRouter } from "next/navigation";
+import { GiStreetLight } from "react-icons/gi";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { MdOutlinePower } from "react-icons/md";
+import Button from "./Button";
 
-interface PropertyProps {
-  image: string;
-  title: string;
-  price: number;
-  location: string;
-  squareFeet: string;
-  features: string[];
-}
-
-// const PropertyCard = ({
-//   image,
-//   title,
-//   price,
-//   location,
-//   squareFeet,
-//   hasLights,
-//   hasGym,
-//   isLand,
-// }: PropertyProps) => {
-//   // Format the price using Intl.NumberFormat
-//   const formattedPrice = new Intl.NumberFormat("en-NG", {
-//     style: "currency",
-//     currency: "NGN",
-//   }).format(price);
-const PropertyCard = ({
+const HomePropertyCard = ({
+  id,
   image,
   title,
   price,
-  location,
+  state,
+  lga,
+  country,
+  streetAddress,
   squareFeet,
   features,
 }: PropertyProps) => {
@@ -46,12 +22,19 @@ const PropertyCard = ({
     style: "currency",
     currency: "NGN",
   }).format(price);
+  const address = `${streetAddress}, ${lga}, ${state} ${country}`;
 
   // const hasLights = features.includes("Street Lighting") || features.includes("Good Road Network");
   // const hasGym = features.some((f) => f.toLowerCase().includes("gym"));
   // const hasWater = features.some((f) => f.toLowerCase().includes("water"));
   // const hasPool = features.some((f) => f.toLowerCase().includes("pool"));
   // const isLand = true; // assume it's land unless you have a field saying otherwise
+  const router = useRouter();
+  const handleViewProperty = () => {
+    router.push(
+      `/properties/${id}?title=${encodeURIComponent(title)}&price=${price}`
+    );
+  };
 
   return (
     <div className="w-full max-w-[472px] mx-auto rounded-[30px] overflow-hidden">
@@ -66,7 +49,7 @@ const PropertyCard = ({
           </h4>
           <div className="flex items-center text-gray-500 text-sm">
             <HiOutlineLocationMarker className="mr-2 flex-shrink-0" />
-            <p className="truncate">{location}</p>
+            <p className="truncate">{address}</p>
           </div>
           <div className="flex items-center justify-between gap-4 text-[10px] text-gray-600">
             <div className="flex items-center gap-1">
@@ -118,12 +101,17 @@ const PropertyCard = ({
             </div>
           </div>
           <div className="flex justify-between w-full mt-6 items-center">
-            <Link
+            <Button
+              onClick={handleViewProperty}
+              label="View Property"
+              className="bg-adron-green text-xs px-4 !w-fit"
+            />
+            {/* <Link
               href="#"
               className="inline-block px-6 py-2 bg-[#79B833] text-white rounded-full text-sm hover:bg-green-600 transition-colors"
             >
               View Details
-            </Link>
+            </Link> */}
             <div className="text 4xl font-bold">{formattedPrice} </div>
           </div>
         </div>
@@ -132,50 +120,4 @@ const PropertyCard = ({
   );
 };
 
-interface Property extends PropertyProps {
-  id: number;
-}
-
-const FeaturedProperties = ({ data }) => {
-  const properties = data.handpackProperty;
-
-  return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-[1240px] mx-auto px-[1rem] md:px-0">
-        <div className="text-center flex flex-col justify-center">
-          <div className="flex items-center text-sm w-fit mx-auto px-4 py-2 text-black bg-white rounded-full mb-3 space-x-1">
-            <FaHome className="text-base" />
-            {/* <span>Handpick Specifically for You</span> */}
-            <span>{data.handpackText[0].header}</span>
-          </div>
-
-          <h2 className="text-3xl md:text-6xl -mt-3 md:-mt-4 font-bold mb-8 md:mb-10">
-            {/* Discover Our <br />
-            Featured Properties */}
-            {data.handpackText[0].description}
-          </h2>
-        </div>
-
-        {/* Property Grid */}
-        <HomePropertyList properties={properties} />
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-18 justify-center">
-          {properties.map((property) => (
-            <PropertyCard
-              key={property.id}
-              image={property.display_image}
-              title={property.name}
-              price={property.price}
-              location={address}
-              squareFeet={property.size}
-              hasLights={property.hasLights}
-              hasGym={property.hasGym}
-              isLand={property.isLand}
-            />
-          ))}
-        </div> */}
-      </div>
-    </section>
-  );
-};
-
-export default FeaturedProperties;
+export default HomePropertyCard;

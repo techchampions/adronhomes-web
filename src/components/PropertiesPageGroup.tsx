@@ -3,17 +3,14 @@ import { usePropertiespage } from "@/data/hooks";
 import FilterBar from "./FilterBar";
 import SwiperPropertyList from "./SwiperPropertyList";
 import Loader from "./Loader";
+import ApiErrorBlock from "./ApiErrorBlock";
+import HomePropertyList from "./HomePagePropertyList";
 
 export default function PropertiesPageGroup() {
   const { data, isLoading, isError } = usePropertiespage();
 
   if (isLoading) return <Loader />;
-  if (isError)
-    return (
-      <div className="text-center text-red-500 p-10">
-        Failed to load About Page data.
-      </div>
-    );
+  if (isError) return <ApiErrorBlock />;
   if (!isError) {
     console.log("image", data);
   }
@@ -39,7 +36,8 @@ export default function PropertiesPageGroup() {
 
       <FilterBar />
       <div className="bg-white rounded-3xl px-4 md-px-10 py-6 md:py-10 w-full mx-auto">
-        <SwiperPropertyList properties={properties} />
+        {/* <SwiperPropertyList properties={properties} /> */}
+        <HomePropertyList properties={properties} />
       </div>
     </div>
   );

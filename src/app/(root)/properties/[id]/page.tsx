@@ -28,10 +28,15 @@ const PropertyImageSlider = () => {
   const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const images = data?.data.properties[0].photos;
 
+  const formattedPrice = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+  }).format(Number(price));
+
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
       onClick={onClick}
-      className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 bg-white bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 bg-white/60 bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
     >
       <svg
         className="w-5 h-5 text-gray-800"
@@ -48,7 +53,7 @@ const PropertyImageSlider = () => {
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
       onClick={onClick}
-      className="absolute top-1/2 left-2 transform -translate-y-1/2 z-10 bg-white bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
+      className="absolute top-1/2 left-2 transform -translate-y-1/2 z-10 bg-white/60 bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
     >
       <svg
         className="w-5 h-5 text-gray-800"
@@ -92,7 +97,7 @@ const PropertyImageSlider = () => {
         </div>
         <p className="text-4xl font-bold">
           {/* ₦56,000,000 */}
-          {price}
+          {formattedPrice}
         </p>
       </div>
       <div className="flex justify-between gap-10">
