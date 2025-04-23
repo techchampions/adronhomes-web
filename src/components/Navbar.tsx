@@ -552,10 +552,10 @@ export default function Navbar() {
           </ul>
 
           {/* Socials and Buttons */}
-          <SocialIcons
+          {/* <SocialIcons
             social_link={social_link}
             className="block md:hidden my-8"
-          />
+          /> */}
           <div className="mt-10 flex gap-4 text-gray-600 text-xl">
             <i className="ri-facebook-fill"></i>
             <i className="ri-twitter-fill"></i>
