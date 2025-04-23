@@ -21,8 +21,8 @@ export default function AboutPageGroup() {
   }
   return (
     <section className="w-full space-y-12">
-      <div className="text-left pt-8 md:pt-20 p-5 ml-[20px] md:ml-0 md:px-[160px] mx-auto md:pb-2 bg-adron-gray">
-        <h1 className="text-4xl hidden md:block md:text-6xl font-bold mb-2 w-full leading-0">
+      <div className="text-left pt-8 md:pt-20 p-5 md:ml-[20px]  md:px-[200px] md:mx-auto md:pb-2 bg-adron-gray">
+        <h1 className="text-4xl md:text-6xl font-bold mb-2 w-full leading-0">
           {/* Building Affordable Homes,
           <br /> Creating Endless Possibilities */}
           {data?.data.aboutUs[0].header}
@@ -35,7 +35,7 @@ export default function AboutPageGroup() {
         </p>
       </div>
 
-      <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-14 w-full space-y-32">
+      <div className="flex flex-col bg-white rounded-[45px] md:rounded-[90px] py-10 md:py-14 w-full space-y-10 md:space-y-32 md:px-18">
         <div className="flex flex-col md:flex-row gap-10 items-center justify-between px-4 md:px-18">
           <div className="h-[350px] w-full md:h-[430px] md:w-[500px] relative rounded-[50px] overflow-hidden">
             <Image
@@ -51,7 +51,7 @@ export default function AboutPageGroup() {
               {/* Our Mission */}
               {data?.data.mission[0].header}
             </h2>
-            <p className="text-gray-600 text-[13px]">
+            <p className="text-adron-black text-[14px]">
               {/* We are daily driven to keep our promise, increase our land bank,
               expand our client base offering excellent services and affordable
               housing products with a singular mission to exceed expectations.{" "} */}
@@ -66,7 +66,7 @@ export default function AboutPageGroup() {
               {/* Our Vision */}
               {data?.data.vision[0].header}
             </h2>
-            <p className="text-gray-600 text-[13px]">
+            <p className="text-adron-black text-[14px]">
               {data?.data.vision[0].description}
               {/* To be the leading PAN-AFRICAN Real Estate Development company that
               will provide the highest number of decent, accessible, comfortable
@@ -99,7 +99,7 @@ export default function AboutPageGroup() {
               {/* Core Values */}
               {data?.data.values[0].header}
             </h2>
-            <ul className="list-disc text-gray-600 space-y-1 text-xs leading-relaxed">
+            <ul className="list-disc text-adron-black space-y-1 text-xs leading-relaxed pl-3">
               {data?.data.values[0].list_description.map((list) => (
                 <li key={list}>
                   {list}
@@ -149,7 +149,7 @@ export default function AboutPageGroup() {
             {data?.data.leadershipText[0].header}
             {/* Our Leadership */}
           </h3>
-          <p className="text-xs text-gray-500 w-[360px] mx-auto">
+          <p className="text-xs text-adron-black w-[360px] mx-auto">
             {data?.data.leadershipText[0].description}
             {/* Our success is intrinsically linked to the excellent quality of our
             staff and management team. */}

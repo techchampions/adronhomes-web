@@ -16,8 +16,11 @@ import Button from "./Button";
 import { GoHomeFill } from "react-icons/go";
 import { TbLocationFilled } from "react-icons/tb";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 export default function FilterBar() {
+  const searchParams = useSearchParams();
+  const location = searchParams.get("location") || "";
   const [showModal, setShowModal] = useState(false);
   return (
     <Formik
@@ -35,27 +38,33 @@ export default function FilterBar() {
     >
       <>
         <Form className="hidden md:block">
-          <div className="bg-white px-8 py-6 rounded-3xl mb-8 md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <div className="flex flex-col justify-between gap-4">
-              <label
-                htmlFor="location"
-                className="flex font-bold gap-2 items-center"
-              >
-                <TbLocationFilled /> Location
-              </label>
-              <SelectField
-                name="location"
-                placeholder="What are you looking?"
-                options={["Bungalow", "Duplex", "Flat", "Land"]}
-              />
+          <div
+            className={`bg-white px-8 py-6 rounded-3xl mb-8 md:grid grid-cols-2 sm:grid-cols-3 ${
+              !location ? `md:grid-cols-5` : `md:grid-cols-4`
+            } gap-4`}
+          >
+            {!location && (
+              <div className="flex flex-col justify-between gap-4">
+                <label
+                  htmlFor="location"
+                  className="flex font-bold gap-2 items-center"
+                >
+                  <TbLocationFilled /> Location
+                </label>
+                <SelectField
+                  name="location"
+                  placeholder="What are you looking?"
+                  options={["Bungalow", "Duplex", "Flat", "Land"]}
+                />
 
-              {/* <InputField
+                {/* <InputField
                 className="py-2.5"
                 placeholder="What are you looking?"
                 type="text"
                 name="location"
-              /> */}
-            </div>
+                /> */}
+              </div>
+            )}
             <div className="flex flex-col justify-between gap-4">
               <label
                 htmlFor="location"
