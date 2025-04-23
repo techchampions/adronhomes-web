@@ -397,7 +397,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data } = useGetAllPropertyLocations();
   const { data: homeData } = useHomepage();
-  const social_link = homeData?.data.settings.social_link;
+  const social_links = homeData?.data.settings.social_link || [];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -552,10 +552,10 @@ export default function Navbar() {
           </ul>
 
           {/* Socials and Buttons */}
-          {/* <SocialIcons
-            social_link={social_link}
+          <SocialIcons
+            social_link={social_links}
             className="block md:hidden my-8"
-          /> */}
+          />
           <div className="mt-10 flex gap-4 text-gray-600 text-xl">
             <i className="ri-facebook-fill"></i>
             <i className="ri-twitter-fill"></i>
