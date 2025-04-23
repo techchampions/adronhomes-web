@@ -3,7 +3,7 @@ import React from "react";
 
 const ApiErrorBlock: React.FC = () => {
   return (
-    <div className="flex items-center justify-center w-[30em] h-[30em] mx-auto">
+    <div className="flex items-center justify-center w-[300px] h-[80vh] mx-auto bg-red relative">
       {/* <div className="flex flex-col items-center justify-center mt-20">
         <div className="relative w-[5em] h-[5em] rounded-full border-2 border-black bg-[#f27405] mb-[-6em]">
           <div className="absolute bg-transparent w-[50px] h-[56px] ml-[1.68em] rounded-[45%] rotate-[140deg] border-4 border-transparent shadow-inner inset-[0px_16px_#a85103,_0px_16px_1px_1px_#a85103]" />

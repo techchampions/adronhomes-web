@@ -28,10 +28,15 @@ const PropertyImageSlider = () => {
   const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const images = data?.data.properties[0].photos;
 
+  const formattedPrice = new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+  }).format(Number(price));
+
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
       onClick={onClick}
-      className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 bg-white bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 bg-white/60 bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
     >
       <svg
         className="w-5 h-5 text-gray-800"
@@ -48,7 +53,7 @@ const PropertyImageSlider = () => {
   const PrevArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
       onClick={onClick}
-      className="absolute top-1/2 left-2 transform -translate-y-1/2 z-10 bg-white bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
+      className="absolute top-1/2 left-2 transform -translate-y-1/2 z-10 bg-white/60 bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
     >
       <svg
         className="w-5 h-5 text-gray-800"
@@ -77,10 +82,10 @@ const PropertyImageSlider = () => {
   };
 
   return (
-    <div className="flex flex-col w-full px-10">
-      <div className="w-[100%] flex justify-between items-center my-5">
+    <div className="flex flex-col w-full px-4 md:px-10 pb-32">
+      <div className="w-[100%] flex flex-col md:flex-row justify-between md:items-center my-5">
         <div className="flex flex-col">
-          <h1 className="text-6xl font-bold">
+          <h1 className=" text-3xl md:text-6xl font-bold">
             {/* Treasure Parks and Gardens  */}
             {name}
           </h1>
@@ -90,12 +95,12 @@ const PropertyImageSlider = () => {
             <span>{address}</span>
           </p>
         </div>
-        <p className="text-4xl font-bold">
+        <p className="text-xl md:text-4xl font-bold">
           {/* ₦56,000,000 */}
-          {price}
+          {formattedPrice}
         </p>
       </div>
-      <div className="flex justify-between gap-10">
+      <div className="flex flex-col md:flex-row justify-between gap-10">
         {/* Property details */}
 
         {/* Main slider and thumbnails */}
@@ -107,7 +112,7 @@ const PropertyImageSlider = () => {
             className="rounded-2xl overflow-hidden"
           >
             {images.map((img, i) => (
-              <div key={i} className="relative h-[400px] w-full">
+              <div key={i} className="relative h-[300px] md:h-[400px] w-full">
                 <Image
                   src={img}
                   alt={`House ${i}`}
@@ -124,7 +129,7 @@ const PropertyImageSlider = () => {
               <div
                 key={i}
                 onClick={() => slider1.current?.slickGoTo(i)}
-                className={`relative h-[150px] w-full rounded-xl overflow-hidden border-2 transition cursor-pointer ${
+                className={`relative h-[75px] md:h-[150px] w-full rounded-xl overflow-hidden border-2 transition cursor-pointer ${
                   currentIndex === i
                     ? "border-adron-green"
                     : "border-transparent"

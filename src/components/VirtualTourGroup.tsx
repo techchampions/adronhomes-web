@@ -4,20 +4,13 @@ import Image from "next/image";
 import PropertyList from "./PropertyList";
 import { useVirtualTourpage } from "@/data/hooks";
 import Loader from "./Loader";
+import ApiErrorBlock from "./ApiErrorBlock";
 
 export default function VirtualTourGroup() {
   const { data, isLoading, isError } = useVirtualTourpage();
 
   if (isLoading) return <Loader />;
-  if (isError)
-    return (
-      <div className="text-center text-red-500 p-10">
-        Failed to load About Page data.
-      </div>
-    );
-  if (!isError) {
-    console.log("image", data);
-  }
+  if (isError) return <ApiErrorBlock />;
   const sampleProperties = data?.data.virtual_properties;
 
   return (

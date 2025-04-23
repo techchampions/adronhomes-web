@@ -5,6 +5,7 @@ import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { HomepageResponse } from "./types/homepageTypes";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertiesResponse } from "./types/propertiesPageTypes";
+import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
 
 // Homepage data with type annotation
@@ -54,3 +55,10 @@ export const getJobByID = async (
   const response = await apiClient.get(`/job/${id}`);
   return response.data;
 };
+
+//Get all Property Locations Data
+export const getAllPropertyLocations =
+  async (): Promise<PropertyLocationResponse> => {
+    const response = await apiClient.get("/property-locations");
+    return response.data;
+  };
