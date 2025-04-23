@@ -36,8 +36,9 @@ export default function PropertiesPageGroup() {
 
       <FilterBar />
       <div className="bg-white rounded-3xl px-4 md-px-10 py-6 md:py-10 w-full mx-auto">
-        {/* <SwiperPropertyList properties={properties} /> */}
         <HomePropertyList properties={properties} />
+        {/* <SwiperPropertyList properties={properties} />
+        <SwiperPropertyList properties={properties} /> */}
       </div>
     </div>
   );
