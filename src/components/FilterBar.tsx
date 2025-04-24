@@ -17,11 +17,14 @@ import { GoHomeFill } from "react-icons/go";
 import { TbLocationFilled } from "react-icons/tb";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useGetAllPropertyLocations } from "@/data/hooks";
 
 export default function FilterBar() {
+  const { data: locations } = useGetAllPropertyLocations();
   const searchParams = useSearchParams();
   const location = searchParams.get("location") || "";
   const [showModal, setShowModal] = useState(false);
+  const stateNames = locations?.locations.map((loc) => loc.state_name);
   return (
     <Formik
       initialValues={{
@@ -54,7 +57,7 @@ export default function FilterBar() {
                 <SelectField
                   name="location"
                   placeholder="What are you looking?"
-                  options={["Bungalow", "Duplex", "Flat", "Land"]}
+                  options={stateNames || []}
                 />
 
                 {/* <InputField
@@ -151,17 +154,18 @@ export default function FilterBar() {
         <Form className="block md:hidden">
           <Modal show={showModal} onClose={() => setShowModal(false)}>
             <div className="flex flex-col gap-2">
-              <div className="flex flex-col gap-2">
-                <label htmlFor="location" className="flex gap-2 items-center">
-                  <FaLocationArrow /> Location
-                </label>
-                <InputField
-                  className="py-4"
-                  placeholder="What are you looking?"
-                  type="text"
-                  name="location"
-                />
-              </div>
+              {!location && (
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="location" className="flex gap-2 items-center">
+                    <FaLocationArrow /> Location
+                  </label>
+                  <SelectField
+                    name="location"
+                    placeholder="What are you looking?"
+                    options={stateNames || []}
+                  />
+                </div>
+              )}
               <div className="flex flex-col gap-2">
                 <label htmlFor="location" className="flex gap-2 items-center">
                   <GoHomeFill /> Property Type
