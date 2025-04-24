@@ -101,7 +101,7 @@ export default function FilterBar() {
                 htmlFor="location"
                 className="flex font-bold gap-2 items-center"
               >
-                <FaCheckCircle /> Avialability status
+                <FaCheckCircle /> Availability status
               </label>
 
               <SelectField
@@ -190,7 +190,7 @@ export default function FilterBar() {
               </div>
               <div className="flex flex-col gap-2">
                 <label htmlFor="location" className="flex gap-2 items-center">
-                  <FaCheckCircle /> Avialability status
+                  <FaCheckCircle /> Availability status
                 </label>
 
                 <SelectField
