@@ -49,12 +49,22 @@ export const useVirtualTourpage = () => {
   });
 };
 // Query hook for properties page data with
-export const usePropertiespage = () => {
+// export const usePropertiespage = (page: number) => {
+//   return useQuery<PropertiesResponse>({
+//     queryKey: ["properties-page", page],
+//     queryFn: () => fetchPropertiesPageData(page),
+//   });
+// };
+export const usePropertiespage = (
+  page: number,
+  filters?: Record<string, any>
+) => {
   return useQuery<PropertiesResponse>({
-    queryKey: ["properties-page"],
-    queryFn: fetchPropertiesPageData,
+    queryKey: ["properties-page", page, filters],
+    queryFn: () => fetchPropertiesPageData(page, filters),
   });
 };
+
 // Query hook for properties page data with
 export const useGetPropertyByID = (id: number | string) => {
   return useQuery<GetPropertyByIdResponse>({
