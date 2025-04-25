@@ -42,7 +42,7 @@ export const fetchPropertiesPageData = async (
   filters: Record<string, any> = {}
 ): Promise<PropertiesResponse> => {
   const hasFilters = Object.values(filters).some((v) => v !== "");
-
+  console.log("fetching properties");
   const params = new URLSearchParams({
     page: String(page),
     ...(filters.state && { state: filters.state }),

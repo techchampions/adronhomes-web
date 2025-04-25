@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { Form, Formik } from "formik";
 import InputField from "@/components/InputField";
-import { FaHeart, FaMapMarker } from "react-icons/fa";
+import { FaCheckCircle, FaHeart, FaMapMarker } from "react-icons/fa";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
-import { IoLogoWhatsapp } from "react-icons/io";
+import { IoIosCheckmarkCircleOutline, IoLogoWhatsapp } from "react-icons/io";
 import { useParams, useSearchParams } from "next/navigation";
 import { useGetPropertyByID } from "@/data/hooks";
 import Loader from "@/components/Loader";
@@ -91,14 +91,15 @@ const PropertyImageSlider = () => {
           </h1>
           <p className="flex gap-2">
             <FaMapMarker />
-            {/* <span>34, Shimawa, Ogun State, Nigeria</span> */}
             <span>{address}</span>
           </p>
         </div>
-        <p className="text-xl md:text-4xl font-bold">
-          {/* ₦56,000,000 */}
-          {formattedPrice}
-        </p>
+        <div className="flex flex-col justify-between">
+          <p className="text-xl md:text-4xl font-bold">{formattedPrice}</p>
+          <div className="p-4 rounded-full bg-white w-fit">
+            <FaHeart />
+          </div>
+        </div>
       </div>
       <div className="flex flex-col md:flex-row justify-between gap-10">
         {/* Property details */}
@@ -124,7 +125,7 @@ const PropertyImageSlider = () => {
           </Slider>
 
           {/* Thumbnails */}
-          <div className="mt-5 grid grid-cols-4 gap-3">
+          <div className="mt-5 grid grid-cols-5 gap-3">
             {images.map((img, i) => (
               <div
                 key={i}
@@ -148,56 +149,214 @@ const PropertyImageSlider = () => {
           <div className="flex flex-col my-5 gap-10">
             <div className="flex justify-between mb-5">
               <div className="flex flex-col">
-                <p className="text-md text-gray-500">Property Type</p>
-                <p className="text-md text-black">Land</p>
+                <p className="text-md text-black">Property Type</p>
+                <p className="text-md text-gray-500">Land</p>
               </div>
-              <FaHeart />
+              <div className="flex flex-col">
+                <p className="text-md text-black">Size</p>
+                <div className="flex items-center gap-1">
+                  <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
+
+                  <span className="text-md text-gray-500">
+                    {data?.data.properties[0].size}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Overview</h4>
-              <p className="text-xs text-gray-500">
+              <p className="text-md text-gray-500 ml-5">
                 {data?.data.properties[0].overview}
-                {/* Discover your dream home in 34, Shimawa, Ogun State, Nigeria!
-                This stunning 4-bedroom, 3-bathroom modern home offers a perfect
-                blend of comfort, elegance, and convenience. With breathtaking
-                city views and a spacious backyard with a private pool, this
-                property is designed to meet all your lifestyle needs. */}
               </p>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Description</h4>
-              <p className="text-xs text-gray-500">
+              <p className="text-md text-gray-500 ml-5">
                 {data?.data.properties[0].description}
-                {/* Step inside this beautifully designed home and experience an
-                open-concept living space filled with natural light. The gourmet
-                kitchen features high-end appliances, granite countertops and
-                stainless-steel appliances, perfect for entertaining guests. The
-                5 bedrooms offer ample space and walk-in closets, while the 3
-                bathrooms boast luxurious spa-like finishes. Whether you're
-                enjoying a quiet evening on the [outdoor feature, or exploring
-                the vibrant local community, this home provides the ideal
-                setting for modern living.{" "} */}
               </p>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Features</h4>
-              <ul className="text-xs list-disc ml-5 text-gray-500">
+              <div className="text-md ml-5 grid grid-cols-3 text-gray-500 space-y-2">
                 {data?.data.properties[0].features?.map((list) => (
-                  <li key={list}>{list}</li>
+                  <div key={list} className="flex gap-2 items-center">
+                    <IoIosCheckmarkCircleOutline /> <div>{list}</div>
+                  </div>
                 ))}
-                {/* <li>Spacious open-concept living area</li>
-                <li>State-of-the-art kitchen with granite countertops</li>
-                <li>Master suite with walk-in closet and en-suite bathroom</li>
-                <li>Large backyard with a deck and fire pit</li>
-                <li>Two-car garage and ample storage space</li> */}
-              </ul>
+              </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Address</h4>
-              <p className="text-xs text-gray-500">
-                1234 Maple Street, Los Angeles, CA 90012{" "}
-              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="relative overflow-x-hidden">
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <tbody>
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          Country
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].country}
+                        </td>
+                      </tr>
+
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          State
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].state}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="relative overflow-x-hidden">
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <tbody>
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          LGA
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].lga}
+                        </td>
+                      </tr>
+
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          Address
+                        </th>
+                        <td className="px-6 py-4 line-clamp-1 truncate">
+                          {data?.data.properties[0].street_address}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <h4 className="font-bold text-md">Additional Details</h4>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="relative overflow-x-hidden">
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <tbody>
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          Legal Documentation Fees
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].legal_documention_fee}
+                        </td>
+                      </tr>
+
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          Survey plan
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].survey_plan_fee}
+                        </td>
+                      </tr>
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          Architectural Drawing fee
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].architectural_drawing_fee}
+                        </td>
+                      </tr>
+
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          Structure Drawing fee
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].structure_drawing_fee}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="relative overflow-x-hidden">
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <tbody>
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          M & E Drawing
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].m_e_free}
+                        </td>
+                      </tr>
+
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          Certification fee
+                        </th>
+                        <td className="px-6 py-4 line-clamp-1 truncate">
+                          {data?.data.properties[0].certification_fee}
+                        </td>
+                      </tr>
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          Total
+                        </th>
+                        <td className="px-6 py-4">
+                          {data?.data.properties[0].actual_total}
+                        </td>
+                      </tr>
+
+                      <tr className="bg-white border-b border-gray-200">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          Developmental fee
+                        </th>
+                        <td className="px-6 py-4 line-clamp-1 truncate">
+                          {data?.data.properties[0].developmental_fee}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>

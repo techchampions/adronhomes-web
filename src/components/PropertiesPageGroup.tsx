@@ -5,18 +5,39 @@ import SwiperPropertyList from "./SwiperPropertyList";
 import Loader from "./Loader";
 import ApiErrorBlock from "./ApiErrorBlock";
 import HomePropertyList from "./HomePagePropertyList";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import PropertiesPageHeader from "./PropertiesPageHeader";
 
 export default function PropertiesPageGroup() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
   const location = searchParams.get("location") || "";
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState<Record<string, any>>({});
+
+  // Reset filters if user navigates to /properties again
+  useEffect(() => {
+    console.log("pathname:", pathname);
+    const handleReset = () => {
+      if (pathname === "/properties") {
+        setPage(1);
+        setFilters({});
+      }
+    };
+
+    window.addEventListener("reset-properties", handleReset);
+
+    return () => {
+      window.removeEventListener("reset-properties", handleReset);
+    };
+  }, [pathname]);
   useEffect(() => {
     if (location) {
-      setFilters((prev) => ({ ...prev, state: location }));
+      setFilters({ state: location });
+      console.log("filters:", filters);
     }
   }, [location]); // <- only runs when location changes
   const { data, isLoading, isError } = usePropertiespage(page, filters);
@@ -27,7 +48,6 @@ export default function PropertiesPageGroup() {
     filters && Object.values(filters).some((v) => v !== "")
       ? data?.data || []
       : data?.properties?.data || [];
-  console.log("Properties:", properties);
 
   const pagination = data?.properties;
 
@@ -36,10 +56,12 @@ export default function PropertiesPageGroup() {
       <PropertiesPageHeader />
 
       <FilterBar
+        initialFilters={filters}
         onFilter={(values) => {
           const mapped = {
             state: values.state,
             type: values.propertyType,
+            status: values.status,
             minPrice: values.min,
             maxPrice: values.max,
           };

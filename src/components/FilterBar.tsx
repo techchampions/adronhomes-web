@@ -21,8 +21,10 @@ import { useGetAllPropertyLocations } from "@/data/hooks";
 
 export default function FilterBar({
   onFilter,
+  initialFilters,
 }: {
   onFilter: (filters: any) => void;
+  initialFilters: Record<string, any>;
 }) {
   const { data: locations } = useGetAllPropertyLocations();
   const searchParams = useSearchParams();
@@ -32,12 +34,12 @@ export default function FilterBar({
   return (
     <Formik
       initialValues={{
-        state: location || "",
-        propertyType: "",
-        bedrooms: "",
-        status: "",
-        min: "",
-        max: "",
+        state: location || initialFilters.state || "",
+        propertyType: initialFilters.type || "",
+        bedrooms: initialFilters.bedrooms || "",
+        status: initialFilters.status || "",
+        min: initialFilters.minPrice || "",
+        max: initialFilters.maxPrice || "",
       }}
       enableReinitialize
       onSubmit={(values) => {
@@ -65,13 +67,6 @@ export default function FilterBar({
                   placeholder="What are you looking?"
                   options={stateNames || []}
                 />
-
-                {/* <InputField
-                className="py-2.5"
-                placeholder="What are you looking?"
-                type="text"
-                name="location"
-                /> */}
               </div>
             )}
             <div className="flex flex-col justify-between gap-4">

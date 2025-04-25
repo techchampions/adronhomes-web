@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react"; // or use any icon you prefer
 import clsx from "clsx";
@@ -12,6 +12,7 @@ import { useGetAllPropertyLocations, useHomepage } from "@/data/hooks";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data } = useGetAllPropertyLocations();
@@ -46,6 +47,14 @@ export default function Navbar() {
     { name: "Career", href: "/careers" },
     { name: "Contact Us", href: "/contact" },
   ];
+  const handlePropertiesClick = () => {
+    if (pathname === "/properties") {
+      // Send a custom event to tell PropertiesPage to reset
+      window.dispatchEvent(new Event("reset-properties"));
+    } else {
+      router.push("/properties");
+    }
+  };
 
   return (
     <header
@@ -74,6 +83,11 @@ export default function Navbar() {
             >
               <Link
                 href={link.href}
+                onClick={() => {
+                  if (link.href === "/properties") {
+                    handlePropertiesClick();
+                  }
+                }}
                 className={`transition-colors duration-300 ${
                   pathname === link.href
                     ? "text-adron-green font-semibold"

@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
+import StreetView from "@/components/StreetView";
 
 const ViewTourPage = () => {
   const searchParams = useSearchParams();
@@ -52,8 +53,11 @@ const ViewTourPage = () => {
           </div>
         </div>
       </div>
+      <div className="relative w-full h-[360px] md:h-[500px] rounded-[50px] overflow-hidden mb-6">
+        <StreetView lat={40.748817} lng={-73.985428} />
+      </div>
 
-      {imageUrl && (
+      {/* {imageUrl && (
         <div className="relative w-full h-[360px] md:h-[500px] rounded-[50px] overflow-hidden mb-6">
           <Image
             src={imageUrl}
@@ -62,7 +66,7 @@ const ViewTourPage = () => {
             className="object-cover"
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
