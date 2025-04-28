@@ -32,8 +32,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
           </option>
         )}
         {options.map((opt, idx) => (
-          <option value={opt} key={idx}>
-            {opt}
+          <option value={opt.id ? opt.id : opt} key={idx}>
+            {opt.name ? opt.name : opt}
           </option>
         ))}
       </select>

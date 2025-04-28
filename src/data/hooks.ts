@@ -7,6 +7,7 @@ import {
   fetchPropertiesPageData,
   fetchVirtualTourPageData,
   getAllPropertyLocations,
+  getAllPropertyType,
   getJobByID,
   getPropertyByID,
 } from "./api";
@@ -18,6 +19,7 @@ import { PropertiesResponse } from "./types/propertiesPageTypes";
 import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
+import { PropertiesTypeResponse } from "./types/propertyTypes";
 
 // Query hook for homepage data with
 export const useHomepage = () => {
@@ -93,5 +95,12 @@ export const useGetAllPropertyLocations = () => {
   return useQuery<PropertyLocationResponse>({
     queryKey: ["property-locations"],
     queryFn: () => getAllPropertyLocations(),
+  });
+};
+// Query hook for properties types data with
+export const useGetAllPropertyTypes = () => {
+  return useQuery<PropertiesTypeResponse>({
+    queryKey: ["property-types"],
+    queryFn: getAllPropertyType,
   });
 };
