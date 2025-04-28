@@ -44,7 +44,7 @@ const HomePropertyCard = ({
 
       <div className="w-full bg-white p-6 space-y-5 flex flex-col h-auto">
         <div className="flex-grow space-y-4">
-          <h4 className="text-lg font-semibold text-gray-800 line-clamp-2">
+          <h4 className="text-lg font-semibold text-gray-800 line-clamp-1">
             {title}
           </h4>
           <div className="flex items-center text-gray-500 text-sm">

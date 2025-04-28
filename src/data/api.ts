@@ -31,11 +31,34 @@ export const fetchVirtualTourPageData =
     return response.data;
   };
 //Properties Page Data
-export const fetchPropertiesPageData =
-  async (): Promise<PropertiesResponse> => {
-    const response = await apiClient.get("/properties-page");
-    return response.data;
-  };
+// export const fetchPropertiesPageData = async (
+//   page: number
+// ): Promise<PropertiesResponse> => {
+//   const response = await apiClient.get(`/properties-page?page=${page}`);
+//   return response.data;
+// };
+export const fetchPropertiesPageData = async (
+  page: number,
+  filters: Record<string, any> = {}
+): Promise<PropertiesResponse> => {
+  const hasFilters = Object.values(filters).some((v) => v !== "");
+  console.log("fetching properties");
+  const params = new URLSearchParams({
+    page: String(page),
+    ...(filters.state && { state: filters.state }),
+    ...(filters.type && { type: filters.type }),
+    ...(filters.minPrice && { minPrice: filters.minPrice }),
+    ...(filters.maxPrice && { maxPrice: filters.maxPrice }),
+  });
+
+  const endpoint = hasFilters
+    ? `/filter-property?${params.toString()}`
+    : `/properties-page?page=${page}`;
+
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
+
 //Get Properties by ID Data
 export const getPropertyByID = async (
   id: number | string

@@ -158,6 +158,14 @@ const FeaturedProperties = ({ data }) => {
 
         {/* Property Grid */}
         <HomePropertyList properties={properties} />
+        <div className="flex w-full justify-center mt-16">
+          <Link
+            href="/properties"
+            className="inline-block px-6 py-2 bg-adron-green text-white rounded-full text-sm transition-colors"
+          >
+            View All Properties
+          </Link>
+        </div>
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-18 justify-center">
           {properties.map((property) => (
             <PropertyCard
