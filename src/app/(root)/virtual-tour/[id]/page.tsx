@@ -54,7 +54,14 @@ const ViewTourPage = () => {
         </div>
       </div>
       <div className="relative w-full h-[360px] md:h-[500px] rounded-[50px] overflow-hidden mb-6">
-        <StreetView lat={40.748817} lng={-73.985428} />
+        {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!4v1745830402699!6m8!1m7!1sTxUjNDgs93KgD-tb31s3xA!2m2!1d6.593729879025251!2d3.360477920009057!3f52.29!4f0!5f0.7820865974627469"
+          className="w-full h-full"
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
 
       {/* {imageUrl && (

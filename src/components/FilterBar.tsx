@@ -31,6 +31,7 @@ export default function FilterBar({
   const location = searchParams.get("location") || "";
   const [showModal, setShowModal] = useState(false);
   const stateNames = locations?.locations.map((loc) => loc.state_name);
+  const propertyTypes = ["Bungalow", "Duplex", "Flat", "Land"];
   return (
     <Formik
       initialValues={{
@@ -80,7 +81,7 @@ export default function FilterBar({
               <SelectField
                 name="propertyType"
                 placeholder="Property Type"
-                options={["Bungalow", "Duplex", "Flat", "Land"]}
+                options={propertyTypes}
               />
             </div>
             <div className="flex flex-col justify-between gap-4">
