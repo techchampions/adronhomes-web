@@ -28,7 +28,7 @@ export interface Settings {
 
 export interface SocialLink {
   name: string;
-  string: string;
+  value: string;
 }
 
 export interface DigitalCount {
