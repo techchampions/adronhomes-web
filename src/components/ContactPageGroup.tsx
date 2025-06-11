@@ -1,9 +1,12 @@
 "use client";
 import { useContactpage } from "@/data/hooks";
 import { LuMail, LuPhone } from "react-icons/lu";
-import Map from "./Map";
+import dynamic from "next/dynamic";
+
+// import Map from "./Map";
 import Loader from "./Loader";
 import ApiErrorBlock from "./ApiErrorBlock";
+const Map = dynamic(() => import("./Map"), { ssr: false });
 
 export default function ContactPageGroup() {
   const { data, isLoading, isError } = useContactpage();
@@ -19,13 +22,10 @@ export default function ContactPageGroup() {
     <div className="py-5 px-4 md:px-10 space-y-10">
       <div className="py-0">
         <h1 className="contact-title text-center text-6xl mt-2 font-bold">
-          {/* Get in Touch */}
           {data?.data.contact.office_header[0].header}
         </h1>
         <p className=" text-center font-bold text-sm">
           {data?.data.contact.office_header[0].description}
-          {/* Please reach out to us, we would be happy to help and advice if you
-          have any questions and enquiries. */}
         </p>
       </div>
       <Map lat={6.6213} lng={3.3678} />

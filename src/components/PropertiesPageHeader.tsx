@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 const PropertiesPageHeader = () => {
   const searchParams = useSearchParams();
 
-  const { data, isLoading, isError } = usePropertiespage(1);
+  const { data } = usePropertiespage(1);
   const location = searchParams.get("location") || "";
 
   return (

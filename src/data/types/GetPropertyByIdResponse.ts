@@ -5,6 +5,14 @@ export interface GetPropertyByIdResponse {
     properties: Property[];
   };
 }
+export interface PropertyDetail {
+  id: number;
+  name: string;
+  value: number;
+  property_id: number;
+  created_at: string;
+  updated_at: string;
+}
 
 export interface Property {
   id: number;
@@ -22,6 +30,8 @@ export interface Property {
   country: string;
   state: string;
   lga: string;
+  details: PropertyDetail[];
+
   created_at: string | null;
   updated_at: string | null;
 }

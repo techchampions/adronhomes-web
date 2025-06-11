@@ -89,7 +89,7 @@ const ApplicationForm = () => {
                 </p>
                 {values.resume && (
                   <p className="text-sm text-gray-700 mt-2">
-                    Selected: {values.resume.name}
+                    Selected: {values.resume}
                   </p>
                 )}
               </div>

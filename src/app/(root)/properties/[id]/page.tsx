@@ -5,19 +5,20 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { Form, Formik } from "formik";
 import InputField from "@/components/InputField";
-import { FaCheckCircle, FaHeart, FaMapMarker } from "react-icons/fa";
+import { FaHeart, FaMapMarker } from "react-icons/fa";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
 import { IoIosCheckmarkCircleOutline, IoLogoWhatsapp } from "react-icons/io";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useGetPropertyByID } from "@/data/hooks";
 import Loader from "@/components/Loader";
+import { formatPrice } from "@/utils/formater";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slider1 = useRef<Slider>(null);
   const params = useParams();
-  const id = params?.id;
+  const id = Number(params?.id);
 
   const { data, isLoading, error } = useGetPropertyByID(id);
 
@@ -27,6 +28,7 @@ const PropertyImageSlider = () => {
   const price = data?.data.properties[0].price;
   const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const images = data?.data.properties[0].photos;
+  const item = data?.data.properties[0];
 
   const formattedPrice = new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -112,7 +114,7 @@ const PropertyImageSlider = () => {
             ref={slider1}
             className="rounded-2xl overflow-hidden"
           >
-            {images.map((img, i) => (
+            {images?.map((img, i) => (
               <div key={i} className="relative h-[300px] md:h-[400px] w-full">
                 <Image
                   src={img}
@@ -126,7 +128,7 @@ const PropertyImageSlider = () => {
 
           {/* Thumbnails */}
           <div className="mt-5 grid grid-cols-5 gap-3">
-            {images.map((img, i) => (
+            {images?.map((img, i) => (
               <div
                 key={i}
                 onClick={() => slider1.current?.slickGoTo(i)}
@@ -249,113 +251,70 @@ const PropertyImageSlider = () => {
                 </div>
               </div>
             </div>
+
+            {/* New Additional details */}
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Additional Details</h4>
+
               <div className="grid grid-cols-2 gap-2">
-                <div className="relative overflow-x-hidden">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <tbody>
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                        >
-                          Legal Documentation Fees
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].legal_documention_fee}
-                        </td>
-                      </tr>
+                {/* Split details in half for two tables */}
+                {item?.details && item.details.length > 0 ? (
+                  <>
+                    <div className="relative overflow-x-hidden">
+                      <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <tbody>
+                          {item.details
+                            .slice(0, Math.ceil(item.details.length / 2))
+                            .map((detail) => (
+                              <tr
+                                key={detail.id}
+                                className="bg-white border-b border-gray-200"
+                              >
+                                <th
+                                  scope="row"
+                                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                >
+                                  {detail.name.trim()}
+                                </th>
+                                <td className="px-6 py-4">
+                                  {formatPrice(detail.value)}
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
 
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                        >
-                          Survey plan
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].survey_plan_fee}
-                        </td>
-                      </tr>
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                        >
-                          Architectural Drawing fee
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].architectural_drawing_fee}
-                        </td>
-                      </tr>
-
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                        >
-                          Structure Drawing fee
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].structure_drawing_fee}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="relative overflow-x-hidden">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <tbody>
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                        >
-                          M & E Drawing
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].m_e_free}
-                        </td>
-                      </tr>
-
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                        >
-                          Certification fee
-                        </th>
-                        <td className="px-6 py-4 line-clamp-1 truncate">
-                          {data?.data.properties[0].certification_fee}
-                        </td>
-                      </tr>
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                        >
-                          Total
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].actual_total}
-                        </td>
-                      </tr>
-
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                        >
-                          Developmental fee
-                        </th>
-                        <td className="px-6 py-4 line-clamp-1 truncate">
-                          {data?.data.properties[0].developmental_fee}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                    <div className="relative overflow-x-hidden">
+                      <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <tbody>
+                          {item.details
+                            .slice(Math.ceil(item.details.length / 2))
+                            .map((detail) => (
+                              <tr
+                                key={detail.id}
+                                className="bg-white border-b border-gray-200"
+                              >
+                                <th
+                                  scope="row"
+                                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                >
+                                  {detail.name.trim()}
+                                </th>
+                                <td className="px-6 py-4">
+                                  {detail.value.toLocaleString()}
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-gray-500 text-sm col-span-2">
+                    No additional details available.
+                  </p>
+                )}
               </div>
             </div>
           </div>

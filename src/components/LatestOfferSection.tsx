@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Button from "./Button";
+import { LatestOffer } from "@/data/types/homepageTypes";
 
-export default function LatestOfferSection({ data }) {
+export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
   console.log("Latest Offer Section", data);
   return (
     <div className="w-full overflow-hidden mt-5 relative">

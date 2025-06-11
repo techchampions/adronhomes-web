@@ -1,28 +1,31 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { GiStreetLight } from "react-icons/gi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { MdOutlinePower } from "react-icons/md";
 import Button from "./Button";
+import { Property } from "@/data/types/homepageTypes";
 
 const HomePropertyCard = ({
-  id,
-  image,
-  title,
-  price,
-  state,
-  lga,
-  country,
-  streetAddress,
-  squareFeet,
-  features,
-}: PropertyProps) => {
+  property,
+}: // id,
+// image,
+// title,
+// price,
+// state,
+// lga,
+// country,
+// streetAddress,
+// squareFeet,
+// features,
+{
+  property: Property;
+}) => {
   const formattedPrice = new Intl.NumberFormat("en-NG", {
     style: "currency",
     currency: "NGN",
-  }).format(price);
-  const address = `${streetAddress}, ${lga}, ${state} ${country}`;
+  }).format(property.price);
+  const address = `${property.street_address}, ${property.lga}, ${property.state} ${property.country}`;
 
   // const hasLights = features.includes("Street Lighting") || features.includes("Good Road Network");
   // const hasGym = features.some((f) => f.toLowerCase().includes("gym"));
@@ -32,20 +35,27 @@ const HomePropertyCard = ({
   const router = useRouter();
   const handleViewProperty = () => {
     router.push(
-      `/properties/${id}?title=${encodeURIComponent(title)}&price=${price}`
+      `/properties/${property.id}?title=${encodeURIComponent(
+        property.name
+      )}&price=${property.price}`
     );
   };
 
   return (
     <div className="w-full max-w-[472px] mx-auto rounded-[30px] overflow-hidden">
       <div className="relative w-full h-[300px] md:h-[350px] overflow-hidden">
-        <Image src={image} alt={title} fill className="object-cover" />
+        <Image
+          src={property.display_image}
+          alt={property.name}
+          fill
+          className="object-cover"
+        />
       </div>
 
       <div className="w-full bg-white p-6 space-y-5 flex flex-col h-auto">
         <div className="flex-grow space-y-4">
           <h4 className="text-lg font-semibold text-gray-800 line-clamp-1">
-            {title}
+            {property.name}
           </h4>
           <div className="flex items-center text-gray-500 text-sm">
             <HiOutlineLocationMarker className="mr-2 flex-shrink-0" />
@@ -55,7 +65,7 @@ const HomePropertyCard = ({
             <div className="flex items-center gap-1">
               <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
 
-              <span className="mr-1">{squareFeet}</span>
+              <span className="mr-1">{property.size}</span>
             </div>
 
             {/* {!hasLights && (

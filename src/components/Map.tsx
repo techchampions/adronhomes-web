@@ -1,16 +1,31 @@
+// Fix Leaflet marker icon path
+// delete (L.Icon.Default.prototype as any)._getIconUrl;
+// L.Icon.Default.mergeOptions({
+//   iconUrl: "/leaflet/marker-icon.svg",
+//   iconRetinaUrl: "/leaflet/marker-icon-2x.png",
+//   shadowUrl: "/leaflet/marker-shadow.png",
+// });
+// Fix Leaflet marker icon path
+
+// delete L.Icon.Default.prototype._getIconUrl;
+// L.Icon.Default.mergeOptions({
+//   iconUrl: "/leaflet/marker-icon.svg",
+//   iconRetinaUrl: "/leaflet/marker-icon-2x.png",
+//   shadowUrl: "/leaflet/marker-shadow.png",
+// });
 "use client";
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+declare module "leaflet" {
+  interface IconOptions {
+    _getIconUrl?: string;
+  }
+}
 
-// Fix Leaflet marker icon path
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconUrl: "/leaflet/marker-icon.svg",
-  iconRetinaUrl: "/leaflet/marker-icon-2x.png",
-  shadowUrl: "/leaflet/marker-shadow.png",
-});
+const defaultIcon = L.Icon.Default.prototype as { _getIconUrl?: string };
+delete defaultIcon._getIconUrl;
 
 type Props = {
   lat: number;

@@ -3,14 +3,11 @@
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
-import StreetView from "@/components/StreetView";
 
 const ViewTourPage = () => {
   const searchParams = useSearchParams();
 
   const title = searchParams.get("title");
-  const imageUrl = searchParams.get("imageUrl");
-  //   const price = searchParams.get("price");
   const address = searchParams.get("address");
   const size = searchParams.get("size");
   const hasStreetLights = searchParams.get("hasStreetLights") === "true";

@@ -1,6 +1,7 @@
 // components/Footer.tsx
 
 import Image from "next/image";
+import { JSX } from "react";
 import {
   FaEnvelope,
   FaFacebook,

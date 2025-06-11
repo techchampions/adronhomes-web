@@ -6,6 +6,7 @@ import { HomepageResponse } from "./types/homepageTypes";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertiesResponse } from "./types/propertiesPageTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
+import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
 
 // Homepage data with type annotation
@@ -37,18 +38,29 @@ export const fetchVirtualTourPageData =
 //   const response = await apiClient.get(`/properties-page?page=${page}`);
 //   return response.data;
 // };
+
+export interface PropertyFilters {
+  state?: string;
+  propertyType?: string;
+  status?: string;
+  bedrooms?: string;
+  min?: string | number;
+  max?: string | number;
+}
+
 export const fetchPropertiesPageData = async (
   page: number,
-  filters: Record<string, any> = {}
+  filters: PropertyFilters = {} // Use the defined type
 ): Promise<PropertiesResponse> => {
-  const hasFilters = Object.values(filters).some((v) => v !== "");
-  console.log("fetching properties");
+  const hasFilters = Object.values(filters).some(
+    (v) => v !== "" && v !== undefined
+  );
   const params = new URLSearchParams({
     page: String(page),
     ...(filters.state && { state: filters.state }),
-    ...(filters.type && { type: filters.type }),
-    ...(filters.minPrice && { minPrice: filters.minPrice }),
-    ...(filters.maxPrice && { maxPrice: filters.maxPrice }),
+    ...(filters.propertyType && { type: filters.propertyType }),
+    ...(filters.min && { minPrice: String(filters.min) }),
+    ...(filters.max && { maxPrice: String(filters.max) }),
   });
 
   const endpoint = hasFilters
@@ -85,3 +97,8 @@ export const getAllPropertyLocations =
     const response = await apiClient.get("/property-locations");
     return response.data;
   };
+//Get all Property Type Data
+export const getAllPropertyType = async (): Promise<PropertiesTypeResponse> => {
+  const response = await apiClient.get("/properties-type");
+  return response.data;
+};

@@ -18,9 +18,12 @@ export default function HomePageGroup() {
 
   return (
     <div>
-      <HeroBanner data={data?.data.sliders} settings={data?.data.settings} />
-      <LatestOfferSection data={data?.data.latestOffer} />
-      <AboutUsSection data={data?.data.about_us} />
+      <HeroBanner
+        data={data?.data.sliders || []}
+        settings={data?.data.settings}
+      />
+      <LatestOfferSection data={data?.data.latestOffer || []} />
+      <AboutUsSection data={data?.data.about_us || []} />
       <FeaturedProperties data={data?.data.featured_properties} />
       <PropertyLocations data={data?.data.locations} />
       <TestimonialsSection data={data?.data.testimonials} />

@@ -4,10 +4,16 @@ import { useField } from "formik";
 import React from "react";
 import { IoCaretDown } from "react-icons/io5";
 
+interface Option {
+  id?: string | number;
+  name?: string;
+}
+
 interface SelectFieldProps {
   name: string;
-  options: string[];
+  options: Option[] | string[];
   placeholder?: string;
+  onchange?: (value: string) => void;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -31,11 +37,21 @@ const SelectField: React.FC<SelectFieldProps> = ({
             {placeholder}
           </option>
         )}
-        {options.map((opt, idx) => (
-          <option value={opt} key={idx}>
-            {opt}
-          </option>
-        ))}
+        {options.map((opt, idx) => {
+          if (typeof opt === "string") {
+            return (
+              <option value={opt} key={idx}>
+                {opt}
+              </option>
+            );
+          } else {
+            return (
+              <option value={opt.id} key={idx}>
+                {opt.name}
+              </option>
+            );
+          }
+        })}
       </select>
 
       {/* Custom Chevron Icon */}

@@ -8,7 +8,7 @@ import { FaHome, FaMapMarker, FaShare } from "react-icons/fa";
 
 const JobDetail = () => {
   const params = useParams();
-  const id = params?.id;
+  const id = Number(params?.id);
 
   const { data, isLoading, error } = useGetJobByID(id);
 
