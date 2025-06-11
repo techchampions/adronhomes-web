@@ -89,11 +89,11 @@ import { FaMapMarkerAlt, FaRegHeart } from "react-icons/fa";
 import { GiStreetLight } from "react-icons/gi";
 
 interface PropertyCardProps {
-  id: string; // add this to uniquely identify the property
+  id: string | number; // add this to uniquely identify the property
   imageUrl: string;
   title: string;
   address: string;
-  price: string;
+  price: string | number;
   size: string;
   hasStreetLights?: boolean;
   hasGym?: boolean;

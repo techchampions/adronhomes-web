@@ -26,6 +26,8 @@ export interface VirtualProperty {
   overview: string;
   description: string;
   street_address: string;
+  hasGym: boolean;
+  hasStreetLights: boolean;
   country: string;
   state: string;
   lga: string;

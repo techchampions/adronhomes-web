@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
 import JobItem from "./JobItem";
-interface Job {
-  id: number;
-  job_title: string;
-  job_type: string;
-  location: string;
-}
+import { Job } from "@/data/types/jobListTypes";
+// interface Job {
+//   id: number;
+//   job_title: string;
+//   job_type: string;
+//   location: string;
+// }
 
 interface JobsListProps {
   jobs: Job[];

@@ -1,27 +1,29 @@
 "use client";
 
+import { VirtualProperty } from "@/data/types/virtualTourPageTypes";
 import PropertyCard from "./PropertyCard";
 
-interface Property {
-  id: string;
-  imageUrl: string;
-  title: string;
-  address: string;
-  price: string;
-  size: string;
-  hasStreetLights?: boolean;
-  hasGym?: boolean;
-}
+// interface Property {
+//   id: string;
+//   imageUrl: string;
+//   title: string;
+//   address: string;
+//   price: string;
+//   size: string;
+//   hasStreetLights?: boolean;
+//   hasGym?: boolean;
+// }
 
 interface PropertyListProps {
-  properties: Property[];
+  properties: VirtualProperty[] | undefined;
 }
 
 const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
   return (
     <div className="flex flex-wrap justify-between gap-y-10 md:px-[10px] mx-auto">
-      {properties.map((property) => (
+      {properties?.map((property) => (
         <PropertyCard
+          id={property.id}
           key={property.id}
           imageUrl={property.display_image}
           title={property.name}
@@ -30,7 +32,6 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
           size={property.size}
           hasStreetLights={property.hasStreetLights}
           hasGym={property.hasGym}
-          onViewTour={() => alert(`Viewing at ${property.title}`)}
         />
       ))}
     </div>

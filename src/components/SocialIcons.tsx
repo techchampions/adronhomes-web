@@ -49,6 +49,8 @@
 //   );
 // };
 // export default SocialIcons;
+import { SocialLink } from "@/data/types/homepageTypes";
+import { JSX } from "react";
 import {
   FaFacebook,
   FaInstagram,
@@ -61,14 +63,9 @@ import {
   FaPhone,
 } from "react-icons/fa";
 
-interface SocialLink {
-  name: string;
-  value: string;
-}
-
 interface SocialIconsProps {
   className?: string;
-  social_link: SocialLink[];
+  social_link: SocialLink[] | undefined;
 }
 
 const platformIcons: Record<string, JSX.Element> = {
@@ -83,28 +80,28 @@ const platformIcons: Record<string, JSX.Element> = {
   "Phone Number": <FaPhone size={20} />,
 };
 
-const buildHref = (name: string, value: string) => {
-  if (name === "Whatsapp") return `https://wa.me/${value.replace(/\D/g, "")}`;
-  if (name === "Email") return `mailto:${value}`;
-  if (name === "Phone Number") return `tel:${value}`;
+const buildHref = (name: string, string: string) => {
+  if (name === "Whatsapp") return `https://wa.me/${string.replace(/\D/g, "")}`;
+  if (name === "Email") return `mailto:${string}`;
+  if (name === "Phone Number") return `tel:${string}`;
   if (name === "Location" || name === "Address") return "#";
-  return value.startsWith("http") ? value : `https://${value}`;
+  return string.startsWith("http") ? string : `https://${string}`;
 };
 
 const SocialIcons: React.FC<SocialIconsProps> = ({
   className = "",
   social_link,
 }) => {
-  const filteredLinks = social_link.filter((link) => platformIcons[link.name]);
+  const filteredLinks = social_link?.filter((link) => platformIcons[link.name]);
 
   return (
     <div className={`social-media ${className}`}>
       {/* Mobile (Horizontal) */}
       <div className="flex md:hidden justify-center gap-6 mb-6">
-        {filteredLinks.map((link, index) => (
+        {filteredLinks?.map((link, index) => (
           <a
             key={index}
-            href={buildHref(link.name, link.value)}
+            href={buildHref(link.name, link.string)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-gray-700 transition-colors"
@@ -116,10 +113,10 @@ const SocialIcons: React.FC<SocialIconsProps> = ({
 
       {/* Desktop (Vertical) */}
       <div className="hidden md:flex flex-col gap-6 mr-0 mt-20 pl-12 pr-4">
-        {filteredLinks.map((link, index) => (
+        {filteredLinks?.map((link, index) => (
           <a
             key={index}
-            href={buildHref(link.name, link.value)}
+            href={buildHref(link.name, link.string)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-adron-gray-500 hover:text-gray-700 transition-colors"

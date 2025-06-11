@@ -2,6 +2,8 @@
 
 import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
+
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -16,31 +18,46 @@ import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
+import { Property } from "@/data/types/propertiesPageTypes";
 
 interface Props {
-  property: {
-    id: string;
-    name: string;
-    location: string;
-    price: string;
-    features: string[];
-    images: string[];
-    type: string;
-  };
+  property: Property;
 }
 
 export default function SwiperPropertyCard({ property }: Props) {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-  const [swiper, setSwiper] = useState(null); // State to store the swiper instance
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
   useEffect(() => {
-    if (swiper) {
-      swiper.params.navigation.prevEl = prevRef.current;
-      swiper.params.navigation.nextEl = nextRef.current;
-      swiper.navigation.update(); // Ensure the navigation buttons are updated after initialization
+    if (swiper && prevRef.current && nextRef.current) {
+      if (
+        typeof swiper.params.navigation === "object" &&
+        swiper.params.navigation !== null
+      ) {
+        swiper.params.navigation = {
+          ...swiper.params.navigation,
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        };
+      } else {
+        swiper.params.navigation = {
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        };
+      }
+      swiper.navigation.init();
+      swiper.navigation.update();
     }
-  }, [swiper]); // Ensure this effect runs when the swiper instance is available
+  }, [swiper]);
+
+  // useEffect(() => {
+  //   if (swiper) {
+  //     swiper.params.navigation.prevEl = prevRef.current;
+  //     swiper.params.navigation.nextEl = nextRef.current;
+  //     swiper.navigation.update(); // Ensure the navigation buttons are updated after initialization
+  //   }
+  // }, [swiper]); // Ensure this effect runs when the swiper instance is available
 
   const router = useRouter();
   const address = `${property.street_address}, ${property.lga}, ${property.state} ${property.country}`;

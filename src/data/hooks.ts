@@ -10,6 +10,7 @@ import {
   getAllPropertyType,
   getJobByID,
   getPropertyByID,
+  PropertyFilters,
 } from "./api";
 import { HomepageResponse } from "./types/homepageTypes";
 import { AboutPageResponse } from "./types/aboutPageTypes";
@@ -58,8 +59,9 @@ export const useVirtualTourpage = () => {
 //   });
 // };
 export const usePropertiespage = (
+  // filters?: Record<string, any>
   page: number,
-  filters?: Record<string, any>
+  filters?: PropertyFilters
 ) => {
   return useQuery<PropertiesResponse>({
     queryKey: ["properties-page", page, filters],

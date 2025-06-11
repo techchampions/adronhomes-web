@@ -1,7 +1,8 @@
 "use client";
+import { AboutUs } from "@/data/types/homepageTypes";
 import Image from "next/image";
 
-const AboutUsSection = ({ data }) => {
+const AboutUsSection = ({ data }: { data: AboutUs[] }) => {
   return (
     <section className="py-16 px-4 md:px-10 w-full mx-auto bg-white">
       <div className="flex flex-col lg:flex-row gap-12 items-center md:w-[80%] mx-auto">

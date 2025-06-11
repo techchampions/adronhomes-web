@@ -41,7 +41,7 @@ export default function AboutPageGroup() {
             <Image
               fill
               // src="/images/mission.png"
-              src={data?.data.mission[0].image}
+              src={data?.data.mission[0].image || ""}
               alt="Mission"
               className="rounded-[50px] object-cover"
             />
@@ -77,7 +77,7 @@ export default function AboutPageGroup() {
             <Image
               fill
               // src="/images/mission.png"
-              src={data?.data.vision[0].image}
+              src={data?.data.vision[0].image || ""}
               alt="Vision"
               className="rounded-[50px] object-cover"
             />
@@ -89,7 +89,7 @@ export default function AboutPageGroup() {
             <Image
               fill
               // src="/images/mission.png"
-              src={data?.data.values[0].image}
+              src={data?.data.values[0].image || ""}
               alt="values"
               className="rounded-[50px] object-cover"
             />

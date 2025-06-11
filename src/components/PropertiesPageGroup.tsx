@@ -1,22 +1,21 @@
 "use client";
 import { usePropertiespage } from "@/data/hooks";
 import FilterBar from "./FilterBar";
-import SwiperPropertyList from "./SwiperPropertyList";
 import Loader from "./Loader";
 import ApiErrorBlock from "./ApiErrorBlock";
 import HomePropertyList from "./HomePagePropertyList";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import PropertiesPageHeader from "./PropertiesPageHeader";
+import { PropertyFilters } from "@/data/api";
 
 export default function PropertiesPageGroup() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const router = useRouter();
 
   const location = searchParams.get("location") || "";
   const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState<Record<string, any>>({});
+  const [filters, setFilters] = useState<PropertyFilters>({});
 
   // Reset filters if user navigates to /properties again
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function PropertiesPageGroup() {
       setFilters({ state: location });
       console.log("filters:", filters);
     }
-  }, [location]); // <- only runs when location changes
+  }, [location, filters]); // <- only runs when location changes
   const { data, isLoading, isError } = usePropertiespage(page, filters);
 
   if (isLoading) return <Loader />;
@@ -53,6 +52,9 @@ export default function PropertiesPageGroup() {
 
   return (
     <div className="max-w-7xl mx-auto p-2 md:p-6">
+      {/* <Suspense fallback={<Loader />}>
+        <PropertiesPageHeader />
+        </Suspense> */}
       <PropertiesPageHeader />
 
       <FilterBar

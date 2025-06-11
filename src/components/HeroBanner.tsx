@@ -1,15 +1,20 @@
 import SocialIcons from "./SocialIcons";
 import { AutoCarousel, MobileAutoCarousel } from "./HomeCarousel";
+import React from "react";
+import { Settings, Slider } from "@/data/types/homepageTypes";
 
-const HeroBanner = ({ data, settings }) => {
-  console.log("HeroBanner data", settings.social_link);
+interface Props {
+  data: Slider[];
+  settings: Settings | undefined;
+}
+const HeroBanner: React.FC<Props> = ({ data, settings }) => {
   return (
     <div className="relative w-full px-0 md:px-8 pb-0 md:pb-8 pt-0 mx-auto">
       <div className="flex flex-col md:flex-row">
         {/* Social Icons - Mobile (Horizontal) */}
         <SocialIcons
           className="hidden md:block"
-          social_link={settings.social_link}
+          social_link={settings?.social_link}
         />
 
         {/* Banner Content */}
@@ -29,7 +34,7 @@ const HeroBanner = ({ data, settings }) => {
         {/* Company Stats */}
         <div className="mb-0 -mt-2 md:mb-6 md:mt-6 w-full md:w-[75%] mx-auto">
           <div className="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 text-center">
-            {settings.digital_count
+            {settings?.digital_count
               // .filter((_, index) => index < 3 || typeof window === "undefined") // fallback for SSR
               .map((stat, index) => (
                 <div
@@ -39,7 +44,7 @@ const HeroBanner = ({ data, settings }) => {
       `}
                 >
                   <p className="text-5xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
-                    {stat.value}
+                    {stat.numeric}
                   </p>
                   <p className="text-[11px] md:text-[14px] text-adron-gray-500 font-Gotham">
                     {stat.name}

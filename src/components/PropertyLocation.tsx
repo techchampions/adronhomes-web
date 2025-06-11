@@ -6,20 +6,23 @@ import {
   HiLocationMarker,
 } from "react-icons/hi";
 import Slider from "react-slick";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { Locations } from "@/data/types/homepageTypes";
 
-interface Location {
-  id: number;
-  name: string;
-  properties: number;
-  image: string;
-}
-
-const PropertyLocations = ({ data }) => {
+// interface Location {
+//   id: number;
+//   name: string;
+//   properties: number;
+//   image: string;
+// }
+type Props = {
+  data: Locations | undefined;
+};
+const PropertyLocations: React.FC<Props> = ({ data }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const sliderRef = useRef<Slider>(null);
 
-  const locations = data.locationProperty;
+  const locations = data?.locationProperty || [];
   const settings = {
     infinite: true,
     speed: 500,
@@ -57,14 +60,14 @@ const PropertyLocations = ({ data }) => {
           <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
             <HiLocationMarker className="mr-2" />
             <span className="font-bold text-xs">
-              {data.locationText[0].name}
+              {data?.locationText[0].name}
             </span>
           </div>
         </div>
 
         <h2 className="text-3xl md:text-5xl font-bold text-center text-adron-black mb-4">
           {/* Explore Our Property Locations */}
-          {data.locationText[0].header}
+          {data?.locationText[0].header}
         </h2>
 
         <div className="relative mb-12">
@@ -110,7 +113,7 @@ const PropertyLocations = ({ data }) => {
                 >
                   <Image
                     src={location.photo}
-                    alt={location.name}
+                    alt={location.state_name}
                     fill
                     className="object-cover"
                     priority

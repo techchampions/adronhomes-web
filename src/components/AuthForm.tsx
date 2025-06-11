@@ -1,9 +1,8 @@
 "use client";
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
-import Image from "next/image";
 import InputField from "./InputField";
 import Button from "./Button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";

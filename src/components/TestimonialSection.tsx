@@ -2,23 +2,24 @@
 import Image from "next/image";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Slider from "react-slick";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { ClientFeedback, Testimonials } from "@/data/types/homepageTypes";
 
-interface Testimonial {
-  id: number;
-  client_name: string;
-  client_image: string;
-  client_comment: string;
-  country: string;
-  client_country: string;
-}
+// interface Testimonial {
+//   id: number;
+//   client_name: string;
+//   client_image: string;
+//   client_comment: string;
+//   country: string;
+//   client_country: string;
+// }
 
-const TestimonialsSection = ({ data }) => {
+const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
   const [activeSlide, setActiveSlide] = useState(3);
 
-  const testimonials: Testimonial[] = data.clientsFeedback;
+  const testimonials: ClientFeedback[] = data?.clientsFeedback || [];
 
   const sliderRef = useRef<Slider>(null);
 
@@ -102,7 +103,7 @@ const TestimonialsSection = ({ data }) => {
 
         {/* Section Title */}
         <h2 className="text-3xl md:text-6xl font-bold text-center text-gray-800 mb-8 sm:mb-12">
-          {data.testimonialsText[0].header}{" "}
+          {data?.testimonialsText[0].header}{" "}
         </h2>
 
         {/* Avatar Slider */}

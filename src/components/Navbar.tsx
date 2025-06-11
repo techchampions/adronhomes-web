@@ -17,7 +17,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data } = useGetAllPropertyLocations();
   const { data: homeData } = useHomepage();
-  const social_links = homeData?.data.settings.social_link || [];
+  const social_links = homeData?.data.settings?.social_link || [];
 
   useEffect(() => {
     const handleScroll = () => {

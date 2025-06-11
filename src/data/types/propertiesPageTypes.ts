@@ -1,6 +1,8 @@
 export interface PropertiesResponse {
   status: string;
   message: string;
+  data?: Property[];
+
   properties_header: PropertiesHeader[];
   properties: PaginatedProperties;
 }
@@ -63,4 +65,7 @@ export interface Property {
   actual_total: number;
   building_approval: string;
   status: string;
+  hasGym: boolean;
+  hasLights: boolean;
+  isLand: boolean;
 }

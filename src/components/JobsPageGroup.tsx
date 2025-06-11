@@ -5,7 +5,6 @@ import InputField from "./InputField";
 import { GoSearch } from "react-icons/go";
 import { useJobListPage } from "@/data/hooks";
 import Loader from "./Loader";
-import Button from "./Button";
 import JobsList from "./JobsList";
 import ApiErrorBlock from "./ApiErrorBlock";
 
@@ -48,7 +47,7 @@ const JobsPageGroup = () => {
         </Formik>
       </div>
       <div className="bg-white w-full rounded-[50px] grid grid-cols-1 md:grid-cols-3 px-8 py-20 mt-10 text-left">
-        <JobsList jobs={data?.data.jobs_post} />
+        <JobsList jobs={data?.data.jobs_post || []} />
       </div>
     </div>
   );

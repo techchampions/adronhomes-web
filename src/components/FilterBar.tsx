@@ -21,13 +21,14 @@ import {
   useGetAllPropertyLocations,
   useGetAllPropertyTypes,
 } from "@/data/hooks";
+import { PropertyFilters } from "@/data/api";
 
 export default function FilterBar({
   onFilter,
   initialFilters,
 }: {
-  onFilter: (filters: any) => void;
-  initialFilters: Record<string, any>;
+  onFilter: (filters: PropertyFilters) => void;
+  initialFilters: PropertyFilters;
 }) {
   const {
     data: PropertyTypeData,
@@ -49,11 +50,11 @@ export default function FilterBar({
     <Formik
       initialValues={{
         state: location || initialFilters.state || "",
-        propertyType: initialFilters.type || "",
+        propertyType: initialFilters.propertyType || "",
         bedrooms: initialFilters.bedrooms || "",
         status: initialFilters.status || "",
-        min: initialFilters.minPrice || "",
-        max: initialFilters.maxPrice || "",
+        min: initialFilters.min || "",
+        max: initialFilters.max || "",
       }}
       enableReinitialize
       onSubmit={(values) => {
@@ -61,7 +62,7 @@ export default function FilterBar({
         onFilter(values);
       }}
     >
-      {({ values }) => (
+      {({}) => (
         <>
           <Form className="hidden md:block">
             <div
