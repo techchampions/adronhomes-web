@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   fetchAboutPageData,
   fetchContactPageData,
@@ -10,6 +10,7 @@ import {
   getAllPropertyType,
   getJobByID,
   getPropertyByID,
+  makeEnquire,
   PropertyFilters,
 } from "./api";
 import { HomepageResponse } from "./types/homepageTypes";
@@ -104,5 +105,11 @@ export const useGetAllPropertyTypes = () => {
   return useQuery<PropertiesTypeResponse>({
     queryKey: ["property-types"],
     queryFn: getAllPropertyType,
+  });
+};
+
+export const useEnquireProperty = () => {
+  return useMutation({
+    mutationFn: makeEnquire,
   });
 };
