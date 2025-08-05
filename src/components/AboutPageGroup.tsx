@@ -143,41 +143,43 @@ export default function AboutPageGroup() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col bg-transparent justify-center p-4">
-        <div className="flex flex-col text-center py-6">
-          <h3 className="text-[28px] md:text-4xl font-bold mb-2">
-            {data?.data.leadershipText[0].header}
-            {/* Our Leadership */}
-          </h3>
-          <p className="text-xs text-adron-black w-[360px] mx-auto">
-            {data?.data.leadershipText[0].description}
-            {/* Our success is intrinsically linked to the excellent quality of our
+      <section id="leadership">
+        <div className="flex flex-col bg-transparent justify-center p-4">
+          <div className="flex flex-col text-center py-6">
+            <h3 className="text-[28px] md:text-4xl font-bold mb-2">
+              {data?.data.leadershipText[0].header}
+              {/* Our Leadership */}
+            </h3>
+            <p className="text-xs text-adron-black w-[360px] mx-auto">
+              {data?.data.leadershipText[0].description}
+              {/* Our success is intrinsically linked to the excellent quality of our
             staff and management team. */}
-          </p>
-        </div>
-        <div className="flex flex-col justify-center gap-6">
-          <div className="grid grid-cols-2 mx-auto gap-10">
-            {data?.data.leaderships.slice(0, 2).map((profile, index) => (
-              <ProfileCard
-                key={index}
-                name={profile.name}
-                title={profile.position}
-                imageSrc={profile.picture}
-              />
-            ))}
+            </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 mx-auto gap-10">
-            {data?.data.leaderships.slice(2, 14).map((profile, index) => (
-              <ProfileCard
-                key={index}
-                name={profile.name}
-                title={profile.position}
-                imageSrc={profile.picture}
-              />
-            ))}
+          <div className="flex flex-col justify-center gap-6">
+            <div className="grid grid-cols-2 mx-auto gap-10">
+              {data?.data.leaderships.slice(0, 2).map((profile, index) => (
+                <ProfileCard
+                  key={index}
+                  name={profile.name}
+                  title={profile.position}
+                  imageSrc={profile.picture}
+                />
+              ))}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 mx-auto gap-10">
+              {data?.data.leaderships.slice(2, 14).map((profile, index) => (
+                <ProfileCard
+                  key={index}
+                  name={profile.name}
+                  title={profile.position}
+                  imageSrc={profile.picture}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </section>
   );
 }

@@ -32,6 +32,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
           size={property.size}
           hasStreetLights={property.hasStreetLights}
           hasGym={property.hasGym}
+          virtual_tour={property.virtual_tour}
+          property_map={property.property_map}
+          property_video={property.property_video}
         />
       ))}
     </div>
