@@ -8,6 +8,7 @@ import {
   fetchVirtualTourPageData,
   getAllPropertyLocations,
   getAllPropertyType,
+  getFAQs,
   getJobByID,
   getPropertyByID,
   makeEnquire,
@@ -22,6 +23,7 @@ import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
+import { FAQResponse } from "@/data/types/FAQTypes";
 
 // Query hook for homepage data with
 export const useHomepage = () => {
@@ -111,5 +113,12 @@ export const useGetAllPropertyTypes = () => {
 export const useEnquireProperty = () => {
   return useMutation({
     mutationFn: makeEnquire,
+  });
+};
+
+export const useGetFAQs = () => {
+  return useQuery<FAQResponse>({
+    queryKey: ["FAQs"],
+    queryFn: getFAQs,
   });
 };

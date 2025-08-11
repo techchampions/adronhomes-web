@@ -1,3 +1,4 @@
+import { FAQResponse } from "@/data/types/FAQTypes";
 import apiClient from "./apiClient";
 import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
@@ -124,5 +125,10 @@ export const makeEnquire = async (payload: Partial<EnquirePayload>) => {
   const response = await apiClient.post("/enquiry-request", formData, {
     headers: { "Content-Type": "application/json" },
   });
+  return response.data;
+};
+
+export const getFAQs = async (): Promise<FAQResponse> => {
+  const response = await apiClient.get("/faqs");
   return response.data;
 };
