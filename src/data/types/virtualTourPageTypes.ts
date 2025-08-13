@@ -1,9 +1,10 @@
+import { Pagination } from "./PaginationTypes";
 export interface VirtualTourResponse {
   status: string;
   message: string;
   data: {
     virtual_header: VirtualHeader[];
-    virtual_properties: VirtualProperty[];
+    virtual_properties: Pagination<VirtualProperty>;
   };
 }
 

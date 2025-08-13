@@ -3,19 +3,30 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField"; // adjust path as needed
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useParams } from "next/navigation";
+import { useApplyForJob } from "@/data/hooks";
+import Button from "@/components/Button";
+import { Check } from "lucide-react";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   phone: Yup.string().required("Phone Number is required"),
-  coverLetter: Yup.string().required("Cover letter is required"),
+  state: Yup.string().required("State is required"),
+  job_role: Yup.string().required("Role is required"),
+  education: Yup.string().required("Education is required"),
+  cover_letter: Yup.string().required("Cover letter is required"),
   resume: Yup.mixed().required("Resume is required"),
   consent: Yup.boolean().oneOf([true], "You must accept to submit"),
 });
 
 const ApplicationForm = () => {
+  const params = useParams();
+  const id = Number(params?.id);
+  const [applied, setapplied] = useState(false);
+  const { mutate: apply, isPending } = useApplyForJob();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -31,16 +42,36 @@ const ApplicationForm = () => {
           lastName: "",
           email: "",
           phone: "",
-          coverLetter: "",
-          resume: null,
+          cover_letter: "",
+          state: "",
+          job_role: "",
+          education: "",
+          resume: null as File | null,
           consent: false,
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log("Form Submitted", values);
+          const formData = new FormData();
+          formData.append("name", `${values.firstName} ${values.lastName}`);
+          formData.append("email", values.email);
+          formData.append("phone", values.phone);
+          formData.append("cover_letter", values.cover_letter);
+          formData.append("state", values.state);
+          formData.append("job_role", values.job_role);
+          formData.append("education", values.education);
+          formData.append("job_id", id.toString());
+          formData.append("application_type", "1");
+          if (values.resume) {
+            formData.append("resume", values.resume);
+          }
+          apply(formData, {
+            onSuccess() {
+              setapplied(true);
+            },
+          });
         }}
       >
-        {({ setFieldValue, values, errors, touched }) => (
+        {({ setFieldValue, values, errors, touched, isValid }) => (
           <Form className="space-y-5">
             {/* Name Fields */}
             <div className="grid grid-cols-2 gap-4">
@@ -56,6 +87,11 @@ const ApplicationForm = () => {
                 type="email"
               />
               <InputField name="phone" placeholder="Phone Number" type="tel" />
+              <InputField name="state" placeholder="State" />
+              <InputField name="job_role" placeholder="Job Role" />
+              <div className="col-span-2">
+                <InputField name="education" placeholder="Highest Education" />
+              </div>
             </div>
 
             {/* Cover Letter */}
@@ -64,7 +100,7 @@ const ApplicationForm = () => {
                 Cover Letter
               </label>
               <InputField
-                name="coverLetter"
+                name="cover_letter"
                 type="textarea"
                 className="resize-none rounded-xl"
                 placeholder="Write your cover letter..."
@@ -87,11 +123,14 @@ const ApplicationForm = () => {
                 <p className="text-xs mt-2 text-gray-500">
                   Max file size 4MB (Pdf, Doc, Docx)
                 </p>
-                {values.resume && (
-                  <p className="text-sm text-gray-700 mt-2">
-                    Selected: {values.resume}
-                  </p>
-                )}
+                {values.resume instanceof File && (
+                  <div className="text-sm text-gray-700 mt-2">
+                    <p>Selected: {values.resume.name}</p>
+                    <p>
+                      Size: {(values.resume.size / 1024 / 1024).toFixed(2)} MB
+                    </p>
+                  </div>
+                )}{" "}
               </div>
               <input
                 name="resume"
@@ -99,10 +138,15 @@ const ApplicationForm = () => {
                 ref={fileInputRef}
                 accept=".pdf,.doc,.docx"
                 onChange={(event) => {
-                  setFieldValue("resume", event.currentTarget.files?.[0]);
+                  if (
+                    event.currentTarget.files &&
+                    event.currentTarget.files[0]
+                  ) {
+                    setFieldValue("resume", event.currentTarget.files[0]);
+                  }
                 }}
                 className="hidden"
-              />
+              />{" "}
               {errors.resume && touched.resume && (
                 <p className="text-red-500 text-xs mt-1">
                   {errors.resume as string}
@@ -127,12 +171,14 @@ const ApplicationForm = () => {
             )}
 
             {/* Submit Button */}
-            <button
+            <Button
               type="submit"
-              className="bg-adron-green text-white py-3 px-6 rounded-full font-semibold w-fit"
-            >
-              Submit Application
-            </button>
+              icon={applied ? <Check /> : null}
+              label={applied ? `Applied Successfully` : `Submit Application`}
+              isLoading={isPending}
+              disabled={isPending || !isValid || applied}
+              className="bg-adron-green"
+            />
           </Form>
         )}
       </Formik>

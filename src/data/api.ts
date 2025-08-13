@@ -30,11 +30,12 @@ export const fetchContactPageData = async (): Promise<ContactPageResponse> => {
   return response.data;
 };
 //Virtual tour Page Data
-export const fetchVirtualTourPageData =
-  async (): Promise<VirtualTourResponse> => {
-    const response = await apiClient.get("/virtual-tour");
-    return response.data;
-  };
+export const fetchVirtualTourPageData = async (
+  page: number
+): Promise<VirtualTourResponse> => {
+  const response = await apiClient.get(`/virtual-tour?page=${page}`);
+  return response.data;
+};
 //Properties Page Data
 // export const fetchPropertiesPageData = async (
 //   page: number
@@ -83,8 +84,10 @@ export const getPropertyByID = async (
   return response.data;
 };
 //jobList Page Data
-export const fetchJobsPageData = async (): Promise<JobsApiResponse> => {
-  const response = await apiClient.get("/jobs-page");
+export const fetchJobsPageData = async (
+  page: number
+): Promise<JobsApiResponse> => {
+  const response = await apiClient.get(`/jobs-page?page=${page}`);
   return response.data;
 };
 //Get Job by ID Data
@@ -130,5 +133,12 @@ export const makeEnquire = async (payload: Partial<EnquirePayload>) => {
 
 export const getFAQs = async (): Promise<FAQResponse> => {
   const response = await apiClient.get("/faqs");
+  return response.data;
+};
+
+export const applyForJob = async (payload: FormData) => {
+  const response = await apiClient.post("/career-post", payload, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };

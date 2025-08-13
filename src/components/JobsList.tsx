@@ -15,7 +15,7 @@ interface JobsListProps {
 
 const JobsList: React.FC<JobsListProps> = ({ jobs }) => {
   return (
-    <>
+    <div className="grid grid-cols-1 md:grid-cols-3 text-left">
       {jobs.map((job) => (
         <JobItem key={job.id} job={job} />
         // <div
@@ -33,7 +33,7 @@ const JobsList: React.FC<JobsListProps> = ({ jobs }) => {
         //   />
         // </div>
       ))}
-    </>
+    </div>
   );
 };
 export default JobsList;
