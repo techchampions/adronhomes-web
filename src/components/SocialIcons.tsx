@@ -80,12 +80,12 @@ const platformIcons: Record<string, JSX.Element> = {
   "Phone Number": <FaPhone size={20} />,
 };
 
-const buildHref = (name: string, string: string) => {
-  if (name === "Whatsapp") return `https://wa.me/${string.replace(/\D/g, "")}`;
-  if (name === "Email") return `mailto:${string}`;
-  if (name === "Phone Number") return `tel:${string}`;
+const buildHref = (name: string, value: string) => {
+  if (name === "Whatsapp") return `https://wa.me/${value.replace(/\D/g, "")}`;
+  if (name === "Email") return `mailto:${value}`;
+  if (name === "Phone Number") return `tel:${value}`;
   if (name === "Location" || name === "Address") return "#";
-  return string.startsWith("http") ? string : `https://${string}`;
+  return value.startsWith("http") ? value : `https://${value}`;
 };
 
 const SocialIcons: React.FC<SocialIconsProps> = ({
@@ -101,7 +101,7 @@ const SocialIcons: React.FC<SocialIconsProps> = ({
         {filteredLinks?.map((link, index) => (
           <a
             key={index}
-            href={buildHref(link.name, link.string)}
+            href={buildHref(link.name, link.value)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 hover:text-gray-700 transition-colors"
@@ -116,7 +116,7 @@ const SocialIcons: React.FC<SocialIconsProps> = ({
         {filteredLinks?.map((link, index) => (
           <a
             key={index}
-            href={buildHref(link.name, link.string)}
+            href={buildHref(link.name, link.value)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-adron-gray-500 hover:text-gray-700 transition-colors"

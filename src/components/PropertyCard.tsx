@@ -97,6 +97,9 @@ interface PropertyCardProps {
   size: string;
   hasStreetLights?: boolean;
   hasGym?: boolean;
+  virtual_tour?: string | null;
+  property_map?: string | null;
+  property_video?: string | null;
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -106,6 +109,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   address,
   price,
   size,
+  virtual_tour,
+  property_map,
+  property_video,
   hasStreetLights = true,
   hasGym = true,
 }) => {
@@ -119,7 +125,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
         imageUrl
       )}&price=${price}&address=${encodeURIComponent(
         address
-      )}&size=${size}&hasStreetLights=${hasStreetLights}&hasGym=${hasGym}`
+      )}&size=${size}&hasStreetLights=${hasStreetLights}&hasGym=${hasGym}&vTourView=${virtual_tour}&video=${property_video}&map=${property_map}`
     );
   };
 

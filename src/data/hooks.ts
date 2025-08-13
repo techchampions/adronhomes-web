@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   fetchAboutPageData,
   fetchContactPageData,
@@ -8,8 +8,10 @@ import {
   fetchVirtualTourPageData,
   getAllPropertyLocations,
   getAllPropertyType,
+  getFAQs,
   getJobByID,
   getPropertyByID,
+  makeEnquire,
   PropertyFilters,
 } from "./api";
 import { HomepageResponse } from "./types/homepageTypes";
@@ -21,6 +23,7 @@ import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
+import { FAQResponse } from "@/data/types/FAQTypes";
 
 // Query hook for homepage data with
 export const useHomepage = () => {
@@ -104,5 +107,18 @@ export const useGetAllPropertyTypes = () => {
   return useQuery<PropertiesTypeResponse>({
     queryKey: ["property-types"],
     queryFn: getAllPropertyType,
+  });
+};
+
+export const useEnquireProperty = () => {
+  return useMutation({
+    mutationFn: makeEnquire,
+  });
+};
+
+export const useGetFAQs = () => {
+  return useQuery<FAQResponse>({
+    queryKey: ["FAQs"],
+    queryFn: getFAQs,
   });
 };

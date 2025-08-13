@@ -5,6 +5,21 @@ export interface GetPropertyByIdResponse {
     properties: Property[];
   };
 }
+export interface PropertyType {
+  id: number;
+  name: string;
+  created_at: string | null;
+  updated_at: string | null;
+}
+export interface EnquirePayload {
+  name: string;
+  email: string;
+  phone: string | number;
+  interest_option: string;
+  property_id: string | number;
+  description: string;
+}
+
 export interface PropertyDetail {
   id: number;
   name: string;
@@ -21,7 +36,7 @@ export interface Property {
   photos: string[];
   size: string;
   price: number;
-  type: number;
+  type: PropertyType; // changed from number to object
   slug: string;
   features: string[];
   overview: string;

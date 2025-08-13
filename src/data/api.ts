@@ -1,7 +1,11 @@
+import { FAQResponse } from "@/data/types/FAQTypes";
 import apiClient from "./apiClient";
 import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
-import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
+import {
+  EnquirePayload,
+  GetPropertyByIdResponse,
+} from "./types/GetPropertyByIdResponse";
 import { HomepageResponse } from "./types/homepageTypes";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertiesResponse } from "./types/propertiesPageTypes";
@@ -100,5 +104,31 @@ export const getAllPropertyLocations =
 //Get all Property Type Data
 export const getAllPropertyType = async (): Promise<PropertiesTypeResponse> => {
   const response = await apiClient.get("/properties-type");
+  return response.data;
+};
+
+export const makeEnquire = async (payload: Partial<EnquirePayload>) => {
+  const formData = new FormData();
+  if (payload.name !== undefined)
+    formData.append("name", payload.name.toString());
+  if (payload.email !== undefined)
+    formData.append("email", payload.email.toString());
+  if (payload.phone !== undefined)
+    formData.append("phone", payload.phone.toString());
+  if (payload.interest_option !== undefined)
+    formData.append("interest_option", payload.interest_option.toString());
+  if (payload.property_id !== undefined)
+    formData.append("property_id", payload.property_id.toString());
+  if (payload.description !== undefined)
+    formData.append("description", payload.description.toString());
+
+  const response = await apiClient.post("/enquiry-request", formData, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.data;
+};
+
+export const getFAQs = async (): Promise<FAQResponse> => {
+  const response = await apiClient.get("/faqs");
   return response.data;
 };

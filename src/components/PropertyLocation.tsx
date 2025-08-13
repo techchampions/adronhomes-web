@@ -142,7 +142,7 @@ const PropertyLocations: React.FC<Props> = ({ data }) => {
               <span className="w-3 h-3 p-3 mr-2 flex justify-center items-center rounded-full bg-white">
                 {locations[activeSlide]?.total_property}
               </span>
-              Properties
+              Estates
             </p>
           </div>
 

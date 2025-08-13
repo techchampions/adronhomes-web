@@ -4,23 +4,26 @@ import Slider from "react-slick";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Form, Formik } from "formik";
+import * as Yup from "yup";
 import InputField from "@/components/InputField";
 import { FaHeart, FaMapMarker } from "react-icons/fa";
 import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
 import { IoIosCheckmarkCircleOutline, IoLogoWhatsapp } from "react-icons/io";
 import { useParams } from "next/navigation";
-import { useGetPropertyByID } from "@/data/hooks";
+import { useEnquireProperty, useGetPropertyByID } from "@/data/hooks";
 import Loader from "@/components/Loader";
 import { formatPrice } from "@/utils/formater";
+import { IoCheckmark } from "react-icons/io5";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slider1 = useRef<Slider>(null);
   const params = useParams();
   const id = Number(params?.id);
-
+  const [requestSent, setRequestSent] = useState(false);
   const { data, isLoading, error } = useGetPropertyByID(id);
+  const { mutate: enquire, isPending } = useEnquireProperty();
 
   if (isLoading) return <Loader />;
   if (error) return <p>Error loading property.</p>;
@@ -29,6 +32,14 @@ const PropertyImageSlider = () => {
   const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const images = data?.data.properties[0].photos;
   const item = data?.data.properties[0];
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    interest_option: Yup.string().required("Interest is required"),
+    description: Yup.string().required("Message is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    phone: Yup.string().required("Phone is required"),
+  });
 
   const formattedPrice = new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -327,11 +338,25 @@ const PropertyImageSlider = () => {
               name: "",
               emall: "",
               phone: "",
-              interest: "",
-              message: "",
+              interest_option: item?.type.name,
+              property_id: item?.id,
+              description: "",
             }}
+            validationSchema={validationSchema}
             onSubmit={(values) => {
-              console.log("Filter values:", values);
+              console.log("Request values:", values);
+              if (values.description) {
+                enquire(values, {
+                  onSuccess() {
+                    setRequestSent(true);
+                  },
+                  onError() {
+                    setRequestSent(false);
+                  },
+                });
+              } else {
+                setRequestSent(false);
+              }
             }}
           >
             <Form className="bg-white rounded-4xl p-5">
@@ -398,7 +423,7 @@ const PropertyImageSlider = () => {
                     className="py-3 rounded-lg"
                     placeholder="I am interested in this property"
                     type="textarea"
-                    name="message"
+                    name="description"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -410,18 +435,28 @@ const PropertyImageSlider = () => {
                   </label>
 
                   <SelectField
-                    name="interest"
+                    name="interest_option"
                     placeholder="Status"
-                    options={["For Sale", "For Rent"]}
+                    options={["Land", "House"]}
                   />
                 </div>
               </div>
               <div className="flex justify-between text-xs gap-1">
-                <Button
-                  label="Submit"
-                  type="submit"
-                  className="bg-adron-green mt-8 flex-1 py-1"
-                />
+                {requestSent ? (
+                  <Button
+                    label="Request Sent!"
+                    icon={<IoCheckmark />}
+                    className="bg-adron-green mt-8 flex-1 py-1"
+                  />
+                ) : (
+                  <Button
+                    label="Submit"
+                    type="submit"
+                    isLoading={isPending}
+                    disabled={isPending || requestSent}
+                    className="bg-adron-green mt-8 flex-1 py-1"
+                  />
+                )}
                 <Button
                   label="Call"
                   className="bg-black text-white flex-[0.5] mt-8 py-1"

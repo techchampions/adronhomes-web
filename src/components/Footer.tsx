@@ -1,6 +1,7 @@
 // components/Footer.tsx
 
 import Image from "next/image";
+import Link from "next/link";
 import { JSX } from "react";
 import {
   FaEnvelope,
@@ -81,10 +82,22 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-3 text-black">QUICK ACTIONS</h4>
             <ul className="space-y-2">
-              <li>Client Login</li>
-              <li>Buy Properties</li>
-              <li>Estates Locations</li>
-              <li>Home Listings</li>
+              <li>
+                <Link href="https://adronhomesdashboard.netlify.app/">
+                  Client Login
+                </Link>
+              </li>
+              <li>
+                <Link href="https://adronhomesdashboard.netlify.app/new-property">
+                  Buy Properties{" "}
+                </Link>
+              </li>
+              <li>
+                <Link href="/properties">Estates Locations </Link>
+              </li>
+              <li>
+                <Link href="/properties">Home Listing </Link>
+              </li>
               <li>Testimonials</li>
             </ul>
           </div>
@@ -93,10 +106,16 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-3 text-black">COMPANY</h4>
             <ul className="space-y-2 ">
-              <li>About Us</li>
+              <li>
+                <Link href="/about-us">About Us</Link>
+              </li>
               <li>Client Partnership</li>
-              <li>Our Team</li>
-              <li>Careers</li>
+              <li>
+                <Link href="/about-us#leadership">Our Team</Link>
+              </li>
+              <li>
+                <Link href="/careers">Careers</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -106,7 +125,9 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-3 text-black">HELP & RESOURCES</h4>
             <ul className="space-y-2">
-              <li>FAQ</li>
+              <li>
+                <Link href="/faqs">FAQs</Link>
+              </li>
               <li>Terms & Conditions</li>
               <li>Privacy Policy</li>
               <li>Blog</li>

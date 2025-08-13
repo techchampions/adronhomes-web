@@ -33,4 +33,7 @@ export interface VirtualProperty {
   lga: string;
   created_at: string | null;
   updated_at: string | null;
+  virtual_tour: string | null;
+  property_video: string | null;
+  property_map: string | null;
 }
