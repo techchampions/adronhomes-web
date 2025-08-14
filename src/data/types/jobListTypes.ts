@@ -1,3 +1,4 @@
+import { Pagination } from "./PaginationTypes";
 export interface Job {
   id: number;
   job_title: string;
@@ -18,7 +19,7 @@ export interface JobHeader {
 
 export interface JobsData {
   jobs_header: JobHeader[];
-  jobs_post: Job[];
+  jobs_post: Pagination<Job>;
 }
 
 export interface JobsApiResponse {
@@ -31,6 +32,7 @@ export interface JobsApiResponse {
 
 export interface JobDetail {
   id: number;
+  compensation: number;
   job_title: string;
   description: string;
   location: string;
@@ -46,7 +48,5 @@ export interface JobDetail {
 export interface GetJobByIdResponse {
   status: string;
   message: string;
-  data: {
-    job_details: JobDetail[];
-  };
+  job_post: JobDetail;
 }

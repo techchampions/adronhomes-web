@@ -8,7 +8,10 @@ import {
 } from "./types/GetPropertyByIdResponse";
 import { HomepageResponse } from "./types/homepageTypes";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
-import { PropertiesResponse } from "./types/propertiesPageTypes";
+import {
+  PaginatedProperties,
+  PropertiesResponse,
+} from "./types/propertiesPageTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
@@ -30,11 +33,12 @@ export const fetchContactPageData = async (): Promise<ContactPageResponse> => {
   return response.data;
 };
 //Virtual tour Page Data
-export const fetchVirtualTourPageData =
-  async (): Promise<VirtualTourResponse> => {
-    const response = await apiClient.get("/virtual-tour");
-    return response.data;
-  };
+export const fetchVirtualTourPageData = async (
+  page: number
+): Promise<VirtualTourResponse> => {
+  const response = await apiClient.get(`/virtual-tour?page=${page}`);
+  return response.data;
+};
 //Properties Page Data
 // export const fetchPropertiesPageData = async (
 //   page: number
@@ -74,6 +78,26 @@ export const fetchPropertiesPageData = async (
   const response = await apiClient.get(endpoint);
   return response.data;
 };
+export const filterProperties = async (
+  page: number,
+  filters: PropertyFilters = {} // Use the defined type
+): Promise<PaginatedProperties> => {
+  // const hasFilters = Object.values(filters).some(
+  //   (v) => v !== "" && v !== undefined
+  // );
+  const params = new URLSearchParams({
+    page: String(page),
+    ...(filters.state && { state: filters.state }),
+    ...(filters.propertyType && { type: filters.propertyType }),
+    ...(filters.min && { minPrice: String(filters.min) }),
+    ...(filters.max && { maxPrice: String(filters.max) }),
+  });
+
+  const endpoint = `/filter-property?${params.toString()}`;
+
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
 
 //Get Properties by ID Data
 export const getPropertyByID = async (
@@ -83,8 +107,10 @@ export const getPropertyByID = async (
   return response.data;
 };
 //jobList Page Data
-export const fetchJobsPageData = async (): Promise<JobsApiResponse> => {
-  const response = await apiClient.get("/jobs-page");
+export const fetchJobsPageData = async (
+  page: number
+): Promise<JobsApiResponse> => {
+  const response = await apiClient.get(`/jobs-page?page=${page}`);
   return response.data;
 };
 //Get Job by ID Data
@@ -130,5 +156,13 @@ export const makeEnquire = async (payload: Partial<EnquirePayload>) => {
 
 export const getFAQs = async (): Promise<FAQResponse> => {
   const response = await apiClient.get("/faqs");
+  return response.data;
+};
+
+
+export const applyForJob = async (payload: FormData) => {
+  const response = await apiClient.post("/career-post", payload, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };

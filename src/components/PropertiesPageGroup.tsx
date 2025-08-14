@@ -1,5 +1,5 @@
 "use client";
-import { usePropertiespage } from "@/data/hooks";
+import { useFilterProperties, usePropertiespage } from "@/data/hooks";
 import FilterBar from "./FilterBar";
 import Loader from "./Loader";
 import ApiErrorBlock from "./ApiErrorBlock";
@@ -8,6 +8,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import PropertiesPageHeader from "./PropertiesPageHeader";
 import { PropertyFilters } from "@/data/api";
+import Pagination from "@/components/Pagination";
 
 export default function PropertiesPageGroup() {
   const searchParams = useSearchParams();
@@ -15,6 +16,7 @@ export default function PropertiesPageGroup() {
 
   const location = searchParams.get("location") || "";
   const [page, setPage] = useState(1);
+
   const [filters, setFilters] = useState<PropertyFilters>({});
 
   // Reset filters if user navigates to /properties again
@@ -36,19 +38,26 @@ export default function PropertiesPageGroup() {
   useEffect(() => {
     if (location) {
       setFilters({ state: location });
-      console.log("filters:", filters);
     }
-  }, [location, filters]); // <- only runs when location changes
+  }, [location]); // <- only runs when location changes
   const { data, isLoading, isError } = usePropertiespage(page, filters);
+  console.log(data);
+  const {
+    data: filteredData,
+    isLoading: filtering,
+    isError: notFiltered,
+  } = useFilterProperties(page, filters);
 
-  if (isLoading) return <Loader />;
-  if (isError) return <ApiErrorBlock />;
-  const properties =
-    filters && Object.values(filters).some((v) => v !== "")
-      ? data?.data || []
-      : data?.properties?.data || [];
+  if (isLoading || filtering) return <Loader />;
+  if (isError || notFiltered) return <ApiErrorBlock />;
+  const properties = filteredData?.data || [];
+  const totalPages = filteredData?.last_page || 0;
+  // const properties =
+  //   filters && Object.values(filters).some((v) => v !== "")
+  //     ? data?.data || []
+  //     : data?.properties?.data || [];
 
-  const pagination = data?.properties;
+  // const totalPages = data?.properties.last_page || 0;
 
   return (
     <div className="max-w-7xl mx-auto p-2 md:p-6">
@@ -74,25 +83,13 @@ export default function PropertiesPageGroup() {
       />
       <div className="bg-white rounded-3xl px-4 md-px-10 py-6 md:py-10 w-full mx-auto">
         <HomePropertyList properties={properties} />
-        <div className="flex justify-center items-center mt-8 gap-4">
-          <button
-            onClick={() => setPage((p) => Math.max(p - 1, 1))}
-            disabled={!pagination?.prev_page_url}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span className="text-sm text-gray-600">
-            Page {pagination?.current_page} of {pagination?.last_page}
-          </span>
-          <button
-            onClick={() => setPage((p) => p + 1)}
-            disabled={!pagination?.next_page_url}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          hasPrev={!!filteredData?.prev_page_url}
+          hasNext={!!filteredData?.next_page_url}
+        />
       </div>
     </div>
   );

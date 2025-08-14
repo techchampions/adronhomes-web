@@ -1,11 +1,13 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
+  applyForJob,
   fetchAboutPageData,
   fetchContactPageData,
   fetchHomePageData,
   fetchJobsPageData,
   fetchPropertiesPageData,
   fetchVirtualTourPageData,
+  filterProperties,
   getAllPropertyLocations,
   getAllPropertyType,
   getFAQs,
@@ -18,7 +20,10 @@ import { HomepageResponse } from "./types/homepageTypes";
 import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
-import { PropertiesResponse } from "./types/propertiesPageTypes";
+import {
+  PaginatedProperties,
+  PropertiesResponse,
+} from "./types/propertiesPageTypes";
 import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
@@ -48,10 +53,10 @@ export const useContactpage = () => {
   });
 };
 // Query hook for virtual-tour page data with
-export const useVirtualTourpage = () => {
+export const useVirtualTourpage = (page: number) => {
   return useQuery<VirtualTourResponse>({
-    queryKey: ["virtual-tour-page"],
-    queryFn: fetchVirtualTourPageData,
+    queryKey: ["virtual-tour-page", page],
+    queryFn: () => fetchVirtualTourPageData(page),
   });
 };
 // Query hook for properties page data with
@@ -71,6 +76,16 @@ export const usePropertiespage = (
     queryFn: () => fetchPropertiesPageData(page, filters),
   });
 };
+export const useFilterProperties = (
+  // filters?: Record<string, any>
+  page: number,
+  filters?: PropertyFilters
+) => {
+  return useQuery<PaginatedProperties>({
+    queryKey: ["properties", page, filters],
+    queryFn: () => filterProperties(page, filters),
+  });
+};
 
 // Query hook for properties page data with
 export const useGetPropertyByID = (id: number | string) => {
@@ -81,10 +96,10 @@ export const useGetPropertyByID = (id: number | string) => {
   });
 };
 // Query hook for properties page data with
-export const useJobListPage = () => {
+export const useJobListPage = (page: number) => {
   return useQuery<JobsApiResponse>({
-    queryKey: ["jobs-page"],
-    queryFn: fetchJobsPageData,
+    queryKey: ["jobs-page", page],
+    queryFn: () => fetchJobsPageData(page),
   });
 };
 // Query hook for Jobs by ID data with
@@ -120,5 +135,11 @@ export const useGetFAQs = () => {
   return useQuery<FAQResponse>({
     queryKey: ["FAQs"],
     queryFn: getFAQs,
+  });
+};
+
+export const useApplyForJob = () => {
+  return useMutation({
+    mutationFn: applyForJob,
   });
 };

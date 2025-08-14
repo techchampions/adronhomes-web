@@ -83,6 +83,7 @@
 
 "use client";
 
+import { formatPrice } from "@/utils/formater";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaMapMarkerAlt, FaRegHeart } from "react-icons/fa";
@@ -93,7 +94,7 @@ interface PropertyCardProps {
   imageUrl: string;
   title: string;
   address: string;
-  price: string | number;
+  price: number;
   size: string;
   hasStreetLights?: boolean;
   hasGym?: boolean;
@@ -142,7 +143,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
             <FaMapMarkerAlt className="mr-1 text-adron-gray-500" /> {address}
           </p>
           <p className="text-md font-bold text-gray-800 mb-3 flex items-center justify-between w-full pr-5">
-            {price}
+            {formatPrice(price || 0)}
             <FaRegHeart className="ml-1 text-gray-800 " />
           </p>
 

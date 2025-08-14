@@ -7,11 +7,16 @@ import { useJobListPage } from "@/data/hooks";
 import Loader from "./Loader";
 import JobsList from "./JobsList";
 import ApiErrorBlock from "./ApiErrorBlock";
+import Pagination from "@/components/Pagination";
+import { useState } from "react";
 
 const JobsPageGroup = () => {
-  const { data, isLoading, isError } = useJobListPage();
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError } = useJobListPage(page);
+  const totalPages = data?.data.jobs_post.last_page || 0;
   if (isLoading) return <Loader />;
   if (isError) return <ApiErrorBlock />;
+
   return (
     <div className="flex flex-col items-center justify-center w-full px-8">
       <div className="flex flex-col justify-center mx-auto text-center space-y-2 py-20">
@@ -46,8 +51,15 @@ const JobsPageGroup = () => {
           </Form>
         </Formik>
       </div>
-      <div className="bg-white w-full rounded-[50px] grid grid-cols-1 md:grid-cols-3 px-8 py-20 mt-10 text-left">
-        <JobsList jobs={data?.data.jobs_post || []} />
+      <div className="bg-white w-full rounded-[50px] px-8 py-20 mt-10 text-left mb-20">
+        <JobsList jobs={data?.data.jobs_post.data || []} />
+        <Pagination
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          hasPrev={!!data?.data.jobs_post.prev_page_url}
+          hasNext={!!data?.data.jobs_post.next_page_url}
+        />
       </div>
     </div>
   );

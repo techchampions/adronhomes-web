@@ -2,8 +2,10 @@
 import ApplicationForm from "@/components/ApplicationForm";
 import Loader from "@/components/Loader";
 import { useGetJobByID } from "@/data/hooks";
+import { formatPrice } from "@/utils/formater";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { BiMoney } from "react-icons/bi";
 import { FaHome, FaMapMarker, FaShare } from "react-icons/fa";
 
 const JobDetail = () => {
@@ -23,51 +25,56 @@ const JobDetail = () => {
         <div className="w-full md:w-[60%] flex flex-col gap-5">
           <h1 className="text-4xl md:text-6xl font-bold">
             {" "}
-            {data?.data.job_details[0].job_title}{" "}
+            {data?.job_post.job_title}
           </h1>
           <div className="flex flex-roww gap-10">
             <div className="flex gap-2">
               <FaHome />
-              <p className="text-sm">{data?.data.job_details[0].location}</p>
+              <p className="text-sm">{data?.job_post.location}</p>
             </div>
             <div className="flex gap-2">
               <FaMapMarker />
-              <p className="text-sm">{data?.data.job_details[0].job_type}</p>
+              <p className="text-sm">{data?.job_post.job_type}</p>
             </div>
             <div className="flex gap-2">
               <FaShare />
               <p className="text-sm">share this job</p>
             </div>
+            <div className="flex gap-2">
+              <BiMoney />
+              <p className="text-sm">
+                {formatPrice(data?.job_post.compensation || 0)}
+              </p>
+            </div>
           </div>
           <p className="text-sm text-adron-gray-500">
             {" "}
-            {data?.data.job_details[0].description}{" "}
+            {data?.job_post.description}{" "}
           </p>
           <div className="">
             <p className="font-bold">Key Responsibilities:</p>
-            <ul className="list-disc ml-5 text-sm text-adron-gray-500">
-              {data?.data.job_details[0].key_responsibility.map(
-                (item, index) => (
-                  <li key={index}>{item}</li>
-                )
-              )}
-            </ul>
+            {/* <ul className="list-disc ml-5 text-sm text-adron-gray-500">
+              {data?.job_post.key_responsibility.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul> */}
           </div>
           <div className="">
             <p className="font-bold">Requirements:</p>
-            <ul className="list-disc ml-5 text-sm text-adron-gray-500">
-              {data?.data.job_details[0].requirements.map((item, index) => (
+
+            {/* <ul className="list-disc ml-5 text-sm text-adron-gray-500">
+              {data?.job_post.requirements.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
-            </ul>
+            </ul> */}
           </div>
           <div className="">
             <p className="font-bold">Preferred Qualifications:</p>
-            <ul className="list-disc ml-5 text-sm text-adron-gray-500">
-              {data?.data.job_details[0].qualifications.map((item, index) => (
+            {/* <ul className="list-disc ml-5 text-sm text-adron-gray-500">
+              {data?.job_post.qualifications.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
         <div className="w-full md:w-[40%]">
