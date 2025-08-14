@@ -159,6 +159,7 @@ export const getFAQs = async (): Promise<FAQResponse> => {
   return response.data;
 };
 
+
 export const applyForJob = async (payload: FormData) => {
   const response = await apiClient.post("/career-post", payload, {
     headers: { "Content-Type": "multipart/form-data" },
