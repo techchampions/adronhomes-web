@@ -7,6 +7,7 @@ import {
   fetchJobsPageData,
   fetchPropertiesPageData,
   fetchVirtualTourPageData,
+  filterProperties,
   getAllPropertyLocations,
   getAllPropertyType,
   getFAQs,
@@ -19,7 +20,10 @@ import { HomepageResponse } from "./types/homepageTypes";
 import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
-import { PropertiesResponse } from "./types/propertiesPageTypes";
+import {
+  PaginatedProperties,
+  PropertiesResponse,
+} from "./types/propertiesPageTypes";
 import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
@@ -70,6 +74,16 @@ export const usePropertiespage = (
   return useQuery<PropertiesResponse>({
     queryKey: ["properties-page", page, filters],
     queryFn: () => fetchPropertiesPageData(page, filters),
+  });
+};
+export const useFilterProperties = (
+  // filters?: Record<string, any>
+  page: number,
+  filters?: PropertyFilters
+) => {
+  return useQuery<PaginatedProperties>({
+    queryKey: ["properties", page, filters],
+    queryFn: () => filterProperties(page, filters),
   });
 };
 

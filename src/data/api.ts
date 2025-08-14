@@ -8,7 +8,10 @@ import {
 } from "./types/GetPropertyByIdResponse";
 import { HomepageResponse } from "./types/homepageTypes";
 import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
-import { PropertiesResponse } from "./types/propertiesPageTypes";
+import {
+  PaginatedProperties,
+  PropertiesResponse,
+} from "./types/propertiesPageTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
@@ -71,6 +74,26 @@ export const fetchPropertiesPageData = async (
   const endpoint = hasFilters
     ? `/filter-property?${params.toString()}`
     : `/properties-page?page=${page}`;
+
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
+export const filterProperties = async (
+  page: number,
+  filters: PropertyFilters = {} // Use the defined type
+): Promise<PaginatedProperties> => {
+  // const hasFilters = Object.values(filters).some(
+  //   (v) => v !== "" && v !== undefined
+  // );
+  const params = new URLSearchParams({
+    page: String(page),
+    ...(filters.state && { state: filters.state }),
+    ...(filters.propertyType && { type: filters.propertyType }),
+    ...(filters.min && { minPrice: String(filters.min) }),
+    ...(filters.max && { maxPrice: String(filters.max) }),
+  });
+
+  const endpoint = `/filter-property?${params.toString()}`;
 
   const response = await apiClient.get(endpoint);
   return response.data;

@@ -1,5 +1,5 @@
 "use client";
-import { usePropertiespage } from "@/data/hooks";
+import { useFilterProperties, usePropertiespage } from "@/data/hooks";
 import FilterBar from "./FilterBar";
 import Loader from "./Loader";
 import ApiErrorBlock from "./ApiErrorBlock";
@@ -38,19 +38,26 @@ export default function PropertiesPageGroup() {
   useEffect(() => {
     if (location) {
       setFilters({ state: location });
-      console.log("filters:", filters);
     }
-  }, [location, filters]); // <- only runs when location changes
+  }, [location]); // <- only runs when location changes
   const { data, isLoading, isError } = usePropertiespage(page, filters);
+  console.log(data);
+  const {
+    data: filteredData,
+    isLoading: filtering,
+    isError: notFiltered,
+  } = useFilterProperties(page, filters);
 
-  if (isLoading) return <Loader />;
-  if (isError) return <ApiErrorBlock />;
-  const properties =
-    filters && Object.values(filters).some((v) => v !== "")
-      ? data?.data || []
-      : data?.properties?.data || [];
+  if (isLoading || filtering) return <Loader />;
+  if (isError || notFiltered) return <ApiErrorBlock />;
+  const properties = filteredData?.data || [];
+  const totalPages = filteredData?.last_page || 0;
+  // const properties =
+  //   filters && Object.values(filters).some((v) => v !== "")
+  //     ? data?.data || []
+  //     : data?.properties?.data || [];
 
-  const totalPages = data?.properties.last_page || 0;
+  // const totalPages = data?.properties.last_page || 0;
 
   return (
     <div className="max-w-7xl mx-auto p-2 md:p-6">
@@ -80,8 +87,8 @@ export default function PropertiesPageGroup() {
           currentPage={page}
           totalPages={totalPages}
           onPageChange={setPage}
-          hasPrev={!!data?.properties.prev_page_url}
-          hasNext={!!data?.properties.next_page_url}
+          hasPrev={!!filteredData?.prev_page_url}
+          hasNext={!!filteredData?.next_page_url}
         />
       </div>
     </div>
