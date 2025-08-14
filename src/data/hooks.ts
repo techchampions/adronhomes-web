@@ -68,16 +68,15 @@ export const useVirtualTourpage = (page: number) => {
 // };
 export const usePropertiespage = (
   // filters?: Record<string, any>
-  page: number,
-  filters?: PropertyFilters
+  page: number
+  // filters?: PropertyFilters
 ) => {
   return useQuery<PropertiesResponse>({
-    queryKey: ["properties-page", page, filters],
-    queryFn: () => fetchPropertiesPageData(page, filters),
+    queryKey: ["properties-page", page],
+    queryFn: () => fetchPropertiesPageData(page),
   });
 };
 export const useFilterProperties = (
-  // filters?: Record<string, any>
   page: number,
   filters?: PropertyFilters
 ) => {
