@@ -26,9 +26,11 @@ import { PropertyFilters } from "@/data/api";
 export default function FilterBar({
   onFilter,
   initialFilters,
+  filtering,
 }: {
   onFilter: (filters: PropertyFilters) => void;
   initialFilters: PropertyFilters;
+  filtering: boolean;
 }) {
   const {
     data: PropertyTypeData,
@@ -50,7 +52,7 @@ export default function FilterBar({
     <Formik
       initialValues={{
         state: location || initialFilters.state || "",
-        propertyType: initialFilters.propertyType || "",
+        type: initialFilters.type || "",
         bedrooms: initialFilters.bedrooms || "",
         status: initialFilters.status || "",
         min: initialFilters.min || "",
@@ -67,7 +69,7 @@ export default function FilterBar({
           <Form className="hidden md:block">
             <div
               className={`bg-white px-8 py-6 rounded-3xl mb-8 md:grid grid-cols-2 sm:grid-cols-3 ${
-                values.propertyType === "1"
+                values.type === "1"
                   ? `md:grid-cols-4`
                   : !location
                   ? `md:grid-cols-6`
@@ -98,12 +100,12 @@ export default function FilterBar({
                 </label>
 
                 <SelectField
-                  name="propertyType"
+                  name="type"
                   placeholder="Property Type"
                   options={propertyTypes}
                 />
               </div>
-              {values.propertyType !== "1" && (
+              {values.type !== "1" && (
                 <div className={`flex flex-col justify-between gap-4`}>
                   <label
                     htmlFor="location"
@@ -119,7 +121,7 @@ export default function FilterBar({
                   />
                 </div>
               )}
-              {values.propertyType !== "1" && (
+              {values.type !== "1" && (
                 <div className="flex flex-col justify-between gap-4">
                   <label
                     htmlFor="location"
@@ -257,6 +259,7 @@ export default function FilterBar({
                 <Button
                   label="Apply"
                   type="submit"
+                  isLoading={filtering}
                   className="bg-adron-green mt-8 py-4"
                 />
               </div>

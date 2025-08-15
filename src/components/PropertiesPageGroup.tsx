@@ -40,7 +40,7 @@ export default function PropertiesPageGroup() {
       setFilters({ state: location });
     }
   }, [location]); // <- only runs when location changes
-  const { data, isLoading, isError } = usePropertiespage(page, filters);
+  const { data, isLoading, isError } = usePropertiespage(page);
   console.log(data);
   const {
     data: filteredData,
@@ -52,29 +52,22 @@ export default function PropertiesPageGroup() {
   if (isError || notFiltered) return <ApiErrorBlock />;
   const properties = filteredData?.data || [];
   const totalPages = filteredData?.last_page || 0;
-  // const properties =
-  //   filters && Object.values(filters).some((v) => v !== "")
-  //     ? data?.data || []
-  //     : data?.properties?.data || [];
-
-  // const totalPages = data?.properties.last_page || 0;
 
   return (
     <div className="max-w-7xl mx-auto p-2 md:p-6">
-      {/* <Suspense fallback={<Loader />}>
-        <PropertiesPageHeader />
-        </Suspense> */}
       <PropertiesPageHeader />
 
       <FilterBar
+        filtering={filtering}
         initialFilters={filters}
         onFilter={(values) => {
-          const mapped = {
+          const mapped: PropertyFilters = {
             state: values.state,
-            type: values.propertyType,
+            type: values.type,
+            bedrooms: values.bedrooms,
             status: values.status,
-            minPrice: values.min,
-            maxPrice: values.max,
+            min: values.min,
+            max: values.max,
           };
 
           setPage(1); // Reset pagination when filters change

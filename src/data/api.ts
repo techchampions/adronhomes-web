@@ -49,7 +49,7 @@ export const fetchVirtualTourPageData = async (
 
 export interface PropertyFilters {
   state?: string;
-  propertyType?: string;
+  type?: string;
   status?: string;
   bedrooms?: string;
   min?: string | number;
@@ -57,23 +57,48 @@ export interface PropertyFilters {
 }
 
 export const fetchPropertiesPageData = async (
+  page: number
+  // filters: PropertyFilters = {} // Use the defined type
+): Promise<PropertiesResponse> => {
+  // const hasFilters = Object.values(filters).some(
+  //   (v) => v !== "" && v !== undefined
+  // );
+  // const params = new URLSearchParams({
+  //   page: String(page),
+  //   ...(filters.state && { state: filters.state }),
+  //   ...(filters.type && { type: filters.type }),
+  //   ...(filters.min && { minPrice: String(filters.min) }),
+  //   ...(filters.max && { maxPrice: String(filters.max) }),
+  // });
+
+  // const endpoint = hasFilters
+  //   ? `/filter-property?${params.toString()}`
+  //   : `/properties-page?page=${page}`;
+
+  const endpoint = `/properties-page?page=${page}`;
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
+export const filterProperties = async (
   page: number,
   filters: PropertyFilters = {} // Use the defined type
-): Promise<PropertiesResponse> => {
-  const hasFilters = Object.values(filters).some(
-    (v) => v !== "" && v !== undefined
-  );
+): Promise<PaginatedProperties> => {
   const params = new URLSearchParams({
     page: String(page),
-    ...(filters.state && { state: filters.state }),
-    ...(filters.propertyType && { type: filters.propertyType }),
-    ...(filters.min && { minPrice: String(filters.min) }),
-    ...(filters.max && { maxPrice: String(filters.max) }),
+    state: String(filters.state) || "",
+    type: filters.type || "",
+    maxPrice: String(filters.max) || "",
+    minPrice: String(filters.min) || "",
+    no_of_bedroom: String(filters.bedrooms) || "",
+    status: String(filters.status) || "",
+    // ...(filters.state && { state: filters.state }),
+    // ...(filters.type && { type: filters.type }),
+    // ...(filters.bedrooms && { bedrooms: filters.bedrooms }),
+    // ...(filters.min && { minPrice: String(filters.min) }),
+    // ...(filters.max && { maxPrice: String(filters.max) }),
   });
 
-  const endpoint = hasFilters
-    ? `/filter-property?${params.toString()}`
-    : `/properties-page?page=${page}`;
+  const endpoint = `/filter-property?${params.toString()}`;
 
   const response = await apiClient.get(endpoint);
   return response.data;

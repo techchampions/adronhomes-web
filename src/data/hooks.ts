@@ -68,12 +68,21 @@ export const useVirtualTourpage = (page: number) => {
 // };
 export const usePropertiespage = (
   // filters?: Record<string, any>
+  page: number
+  // filters?: PropertyFilters
+) => {
+  return useQuery<PropertiesResponse>({
+    queryKey: ["properties-page", page],
+    queryFn: () => fetchPropertiesPageData(page),
+  });
+};
+export const useFilterProperties = (
   page: number,
   filters?: PropertyFilters
 ) => {
-  return useQuery<PropertiesResponse>({
-    queryKey: ["properties-page", page, filters],
-    queryFn: () => fetchPropertiesPageData(page, filters),
+  return useQuery<PaginatedProperties>({
+    queryKey: ["properties", page, filters],
+    queryFn: () => filterProperties(page, filters),
   });
 };
 export const useFilterProperties = (
