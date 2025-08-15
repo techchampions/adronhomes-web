@@ -75,6 +75,7 @@ export const fetchPropertiesPageData = async (
   //   ? `/filter-property?${params.toString()}`
   //   : `/properties-page?page=${page}`;
 
+
   const endpoint = `/properties-page?page=${page}`;
   const response = await apiClient.get(endpoint);
   return response.data;
