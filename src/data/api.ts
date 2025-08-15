@@ -91,31 +91,6 @@ export const filterProperties = async (
     minPrice: String(filters.min) || "",
     no_of_bedroom: String(filters.bedrooms) || "",
     status: String(filters.status) || "",
-    // ...(filters.state && { state: filters.state }),
-    // ...(filters.type && { type: filters.type }),
-    // ...(filters.bedrooms && { bedrooms: filters.bedrooms }),
-    // ...(filters.min && { minPrice: String(filters.min) }),
-    // ...(filters.max && { maxPrice: String(filters.max) }),
-  });
-
-  const endpoint = `/filter-property?${params.toString()}`;
-
-  const response = await apiClient.get(endpoint);
-  return response.data;
-};
-export const filterProperties = async (
-  page: number,
-  filters: PropertyFilters = {} // Use the defined type
-): Promise<PaginatedProperties> => {
-  // const hasFilters = Object.values(filters).some(
-  //   (v) => v !== "" && v !== undefined
-  // );
-  const params = new URLSearchParams({
-    page: String(page),
-    ...(filters.state && { state: filters.state }),
-    ...(filters.propertyType && { type: filters.propertyType }),
-    ...(filters.min && { minPrice: String(filters.min) }),
-    ...(filters.max && { maxPrice: String(filters.max) }),
   });
 
   const endpoint = `/filter-property?${params.toString()}`;
@@ -183,7 +158,6 @@ export const getFAQs = async (): Promise<FAQResponse> => {
   const response = await apiClient.get("/faqs");
   return response.data;
 };
-
 
 export const applyForJob = async (payload: FormData) => {
   const response = await apiClient.post("/career-post", payload, {
