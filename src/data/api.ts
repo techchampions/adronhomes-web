@@ -85,13 +85,31 @@ export const filterProperties = async (
 ): Promise<PaginatedProperties> => {
   const params = new URLSearchParams({
     page: String(page),
-    state: String(filters.state) || "",
-    type: filters.type || "",
-    maxPrice: String(filters.max) || "",
-    minPrice: String(filters.min) || "",
-    no_of_bedroom: String(filters.bedrooms) || "",
-    status: String(filters.status) || "",
+    // state: String(filters.state) || "",
+    // type: filters.type || "",
+    // maxPrice: String(filters.max) || "",
+    // minPrice: String(filters.min) || "",
+    // no_of_bedroom: String(filters.bedrooms) || "",
+    // status: String(filters.status) || "",
   });
+  if (filters.state) {
+    params.append("state", String(filters.state));
+  }
+  if (filters.type) {
+    params.append("type", String(filters.type));
+  }
+  if (filters.status) {
+    params.append("status", String(filters.status));
+  }
+  if (filters.bedrooms) {
+    params.append("no_of_bedrooms", String(filters.bedrooms));
+  }
+  if (filters.max) {
+    params.append("maxPrice", String(filters.max));
+  }
+  if (filters.min) {
+    params.append("minPrice", String(filters.min));
+  }
 
   const endpoint = `/filter-property?${params.toString()}`;
 
