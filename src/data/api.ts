@@ -75,6 +75,7 @@ export const fetchPropertiesPageData = async (
   //   ? `/filter-property?${params.toString()}`
   //   : `/properties-page?page=${page}`;
 
+
   const endpoint = `/properties-page?page=${page}`;
   const response = await apiClient.get(endpoint);
   return response.data;
@@ -85,38 +86,31 @@ export const filterProperties = async (
 ): Promise<PaginatedProperties> => {
   const params = new URLSearchParams({
     page: String(page),
-    state: String(filters.state) || "",
-    type: filters.type || "",
-    maxPrice: String(filters.max) || "",
-    minPrice: String(filters.min) || "",
-    no_of_bedroom: String(filters.bedrooms) || "",
-    status: String(filters.status) || "",
-    // ...(filters.state && { state: filters.state }),
-    // ...(filters.type && { type: filters.type }),
-    // ...(filters.bedrooms && { bedrooms: filters.bedrooms }),
-    // ...(filters.min && { minPrice: String(filters.min) }),
-    // ...(filters.max && { maxPrice: String(filters.max) }),
+    // state: String(filters.state) || "",
+    // type: filters.type || "",
+    // maxPrice: String(filters.max) || "",
+    // minPrice: String(filters.min) || "",
+    // no_of_bedroom: String(filters.bedrooms) || "",
+    // status: String(filters.status) || "",
   });
-
-  const endpoint = `/filter-property?${params.toString()}`;
-
-  const response = await apiClient.get(endpoint);
-  return response.data;
-};
-export const filterProperties = async (
-  page: number,
-  filters: PropertyFilters = {} // Use the defined type
-): Promise<PaginatedProperties> => {
-  // const hasFilters = Object.values(filters).some(
-  //   (v) => v !== "" && v !== undefined
-  // );
-  const params = new URLSearchParams({
-    page: String(page),
-    ...(filters.state && { state: filters.state }),
-    ...(filters.propertyType && { type: filters.propertyType }),
-    ...(filters.min && { minPrice: String(filters.min) }),
-    ...(filters.max && { maxPrice: String(filters.max) }),
-  });
+  if (filters.state) {
+    params.append("state", String(filters.state));
+  }
+  if (filters.type) {
+    params.append("type", String(filters.type));
+  }
+  if (filters.status) {
+    params.append("status", String(filters.status));
+  }
+  if (filters.bedrooms) {
+    params.append("no_of_bedrooms", String(filters.bedrooms));
+  }
+  if (filters.max) {
+    params.append("maxPrice", String(filters.max));
+  }
+  if (filters.min) {
+    params.append("minPrice", String(filters.min));
+  }
 
   const endpoint = `/filter-property?${params.toString()}`;
 
@@ -183,7 +177,6 @@ export const getFAQs = async (): Promise<FAQResponse> => {
   const response = await apiClient.get("/faqs");
   return response.data;
 };
-
 
 export const applyForJob = async (payload: FormData) => {
   const response = await apiClient.post("/career-post", payload, {

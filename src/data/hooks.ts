@@ -85,16 +85,6 @@ export const useFilterProperties = (
     queryFn: () => filterProperties(page, filters),
   });
 };
-export const useFilterProperties = (
-  // filters?: Record<string, any>
-  page: number,
-  filters?: PropertyFilters
-) => {
-  return useQuery<PaginatedProperties>({
-    queryKey: ["properties", page, filters],
-    queryFn: () => filterProperties(page, filters),
-  });
-};
 
 // Query hook for properties page data with
 export const useGetPropertyByID = (id: number | string) => {
