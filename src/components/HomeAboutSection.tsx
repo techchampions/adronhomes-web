@@ -42,7 +42,7 @@ const AboutUsSection = ({ data }: { data: AboutUs[] }) => {
           </h2>
 
           {/* Description */}
-          <p className="text-gray-600 mb-8 text-sm leading-relaxed">
+          <p className="text-gray-600 mb-8 text-sm leading-relaxed font-adron-text-body">
             {data[0].description}
             {/* We are driven to keep our promise, expand our land bank, and provide{" "}
             <br />

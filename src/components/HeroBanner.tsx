@@ -24,33 +24,26 @@ const HeroBanner: React.FC<Props> = ({ data, settings }) => {
         <div className="block md:hidden">
           <MobileAutoCarousel slides={data} />
         </div>
-        {/* {window.innerWidth >= 765 ? (
-          <AutoCarousel slides={data} />
-        ) : (
-          <MobileAutoCarousel slides={data} />
-        )} */}
       </div>
       <div className="flex-1">
         {/* Company Stats */}
         <div className="mb-0 -mt-2 md:mb-6 md:mt-6 w-full md:w-[75%] mx-auto">
           <div className="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 text-center">
-            {settings?.digital_count
-              // .filter((_, index) => index < 3 || typeof window === "undefined") // fallback for SSR
-              .map((stat, index) => (
-                <div
-                  key={index}
-                  className={`flex flex-col items-center md:p-0 gap-1 md:gap-6
+            {settings?.digital_count.map((stat, index) => (
+              <div
+                key={index}
+                className={`flex flex-col items-center md:p-0 gap-1 md:gap-6
         ${index >= 3 ? "hidden md:flex" : ""}
       `}
-                >
-                  <p className="text-5xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
-                    {stat.numeric}
-                  </p>
-                  <p className="text-[11px] md:text-[14px] text-adron-gray-500 font-Gotham">
-                    {stat.name}
-                  </p>
-                </div>
-              ))}
+              >
+                <p className="text-5xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
+                  {stat.numeric || "20+"}
+                </p>
+                <p className="text-[11px] md:text-[14px] text-adron-gray-500 font-Gotham">
+                  {stat.name}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

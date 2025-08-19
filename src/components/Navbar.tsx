@@ -42,6 +42,17 @@ export default function Navbar() {
         total_properties: location.total_property,
       })),
     },
+    {
+      name: "Estates",
+      href: "/estates",
+      dropdown: true,
+      // dropdownLinks: dropdownLinks,
+      dropdownLinks: locations?.map((location) => ({
+        name: location.state_name,
+        href: `/estates?state=${location.state_name}`,
+        total_properties: location.total_property,
+      })),
+    },
     { name: "About us", href: "/about-us" },
     { name: "Virtual Tour", href: "/virtual-tour" },
     { name: "Career", href: "/careers" },
@@ -65,8 +76,8 @@ export default function Navbar() {
       <nav className="w-full px-4 md:px-0 md:max-w-[1240px] mx-auto flex justify-between items-center pt-4 pb-1">
         <div className="flex items-center space-x-2">
           <Image
-            // src="/logo.svg"
-            src="/logo.png"
+            src="/logo.svg"
+            // src="/logo.png"
             alt="Adron Homes Logo"
             width={160}
             height={60}
