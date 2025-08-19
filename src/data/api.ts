@@ -39,13 +39,6 @@ export const fetchVirtualTourPageData = async (
   const response = await apiClient.get(`/virtual-tour?page=${page}`);
   return response.data;
 };
-//Properties Page Data
-// export const fetchPropertiesPageData = async (
-//   page: number
-// ): Promise<PropertiesResponse> => {
-//   const response = await apiClient.get(`/properties-page?page=${page}`);
-//   return response.data;
-// };
 
 export interface PropertyFilters {
   state?: string;
@@ -61,24 +54,7 @@ export interface EstateFilters {
 
 export const fetchPropertiesPageData = async (
   page: number
-  // filters: PropertyFilters = {} // Use the defined type
 ): Promise<PropertiesResponse> => {
-  // const hasFilters = Object.values(filters).some(
-  //   (v) => v !== "" && v !== undefined
-  // );
-  // const params = new URLSearchParams({
-  //   page: String(page),
-  //   ...(filters.state && { state: filters.state }),
-  //   ...(filters.type && { type: filters.type }),
-  //   ...(filters.min && { minPrice: String(filters.min) }),
-  //   ...(filters.max && { maxPrice: String(filters.max) }),
-  // });
-
-  // const endpoint = hasFilters
-  //   ? `/filter-property?${params.toString()}`
-  //   : `/properties-page?page=${page}`;
-
-
   const endpoint = `/properties-page?page=${page}`;
   const response = await apiClient.get(endpoint);
   return response.data;
@@ -89,12 +65,6 @@ export const filterProperties = async (
 ): Promise<PaginatedProperties> => {
   const params = new URLSearchParams({
     page: String(page),
-    // state: String(filters.state) || "",
-    // type: filters.type || "",
-    // maxPrice: String(filters.max) || "",
-    // minPrice: String(filters.min) || "",
-    // no_of_bedroom: String(filters.bedrooms) || "",
-    // status: String(filters.status) || "",
   });
   if (filters.state) {
     params.append("state", String(filters.state));
@@ -117,14 +87,15 @@ export const filterProperties = async (
 
   const endpoint = `/filter-property?${params.toString()}`;
 
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
 export const getEstates = async (
   page: number,
-
   filters: EstateFilters = {} // Use the defined type
 ): Promise<PropertiesResponse> => {
   const params = new URLSearchParams({
     page: String(page),
-
   });
   if (filters.state) {
     params.append("state", String(filters.state));
