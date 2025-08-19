@@ -55,6 +55,9 @@ export interface PropertyFilters {
   min?: string | number;
   max?: string | number;
 }
+export interface EstateFilters {
+  state?: string;
+}
 
 export const fetchPropertiesPageData = async (
   page: number
@@ -74,7 +77,6 @@ export const fetchPropertiesPageData = async (
   // const endpoint = hasFilters
   //   ? `/filter-property?${params.toString()}`
   //   : `/properties-page?page=${page}`;
-
 
   const endpoint = `/properties-page?page=${page}`;
   const response = await apiClient.get(endpoint);
@@ -113,6 +115,22 @@ export const filterProperties = async (
   }
 
   const endpoint = `/filter-property?${params.toString()}`;
+
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
+export const getEstates = async (
+  page: number,
+  filters: EstateFilters = {} // Use the defined type
+): Promise<PropertiesResponse> => {
+  const params = new URLSearchParams({
+    page: String(page),
+  });
+  if (filters.state) {
+    params.append("state", String(filters.state));
+  }
+
+  const endpoint = `/property-estate?${params.toString()}`;
 
   const response = await apiClient.get(endpoint);
   return response.data;

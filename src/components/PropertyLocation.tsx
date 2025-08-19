@@ -8,6 +8,7 @@ import {
 import Slider from "react-slick";
 import React, { useRef, useState } from "react";
 import { Locations } from "@/data/types/homepageTypes";
+import Link from "next/link";
 
 // interface Location {
 //   id: number;
@@ -134,7 +135,10 @@ const PropertyLocations: React.FC<Props> = ({ data }) => {
             <HiChevronLeft size={24} />
           </button>
 
-          <div className="bg-white/40 rounded-3xl space-y-2 py-3 px-10 text-center min-w-48">
+          <Link
+            href={`/estates?state=${locations[activeSlide].state_name}`}
+            className="bg-white/40 rounded-3xl space-y-2 py-3 px-10 text-center min-w-48"
+          >
             <h4 className="text-2xl font-bold text-gray-800">
               {locations[activeSlide]?.state_name}
             </h4>
@@ -144,7 +148,7 @@ const PropertyLocations: React.FC<Props> = ({ data }) => {
               </span>
               Estates
             </p>
-          </div>
+          </Link>
 
           <button
             onClick={goToNext}

@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   applyForJob,
+  EstateFilters,
   fetchAboutPageData,
   fetchContactPageData,
   fetchHomePageData,
@@ -10,6 +11,7 @@ import {
   filterProperties,
   getAllPropertyLocations,
   getAllPropertyType,
+  getEstates,
   getFAQs,
   getJobByID,
   getPropertyByID,
@@ -83,6 +85,12 @@ export const useFilterProperties = (
   return useQuery<PaginatedProperties>({
     queryKey: ["properties", page, filters],
     queryFn: () => filterProperties(page, filters),
+  });
+};
+export const useGetEstates = (page: number, filters?: EstateFilters) => {
+  return useQuery<PropertiesResponse>({
+    queryKey: ["estates", page, filters],
+    queryFn: () => getEstates(page, filters),
   });
 };
 
