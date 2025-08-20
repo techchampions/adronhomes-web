@@ -25,7 +25,7 @@ const PropertyImageSlider = () => {
   const { data, isLoading, error } = useGetPropertyByID(id);
   const { mutate: enquire, isPending } = useEnquireProperty();
 
-  if (isLoading) return <Loader />;
+  if (isLoading || !data) return <Loader />;
   if (error) return <p>Error loading property.</p>;
   const name = data?.data.properties[0].name;
   const price = data?.data.properties[0].price;
@@ -85,15 +85,14 @@ const PropertyImageSlider = () => {
   );
 
   const mainSettings = {
-    arrows: true,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    infinite: true,
+    arrows: images && images.length > 1, // Only show arrows if multiple images
+    nextArrow: images && images.length > 1 ? <NextArrow /> : undefined,
+    prevArrow: images && images.length > 1 ? <PrevArrow /> : undefined,
+    infinite: images && images.length > 1, // Only enable infinite for multiple images
     slidesToShow: 1,
-    swipeToSlide: true,
+    swipeToSlide: images && images.length > 1, // Only allow swiping for multiple images
     beforeChange: (_: number, next: number) => setCurrentIndex(next),
   };
-
   return (
     <div className="flex flex-col w-full px-4 md:px-10 pb-32">
       <div className="w-[100%] flex flex-col md:flex-row justify-between md:items-center my-5">

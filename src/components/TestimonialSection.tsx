@@ -170,8 +170,8 @@ const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
         </div>
 
         {/* Testimonial Content */}
-        <div className="bg-white rounded-[55px] p-6 md:p-10 text-center mx-auto max-w-3xl">
-          <p className="text-adron-black font-black leading-relaxed mb-6">
+        <div className="bg-white rounded-4xl p-2 md:p-4 text-center mx-auto max-w-3xl">
+          {/* <p className="text-adron-black font-black leading-relaxed mb-6">
             {testimonials[activeSlide]?.client_comment}
           </p>
 
@@ -180,10 +180,8 @@ const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
               {testimonials[activeSlide]?.client_name}
             </p>
 
-            {/* Nigerian Flag */}
             <div className="flex justify-center items-center mt-3 mx-auto">
               <Image
-                // src="/ng-flag.svg"
                 src={
                   testimonials[activeSlide]?.client_country || "/ng-flag.svg"
                 }
@@ -192,7 +190,15 @@ const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
                 width={24}
               />
             </div>
-          </div>
+          </div> */}
+          <iframe
+            className="w-full h-[300px] rounded-2xl"
+            // src="https://www.youtube.com/embed/5eBniUiL9Kk?list=PL_YRRl0FigN8aoZqOfZCmUogE9I7hO4O9"
+            src={testimonials[activeSlide].client_country}
+            title={testimonials[activeSlide].client_comment}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
       </div>
 
