@@ -23,6 +23,7 @@ export interface EnquirePayload {
 export interface PropertyDetail {
   id: number;
   name: string;
+  purpose: string;
   value: number;
   property_id: number;
   created_at: string;

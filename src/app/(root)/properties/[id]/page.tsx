@@ -15,6 +15,37 @@ import { useEnquireProperty, useGetPropertyByID } from "@/data/hooks";
 import Loader from "@/components/Loader";
 import { formatPrice } from "@/utils/formater";
 import { IoCheckmark } from "react-icons/io5";
+// import { PropertiesResponse } from "@/data/types/propertiesPageTypes";
+// export async function generateStaticParams() {
+//   try {
+//     const response = await fetch(
+//       "https://adron.microf10.sg-host.com/api/properties-page",
+//       {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Identifier: "dMNOcdMNOPefFGHIlefFGHIJKLmno",
+//           Accept: "application/json",
+//         },
+//         cache: "force-cache",
+//       }
+//     );
+
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const propertiesData: PropertiesResponse = await response.json();
+//     const properties = propertiesData.properties.data;
+
+//     return properties.map((property) => ({
+//       id: property.id.toString(),
+//     }));
+//   } catch (error) {
+//     console.error("Error fetching properties for static generation:", error);
+//     return [];
+//   }
+// }
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -271,53 +302,62 @@ const PropertyImageSlider = () => {
                 {item?.details && item.details.length > 0 ? (
                   <>
                     <div className="relative overflow-x-hidden">
-                      <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                        <tbody>
-                          {item.details
-                            .slice(0, Math.ceil(item.details.length / 2))
-                            .map((detail) => (
-                              <tr
-                                key={detail.id}
-                                className="bg-white border-b border-gray-200"
-                              >
-                                <th
-                                  scope="row"
-                                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      <div className="w-full text-sm text-left rtl:text-right text-gray-500">
+                        {item.details
+                          .slice(0, Math.ceil(item.details.length / 2))
+                          .map((detail) => (
+                            <div
+                              key={detail.id}
+                              className="bg-white p-2 border-b flex justify-between border-gray-200 min-w-0"
+                            >
+                              <div className="">
+                                <div
+                                  // scope="row"
+                                  className="truncate font-medium text-gray-900 whitespace-nowrap"
                                 >
-                                  {detail.name.trim()}
-                                </th>
-                                <td className="px-6 py-4">
-                                  {formatPrice(detail.value)}
-                                </td>
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
+                                  {detail.name.trim()}{" "}
+                                  {detail.purpose && (
+                                    <div className="text-xs text-gray-500">
+                                      purpose: {detail.purpose}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <span className=" truncate ">
+                                {formatPrice(detail.value)}
+                              </span>
+                            </div>
+                          ))}
+                      </div>
                     </div>
-
                     <div className="relative overflow-x-hidden">
-                      <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                        <tbody>
-                          {item.details
-                            .slice(Math.ceil(item.details.length / 2))
-                            .map((detail) => (
-                              <tr
-                                key={detail.id}
-                                className="bg-white border-b border-gray-200"
-                              >
-                                <th
-                                  scope="row"
-                                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      <div className="w-full text-sm text-left rtl:text-right text-gray-500">
+                        {item.details
+                          .slice(Math.ceil(item.details.length / 2))
+                          .map((detail) => (
+                            <div
+                              key={detail.id}
+                              className="bg-white p-2 border-b flex justify-between border-gray-200 min-w-0"
+                            >
+                              <div className="">
+                                <div
+                                  // scope="row"
+                                  className="truncate font-medium text-gray-900 whitespace-nowrap"
                                 >
-                                  {detail.name.trim()}
-                                </th>
-                                <td className="px-6 py-4">
-                                  {detail.value.toLocaleString()}
-                                </td>
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
+                                  {detail.name.trim()}{" "}
+                                  {detail.purpose && (
+                                    <div className="text-xs text-gray-500">
+                                      purpose: {detail.purpose}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <span className="">
+                                {formatPrice(detail.value)}
+                              </span>
+                            </div>
+                          ))}
+                      </div>
                     </div>
                   </>
                 ) : (

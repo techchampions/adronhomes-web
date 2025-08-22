@@ -54,7 +54,6 @@ import { JSX } from "react";
 import {
   FaFacebook,
   FaInstagram,
-  FaTwitter,
   FaTiktok,
   FaWhatsapp,
   FaLinkedin,
@@ -62,6 +61,7 @@ import {
   FaEnvelope,
   FaPhone,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 interface SocialIconsProps {
   className?: string;
@@ -71,7 +71,7 @@ interface SocialIconsProps {
 const platformIcons: Record<string, JSX.Element> = {
   Facebook: <FaFacebook size={20} />,
   Instagram: <FaInstagram size={20} />,
-  X: <FaTwitter size={20} />,
+  X: <FaXTwitter size={20} />,
   Tiktok: <FaTiktok size={20} />,
   Whatsapp: <FaWhatsapp size={20} />,
   Linkedin: <FaLinkedin size={20} />,
