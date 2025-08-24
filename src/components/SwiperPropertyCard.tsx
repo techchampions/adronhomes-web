@@ -117,7 +117,10 @@ export default function SwiperPropertyCard({ property }: Props) {
 
       {/* Property Info */}
       <div className="mt-4 space-y-2">
-        <h4 className="text-[25px] font-adron-text-body font-semibold">
+        <h4
+          className="text-[25px] font-adron-text-body font-semibold cursor-pointer hover:text-gray-500 hover:underline underline-offset-3"
+          onClick={handleViewProperty}
+        >
           {property.name}
         </h4>
         <p className="text-md text-adron-black flex items-center mt-1">

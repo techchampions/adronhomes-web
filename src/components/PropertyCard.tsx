@@ -138,7 +138,12 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
       <div className="flex flex-col space-y-2 justify-between w-full md:w-1/2">
         <div className="flex flex-col gap-1">
-          <div className="text-md font-bold text-gray-800 mb-2">{title}</div>
+          <div
+            className="text-md font-bold text-gray-800 mb-2 cursor-pointer hover:text-gray-500 hover:underline underline-offset-3"
+            onClick={handleViewTour}
+          >
+            {title}
+          </div>
           <p className="flex items-center text-xs text-gray-600 mb-2">
             <FaMapMarkerAlt className="mr-1 text-adron-gray-500" /> {address}
           </p>

@@ -11,9 +11,9 @@ import {
   FaMapMarkerAlt,
   FaPhone,
   FaTiktok,
-  FaTwitter,
   FaWhatsapp,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { LuPhone } from "react-icons/lu";
 
 export default function Footer() {
@@ -32,7 +32,7 @@ export default function Footer() {
   const platformIcons: Record<string, JSX.Element> = {
     Facebook: <FaFacebook size={20} className="text-white" />,
     Instagram: <FaInstagram size={20} className="text-white" />,
-    X: <FaTwitter size={20} className="text-white" />,
+    X: <FaXTwitter size={20} className="text-white" />,
     Tiktok: <FaTiktok size={20} className="text-white" />,
     Whatsapp: <FaWhatsapp size={20} className="text-white" />,
     Linkedin: <FaLinkedin size={20} className="text-white" />,
@@ -128,8 +128,12 @@ export default function Footer() {
               <li>
                 <Link href="/faqs">FAQs</Link>
               </li>
-              <li>Terms & Conditions</li>
-              <li>Privacy Policy</li>
+              <li>
+                <Link href="/terms-and-conditions">Terms & Conditions</Link>
+              </li>
+              <li>
+                <Link href="/terms-and-conditions">Privacy Policy</Link>
+              </li>
               <li>Blog</li>
               <li>Corporate Social responsibilities</li>
             </ul>

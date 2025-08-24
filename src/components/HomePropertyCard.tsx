@@ -54,7 +54,10 @@ const HomePropertyCard = ({
 
       <div className="w-full bg-white p-6 space-y-5 flex flex-col h-auto">
         <div className="flex-grow space-y-4">
-          <h4 className="text-lg font-semibold text-gray-800 line-clamp-1">
+          <h4
+            onClick={handleViewProperty}
+            className="text-lg font-semibold text-gray-800 hover:text-gray-500 line-clamp-1 cursor-pointer hover:underline underline-offset-3"
+          >
             {property.name}
           </h4>
           <div className="flex items-center text-gray-500 text-sm">
