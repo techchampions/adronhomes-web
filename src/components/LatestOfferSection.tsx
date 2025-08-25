@@ -56,7 +56,7 @@ export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
           </div>
           <div className="w-[170px] mt-14">
             <Button
-              label="View Property"
+              label="View all lastest offers"
               className="bg-adron-green w-fit text-sm py-1"
             />
           </div>

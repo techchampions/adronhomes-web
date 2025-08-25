@@ -137,12 +137,12 @@ export default function Navbar() {
         {/* Desktop Buttons */}
         <div className="hidden md:flex space-x-2">
           <button className="text-gray-800 text-sm px-4 py-2">
-            <Link href="https://user.adronhomes.com/auth" className="w-full">
+            <Link href="https://user.adronhomes.com/login" className="w-full">
               Login
             </Link>
           </button>
           <button className="bg-black text-white text-sm px-4 py-2 rounded-full">
-            <Link href="https://user.adronhomes.com/auth" className="w-full">
+            <Link href="https://user.adronhomes.com/signup" className="w-full">
               Sign up
             </Link>
           </button>
@@ -210,12 +210,18 @@ export default function Navbar() {
 
           <div className="mt-8 space-y-3">
             <button className="w-full bg-black text-white py-2 rounded-full">
-              <Link href="https://user.adronhomes.com/auth" className="w-full">
+              <Link
+                href="https://user.adronhomes.com/signup"
+                className="w-full"
+              >
                 Sign up
               </Link>
             </button>
             <button className="w-full text-center text-gray-700">
-              <Link href="https://user.adronhomes.com/auth" className="w-full ">
+              <Link
+                href="https://user.adronhomes.com/login"
+                className="w-full "
+              >
                 Login
               </Link>
             </button>
