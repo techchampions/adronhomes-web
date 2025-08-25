@@ -137,6 +137,7 @@ export default function Navbar() {
         {/* Desktop Buttons */}
         <div className="hidden md:flex space-x-2">
           <button className="text-gray-800 text-sm px-4 py-2">
+
             <Link href="https://user.adronhomes.com/login" className="w-full">
               Login
             </Link>
@@ -222,6 +223,7 @@ export default function Navbar() {
                 href="https://user.adronhomes.com/login"
                 className="w-full "
               >
+
                 Login
               </Link>
             </button>
