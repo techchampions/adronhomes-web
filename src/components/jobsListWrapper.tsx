@@ -22,6 +22,7 @@ const JobsListWrapper = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <div className="w-full rounded-[50px] md:px-8 py-5 mt-10 text-left mb-20">
+
         <JobsList jobs={jobs.slice(0, 3)} />
       </div>
       <Button
