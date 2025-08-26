@@ -122,7 +122,7 @@ export interface ClientFeedback {
   client_name: string;
   client_image: string;
   client_comment: string;
-  client_country: string;
+  video_link: string;
   created_at: string | null;
   updated_at: string | null;
 }

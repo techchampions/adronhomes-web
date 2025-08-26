@@ -15,6 +15,8 @@ import {
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
+import { CategoryResponse } from "@/data/types/PropertyCategory";
+import { ApiResponse } from "@/data/types/testimonialTypes";
 
 // Homepage data with type annotation
 export const fetchHomePageData = async (): Promise<HomepageResponse> => {
@@ -109,9 +111,9 @@ export const getEstates = async (
 
 //Get Properties by ID Data
 export const getPropertyByID = async (
-  id: number | string
+  slug: string
 ): Promise<GetPropertyByIdResponse> => {
-  const response = await apiClient.get(`/property/${id}`);
+  const response = await apiClient.get(`/property/${slug}`);
   return response.data;
 };
 //jobList Page Data
@@ -135,6 +137,11 @@ export const getAllPropertyLocations =
     const response = await apiClient.get("/property-locations");
     return response.data;
   };
+//Get all Property Locations Data
+export const getAllPropertyCategory = async (): Promise<CategoryResponse> => {
+  const response = await apiClient.get("/property-category");
+  return response.data;
+};
 //Get all Property Type Data
 export const getAllPropertyType = async (): Promise<PropertiesTypeResponse> => {
   const response = await apiClient.get("/properties-type");
@@ -171,5 +178,11 @@ export const applyForJob = async (payload: FormData) => {
   const response = await apiClient.post("/career-post", payload, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+  return response.data;
+};
+
+// Get Testimonials
+export const getTestimonials = async (): Promise<ApiResponse> => {
+  const response = await apiClient.get("/testimonials");
   return response.data;
 };

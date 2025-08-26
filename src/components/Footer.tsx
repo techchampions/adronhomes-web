@@ -97,7 +97,7 @@ export default function Footer() {
                 <Link href="/properties">Home Listing </Link>
               </li>
               <li>
-                <Link href="/#testimonials">Testimonials</Link>
+                <Link href="/testimonials">Testimonials</Link>
               </li>
             </ul>
           </div>

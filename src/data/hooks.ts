@@ -9,12 +9,14 @@ import {
   fetchPropertiesPageData,
   fetchVirtualTourPageData,
   filterProperties,
+  getAllPropertyCategory,
   getAllPropertyLocations,
   getAllPropertyType,
   getEstates,
   getFAQs,
   getJobByID,
   getPropertyByID,
+  getTestimonials,
   makeEnquire,
   PropertyFilters,
 } from "./api";
@@ -31,6 +33,8 @@ import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { FAQResponse } from "@/data/types/FAQTypes";
+import { CategoryResponse } from "@/data/types/PropertyCategory";
+import { ApiResponse } from "@/data/types/testimonialTypes";
 
 // Query hook for homepage data with
 export const useHomepage = () => {
@@ -95,13 +99,12 @@ export const useGetEstates = (page: number, filters?: EstateFilters) => {
   });
 };
 
-
 // Query hook for properties page data with
-export const useGetPropertyByID = (id: number | string) => {
+export const useGetPropertyByID = (slug: string) => {
   return useQuery<GetPropertyByIdResponse>({
-    queryKey: ["property", id], // include id in the key to avoid collisions
-    queryFn: () => getPropertyByID(id),
-    enabled: !!id, // prevents the query from running if id is undefined/null
+    queryKey: ["property", slug], // include id in the key to avoid collisions
+    queryFn: () => getPropertyByID(slug),
+    enabled: !!slug, // prevents the query from running if id is undefined/null
   });
 };
 // Query hook for properties page data with
@@ -124,6 +127,13 @@ export const useGetAllPropertyLocations = () => {
   return useQuery<PropertyLocationResponse>({
     queryKey: ["property-locations"],
     queryFn: () => getAllPropertyLocations(),
+  });
+};
+// Query hook for properties Category data with
+export const useGetAllPropertyCategory = () => {
+  return useQuery<CategoryResponse>({
+    queryKey: ["property-categories"],
+    queryFn: () => getAllPropertyCategory(),
   });
 };
 // Query hook for properties types data with
@@ -150,5 +160,13 @@ export const useGetFAQs = () => {
 export const useApplyForJob = () => {
   return useMutation({
     mutationFn: applyForJob,
+  });
+};
+
+// Query hook for Getting Testimonials
+export const useGetTestimonials = () => {
+  return useQuery<ApiResponse>({
+    queryKey: ["testimonials"],
+    queryFn: getTestimonials,
   });
 };
