@@ -72,11 +72,6 @@ const PropertyImageSlider = () => {
     phone: Yup.string().required("Phone is required"),
   });
 
-  const formattedPrice = new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-  }).format(Number(price));
-
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
       onClick={onClick}
@@ -138,7 +133,7 @@ const PropertyImageSlider = () => {
           </p>
         </div>
         <div className="flex flex-col justify-between">
-          <p className="text-xl md:text-4xl font-bold">{formattedPrice}</p>
+          <p className="text-xl md:text-4xl font-bold">{formatPrice(price)}</p>
           <div className="p-4 rounded-full bg-white w-fit">
             <FaHeart />
           </div>
@@ -221,7 +216,7 @@ const PropertyImageSlider = () => {
             </div>
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Features</h4>
-              <div className="text-md ml-5 grid grid-cols-3 text-gray-500 space-y-2">
+              <div className="text-md ml-5 grid grid-cols-1 md:grid-cols-3 text-gray-500 space-y-2">
                 {data?.data.properties[0].features?.map((list) => (
                   <div key={list} className="flex gap-2 items-center">
                     <IoIosCheckmarkCircleOutline /> <div>{list}</div>
@@ -231,65 +226,65 @@ const PropertyImageSlider = () => {
             </div>
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Address</h4>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid md:grid-cols-2 gap-2">
                 <div className="relative overflow-x-hidden">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <tbody>
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                        >
+                  <div className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <div>
+                      <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
+                        <div className="font-medium text-gray-900 whitespace-nowrap truncate">
                           Country
-                        </th>
-                        <td className="px-6 py-4">
+                        </div>
+                        <div className=" truncate ">
                           {data?.data.properties[0].country}
-                        </td>
-                      </tr>
+                        </div>
+                      </div>
 
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                        >
+                      <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
+                        <div className=" font-medium text-gray-900 whitespace-nowrap ">
                           State
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].state}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                        </div>
+                        <div className="">{data?.data.properties[0].state}</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="relative overflow-x-hidden">
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <tbody>
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                        >
+                  <div className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <div>
+                      <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
+                        <div className=" font-medium text-gray-900 whitespace-nowrap">
                           LGA
-                        </th>
-                        <td className="px-6 py-4">
-                          {data?.data.properties[0].lga}
-                        </td>
-                      </tr>
+                        </div>
+                        <div className="">{data?.data.properties[0].lga}</div>
+                      </div>
 
-                      <tr className="bg-white border-b border-gray-200">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                        >
+                      <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
+                        <div className=" font-medium text-gray-900 whitespace-nowrap">
                           Address
-                        </th>
-                        <td className="px-6 py-4 line-clamp-1 truncate">
+                        </div>
+                        <div className=" line-clamp-1 truncate">
                           {data?.data.properties[0].street_address}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                {data.data.properties[0].nearby_landmarks && (
+                  <div className="relative overflow-x-hidden">
+                    <div className="w-full text-sm text-left rtl:text-right text-gray-500">
+                      <div>
+                        <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
+                          <div className=" font-medium text-gray-900 whitespace-nowrap">
+                            Near-by Landmark
+                          </div>
+                          <div className="">
+                            {data?.data.properties[0].nearby_landmarks}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -297,7 +292,7 @@ const PropertyImageSlider = () => {
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Additional Details</h4>
 
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid md:grid-cols-2 gap-2">
                 {/* Split details in half for two tables */}
                 {item?.details && item.details.length > 0 ? (
                   <>
@@ -308,7 +303,7 @@ const PropertyImageSlider = () => {
                           .map((detail) => (
                             <div
                               key={detail.id}
-                              className="bg-white p-2 border-b flex justify-between border-gray-200 min-w-0"
+                              className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0"
                             >
                               <div className="">
                                 <div
@@ -337,7 +332,7 @@ const PropertyImageSlider = () => {
                           .map((detail) => (
                             <div
                               key={detail.id}
-                              className="bg-white p-2 border-b flex justify-between border-gray-200 min-w-0"
+                              className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0"
                             >
                               <div className="">
                                 <div

@@ -37,7 +37,7 @@ const HeroBanner: React.FC<Props> = ({ data, settings }) => {
       `}
               >
                 <p className="text-5xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
-                  {stat.numeric || "20+"}
+                  {stat.value || "20+"}
                 </p>
                 <p className="text-[11px] md:text-[14px] text-adron-gray-500 font-Gotham">
                   {stat.name}

@@ -5,7 +5,7 @@ import JobsListWrapper from "@/components/jobsListWrapper";
 
 export default function CareersPage() {
   return (
-    <div className="px-10 space-y-5">
+    <div className="px-4 md:px-10 space-y-5">
       <div className="flex flex-col justify-center items-center gap-5 text-center my-10">
         <h1 className="text-6xl font-bold">Careers</h1>
         <p className="text-md font-bold">View available job openings</p>

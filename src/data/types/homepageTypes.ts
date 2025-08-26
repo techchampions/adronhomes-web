@@ -33,7 +33,7 @@ export interface SocialLink {
 
 export interface DigitalCount {
   name: string;
-  numeric: number;
+  value: number;
 }
 
 export interface LatestOffer {

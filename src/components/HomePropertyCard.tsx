@@ -5,6 +5,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { MdOutlinePower } from "react-icons/md";
 import Button from "./Button";
 import { Property } from "@/data/types/homepageTypes";
+import { formatPrice } from "@/utils/formater";
 
 const HomePropertyCard = ({
   property,
@@ -21,10 +22,6 @@ const HomePropertyCard = ({
 {
   property: Property;
 }) => {
-  const formattedPrice = new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-  }).format(property.price);
   const address = `${property.street_address}, ${property.lga}, ${property.state} ${property.country}`;
 
   // const hasLights = features.includes("Street Lighting") || features.includes("Good Road Network");
@@ -126,7 +123,7 @@ const HomePropertyCard = ({
               View Details
             </Link> */}
             <div className="text 4xl font-bold truncate max-w-[150px]">
-              {formattedPrice}{" "}
+              {formatPrice(property.price)}{" "}
             </div>
           </div>
         </div>

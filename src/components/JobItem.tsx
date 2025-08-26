@@ -26,7 +26,7 @@ const JobItem = ({ job }: { job: Job }) => {
         label="View Details"
         type="button"
         onClick={handleViewJob}
-        className="bg-adron-green text-white mt-4 text-sm px-4 py-2 !w-[40%]"
+        className="bg-adron-green text-white mt-4 text-sm px-4 py-2 !w-fit"
       />
     </div>
   );

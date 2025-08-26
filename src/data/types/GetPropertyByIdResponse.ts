@@ -47,7 +47,7 @@ export interface Property {
   state: string;
   lga: string;
   details: PropertyDetail[];
-
+  nearby_landmarks: string;
   created_at: string | null;
   updated_at: string | null;
 }

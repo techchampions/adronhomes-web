@@ -18,7 +18,7 @@ const JobsPageGroup = () => {
   if (isError) return <ApiErrorBlock />;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full px-8">
+    <div className="flex flex-col items-center justify-center w-full px-4 md:px-8">
       <div className="flex flex-col justify-center mx-auto text-center space-y-2 py-20">
         <h4 className="text-4xl md:text-4xl text-black font-bold">
           {/* The search begins here */}
@@ -30,7 +30,7 @@ const JobsPageGroup = () => {
           <span>20 Locations</span>
         </div>
       </div>
-      <div className="w-[70%] mx-auto">
+      <div className="w-full md:w-[70%] mx-auto">
         <Formik
           initialValues={{
             query: "",

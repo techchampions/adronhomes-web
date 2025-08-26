@@ -83,12 +83,10 @@ export default function Footer() {
             <h4 className="font-bold mb-3 text-black">QUICK ACTIONS</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="https://adronhomesdashboard.netlify.app/">
-                  Client Login
-                </Link>
+                <Link href="https://user.adronhomes.com/">Client Login</Link>
               </li>
               <li>
-                <Link href="https://adronhomesdashboard.netlify.app/new-property">
+                <Link href="https://user.adronhomes.com/new-property">
                   Buy Properties{" "}
                 </Link>
               </li>
@@ -98,7 +96,9 @@ export default function Footer() {
               <li>
                 <Link href="/properties">Home Listing </Link>
               </li>
-              <li>Testimonials</li>
+              <li>
+                <Link href="/#testimonials">Testimonials</Link>
+              </li>
             </ul>
           </div>
 
