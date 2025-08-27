@@ -14,11 +14,16 @@ import {
   getAllPropertyType,
   getEstates,
   getFAQs,
+  getFeatured,
+  getHomeListing,
   getJobByID,
+  getLatestOffers,
   getPropertyByID,
+  getSettings,
   getTestimonials,
   makeEnquire,
   PropertyFilters,
+  sendPartnershipRequest,
 } from "./api";
 import { HomepageResponse } from "./types/homepageTypes";
 import { AboutPageResponse } from "./types/aboutPageTypes";
@@ -35,6 +40,7 @@ import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { FAQResponse } from "@/data/types/FAQTypes";
 import { CategoryResponse } from "@/data/types/PropertyCategory";
 import { ApiResponse } from "@/data/types/testimonialTypes";
+import { SettingsResponse } from "@/data/types/Settingstypes";
 
 // Query hook for homepage data with
 export const useHomepage = () => {
@@ -89,6 +95,24 @@ export const useFilterProperties = (
   return useQuery<PaginatedProperties>({
     queryKey: ["properties", page, filters],
     queryFn: () => filterProperties(page, filters),
+  });
+};
+export const useGetLatestOffers = (page: number) => {
+  return useQuery<PaginatedProperties>({
+    queryKey: ["latest-offers", page],
+    queryFn: () => getLatestOffers(page),
+  });
+};
+export const useGetFeatured = (page: number) => {
+  return useQuery<PaginatedProperties>({
+    queryKey: ["featured-properties", page],
+    queryFn: () => getFeatured(page),
+  });
+};
+export const useGetHomeListing = (page: number) => {
+  return useQuery<PaginatedProperties>({
+    queryKey: ["home-listings", page],
+    queryFn: () => getHomeListing(page),
   });
 };
 
@@ -149,6 +173,11 @@ export const useEnquireProperty = () => {
     mutationFn: makeEnquire,
   });
 };
+export const useClientPartnership = () => {
+  return useMutation({
+    mutationFn: sendPartnershipRequest,
+  });
+};
 
 export const useGetFAQs = () => {
   return useQuery<FAQResponse>({
@@ -168,5 +197,42 @@ export const useGetTestimonials = () => {
   return useQuery<ApiResponse>({
     queryKey: ["testimonials"],
     queryFn: getTestimonials,
+  });
+};
+
+export const useGetDigits = () => {
+  return useQuery<SettingsResponse>({
+    queryKey: ["settings", "digits"],
+    queryFn: () => getSettings("digits"),
+  });
+};
+export const useGetEquiryInfo = () => {
+  return useQuery<SettingsResponse>({
+    queryKey: ["settings", "enquiry"],
+    queryFn: () => getSettings("enquiry"),
+  });
+};
+export const useGetComplainsContact = () => {
+  return useQuery<SettingsResponse>({
+    queryKey: ["settings", "complain"],
+    queryFn: () => getSettings("complain"),
+  });
+};
+export const useGetClientsContact = () => {
+  return useQuery<SettingsResponse>({
+    queryKey: ["settings", "client"],
+    queryFn: () => getSettings("client"),
+  });
+};
+export const useGetMainAddress = () => {
+  return useQuery<SettingsResponse>({
+    queryKey: ["settings", "mainaddress"],
+    queryFn: () => getSettings("mainaddress"),
+  });
+};
+export const useGetCallContact = () => {
+  return useQuery<SettingsResponse>({
+    queryKey: ["settings", "call"],
+    queryFn: () => getSettings("call"),
   });
 };

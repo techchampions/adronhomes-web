@@ -1,11 +1,13 @@
 "use client";
 import { useContactpage } from "@/data/hooks";
-import { LuMail, LuPhone } from "react-icons/lu";
+import { LuPhone } from "react-icons/lu";
 import dynamic from "next/dynamic";
 
 // import Map from "./Map";
 import Loader from "./Loader";
 import ApiErrorBlock from "./ApiErrorBlock";
+import ContactColumn1 from "@/components/ContactColumn1";
+import ContactColumn2 from "@/components/ContactColumn2";
 const Map = dynamic(() => import("./Map"), { ssr: false });
 
 export default function ContactPageGroup() {
@@ -34,32 +36,8 @@ export default function ContactPageGroup() {
           For Inquiries, contact
         </h4>
         <div className="flex flex-col md:flex-row justify-between w-full text-xs mx-auto gap-10 text-gray-500">
-          <div className="flex flex-col space-y-2">
-            <h4 className="text-sm font-bold text-black">
-              Corporate Headquarters
-            </h4>
-            <p>75, Adron Court, Adeyemo Akapo, Omole Phase 1, Lagos</p>
-            <div className="flex gap-1 items-center">
-              <LuPhone />
-              <span>+2348051011951</span>
-            </div>
-            <div className="flex gap-1 items-center">
-              <LuMail />
-              <span>telesales@adronhomes</span>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-2">
-            <h4 className="text-sm font-bold text-black">Client Services</h4>
-            <p>Adron Experience Centre</p>
-            <div className="flex gap-1 items-center">
-              <LuPhone />
-              <span>+2348051011951, +2349058590357, +2349058590356</span>
-            </div>
-            <div className="flex gap-1 items-center">
-              <LuMail />
-              <span>clientservice@adronhomesproperties.com</span>
-            </div>
-          </div>
+          <ContactColumn1 />
+          <ContactColumn2 />
           <div className="flex flex-col space-y-2">
             <h4 className="text-sm font-bold text-black">
               24 Hours Call Centre

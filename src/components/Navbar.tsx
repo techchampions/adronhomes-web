@@ -1012,7 +1012,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     {
       name: "Properties",
-      href: "/properties",
+      href: "/properties/",
       dropdown: true,
       dropdownLinks: locations?.map((location) => ({
         name: location.state_name,
@@ -1024,7 +1024,7 @@ export default function Navbar() {
     },
     {
       name: "Homes Listing",
-      href: "/#",
+      href: "/home-listing/",
       dropdown: true,
       dropdownLinks: categories?.map((category) => ({
         name: category.category_name,
@@ -1039,10 +1039,10 @@ export default function Navbar() {
         total_properties: 0,
       })),
     },
-    { name: "About us", href: "/about-us" },
-    { name: "Virtual Tour", href: "/virtual-tour" },
-    { name: "Career", href: "/careers" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "About us", href: "/about-us/" },
+    { name: "Virtual Tour", href: "/virtual-tour/" },
+    { name: "Career", href: "/careers/" },
+    { name: "Contact Us", href: "/contact/" },
   ];
 
   const handlePropertiesClick = () => {
@@ -1161,7 +1161,6 @@ export default function Navbar() {
         {/* Desktop Buttons */}
         <div className="hidden lg:flex space-x-2">
           <button className="text-gray-800 text-sm px-4 py-2">
-
             <Link href="https://user.adronhomes.com/login" className="w-full">
               Login
             </Link>
@@ -1342,7 +1341,6 @@ export default function Navbar() {
                 href="https://user.adronhomes.com/login"
                 className="w-full "
               >
-
                 Login
               </Link>
             </button>

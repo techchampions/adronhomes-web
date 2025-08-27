@@ -2,9 +2,9 @@ import Image from "next/image";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Button from "./Button";
 import { LatestOffer } from "@/data/types/homepageTypes";
+import Link from "next/link";
 
 export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
-  console.log("Latest Offer Section", data);
   return (
     <div className="w-full overflow-hidden mt-5 relative">
       {/* Background image */}
@@ -55,10 +55,12 @@ export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
             Nigeria
           </div>
           <div className="w-[170px] mt-14">
-            <Button
-              label="View all lastest offers"
-              className="bg-adron-green w-fit text-sm py-1"
-            />
+            <Link href="/latest-offers">
+              <Button
+                label="View all lastest offers"
+                className="bg-adron-green w-fit text-sm py-1"
+              />
+            </Link>
           </div>
         </div>
       </div>
