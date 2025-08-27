@@ -1162,6 +1162,8 @@ export default function Navbar() {
         <div className="hidden lg:flex space-x-2">
           <button className="text-gray-800 text-sm px-4 py-2">
             <Link href="https://user.adronhomes.com/login" className="w-full">
+
+            <Link href="https://user.adronhomes.com/login" className="w-full">
               Login
             </Link>
           </button>
@@ -1341,6 +1343,11 @@ export default function Navbar() {
                 href="https://user.adronhomes.com/login"
                 className="w-full "
               >
+              <Link
+                href="https://user.adronhomes.com/login"
+                className="w-full "
+              >
+
                 Login
               </Link>
             </button>
