@@ -103,9 +103,6 @@ export default function Footer() {
               <li>
                 <Link href="/testimonials">Testimonials</Link>
               </li>
-              <li>
-                <Link href="/#testimonials">Testimonials</Link>
-              </li>
             </ul>
           </div>
 
