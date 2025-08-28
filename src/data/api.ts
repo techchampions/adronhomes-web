@@ -3,6 +3,7 @@ import apiClient from "./apiClient";
 import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
 import {
+  ClientPayload,
   EnquirePayload,
   GetPropertyByIdResponse,
 } from "./types/GetPropertyByIdResponse";
@@ -15,6 +16,9 @@ import {
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
+import { CategoryResponse } from "@/data/types/PropertyCategory";
+import { ApiResponse } from "@/data/types/testimonialTypes";
+import { SettingsResponse } from "@/data/types/Settingstypes";
 
 // Homepage data with type annotation
 export const fetchHomePageData = async (): Promise<HomepageResponse> => {
@@ -90,6 +94,46 @@ export const filterProperties = async (
   const response = await apiClient.get(endpoint);
   return response.data;
 };
+export const getLatestOffers = async (
+  page: number
+): Promise<PaginatedProperties> => {
+  const params = new URLSearchParams({
+    page: String(page),
+    is_offer: "1",
+  });
+
+  const endpoint = `/filter-property?${params.toString()}`;
+
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
+export const getFeatured = async (
+  page: number
+): Promise<PaginatedProperties> => {
+  const params = new URLSearchParams({
+    page: String(page),
+    is_featured: "1",
+  });
+
+  const endpoint = `/filter-property?${params.toString()}`;
+
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
+export const getHomeListing = async (
+  page: number
+): Promise<PaginatedProperties> => {
+  const params = new URLSearchParams({
+    page: String(page),
+    category: "house",
+  });
+
+  const endpoint = `/filter-property?${params.toString()}`;
+
+  const response = await apiClient.get(endpoint);
+  return response.data;
+};
+
 export const getEstates = async (
   page: number,
   filters: EstateFilters = {} // Use the defined type
@@ -109,9 +153,9 @@ export const getEstates = async (
 
 //Get Properties by ID Data
 export const getPropertyByID = async (
-  id: number | string
+  slug: string
 ): Promise<GetPropertyByIdResponse> => {
-  const response = await apiClient.get(`/property/${id}`);
+  const response = await apiClient.get(`/property/${slug}`);
   return response.data;
 };
 //jobList Page Data
@@ -135,6 +179,11 @@ export const getAllPropertyLocations =
     const response = await apiClient.get("/property-locations");
     return response.data;
   };
+//Get all Property Locations Data
+export const getAllPropertyCategory = async (): Promise<CategoryResponse> => {
+  const response = await apiClient.get("/property-category");
+  return response.data;
+};
 //Get all Property Type Data
 export const getAllPropertyType = async (): Promise<PropertiesTypeResponse> => {
   const response = await apiClient.get("/properties-type");
@@ -161,6 +210,26 @@ export const makeEnquire = async (payload: Partial<EnquirePayload>) => {
   });
   return response.data;
 };
+export const sendPartnershipRequest = async (
+  payload: Partial<ClientPayload>
+) => {
+  const formData = new FormData();
+  if (payload.fullname !== undefined)
+    formData.append("fullname", payload.fullname.toString());
+  if (payload.email !== undefined)
+    formData.append("email", payload.email.toString());
+  if (payload.phone_number !== undefined)
+    formData.append("phone_number", payload.phone_number.toString());
+  if (payload.location !== undefined)
+    formData.append("location", payload.location.toString());
+  if (payload.message !== undefined)
+    formData.append("message", payload.message.toString());
+
+  const response = await apiClient.post("/client-request", formData, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.data;
+};
 
 export const getFAQs = async (): Promise<FAQResponse> => {
   const response = await apiClient.get("/faqs");
@@ -171,5 +240,16 @@ export const applyForJob = async (payload: FormData) => {
   const response = await apiClient.post("/career-post", payload, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+  return response.data;
+};
+
+// Get Testimonials
+export const getTestimonials = async (): Promise<ApiResponse> => {
+  const response = await apiClient.get("/testimonials");
+  return response.data;
+};
+
+export const getSettings = async (type: string): Promise<SettingsResponse> => {
+  const response = await apiClient.get(`/settings?type=${type}`);
   return response.data;
 };

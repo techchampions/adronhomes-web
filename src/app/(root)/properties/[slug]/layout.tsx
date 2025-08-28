@@ -25,7 +25,7 @@ export async function generateStaticParams() {
     const properties = propertiesData.properties.data;
 
     return properties.map((property) => ({
-      id: property.id.toString(),
+      slug: property.slug.toString(),
     }));
   } catch (error) {
     console.error("Error fetching properties for static generation:", error);

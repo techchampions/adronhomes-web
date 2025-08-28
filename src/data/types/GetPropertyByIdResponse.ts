@@ -19,6 +19,13 @@ export interface EnquirePayload {
   property_id: string | number;
   description: string;
 }
+export interface ClientPayload {
+  fullname: string;
+  email: string;
+  phone_number: string | number;
+  location: string;
+  message: string;
+}
 
 export interface PropertyDetail {
   id: number;

@@ -193,8 +193,7 @@ const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
           </div> */}
           <iframe
             className="w-full h-[300px] rounded-2xl"
-            // src="https://www.youtube.com/embed/5eBniUiL9Kk?list=PL_YRRl0FigN8aoZqOfZCmUogE9I7hO4O9"
-            src={testimonials[activeSlide].client_country}
+            src={testimonials[activeSlide].video_link}
             title={testimonials[activeSlide].client_comment}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

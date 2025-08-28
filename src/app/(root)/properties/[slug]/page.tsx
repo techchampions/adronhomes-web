@@ -51,9 +51,9 @@ const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slider1 = useRef<Slider>(null);
   const params = useParams();
-  const id = Number(params?.id);
+  const slug = String(params?.slug);
   const [requestSent, setRequestSent] = useState(false);
-  const { data, isLoading, error } = useGetPropertyByID(id);
+  const { data, isLoading, error } = useGetPropertyByID(slug);
   const { mutate: enquire, isPending } = useEnquireProperty();
 
   if (isLoading || !data) return <Loader />;

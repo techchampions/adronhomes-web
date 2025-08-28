@@ -1,6 +1,8 @@
 // components/Footer.tsx
 
-import Image from "next/image";
+import FooterColumn1 from "@/components/FooterColumn1";
+import FooterColumn4 from "@/components/FooterColumn4";
+// import Image from "next/image";
 import Link from "next/link";
 import { JSX } from "react";
 import {
@@ -14,7 +16,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { LuPhone } from "react-icons/lu";
+// import { LuPhone } from "react-icons/lu";
 
 export default function Footer() {
   const socialLinks = [
@@ -52,7 +54,7 @@ export default function Footer() {
     <footer className="bg-white text-black pt-10  relative bottom-0 left-0">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 text-sm px-4 md:px-10">
         {/* LOGO + ADDRESS */}
-        <div className="space-y-4">
+        {/* <div className="space-y-4">
           <Image
             src="/logo.svg" // Replace with your actual path
             alt="Adron Homes Logo"
@@ -70,12 +72,12 @@ export default function Footer() {
               <a href="tel:+2348051011951">+2348051011951</a>
             </div>
             <div className="flex items-center gap-2">
-              {/* <IoMail className="text-adron-green h-5 w-5" /> */}
               <Image src="/mail.svg" width={14} height={14} alt="mail" />
               <a href="mailto:telesales@adronhomes.com">telesales@adronhomes</a>
             </div>
           </div>
-        </div>
+        </div> */}
+        <FooterColumn1 />
 
         {/* PRODUCT */}
         <div className="grid grid-cols-2 gap-10 col-span-2">
@@ -83,10 +85,12 @@ export default function Footer() {
             <h4 className="font-bold mb-3 text-black">QUICK ACTIONS</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="https://user.adronhomes.com/">Client Login</Link>
+                <Link href="https://user.adronhomes.com/login">
+                  Client Login
+                </Link>
               </li>
               <li>
-                <Link href="https://user.adronhomes.com/new-property">
+                <Link href="https://user.adronhomes.com/dashboard/new-property">
                   Buy Properties{" "}
                 </Link>
               </li>
@@ -94,7 +98,10 @@ export default function Footer() {
                 <Link href="/properties">Estates Locations </Link>
               </li>
               <li>
-                <Link href="/properties">Home Listing </Link>
+                <Link href="/home-listing">Home Listing </Link>
+              </li>
+              <li>
+                <Link href="/testimonials">Testimonials</Link>
               </li>
               <li>
                 <Link href="/#testimonials">Testimonials</Link>
@@ -109,7 +116,9 @@ export default function Footer() {
               <li>
                 <Link href="/about-us">About Us</Link>
               </li>
-              <li>Client Partnership</li>
+              <li>
+                <Link href="/client-partnership">Client Partnership</Link>
+              </li>
               <li>
                 <Link href="/about-us#leadership">Our Team</Link>
               </li>
@@ -156,19 +165,7 @@ export default function Footer() {
             </button>
           </div>
         </div> */}
-          <div className="block">
-            <h4 className="font-bold mb-3 text-black">CLIENT SERVICES</h4>
-            <p className=" mb-4">Adron Experience Center</p>
-            <p>+2348051011951, +2349058590357, +2349058590356</p>
-            <p className="text-wrap break-words">
-              clientservice@adronhomeproperties.com
-            </p>
-
-            <h4 className="font-bold mt-3 text-black">
-              Online Complaints & Resolution:
-            </h4>
-            <p className="break-words">complaintresolution@adronhomes.com</p>
-          </div>
+          <FooterColumn4 />
         </div>
       </div>
 

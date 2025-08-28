@@ -31,11 +31,7 @@ const HomePropertyCard = ({
   // const isLand = true; // assume it's land unless you have a field saying otherwise
   const router = useRouter();
   const handleViewProperty = () => {
-    router.push(
-      `/properties/${property.id}?title=${encodeURIComponent(
-        property.name
-      )}&price=${property.price}`
-    );
+    router.push(`/properties/${property.slug}`);
   };
 
   return (
