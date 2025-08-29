@@ -57,7 +57,7 @@ export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
           <div className="w-[170px] mt-14">
             <Link href="/latest-offers">
               <Button
-                label="View all lastest offers"
+                label="View All Latest Offers"
                 className="bg-adron-green w-fit text-sm py-1"
               />
             </Link>
