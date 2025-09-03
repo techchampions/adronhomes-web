@@ -168,14 +168,16 @@ export default function AboutPageGroup() {
               ))}
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 mx-auto gap-10">
-              {data?.data.leaderships.slice(2, 14).map((profile, index) => (
-                <ProfileCard
-                  key={index}
-                  name={profile.name}
-                  title={profile.position}
-                  imageSrc={profile.picture}
-                />
-              ))}
+              {data?.data.leaderships
+                .slice(2, data.data.leaderships.length)
+                .map((profile, index) => (
+                  <ProfileCard
+                    key={index}
+                    name={profile.name}
+                    title={profile.position}
+                    imageSrc={profile.picture}
+                  />
+                ))}
             </div>
           </div>
         </div>

@@ -13,8 +13,20 @@ import { IoIosCheckmarkCircleOutline, IoLogoWhatsapp } from "react-icons/io";
 import { useParams } from "next/navigation";
 import { useEnquireProperty, useGetPropertyByID } from "@/data/hooks";
 import Loader from "@/components/Loader";
-import { formatPrice } from "@/utils/formater";
-import { IoCheckmark } from "react-icons/io5";
+import { formatDate, formatPrice } from "@/utils/formater";
+import {
+  IoCarSportOutline,
+  IoCheckmark,
+  IoConstructOutline,
+} from "react-icons/io5";
+import { LiaToiletSolid } from "react-icons/lia";
+import { TbBed } from "react-icons/tb";
+import { LuFence } from "react-icons/lu";
+import { GiGate } from "react-icons/gi";
+import { PiRoadHorizonDuotone } from "react-icons/pi";
+import { MdOutlineLandscape } from "react-icons/md";
+import { GrDocumentUser } from "react-icons/gr";
+import Link from "next/link";
 // import { PropertiesResponse } from "@/data/types/propertiesPageTypes";
 // export async function generateStaticParams() {
 //   try {
@@ -134,8 +146,16 @@ const PropertyImageSlider = () => {
         </div>
         <div className="flex flex-col justify-between">
           <p className="text-xl md:text-4xl font-bold">{formatPrice(price)}</p>
-          <div className="p-4 rounded-full bg-white w-fit">
-            <FaHeart />
+          <div className="flex gap-2">
+            <div className="rounded-full bg-white w-10 h-10 flex justify-center items-center">
+              <FaHeart />
+            </div>
+            <Link
+              href={`https://user.adronhomes.com/dashboard/properties/${item.id}`}
+              className="bg-adron-green rounded-3xl h-10 flex items-center justify-center text-white flex-1 text-center text-sm"
+            >
+              SubScribe
+            </Link>
           </div>
         </div>
       </div>
@@ -196,13 +216,72 @@ const PropertyImageSlider = () => {
                   <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
 
                   <span className="text-md text-gray-500">
-                    {data?.data.properties[0].size}
+                    {data?.data.properties[0].size} SqM
                   </span>
                 </div>
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Overview</h4>
+              {item?.type.name === "Land" ? (
+                <div className="text-sm flex flex-wrap ml-5 divide-adron-gray-300 divide-x-1 py-1 mb-2 border-b-1 border-b-gray-300">
+                  {item?.topography != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <MdOutlineLandscape />
+                      <span>{item.topography}</span>
+                    </li>
+                  )}
+                  {item?.road_access != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <PiRoadHorizonDuotone /> <span>{item?.road_access}</span>
+                    </li>
+                  )}
+                  {item?.gated_estate != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <GiGate />{" "}
+                      <span>
+                        {item.gated_estate === "Yes" ? "Gated" : "No gates"}
+                      </span>
+                    </li>
+                  )}
+                  {item?.fencing != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <LuFence />{" "}
+                      <span>
+                        {item.fencing === "Yes" ? "Fenced" : "Not Fenced"}
+                      </span>
+                    </li>
+                  )}
+                </div>
+              ) : (
+                <div className="text-sm flex flex-wrap ml-5 divide-adron-gray-300 divide-x-1 py-1 mb-2 border-b-1 border-b-gray-300">
+                  {item?.no_of_bedroom != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <TbBed />
+                      <span>{item?.no_of_bedroom} Bedrooms</span>
+                    </li>
+                  )}
+                  {item?.number_of_bathroom != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <LiaToiletSolid />
+                      <span>{item?.number_of_bathroom} Bathroom</span>
+                    </li>
+                  )}
+                  {item?.parking_space != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <IoCarSportOutline />
+                      <span>{item?.parking_space} Vehicle Parking Space</span>
+                    </li>
+                  )}
+                  {item?.year_built != null && (
+                    <li className="flex items-center gap-2 px-2">
+                      <IoConstructOutline />
+                      <span>Built Year {formatDate(item?.year_built)}</span>
+                    </li>
+                  )}
+                </div>
+              )}
+
               <p className="text-md text-gray-500 ml-5">
                 {data?.data.properties[0].overview}
               </p>
@@ -287,6 +366,13 @@ const PropertyImageSlider = () => {
                 )}
               </div>
             </div>
+            <div className="flex flex-col gap-2">
+              <h4 className="font-bold text-md">Property Document Type</h4>
+              <div className="flex items-center gap-2 ml-5 text-gray-500">
+                <GrDocumentUser />
+                <span>{data.data.properties[0].title_document_type}</span>
+              </div>
+            </div>
 
             {/* New Additional details */}
             <div className="flex flex-col gap-2">
@@ -362,6 +448,19 @@ const PropertyImageSlider = () => {
                 )}
               </div>
             </div>
+
+            {data?.data.properties[0].property_map && (
+              <div className="relative w-full h-[360px] rounded-[50px] overflow-hidden mb-6">
+                {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
+                <iframe
+                  src={data?.data.properties[0].property_map || ""}
+                  className="w-full h-full"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            )}
           </div>
         </div>
 
@@ -475,12 +574,12 @@ const PropertyImageSlider = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between text-xs gap-1">
+              <div className="flex justify-between text-xs gap-1 mt-8">
                 {requestSent ? (
                   <Button
                     label="Request Sent!"
                     icon={<IoCheckmark />}
-                    className="bg-adron-green mt-8 flex-1 py-1"
+                    className="bg-adron-green flex-1 py-1"
                   />
                 ) : (
                   <Button
@@ -488,21 +587,37 @@ const PropertyImageSlider = () => {
                     type="submit"
                     isLoading={isPending}
                     disabled={isPending || requestSent}
-                    className="bg-adron-green mt-8 flex-1 py-1"
+                    className="bg-adron-green flex-1 py-1"
                   />
                 )}
                 <Button
                   label="Call"
-                  className="bg-black text-white flex-[0.5] mt-8 py-1"
+                  className="bg-black text-white flex-[0.5] py-1"
                 />
-                <Button
-                  label="WhatSapp"
-                  icon={<IoLogoWhatsapp className="text-adron-green" />}
-                  className="bg-green-200 text-[10px] !text-adron-green flex-1 mt-8 py-1"
-                />
+                <a
+                  href={data.data.properties[0].whatsapp_link}
+                  className="w-fit"
+                >
+                  <Button
+                    label="Chat on WhatsApp"
+                    className="bg-green-500 px-3"
+                    icon={<IoLogoWhatsapp size={18} />}
+                  />
+                </a>
               </div>
             </Form>
           </Formik>
+          {data?.data.properties[0].video_link && (
+            <div className="video-responsive w-full h-[250px] md:h-[150px] rounded-2xl overflow-hidden">
+              <iframe
+                className="w-full h-full"
+                src={data?.data.properties[0].video_link || ""}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
         </div>
       </div>
     </div>
