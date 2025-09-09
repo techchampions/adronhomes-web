@@ -99,7 +99,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/home-listing">Home Listing </Link>
-
               </li>
               <li>
                 <Link href="/testimonials">Testimonials</Link>
@@ -139,7 +138,7 @@ export default function Footer() {
                 <Link href="/terms-and-conditions">Terms & Conditions</Link>
               </li>
               <li>
-                <Link href="/terms-and-conditions">Privacy Policy</Link>
+                <Link href="/privacy-policies">Privacy Policy</Link>
               </li>
               <li>Blog</li>
               <li>Corporate Social responsibilities</li>
