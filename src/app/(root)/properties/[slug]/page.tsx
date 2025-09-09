@@ -143,7 +143,7 @@ const PropertyImageSlider = () => {
   };
   return (
     <div className="flex flex-col w-full px-4 md:px-10 pb-32">
-      <div className="w-[100%] flex flex-col md:flex-row justify-between md:items-center my-5">
+      <div className="w-[100%] flex flex-col lg:flex-row justify-between md:items-center my-5">
         <div className="flex flex-col">
           <h1 className=" text-3xl md:text-6xl font-bold">
             {/* Treasure Parks and Gardens  */}

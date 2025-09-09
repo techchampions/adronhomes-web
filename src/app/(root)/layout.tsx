@@ -29,10 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <TawkTo />
-      <CookieConsent />
       <body className={`${adronTitle.variable} antialiased`}>
-        <TawkTo />
         <Providers>
+          <CookieConsent />
           <Navbar />
           <main className="mb-0">{children}</main>
           <Footer />
