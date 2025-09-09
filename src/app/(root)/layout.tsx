@@ -30,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <TawkTo />
       <CookieConsent />
+
       <body className={`${adronTitle.variable} antialiased`}>
         <TawkTo />
         <Providers>
