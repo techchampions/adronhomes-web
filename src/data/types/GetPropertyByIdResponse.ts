@@ -93,6 +93,7 @@ export interface Property {
   virtual_tour: string | null;
   subscriber_form: string;
   status: string;
+  category: string;
   property_duration_limit: number;
   payment_schedule: string[];
   payment_type: string;

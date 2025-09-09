@@ -76,8 +76,12 @@ const PropertyImageSlider = () => {
   const images = data?.data.properties[0].photos;
   const item = data?.data.properties[0];
   // Filter items by purpose
-  const bungalows = item.details.filter((item) => item.purpose === "bungalow");
-  const duplexes = item.details.filter((item) => item.purpose === "duplex");
+  const bungalows = item.details.filter(
+    (item) => item.purpose.toLowerCase() == "bungalow"
+  );
+  const duplexes = item.details.filter(
+    (item) => item.purpose.toLowerCase() == "duplex"
+  );
 
   // Calculate totals
   const bungalowTotal = bungalows.reduce((sum, item) => sum + item.value, 0);
@@ -228,8 +232,7 @@ const PropertyImageSlider = () => {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <h4 className="font-bold text-md">Overview</h4>
-              {item?.type.name === "Land" ? (
+              {item?.category == "estate" ? (
                 <div className="text-sm flex flex-wrap ml-5 divide-adron-gray-300 divide-x-1 py-1 mb-2 border-b-1 border-b-gray-300">
                   {item?.topography != null && (
                     <li className="flex items-center gap-2 px-2">
@@ -338,9 +341,11 @@ const PropertyImageSlider = () => {
                     <div>
                       <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
                         <div className=" font-medium text-gray-900 whitespace-nowrap">
-                          LGA
+                          Nearby Landmark
                         </div>
-                        <div className="">{data?.data.properties[0].lga}</div>
+                        <div className="">
+                          {data?.data.properties[0].nearby_landmarks}
+                        </div>
                       </div>
 
                       <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
@@ -598,7 +603,7 @@ const PropertyImageSlider = () => {
                   Interest Form
                 </h4>
                 <p className="text-xs text-gray-500 mb-2">
-                  Filled the interest form or send us a message on whatsapp.
+                  Fill the interest form or send us a message on whatsapp.
                 </p>
                 <div className="flex flex-col gap-2">
                   <label
@@ -690,10 +695,12 @@ const PropertyImageSlider = () => {
                     className="bg-adron-green flex-1 py-1"
                   />
                 )}
-                <Button
-                  label="Call"
-                  className="bg-black text-white flex-[0.5] py-1"
-                />
+                <a href={`tel:${item.contact_number}`} className="w-fit">
+                  <Button
+                    label="Call"
+                    className="bg-black text-white flex-[0.5] py-1 px-5"
+                  />
+                </a>
                 <a
                   href={data.data.properties[0].whatsapp_link}
                   className="w-fit"

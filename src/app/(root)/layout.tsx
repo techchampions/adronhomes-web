@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Providers } from "../Provider";
 import TawkTo from "@/components/TawkTo";
+import CookieConsent from "@/components/CookieConsent";
 
 const adronTitle = Cormorant_Garamond({
   variable: "--font-adron-title",
@@ -28,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <TawkTo />
+      <CookieConsent />
       <body className={`${adronTitle.variable} antialiased`}>
         <Providers>
           <Navbar />
