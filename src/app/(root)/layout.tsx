@@ -29,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <TawkTo />
       <body className={`${adronTitle.variable} antialiased`}>
+        <TawkTo />
         <Providers>
           <Navbar />
           <main className="mb-0">{children}</main>
