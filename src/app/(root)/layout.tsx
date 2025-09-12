@@ -11,6 +11,7 @@ import TawkTo from "@/components/TawkTo";
 import CookieConsent from "@/components/CookieConsent";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 
+
 const adronTitle = Cormorant_Garamond({
   variable: "--font-adron-title",
   weight: ["400", "500", "600", "700"],
