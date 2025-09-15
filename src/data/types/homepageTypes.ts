@@ -105,6 +105,7 @@ export interface LocationProperty {
   state_name: string;
   photo: string;
   total_property: number;
+  estate_total_property: number;
 }
 
 export interface Testimonials {

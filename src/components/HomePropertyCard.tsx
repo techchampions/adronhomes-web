@@ -22,7 +22,7 @@ const HomePropertyCard = ({
 {
   property: Property;
 }) => {
-  const address = `${property.street_address}, ${property.lga}, ${property.state} ${property.country}`;
+  const address = `${property.street_address}, ${property.state} ${property.country}`;
 
   // const hasLights = features.includes("Street Lighting") || features.includes("Good Road Network");
   // const hasGym = features.some((f) => f.toLowerCase().includes("gym"));
@@ -61,7 +61,7 @@ const HomePropertyCard = ({
             <div className="flex items-center gap-1">
               <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
 
-              <span className="mr-1">{property.size}</span>
+              <span className="mr-1">{property.size} sQm</span>
             </div>
 
             {/* {!hasLights && (
