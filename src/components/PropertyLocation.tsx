@@ -144,7 +144,7 @@ const PropertyLocations: React.FC<Props> = ({ data }) => {
             </h4>
             <p className="text-gray-600 flex items-center text-center w-full justify-center text-xs mx-auto">
               <span className="w-3 h-3 p-3 mr-2 flex justify-center items-center rounded-full bg-white">
-                {locations[activeSlide]?.total_property}
+                {locations[activeSlide]?.estate_total_property}
               </span>
               Estates
             </p>

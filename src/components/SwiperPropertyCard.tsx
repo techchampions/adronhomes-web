@@ -125,7 +125,7 @@ export default function SwiperPropertyCard({ property }: Props) {
         </h4>
         <p className="text-md text-adron-black flex items-center mt-1">
           <FaMapMarkerAlt className="mr-1" />{" "}
-          {`${property.street_address}, ${property.lga}, ${property.state} ${property.country}`}
+          {`${property.street_address}, ${property.state} ${property.country}`}
         </p>
 
         <p className="text-[20px] font-black text-adron-black mt-2 flex justify-between">

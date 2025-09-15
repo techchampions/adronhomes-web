@@ -17,6 +17,7 @@ import { formatDate, formatPrice } from "@/utils/formater";
 import {
   IoCarSportOutline,
   IoCheckmark,
+  IoClose,
   IoConstructOutline,
 } from "react-icons/io5";
 import { LiaToiletSolid } from "react-icons/lia";
@@ -27,6 +28,7 @@ import { PiRoadHorizonDuotone } from "react-icons/pi";
 import { MdOutlineLandscape } from "react-icons/md";
 import { GrDocumentUser } from "react-icons/gr";
 import Link from "next/link";
+import { MapPinned } from "lucide-react";
 // import { PropertiesResponse } from "@/data/types/propertiesPageTypes";
 // export async function generateStaticParams() {
 //   try {
@@ -61,6 +63,7 @@ import Link from "next/link";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showMap, setshowMap] = useState(false);
   const slider1 = useRef<Slider>(null);
   const params = useParams();
   const slug = String(params?.slug);
@@ -72,7 +75,7 @@ const PropertyImageSlider = () => {
   if (error) return <p>Error loading property.</p>;
   const name = data?.data.properties[0].name;
   const price = data?.data.properties[0].price;
-  const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].lga}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+  const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
   const images = data?.data.properties[0].photos;
   const item = data?.data.properties[0];
   // Filter items by purpose
@@ -359,22 +362,6 @@ const PropertyImageSlider = () => {
                     </div>
                   </div>
                 </div>
-                {data.data.properties[0].nearby_landmarks && (
-                  <div className="relative overflow-x-hidden">
-                    <div className="w-full text-sm text-left rtl:text-right text-gray-500">
-                      <div>
-                        <div className="p-3 flex justify-between gap-2 bg-white border-b border-gray-200">
-                          <div className=" font-medium text-gray-900 whitespace-nowrap">
-                            Near-by Landmark
-                          </div>
-                          <div className="">
-                            {data?.data.properties[0].nearby_landmarks}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
             <div className="flex flex-col gap-2">
@@ -570,7 +557,7 @@ const PropertyImageSlider = () => {
         </div>
 
         {/* Interest Form  */}
-        <div className="w-full md:w-[30%]">
+        <div className="w-full md:w-[30%] space-y-2">
           <Formik
             initialValues={{
               name: "",
@@ -725,8 +712,45 @@ const PropertyImageSlider = () => {
               ></iframe>
             </div>
           )}
+          {data?.data.properties[0].property_map && (
+            <Button
+              rightIcon={<MapPinned size={16} />}
+              label="See Property on map"
+              onClick={() => setshowMap(!showMap)}
+            />
+          )}
         </div>
       </div>
+      {showMap && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+          onClick={() => setshowMap(false)}
+        >
+          <div
+            className="bg-white p-5 rounded-xl shadow-lg w-[98%] md:w-fit"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-4 right-3 text-gray-600 bg-white p-2 rounded-full hover:text-gray-900"
+              onClick={() => setshowMap(false)}
+              aria-label="Close"
+            >
+              <IoClose size={24} />
+            </button>
+
+            <div className="w-full md:w-[600px] h-[360px] rounded-lg overflow-hidden">
+              {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
+              <iframe
+                src={data?.data.properties[0].property_map || ""}
+                className="w-full h-full"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
