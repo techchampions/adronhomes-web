@@ -30,6 +30,7 @@ import { GrDocumentUser } from "react-icons/gr";
 import Link from "next/link";
 import { MapPinned } from "lucide-react";
 
+
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showMap, setshowMap] = useState(false);
@@ -513,6 +514,7 @@ const PropertyImageSlider = () => {
         </div>
 
         {/* Interest Form  */}
+
         <div className="w-full md:w-[30%] space-y-3">
           <Formik
             initialValues={{
