@@ -29,37 +29,6 @@ import { MdOutlineLandscape } from "react-icons/md";
 import { GrDocumentUser } from "react-icons/gr";
 import Link from "next/link";
 import { MapPinned } from "lucide-react";
-// import { PropertiesResponse } from "@/data/types/propertiesPageTypes";
-// export async function generateStaticParams() {
-//   try {
-//     const response = await fetch(
-//       "https://adron.microf10.sg-host.com/api/properties-page",
-//       {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Identifier: "dMNOcdMNOPefFGHIlefFGHIJKLmno",
-//           Accept: "application/json",
-//         },
-//         cache: "force-cache",
-//       }
-//     );
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     const propertiesData: PropertiesResponse = await response.json();
-//     const properties = propertiesData.properties.data;
-
-//     return properties.map((property) => ({
-//       id: property.id.toString(),
-//     }));
-//   } catch (error) {
-//     console.error("Error fetching properties for static generation:", error);
-//     return [];
-//   }
-// }
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -172,7 +141,7 @@ const PropertyImageSlider = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-between gap-10">
+      <div className="flex flex-col lg:flex-row justify-between gap-10">
         {/* Property details */}
 
         {/* Main slider and thumbnails */}
@@ -540,24 +509,11 @@ const PropertyImageSlider = () => {
                 )}
               </div>
             </div>
-
-            {data?.data.properties[0].property_map && (
-              <div className="relative w-full h-[360px] rounded-[50px] overflow-hidden mb-6">
-                {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
-                <iframe
-                  src={data?.data.properties[0].property_map || ""}
-                  className="w-full h-full"
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            )}
           </div>
         </div>
 
         {/* Interest Form  */}
-        <div className="w-full md:w-[30%] space-y-2">
+        <div className="w-full md:w-[30%] space-y-3">
           <Formik
             initialValues={{
               name: "",
@@ -716,7 +672,8 @@ const PropertyImageSlider = () => {
             <Button
               rightIcon={<MapPinned size={16} />}
               label="See Property on map"
-              onClick={() => setshowMap(!showMap)}
+              onClick={() => setshowMap(true)}
+              className="bg-adron-green"
             />
           )}
         </div>
