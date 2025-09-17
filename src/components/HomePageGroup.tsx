@@ -15,7 +15,7 @@ export default function HomePageGroup() {
 
   if (isLoading) return <Loader />;
   if (isError) return <ApiErrorBlock />;
-
+  const clientFeedback = data?.data.testimonials.clientsFeedback ?? [];
   return (
     <div>
       <HeroBanner
@@ -26,7 +26,9 @@ export default function HomePageGroup() {
       <AboutUsSection data={data?.data.about_us || []} />
       <FeaturedProperties data={data?.data.featured_properties} />
       <PropertyLocations data={data?.data.locations} />
-      <TestimonialsSection data={data?.data.testimonials} />
+      {data?.data.testimonials && clientFeedback.length > 0 && (
+        <TestimonialsSection data={data?.data.testimonials} />
+      )}
     </div>
   );
 }

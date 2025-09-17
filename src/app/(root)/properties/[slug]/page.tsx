@@ -30,7 +30,6 @@ import { GrDocumentUser } from "react-icons/gr";
 import Link from "next/link";
 import { MapPinned } from "lucide-react";
 
-
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showMap, setshowMap] = useState(false);
@@ -349,67 +348,13 @@ const PropertyImageSlider = () => {
               <div className="grid md:grid-cols-2 gap-2">
                 {/* Split details in half for two tables */}
                 {item?.details && item.details.length > 0 ? (
-                  // <>
-                  //   <div className="relative overflow-x-hidden">
-                  //     <div className="w-full text-sm text-left rtl:text-right text-gray-500">
-                  //       {item.details
-                  //         .slice(0, Math.ceil(item.details.length / 2))
-                  //         .map((detail) => (
-                  //           <div
-                  //             key={detail.id}
-                  //             className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0"
-                  //           >
-                  //             <div className="">
-                  //               <div
-                  //                 // scope="row"
-                  //                 className="truncate font-medium text-gray-900 whitespace-nowrap"
-                  //               >
-                  //                 {detail.name.trim()}{" "}
-                  //                 {detail.purpose && (
-                  //                   <div className="text-xs text-gray-500">
-                  //                     purpose: {detail.purpose}
-                  //                   </div>
-                  //                 )}
-                  //               </div>
-                  //             </div>
-                  //             <span className=" truncate ">
-                  //               {formatPrice(detail.value)}
-                  //             </span>
-                  //           </div>
-                  //         ))}
-                  //     </div>
-                  //   </div>
-                  //   <div className="relative overflow-x-hidden">
-                  //     <div className="w-full text-sm text-left rtl:text-right text-gray-500">
-                  //       {item.details
-                  //         .slice(Math.ceil(item.details.length / 2))
-                  //         .map((detail) => (
-                  //           <div
-                  //             key={detail.id}
-                  //             className="bg-white p-3 border-b flex justify-between border-gray-200 min-w-0"
-                  //           >
-                  //             <div className="">
-                  //               <div
-                  //                 // scope="row"
-                  //                 className="truncate font-medium text-gray-900 whitespace-nowrap"
-                  //               >
-                  //                 {detail.name.trim()}{" "}
-                  //                 {detail.purpose && (
-                  //                   <div className="text-xs text-gray-500">
-                  //                     purpose: {detail.purpose}
-                  //                   </div>
-                  //                 )}
-                  //               </div>
-                  //             </div>
-                  //             <span className="">
-                  //               {formatPrice(detail.value)}
-                  //             </span>
-                  //           </div>
-                  //         ))}
-                  //     </div>
-                  //   </div>
-                  // </>
                   <>
+                    <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
+                      Bungalow
+                    </div>
+                    <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
+                      Duplex
+                    </div>
                     <div className="relative overflow-x-hidden">
                       <div className="w-full text-sm text-left rtl:text-right text-gray-500">
                         {bungalows.length > 0 ? (
@@ -441,12 +386,12 @@ const PropertyImageSlider = () => {
                               <div className="">
                                 <div
                                   // scope="row"
-                                  className="truncate font-medium text-gray-900 whitespace-nowrap"
+                                  className="truncate font-bold text-gray-900 whitespace-nowrap"
                                 >
                                   Total:{" "}
                                 </div>
                               </div>
-                              <span className=" truncate ">
+                              <span className=" truncate font-bold">
                                 {formatPrice(bungalowTotal)}
                               </span>
                             </div>
@@ -487,12 +432,12 @@ const PropertyImageSlider = () => {
                               <div className="">
                                 <div
                                   // scope="row"
-                                  className="truncate font-medium text-gray-900 whitespace-nowrap"
+                                  className="truncate font-bold text-gray-900 whitespace-nowrap"
                                 >
                                   Total:{" "}
                                 </div>
                               </div>
-                              <span className=" truncate ">
+                              <span className=" truncate font-bold">
                                 {formatPrice(duplexTotal)}
                               </span>
                             </div>
