@@ -61,7 +61,7 @@ const HomePropertyCard = ({
             <div className="flex items-center gap-1">
               <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
 
-              <span className="mr-1">{property.size} sQm</span>
+              <span className="mr-1">{property.size} SqM</span>
             </div>
 
             {/* {!hasLights && (

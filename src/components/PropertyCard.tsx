@@ -155,7 +155,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
           <div className="flex items-center gap-4 text-xs text-gray-500">
             <span className="flex items-center gap-1">
               <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
-              {size} Sqm
+              {size} SqM
             </span>
             {hasStreetLights && (
               <span className="flex items-center gap-1">

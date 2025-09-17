@@ -17,9 +17,9 @@ import { ClientFeedback, Testimonials } from "@/data/types/homepageTypes";
 // }
 
 const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
-  const [activeSlide, setActiveSlide] = useState(3);
-
   const testimonials: ClientFeedback[] = data?.clientsFeedback || [];
+  const initialActiveSlide = testimonials.length > 1 ? 3 : 0;
+  const [activeSlide, setActiveSlide] = useState(initialActiveSlide);
 
   const sliderRef = useRef<Slider>(null);
 
@@ -122,24 +122,6 @@ const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
             className="testimonial-avatar-slider w-full md:w-[80%] mx-auto"
           >
             {testimonials.map((testimonial, index) => (
-              // <div key={testimonial.id} className=" outline-none h-14 w-14">
-              //   <div
-              //     className={`relative w-14 h-14 mx-auto rounded-full overflow-hidden transition-all duration-300 cursor-pointer
-              //       ${
-              //         index === activeSlide
-              //           ? "ring-3 ring-green-500 scale-100"
-              //           : "grayscale-75 scale-90 ring-1 ring-white"
-              //       }`}
-              //   >
-              //     <Image
-              //       src={testimonial.client_image}
-              //       alt={testimonial.client_name}
-              //       fill
-              //       className="object-cover"
-              //       // sizes="(max-width: 640px) 60px, 80px"
-              //     />
-              //   </div>
-              // </div>
               <div key={testimonial.id} className="outline-none px-2">
                 <div
                   className={`relative !w-20 h-20 rounded-full overflow-hidden mx-auto transition-all duration-300 cursor-pointer ${
@@ -171,26 +153,6 @@ const TestimonialsSection = ({ data }: { data: Testimonials | undefined }) => {
 
         {/* Testimonial Content */}
         <div className="bg-white rounded-4xl p-2 md:p-4 text-center mx-auto max-w-3xl">
-          {/* <p className="text-adron-black font-black leading-relaxed mb-6">
-            {testimonials[activeSlide]?.client_comment}
-          </p>
-
-          <div>
-            <p className="font-medium text-adron-black text-[10px]">
-              {testimonials[activeSlide]?.client_name}
-            </p>
-
-            <div className="flex justify-center items-center mt-3 mx-auto">
-              <Image
-                src={
-                  testimonials[activeSlide]?.client_country || "/ng-flag.svg"
-                }
-                alt="Nigerian Flag"
-                height={24}
-                width={24}
-              />
-            </div>
-          </div> */}
           <iframe
             className="w-full h-[300px] rounded-2xl"
             src={testimonials[activeSlide].video_link}
