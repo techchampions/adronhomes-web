@@ -22,7 +22,14 @@ const HomePropertyCard = ({
 {
   property: Property;
 }) => {
-  const address = `${property.street_address}, ${property.state} ${property.country}`;
+  let address = "All Adron locations.";
+  if (property.street_address && property.state && property.country) {
+    address = `${property.street_address}, ${property.state} ${property.country}`;
+  }
+  const isRented =
+    property.purpose?.includes("rent") ||
+    property.purpose?.includes("Rent") ||
+    false;
 
   // const hasLights = features.includes("Street Lighting") || features.includes("Good Road Network");
   // const hasGym = features.some((f) => f.toLowerCase().includes("gym"));
@@ -119,7 +126,7 @@ const HomePropertyCard = ({
               View Details
             </Link> */}
             <div className="text 4xl font-bold truncate max-w-[150px]">
-              {formatPrice(property.price)}{" "}
+              {isRented ? "For rent" : formatPrice(property.price)}{" "}
             </div>
           </div>
         </div>

@@ -44,7 +44,14 @@ const PropertyImageSlider = () => {
   if (error) return <p>Error loading property.</p>;
   const name = data?.data.properties[0].name;
   const price = data?.data.properties[0].price;
-  const address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+  let address = "All Adron locations.";
+  if (
+    data?.data.properties[0].street_address &&
+    data?.data.properties[0].state &&
+    data?.data.properties[0].country
+  ) {
+    address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+  }
   const images = data?.data.properties[0].photos;
   const item = data?.data.properties[0];
   // Filter items by purpose
@@ -129,7 +136,9 @@ const PropertyImageSlider = () => {
           </p>
         </div>
         <div className="flex flex-col justify-between">
-          <p className="text-xl md:text-4xl font-bold">{formatPrice(price)}</p>
+          <p className="text-xl md:text-4xl font-bold">
+            {isRented ? "" : formatPrice(price)}
+          </p>
           <div className="flex gap-2">
             <div className="rounded-full bg-white w-10 h-10 flex justify-center items-center">
               <FaHeart />
