@@ -139,7 +139,7 @@ const PropertyImageSlider = () => {
                 <Button
                   label="Inquire on WhatsApp"
                   icon={<IoLogoWhatsapp size={18} />}
-                  className="px-6 py-3 text-sm"
+                  className="px-6 py-3 text-sm bg-adron-green"
                 />
               </a>
             ) : (
