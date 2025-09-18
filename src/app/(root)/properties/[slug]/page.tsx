@@ -48,8 +48,8 @@ const PropertyImageSlider = () => {
   const images = data?.data.properties[0].photos;
   const item = data?.data.properties[0];
   // Filter items by purpose
-  const isRented = item?.purpose?.includes("rent" || "Rent") || false;
-
+  const isRented =
+    item?.purpose?.includes("rent") || item?.purpose?.includes("Rent") || false;
   const bungalows = item.details.filter(
     (item) => item.purpose.toLowerCase() == "bungalow"
   );
