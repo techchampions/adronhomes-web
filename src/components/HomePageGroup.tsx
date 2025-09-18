@@ -27,6 +27,7 @@ export default function HomePageGroup() {
       <FeaturedProperties data={data?.data.featured_properties} />
       <PropertyLocations data={data?.data.locations} />
       {data?.data.testimonials && clientFeedback.length > 4 && (
+
         <TestimonialsSection data={data?.data.testimonials} />
       )}
     </div>
