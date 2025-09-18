@@ -48,6 +48,8 @@ const PropertyImageSlider = () => {
   const images = data?.data.properties[0].photos;
   const item = data?.data.properties[0];
   // Filter items by purpose
+  const isRented = item?.purpose?.includes("rent" || "Rent") || false;
+
   const bungalows = item.details.filter(
     (item) => item.purpose.toLowerCase() == "bungalow"
   );
@@ -132,12 +134,22 @@ const PropertyImageSlider = () => {
             <div className="rounded-full bg-white w-10 h-10 flex justify-center items-center">
               <FaHeart />
             </div>
-            <Link
-              href={`https://user.adronhomes.com/dashboard/properties/${item.id}`}
-              className="bg-adron-green rounded-3xl h-10 flex items-center justify-center text-white flex-1 text-center text-sm"
-            >
-              SubScribe
-            </Link>
+            {isRented ? (
+              <a href={data.data.properties[0].whatsapp_link}>
+                <Button
+                  label="Inquire on WhatsApp"
+                  icon={<IoLogoWhatsapp size={18} />}
+                  className="px-6 py-3 text-sm bg-adron-green"
+                />
+              </a>
+            ) : (
+              <Link
+                href={`https://user.adronhomes.com/dashboard/properties/${item.id}`}
+                className="bg-adron-green rounded-3xl h-10 flex items-center justify-center text-white flex-1 text-center text-sm"
+              >
+                SubScribe
+              </Link>
+            )}
           </div>
         </div>
       </div>
