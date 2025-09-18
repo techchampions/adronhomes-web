@@ -88,6 +88,7 @@ export interface Property {
   hasGym: boolean;
   hasLights: boolean;
   isLand: boolean;
+  purpose: string[] | null;
 }
 
 export interface Locations {

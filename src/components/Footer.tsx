@@ -52,7 +52,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-white text-black pt-10  relative bottom-0 left-0">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 text-sm px-4 md:px-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10 text-sm px-4 md:px-1">
         {/* LOGO + ADDRESS */}
         {/* <div className="space-y-4">
           <Image
@@ -80,7 +80,7 @@ export default function Footer() {
         <FooterColumn1 />
 
         {/* PRODUCT */}
-        <div className="grid grid-cols-2 gap-10 col-span-2">
+        <div className="grid grid-cols-2 gap-5 col-span-2">
           <div>
             <h4 className="font-bold mb-3 text-black">QUICK ACTIONS</h4>
             <ul className="space-y-2">
@@ -127,7 +127,7 @@ export default function Footer() {
         </div>
 
         {/* HELP & RESOURCES */}
-        <div className="grid grid-cols-2 gap-10 col-span-2">
+        <div className="grid grid-cols-2 gap-5 col-span-2">
           <div>
             <h4 className="font-bold mb-3 text-black">HELP & RESOURCES</h4>
             <ul className="space-y-2">
