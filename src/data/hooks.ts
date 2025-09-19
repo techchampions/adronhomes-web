@@ -132,10 +132,10 @@ export const useGetPropertyByID = (slug: string) => {
   });
 };
 // Query hook for properties page data with
-export const useJobListPage = (page: number) => {
+export const useJobListPage = (page: number, search: string) => {
   return useQuery<JobsApiResponse>({
-    queryKey: ["jobs-page", page],
-    queryFn: () => fetchJobsPageData(page),
+    queryKey: ["jobs-page", page, search],
+    queryFn: () => fetchJobsPageData(page, search),
   });
 };
 // Query hook for Jobs by ID data with

@@ -533,7 +533,7 @@ export default function Navbar() {
           dropdown: true,
           dropdownLinks: category.properties.map((item) => ({
             name: item.name,
-            href: `/properties/${item.name}`,
+            href: `/properties/${item.id}`,
             total_property: null,
             estate_total_property: null,
             house_total_property: null,
@@ -640,7 +640,7 @@ export default function Navbar() {
                             {drop.dropdown ? (
                               <IoCaretForward className="ml-1" />
                             ) : drop.estate_total_property ? (
-                              <span className="bg-adron-green text-white rounded-full px-2 text-[10px]">
+                              <span className="bg-adron-green text-white rounded-full h-4 w-4 flex items-center justify-center text-center text-[10px]">
                                 {drop.estate_total_property}
                               </span>
                             ) : null}
@@ -802,11 +802,11 @@ export default function Navbar() {
                                   <Link
                                     href={drop.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-sm block py-1 text-gray-600 hover:text-adron-green"
+                                    className="text-sm flex justify-between py-1 text-gray-600 hover:text-adron-green"
                                   >
                                     {drop.name}
                                     {drop.estate_total_property && (
-                                      <span className="bg-adron-green text-white rounded-full px-2 text-[8px] ml-1">
+                                      <span className="bg-adron-green text-white rounded-full h-4 w-4 flex justify-center items-center text-[8px] ml-1">
                                         {drop.estate_total_property}
                                       </span>
                                     )}

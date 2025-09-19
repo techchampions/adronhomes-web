@@ -9,10 +9,12 @@ import JobsList from "./JobsList";
 import ApiErrorBlock from "./ApiErrorBlock";
 import Pagination from "@/components/Pagination";
 import { useState } from "react";
+import Button from "@/components/Button";
 
 const JobsPageGroup = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError } = useJobListPage(page);
+  const [search, setSearch] = useState("");
+  const { data, isLoading, isError } = useJobListPage(page, search);
   const totalPages = data?.data.jobs_post.last_page || 0;
   if (isLoading) return <Loader />;
   if (isError) return <ApiErrorBlock />;
@@ -25,9 +27,9 @@ const JobsPageGroup = () => {
           {data?.data.jobs_header[0].header}
         </h4>
         <div className="bg-white flex w-fit mx-auto shadow rounded-full px-4 my-1 text-xs justify-between items-center gap-2 mb-4 md:mb-0">
-          <span>126 jobs</span>
-          <span className="text-lg">•</span>
-          <span>20 Locations</span>
+          <span>{data?.data.jobs_post.total} Job(s)</span>
+          {/* <span className="text-lg">•</span>
+          <span>20 Locations</span> */}
         </div>
       </div>
       <div className="w-full md:w-[70%] mx-auto">
@@ -35,18 +37,23 @@ const JobsPageGroup = () => {
           initialValues={{
             query: "",
           }}
-          onSubmit={(values, actions) => {
-            console.log("Form Values:", values);
-            actions.setSubmitting(false);
+          onSubmit={(values) => {
+            setSearch(values.query);
           }}
         >
-          <Form className="">
+          <Form className="flex justify-between items-center bg-white rounded-xl max-w-full lg:max-w-2xl mx-auto">
             <InputField
               name="query"
               placeholder="Search for jobs"
               type="text"
-              rightIcon={<GoSearch />}
-              className="w-full h-16 rounded-xl bg-white px-4 py-4"
+              // rightIcon={<GoSearch />}
+              className="w-full h-16 rounded-xl px-4 py-4 bg-transparent"
+            />
+            <Button
+              label=""
+              type="submit"
+              icon={<GoSearch />}
+              className="!text-black !w-fit px-4"
             />
           </Form>
         </Formik>

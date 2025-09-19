@@ -115,4 +115,5 @@ export interface Property {
   purpose: string[] | null;
   nearby_landmarks: string[] | null;
   title_document_type: string | null;
+  property_files: string[];
 }
