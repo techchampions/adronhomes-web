@@ -28,11 +28,12 @@ import { PiRoadHorizonDuotone } from "react-icons/pi";
 import { MdOutlineLandscape } from "react-icons/md";
 import { GrDocumentUser } from "react-icons/gr";
 import Link from "next/link";
-import { MapPinned } from "lucide-react";
+import { FileStack, MapPinned } from "lucide-react";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showMap, setshowMap] = useState(false);
+  const [showFiles, setshowFiles] = useState(false);
   const slider1 = useRef<Slider>(null);
   const params = useParams();
   const slug = String(params?.slug);
@@ -371,13 +372,10 @@ const PropertyImageSlider = () => {
                 {/* Split details in half for two tables */}
                 {item?.details && item.details.length > 0 ? (
                   <>
-                    <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
-                      Bungalow
-                    </div>
-                    <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
-                      Duplex
-                    </div>
                     <div className="relative overflow-x-hidden">
+                      <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
+                        Bungalow
+                      </div>
                       <div className="w-full text-sm text-left rtl:text-right text-gray-500">
                         {bungalows.length > 0 ? (
                           <>
@@ -424,6 +422,10 @@ const PropertyImageSlider = () => {
                       </div>
                     </div>
                     <div className="relative overflow-x-hidden">
+                      <div className="bg-white font-extrabold p-3 border-b flex justify-between border-gray-200 min-w-0">
+                        Duplex
+                      </div>
+
                       <div className="w-full text-sm text-left rtl:text-right text-gray-500">
                         {duplexes.length > 0 ? (
                           <>
@@ -645,6 +647,15 @@ const PropertyImageSlider = () => {
               className="bg-adron-green"
             />
           )}
+          {data?.data.properties[0].property_files &&
+            data?.data.properties[0].property_files.length > 0 && (
+              <Button
+                rightIcon={<FileStack />}
+                label="See Property Documents"
+                onClick={() => setshowFiles(true)}
+                className="bg-gray-700"
+              />
+            )}
         </div>
       </div>
       {showMap && (
@@ -668,6 +679,35 @@ const PropertyImageSlider = () => {
               {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
               <iframe
                 src={data?.data.properties[0].property_map || ""}
+                className="w-full h-full"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
+      {showFiles && (
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+          onClick={() => setshowFiles(false)}
+        >
+          <div
+            className="bg-white p-5 rounded-xl shadow-lg w-[98%] md:w-fit"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-4 right-3 text-gray-600 bg-white p-2 rounded-full hover:text-gray-900"
+              onClick={() => setshowMap(false)}
+              aria-label="Close"
+            >
+              <IoClose size={24} />
+            </button>
+
+            <div className="w-full md:w-[600px] h-[360px] rounded-lg overflow-hidden">
+              <iframe
+                src={data?.data.properties[0].property_files[0] || ""}
                 className="w-full h-full"
                 allowFullScreen
                 loading="lazy"

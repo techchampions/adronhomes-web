@@ -160,9 +160,12 @@ export const getPropertyByID = async (
 };
 //jobList Page Data
 export const fetchJobsPageData = async (
-  page: number
+  page: number,
+  search: string
 ): Promise<JobsApiResponse> => {
-  const response = await apiClient.get(`/jobs-page?page=${page}`);
+  const response = await apiClient.get(
+    `/jobs-page?page=${page}&search=${search}`
+  );
   return response.data;
 };
 //Get Job by ID Data

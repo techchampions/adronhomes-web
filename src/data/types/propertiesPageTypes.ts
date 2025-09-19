@@ -69,4 +69,5 @@ export interface Property {
   hasLights: boolean;
   isLand: boolean;
   purpose: string[] | null;
+  property_files: string[];
 }
