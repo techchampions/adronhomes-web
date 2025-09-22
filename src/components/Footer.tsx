@@ -84,23 +84,23 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-3 text-black">QUICK ACTIONS</h4>
             <ul className="space-y-2">
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="https://user.adronhomes.com/login">
                   Client Login
                 </Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="https://user.adronhomes.com/dashboard/new-property">
                   Buy Properties{" "}
                 </Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/properties">Estates Locations </Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/home-listing">Home Listing </Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/testimonials">Testimonials</Link>
               </li>
             </ul>
@@ -110,16 +110,16 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-3 text-black">COMPANY</h4>
             <ul className="space-y-2 ">
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/about-us">About Us</Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/client-partnership">Client Partnership</Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/about-us#leadership">Our Team</Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/careers">Careers</Link>
               </li>
             </ul>
@@ -131,17 +131,19 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-3 text-black">HELP & RESOURCES</h4>
             <ul className="space-y-2">
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/faqs">FAQs</Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/terms-and-conditions">Terms & Conditions</Link>
               </li>
-              <li>
+              <li className="hover:text-adron-green">
                 <Link href="/privacy-policies">Privacy Policy</Link>
               </li>
-              <li>Blog</li>
-              <li>Corporate Social responsibilities</li>
+              <li className="hover:text-adron-green">Blog</li>
+              <li className="hover:text-adron-green">
+                Corporate Social responsibilities
+              </li>
             </ul>
           </div>
 
