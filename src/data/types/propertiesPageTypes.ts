@@ -70,4 +70,5 @@ export interface Property {
   isLand: boolean;
   purpose: string[] | null;
   property_files: string[];
+
 }
