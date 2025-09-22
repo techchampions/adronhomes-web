@@ -126,7 +126,7 @@ const HomePropertyCard = ({
               View Details
             </Link> */}
             <div className="text 4xl font-bold truncate max-w-[150px]">
-              {isRented ? "For rent" : formatPrice(property.price)}{" "}
+              {isRented ? "For Rent" : formatPrice(property.price)}{" "}
             </div>
           </div>
         </div>
