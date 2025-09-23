@@ -31,7 +31,7 @@ const FeaturedProperties = ({
         <HomePropertyList properties={properties} />
         <div className="flex w-full justify-center mt-16">
           <Link
-            href="/featured-properties"
+            href="/properties"
             className="inline-block px-6 py-2 bg-adron-green text-white rounded-full text-sm transition-colors"
           >
             View All Properties
