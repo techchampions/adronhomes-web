@@ -70,5 +70,7 @@ export interface Property {
   isLand: boolean;
   purpose: string[] | null;
   property_files: string[];
-
+  is_discount: boolean;
+  discount_name: string;
+  discount_percentage: number;
 }

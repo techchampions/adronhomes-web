@@ -7,9 +7,6 @@ export default function HomePropertyList({
 }: {
   properties: Property[];
 }) {
-  console.log(properties);
-  //   const address = `${properties[0].street_address}, ${properties[0].lga}, ${properties[0].state} ${properties[0].country}`;
-
   return (
     <>
       {properties.length < 1 ? (
