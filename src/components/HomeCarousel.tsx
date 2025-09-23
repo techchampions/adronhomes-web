@@ -109,7 +109,6 @@ export const AutoCarousel = ({ slides }: { slides: SliderT[] }) => {
 };
 
 export const MobileAutoCarousel = ({ slides }: { slides: SliderT[] }) => {
-  console.log("AutoCarousel slides", slides[0].image);
   const isSingleSlide = slides.length === 1;
 
   const settings = {
@@ -150,7 +149,7 @@ export const MobileAutoCarousel = ({ slides }: { slides: SliderT[] }) => {
         {isSingleSlide ? (
           <div className="relative w-full aspect-[4/5] md:aspect-[16/9] rounded-2xl md:rounded-[40px] overflow-hidden">
             <Image
-              src={slides[0].image}
+              src={slides[0].mobile_image}
               alt="Slide 1"
               fill
               className="object-cover"
@@ -165,7 +164,7 @@ export const MobileAutoCarousel = ({ slides }: { slides: SliderT[] }) => {
                 className="relative w-full aspect-[4/5] md:aspect-[16/9] rounded-2xl md:rounded-[40px] overflow-hidden"
               >
                 <Image
-                  src={img.image}
+                  src={img.mobile_image}
                   alt={`Slide ${index}`}
                   fill
                   className="object-cover"

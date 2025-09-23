@@ -59,7 +59,7 @@ const PropertyImageSlider = () => {
   const item = data?.data.properties[0];
   const description = data.data.properties[0].description;
   const sanitizedHTML = DOMPurify.sanitize(description);
-
+  console.log(sanitizedHTML);
   // Filter items by purpose
 
   const isRented =
@@ -299,11 +299,10 @@ const PropertyImageSlider = () => {
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Description</h4>
               <div className="text-md text-gray-500 ml-5">
-                {data?.data.properties[0].description}
                 <div
                   dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
                   className="prose max-w-none rich-text-content"
-                />{" "}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-2">
