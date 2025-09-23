@@ -19,6 +19,7 @@ export interface HomepageData {
 export interface Slider {
   id: number;
   image: string;
+  mobile_image: string;
 }
 
 export interface Settings {
