@@ -88,6 +88,9 @@ export interface Property {
   hasGym: boolean;
   hasLights: boolean;
   isLand: boolean;
+  is_discount: boolean;
+  discount_percentage: number;
+  discount_name: string;
   purpose: string[] | null;
 }
 

@@ -50,6 +50,11 @@ const HomePropertyCard = ({
           fill
           className="object-cover"
         />
+        {property.is_discount && property.discount_percentage && (
+          <div className="absolute top-4 right-4 bg-red-500 rounded-lg text-xs text-white px-4 py-1">
+            {property.discount_percentage}% off
+          </div>
+        )}
       </div>
 
       <div className="w-full bg-white p-6 space-y-5 flex flex-col h-auto">

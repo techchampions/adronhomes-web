@@ -14,6 +14,8 @@ import { useParams } from "next/navigation";
 import { useEnquireProperty, useGetPropertyByID } from "@/data/hooks";
 import Loader from "@/components/Loader";
 import { formatDate, formatPrice } from "@/utils/formater";
+import DOMPurify from "dompurify";
+
 import {
   IoCarSportOutline,
   IoCheckmark,
@@ -55,6 +57,9 @@ const PropertyImageSlider = () => {
   }
   const images = data?.data.properties[0].photos;
   const item = data?.data.properties[0];
+  const description = data.data.properties[0].description;
+  const sanitizedHTML = DOMPurify.sanitize(description);
+
   // Filter items by purpose
 
   const isRented =
@@ -293,9 +298,13 @@ const PropertyImageSlider = () => {
 
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Description</h4>
-              <p className="text-md text-gray-500 ml-5">
+              <div className="text-md text-gray-500 ml-5">
                 {data?.data.properties[0].description}
-              </p>
+                <div
+                  dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+                  className="prose max-w-none rich-text-content"
+                />{" "}
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Features</h4>
