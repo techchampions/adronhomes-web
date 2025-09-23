@@ -140,9 +140,13 @@ export default function Footer() {
               <li className="hover:text-adron-green">
                 <Link href="/privacy-policies">Privacy Policy</Link>
               </li>
-              <li className="hover:text-adron-green">Blog</li>
               <li className="hover:text-adron-green">
-                Corporate Social responsibilities
+                <Link href="https://blog.adronhomes.com/">Blog</Link>
+              </li>
+              <li className="hover:text-adron-green">
+                <Link href="https://blog.adronhomes.com/corporate-social-responsibility/">
+                  Corporate Social responsibilities
+                </Link>
               </li>
             </ul>
           </div>
