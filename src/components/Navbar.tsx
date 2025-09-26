@@ -634,7 +634,7 @@ export default function Navbar() {
                         >
                           <Link
                             href={drop.href}
-                            className="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="flex justify-between truncate items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           >
                             {drop.name}
                             {drop.dropdown ? (
