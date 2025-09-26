@@ -1,5 +1,6 @@
-// ErrorBoundary.tsx
-import { AlertTriangle } from "lucide-react";
+// components/ErrorBoundary.tsx
+"use client";
+
 import React, { ErrorInfo, ReactNode } from "react";
 
 interface ErrorBoundaryProps {
@@ -10,13 +11,11 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
-  errorInfo: ErrorInfo | null;
 }
 
 interface FallbackProps {
   error: Error | null;
-  errorInfo: ErrorInfo | null;
-  onRetry: () => void;
+  resetError: () => void;
 }
 
 class ErrorBoundary extends React.Component<
@@ -28,33 +27,31 @@ class ErrorBoundary extends React.Component<
     this.state = {
       hasError: false,
       error: null,
-      errorInfo: null,
     };
   }
 
-  static getDerivedStateFromError(): Partial<ErrorBoundaryState> {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
+    return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error("Error caught by boundary:", error, errorInfo);
-    this.setState({
-      error: error,
-      errorInfo: errorInfo,
-    });
+    console.error("Next.js Error caught by boundary:", error, errorInfo);
 
+    // Log to your error reporting service
     this.logErrorToService(error);
   }
 
   logErrorToService = (error: Error): void => {
-    console.log("Error reported to service:", error);
+    if (process.env.NODE_ENV === "production") {
+      // Example: Sentry, LogRocket, etc.
+      console.log("Error reported to service:", error);
+    }
   };
 
-  handleRetry = (): void => {
+  resetError = (): void => {
     this.setState({
       hasError: false,
       error: null,
-      errorInfo: null,
     });
   };
 
@@ -66,8 +63,7 @@ class ErrorBoundary extends React.Component<
         return (
           <FallbackComponent
             error={this.state.error}
-            errorInfo={this.state.errorInfo}
-            onRetry={this.handleRetry}
+            resetError={this.resetError}
           />
         );
       }
@@ -75,21 +71,27 @@ class ErrorBoundary extends React.Component<
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
           <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-            <div className="p-4 bg-yellow-300/70 w-fit rounded-full mx-auto text-center flex justify-center mb-4">
-              <AlertTriangle size={40} />
-            </div>
-            <h1 className="text-2xl !font-adron-bold text-gray-900 mb-2">
+            <div className="text-6xl mb-4">⚠️</div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Something went wrong
             </h1>
             <p className="text-gray-600 mb-6">
-              {` We're sorry for the inconvenience. Please try again.`}
+              We apologize for the inconvenience. Please try again.
             </p>
-            <button
-              onClick={this.handleRetry}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200"
-            >
-              Try Again
-            </button>
+            <div className="space-y-3">
+              <button
+                onClick={this.resetError}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200"
+              >
+                Try Again
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                className="w-full border border-gray-300 hover:border-gray-400 text-gray-700 font-medium py-2 px-6 rounded-lg transition duration-200"
+              >
+                Reload Page
+              </button>
+            </div>
           </div>
         </div>
       );
