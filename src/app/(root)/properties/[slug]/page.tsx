@@ -45,19 +45,19 @@ const PropertyImageSlider = () => {
 
   if (isLoading || !data) return <Loader />;
   if (error) return <p>Error loading property.</p>;
-  const name = data?.data.properties[0].name;
-  const price = data?.data.properties[0].price;
+  const name = data?.data.properties.name;
+  const price = data?.data.properties.price;
   let address = "All Adron locations.";
   if (
-    data?.data.properties[0].street_address &&
-    data?.data.properties[0].state &&
-    data?.data.properties[0].country
+    data?.data.properties.street_address &&
+    data?.data.properties.state &&
+    data?.data.properties.country
   ) {
-    address = `${data?.data.properties[0].street_address}, ${data?.data.properties[0].state} ${data?.data.properties[0].country}`;
+    address = `${data?.data.properties.street_address}, ${data?.data.properties.state} ${data?.data.properties.country}`;
   }
-  const images = data?.data.properties[0].photos;
-  const item = data?.data.properties[0];
-  const description = data.data.properties[0].description;
+  const images = data?.data.properties.photos;
+  const item = data?.data.properties;
+  const description = data.data.properties.description;
   const sanitizedHTML = DOMPurify.sanitize(description);
   console.log(sanitizedHTML);
   // Filter items by purpose
@@ -151,7 +151,7 @@ const PropertyImageSlider = () => {
               <FaHeart />
             </div>
             {isRented ? (
-              <a href={data.data.properties[0].whatsapp_link}>
+              <a href={data.data.properties.whatsapp_link}>
                 <Button
                   label="Inquire on WhatsApp"
                   icon={<IoLogoWhatsapp size={18} />}
@@ -226,7 +226,7 @@ const PropertyImageSlider = () => {
                   <Image src="/ruler.svg" width={14} height={14} alt="ruler" />
 
                   <span className="text-md text-gray-500">
-                    {data?.data.properties[0].size} SqM
+                    {data?.data.properties.size} SqM
                   </span>
                 </div>
               </div>
@@ -292,7 +292,7 @@ const PropertyImageSlider = () => {
               )}
 
               <p className="text-md text-gray-500 ml-5">
-                {data?.data.properties[0].overview}
+                {data?.data.properties.overview}
               </p>
             </div>
 
@@ -303,14 +303,13 @@ const PropertyImageSlider = () => {
                   dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
                   className="prose  prose-lg
                   max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-inside [&>ol]:list-inside [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
-
                 />
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <h4 className="font-bold text-md">Features</h4>
               <div className="text-md ml-5 grid grid-cols-1 md:grid-cols-3 text-gray-500 space-y-2">
-                {data?.data.properties[0].features?.map((list) => (
+                {data?.data.properties.features?.map((list) => (
                   <div key={list} className="flex gap-2 items-center">
                     <IoIosCheckmarkCircleOutline /> <div>{list}</div>
                   </div>
@@ -328,7 +327,7 @@ const PropertyImageSlider = () => {
                           Country
                         </div>
                         <div className=" truncate ">
-                          {data?.data.properties[0].country}
+                          {data?.data.properties.country}
                         </div>
                       </div>
 
@@ -336,7 +335,7 @@ const PropertyImageSlider = () => {
                         <div className=" font-medium text-gray-900 whitespace-nowrap ">
                           State
                         </div>
-                        <div className="">{data?.data.properties[0].state}</div>
+                        <div className="">{data?.data.properties.state}</div>
                       </div>
                     </div>
                   </div>
@@ -349,7 +348,7 @@ const PropertyImageSlider = () => {
                           Nearby Landmark
                         </div>
                         <div className="">
-                          {data?.data.properties[0].nearby_landmarks}
+                          {data?.data.properties.nearby_landmarks}
                         </div>
                       </div>
 
@@ -358,7 +357,7 @@ const PropertyImageSlider = () => {
                           Address
                         </div>
                         <div className=" line-clamp-1 truncate">
-                          {data?.data.properties[0].street_address}
+                          {data?.data.properties.street_address}
                         </div>
                       </div>
                     </div>
@@ -370,7 +369,7 @@ const PropertyImageSlider = () => {
               <h4 className="font-bold text-md">Property Document Type</h4>
               <div className="flex items-center gap-2 ml-5 text-gray-500">
                 <GrDocumentUser />
-                <span>{data.data.properties[0].title_document_type}</span>
+                <span>{data.data.properties.title_document_type}</span>
               </div>
             </div>
 
@@ -625,10 +624,7 @@ const PropertyImageSlider = () => {
                     className="bg-black text-white flex-[0.5] py-1 px-5"
                   />
                 </a>
-                <a
-                  href={data.data.properties[0].whatsapp_link}
-                  className="w-fit"
-                >
+                <a href={data.data.properties.whatsapp_link} className="w-fit">
                   <Button
                     label="Chat on WhatsApp"
                     className="bg-green-500 px-3"
@@ -638,18 +634,18 @@ const PropertyImageSlider = () => {
               </div>
             </Form>
           </Formik>
-          {data?.data.properties[0].video_link && (
+          {data?.data.properties.video_link && (
             <div className="video-responsive w-full h-[250px] md:h-[150px] rounded-2xl overflow-hidden">
               <iframe
                 className="w-full h-full"
-                src={data?.data.properties[0].video_link || ""}
+                src={data?.data.properties.video_link || ""}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             </div>
           )}
-          {data?.data.properties[0].property_map && (
+          {data?.data.properties.property_map && (
             <Button
               rightIcon={<MapPinned size={16} />}
               label="See Property on map"
@@ -657,8 +653,8 @@ const PropertyImageSlider = () => {
               className="bg-adron-green"
             />
           )}
-          {data?.data.properties[0].property_files &&
-            data?.data.properties[0].property_files.length > 0 && (
+          {data?.data.properties.property_files &&
+            data?.data.properties.property_files.length > 0 && (
               <Button
                 rightIcon={<FileStack />}
                 label="See Property Documents"
@@ -688,7 +684,7 @@ const PropertyImageSlider = () => {
             <div className="w-full md:w-[600px] h-[360px] rounded-lg overflow-hidden">
               {/* <StreetView lat={40.748817} lng={-73.985428} /> */}
               <iframe
-                src={data?.data.properties[0].property_map || ""}
+                src={data?.data.properties.property_map || ""}
                 className="w-full h-full"
                 allowFullScreen
                 loading="lazy"
@@ -717,7 +713,7 @@ const PropertyImageSlider = () => {
 
             <div className="w-full md:w-[600px] h-[360px] rounded-lg overflow-hidden">
               <iframe
-                src={data?.data.properties[0].property_files[0] || ""}
+                src={data?.data.properties.property_files[0] || ""}
                 className="w-full h-full"
                 allowFullScreen
                 loading="lazy"
