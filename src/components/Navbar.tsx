@@ -533,7 +533,7 @@ export default function Navbar() {
           dropdown: true,
           dropdownLinks: category.properties.map((item) => ({
             name: item.name,
-            href: `/properties/${item.id}`,
+            href: `/properties/${item.slug}`,
             total_property: null,
             estate_total_property: null,
             house_total_property: null,

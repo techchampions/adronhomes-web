@@ -1,6 +1,7 @@
 export interface CategoryProperty {
   id: number;
   name: string;
+  slug: string;
   category_id: number;
   total_amount: number;
 }
