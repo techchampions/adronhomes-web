@@ -86,7 +86,7 @@
 import { formatPrice } from "@/utils/formater";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FaMapMarkerAlt, FaRegHeart } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { GiStreetLight } from "react-icons/gi";
 
 interface PropertyCardProps {
@@ -149,7 +149,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
           </p>
           <p className="text-md font-bold text-gray-800 mb-3 flex items-center justify-between w-full pr-5">
             {formatPrice(price || 0)}
-            <FaRegHeart className="ml-1 text-gray-800 " />
+            {/* <FaRegHeart className="ml-1 text-gray-800 " /> */}
           </p>
 
           <div className="flex items-center gap-4 text-xs text-gray-500">

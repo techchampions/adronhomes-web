@@ -27,7 +27,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ properties }) => {
           key={property.id}
           imageUrl={property.display_image}
           title={property.name}
-          address={`${property.street_address}, ${property.lga}, ${property.state} ${property.country}`}
+          address={`${property.street_address}, ${property.state} ${property.country}`}
           price={property.price}
           size={property.size}
           hasStreetLights={property.hasStreetLights}
