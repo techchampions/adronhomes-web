@@ -69,7 +69,9 @@ export default function FilterBar({
           <Form className="hidden md:block">
             <div
               className={`bg-white px-8 py-6 rounded-3xl mb-8 md:grid grid-cols-2 sm:grid-cols-3 ${
-                values.type === "1"
+                values.type === "1" && location
+                  ? `md:grid-cols-3`
+                  : values.type === "1"
                   ? `md:grid-cols-4`
                   : !location
                   ? `md:grid-cols-6`

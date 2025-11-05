@@ -37,7 +37,7 @@ export default function PropertiesPageGroup() {
   }, [pathname]);
   useEffect(() => {
     if (location) {
-      setFilters({ state: location });
+      setFilters({ state: location, type: "1" });
     }
   }, [location]); // <- only runs when location changes
   const { data, isLoading, isError } = usePropertiespage(page);
