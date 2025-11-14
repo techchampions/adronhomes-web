@@ -93,6 +93,7 @@ export interface Property {
   discount_percentage: number;
   discount_name: string;
   purpose: string[] | null;
+  unit_available: number;
 }
 
 export interface Locations {

@@ -73,5 +73,5 @@ export interface Property {
   is_discount: boolean;
   discount_name: string;
   discount_percentage: number;
-
+  unit_available: number;
 }
