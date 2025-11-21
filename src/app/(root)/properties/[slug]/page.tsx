@@ -175,22 +175,33 @@ const PropertyImageSlider = () => {
         {/* Main slider and thumbnails */}
         <div className="w-full md:w-[70%] mx-auto">
           {/* Main slider */}
-          <Slider
-            {...mainSettings}
-            ref={slider1}
-            className="rounded-2xl overflow-hidden"
-          >
-            {images?.map((img, i) => (
-              <div key={i} className="relative h-[300px] md:h-[400px] w-full">
-                <Image
-                  src={img}
-                  alt={`House ${i}`}
-                  fill
-                  className="object-cover rounded-xl"
-                />
-              </div>
-            ))}
-          </Slider>
+          {images.length > 0 ? (
+            <Slider
+              {...mainSettings}
+              ref={slider1}
+              className="rounded-2xl overflow-hidden"
+            >
+              {images?.map((img, i) => (
+                <div key={i} className="relative h-[300px] md:h-[400px] w-full">
+                  <Image
+                    src={img}
+                    alt={`House ${i}`}
+                    fill
+                    className="object-cover rounded-xl"
+                  />
+                </div>
+              ))}
+            </Slider>
+          ) : (
+            <div className="relative w-full h-[300px] md:h-[400px]">
+              <Image
+                src={item.display_image}
+                alt={`House ${item.display_image}`}
+                fill
+                className="object-cover rounded-xl w-full h-full"
+              />
+            </div>
+          )}
 
           {/* Thumbnails */}
           <div className="mt-5 grid grid-cols-5 gap-3">
