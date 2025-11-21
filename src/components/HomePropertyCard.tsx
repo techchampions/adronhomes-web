@@ -55,6 +55,11 @@ const HomePropertyCard = ({
             {property.discount_percentage}% off
           </div>
         )}
+        {property.unit_available < 1 && (
+          <div className="absolute top-4 left-4 bg-red-500 rounded-lg text-xs text-white px-4 py-1">
+            Sold out
+          </div>
+        )}
       </div>
 
       <div className="w-full bg-white p-6 space-y-5 flex flex-col h-auto">
