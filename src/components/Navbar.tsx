@@ -683,14 +683,14 @@ export default function Navbar() {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex space-x-2">
-          <button className="text-gray-800 text-sm px-4 py-2">
+          {/* <button className="text-gray-800 text-sm px-4 py-2">
             <Link href="https://user.adronhomes.com/login" className="w-full">
               Login
             </Link>
-          </button>
+          </button> */}
           <button className="bg-black text-white text-sm px-4 py-2 rounded-full">
             <Link href="https://user.adronhomes.com/signup" className="w-full">
-              Sign up
+              Login to Dashboard
             </Link>
           </button>
         </div>
@@ -856,17 +856,17 @@ export default function Navbar() {
                 href="https://user.adronhomes.com/signup"
                 className="w-full"
               >
-                Sign up
+                Login to Dashboard
               </Link>
             </button>
-            <button className="w-full text-center text-gray-700">
+            {/* <button className="w-full text-center text-gray-700">
               <Link
                 href="https://user.adronhomes.com/login"
                 className="w-full "
               >
                 Login
               </Link>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

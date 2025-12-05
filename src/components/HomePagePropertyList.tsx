@@ -1,6 +1,7 @@
 import { Property } from "@/data/types/homepageTypes";
 import HomePropertyCard from "./HomePropertyCard";
 import NoPropertyFound from "./NoPropertyFound";
+import SwiperPropertyCard2 from "@/components/SwiperCard2";
 
 export default function HomePropertyList({
   properties,
@@ -14,7 +15,8 @@ export default function HomePropertyList({
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-18 justify-center">
           {properties?.map((property) => (
-            <HomePropertyCard property={property} key={property.id} />
+            <SwiperPropertyCard2 property={property} key={property.id} />
+            // <HomePropertyCard property={property} key={property.id} />
           ))}
         </div>
       )}

@@ -18,7 +18,8 @@ import Image from "next/image";
 import { GiStreetLight } from "react-icons/gi";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
-import { Property } from "@/data/types/propertiesPageTypes";
+import { Property } from "@/data/types/homepageTypes";
+// import { Property } from "@/data/types/propertiesPageTypes";
 
 interface Props {
   property: Property;
