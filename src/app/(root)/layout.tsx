@@ -11,6 +11,7 @@ import TawkTo from "@/components/TawkTo";
 import CookieConsent from "@/components/CookieConsent";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import ModalWrapper from "@/components/ModalWrapper";
 
 const adronTitle = Cormorant_Garamond({
   variable: "--font-adron-title",
@@ -36,6 +37,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <Providers>
             <CookieConsent />
+            <ModalWrapper />
             <Navbar />
             <main className="mb-0">{children}</main>
             <Footer />

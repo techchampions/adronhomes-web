@@ -75,7 +75,7 @@ export interface Property {
   photos: string[];
   size: string;
   price: number;
-  type: number;
+  type: PropertyType;
   slug: string;
   features: string[];
   overview: string;
@@ -94,8 +94,12 @@ export interface Property {
   discount_name: string;
   purpose: string[] | null;
   unit_available: number;
+  whatsapp_link: string;
+  property_duration_limit: string | number;
 }
-
+export interface PropertyType {
+  name: string;
+}
 export interface Locations {
   locationText: LocationText[];
   locationProperty: LocationProperty[];

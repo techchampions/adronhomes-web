@@ -1,8 +1,7 @@
+"use client";
 import { useRef, useEffect, useState } from "react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper/types";
-
 import { Navigation } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
@@ -23,12 +22,17 @@ import { Property } from "@/data/types/homepageTypes";
 import { formatPrice } from "@/utils/formater";
 import Button from "@/components/Button";
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useModal } from "../../store/modal.store";
+import Start from "@/components/SubscribeComponents/Start";
 
 interface Props {
   property: Property;
 }
 
 export default function SwiperPropertyCard2({ property }: Props) {
+  const router = useRouter();
   const features = property.features;
   const allowedFeatures = ["Gym", "Light"];
   const displayFeatures = features.filter((item) =>
@@ -43,7 +47,10 @@ export default function SwiperPropertyCard2({ property }: Props) {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
-
+  const modal = useModal();
+  const subscribe = () => {
+    modal.openModal(<Start property={property} />);
+  };
   useEffect(() => {
     if (swiper && prevRef.current && nextRef.current) {
       if (
@@ -91,9 +98,11 @@ export default function SwiperPropertyCard2({ property }: Props) {
           {hasPhotos ? (
             photos.map((img, idx) => (
               <SwiperSlide key={idx}>
-                <img
+                <Image
                   src={img}
                   alt={`Image ${idx + 1}`}
+                  width={`100`}
+                  height={`100`}
                   className="object-cover rounded-3xl h-full w-full"
                 />
               </SwiperSlide>
@@ -101,9 +110,11 @@ export default function SwiperPropertyCard2({ property }: Props) {
           ) : (
             <SwiperSlide>
               {property.display_image ? (
-                <img
+                <Image
                   src={property.display_image}
                   alt=""
+                  height={100}
+                  width={100}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -127,12 +138,12 @@ export default function SwiperPropertyCard2({ property }: Props) {
           <FaChevronRight size={30} />
         </button>
         {property.is_discount && (
-          <div className="bg-red-600 text-white text-xs px-3 py-1 rounded-full absolute top-2 right-5 z-50">
+          <div className="bg-red-600 text-white text-xs px-3 py-1 rounded-full absolute top-2 right-5 z-20">
             {property.discount_percentage}% off
           </div>
         )}
         {property.unit_available < 1 && (
-          <div className="bg-red-600 text-white text-xs px-3 py-1 rounded-full absolute top-2 left-5 z-50">
+          <div className="bg-red-600 text-white text-xs px-3 py-1 rounded-full absolute top-2 left-5 z-20">
             sold out
           </div>
         )}
@@ -171,13 +182,13 @@ export default function SwiperPropertyCard2({ property }: Props) {
           <div className="flex items-center text-[10px] font-bold text-gray-500 gap-2">
             <span className="flex items-center gap-1 truncate">
               {/* <TfiRulerAlt2 />  */}
-              <img src="/ruler.svg" width={14} height={14} alt="dumbbell" />
+              <Image src="/ruler.svg" width={14} height={14} alt="dumbbell" />
               {property.size} SqM
             </span>
             {displayFeatures.map((feature, index) => (
               <span key={index} className="flex items-center gap-1 truncate">
                 {feature === "Gym" ? (
-                  <img
+                  <Image
                     src="/dumbbell.svg"
                     width={14}
                     height={14}
@@ -214,12 +225,14 @@ export default function SwiperPropertyCard2({ property }: Props) {
           <Button
             label="View Property"
             className="bg-adron-green text-xs py-3"
+            onClick={() => router.push(`/properties/${property.slug}`)}
           />
           {isRented ? (
             <Link
               href={property.whatsapp_link}
-              className="text-xs py-3 !bg-transparent !text-green-700 border hover:!bg-green-700 hover:!text-white"
+              className="flex items-center gap-2 rounded-full justify-center text-xs py-3 !bg-transparent !text-green-700 border hover:!bg-green-700 hover:!text-white"
             >
+              <IoLogoWhatsapp size={20} />
               Inquire
             </Link>
           ) : property.unit_available < 1 ? (
@@ -229,6 +242,7 @@ export default function SwiperPropertyCard2({ property }: Props) {
             />
           ) : (
             <Button
+              onClick={subscribe}
               label="Subscribe"
               className="!bg-transparent !text-black border hover:!text-white hover:!bg-black text-xs py-3"
               // onClick={() => navigate(`/invest-property/${property.id}`)}

@@ -1,5 +1,5 @@
 import { Property } from "@/data/types/homepageTypes";
-import HomePropertyCard from "./HomePropertyCard";
+// import HomePropertyCard from "./HomePropertyCard";
 import NoPropertyFound from "./NoPropertyFound";
 import SwiperPropertyCard2 from "@/components/SwiperCard2";
 

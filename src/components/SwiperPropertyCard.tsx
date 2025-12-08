@@ -156,7 +156,7 @@ export default function SwiperPropertyCard({ property }: Props) {
             </span>
           </div>
           <div className="text-gray-400 flex items-center gap-1 text-sm">
-            {property.type}
+            {property.type.name}
           </div>
         </div>
 
