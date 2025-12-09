@@ -1,4 +1,3 @@
-import { Property } from "@/data/types/homepageTypes";
 import { create } from "zustand";
 
 type SubscribeFormData = {
@@ -29,7 +28,12 @@ type SubscribeFormData = {
   contract_profile_picture: File | null;
   contract_profile_picture2: File | null;
   contract_idFiles: File[] | null;
-  property: Property | null;
+  land_size: string | number;
+  payment_duration: string | number;
+  payment_schedule: string | number;
+  start_date: string;
+  end_date: string;
+  payable_amount: string | number;
   setSubscribeFormData: (
     details: Partial<
       Omit<SubscribeFormData, "setSubscribeFormData" | "resetSubscribeFormData">
@@ -66,7 +70,12 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   contract_profile_picture: null,
   contract_profile_picture2: null,
   contract_idFiles: null,
-  property: null,
+  land_size: "",
+  payment_duration: "",
+  payment_schedule: "",
+  payable_amount: "",
+  start_date: "",
+  end_date: "",
   setSubscribeFormData: (details) => set((state) => ({ ...state, ...details })),
 
   resetSubscribeFormData: () =>
@@ -98,6 +107,11 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       contract_profile_picture: null,
       contract_profile_picture2: null,
       contract_idFiles: null,
-      property: null,
+      land_size: "",
+      payment_duration: "",
+      payment_schedule: "",
+      payable_amount: "",
+      start_date: "",
+      end_date: "",
     }),
 }));

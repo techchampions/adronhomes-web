@@ -67,6 +67,20 @@ export interface HandpackText {
   header: string;
   description: string;
 }
+export interface Duration {
+  id: number;
+  price: number;
+  citta_id: string;
+  duration: number; // in months or years
+  is_active: boolean;
+}
+
+export interface LandSize {
+  id: number;
+  size: string; // Could be number as string like "648"
+  measurement_unit: "sqm" | "sqft" | "acre" | "hectare" | string;
+  durations: Duration[];
+}
 
 export interface Property {
   id: number;
@@ -97,6 +111,7 @@ export interface Property {
   whatsapp_link: string;
   property_duration_limit: string | number;
   payment_schedule: string[];
+  land_sizes: LandSize[];
 }
 export interface PropertyType {
   name: string;

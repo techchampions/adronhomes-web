@@ -5,11 +5,12 @@ import { Property } from "@/data/types/homepageTypes";
 import { formatPrice } from "@/utils/formater";
 import Image from "next/image";
 import { ArrowLeft, CheckSquare2 } from "lucide-react";
-import PropertySpecifications from "@/components/SubscribeComponents/PropertySpecifications";
+// import PropertySpecifications from "@/components/SubscribeComponents/PropertySpecifications";
 import { usePaystackPayment } from "@/hooks/usePaystack";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 import PaymentStatus from "@/components/SubscribeComponents/PaymentStatus";
 import { useInterswitchPayment } from "@/hooks/useInterswitch";
+import PropertyTerms from "@/components/SubscribeComponents/PropertyTerms";
 
 interface Props {
   property: Property;
@@ -68,7 +69,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     }
   };
   const goBack = () => {
-    openModal(<PropertySpecifications property={property} />);
+    openModal(<PropertyTerms property={property} />);
   };
 
   return (
