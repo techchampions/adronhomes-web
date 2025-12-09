@@ -12,6 +12,7 @@ import CookieConsent from "@/components/CookieConsent";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import ModalWrapper from "@/components/ModalWrapper";
+import Script from "next/script";
 
 const adronTitle = Cormorant_Garamond({
   variable: "--font-adron-title",
@@ -31,6 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script src="https://js.paystack.co/v1/inline.js" />
+      <Script src="https://newwebpay.interswitchng.com/inline-checkout.js" />
       <GoogleAnalytics />
       <TawkTo />
       <body className={`${adronTitle.variable} antialiased`}>

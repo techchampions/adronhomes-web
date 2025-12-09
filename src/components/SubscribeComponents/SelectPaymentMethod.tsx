@@ -6,6 +6,10 @@ import { formatPrice } from "@/utils/formater";
 import Image from "next/image";
 import { ArrowLeft, CheckSquare2 } from "lucide-react";
 import PropertySpecifications from "@/components/SubscribeComponents/PropertySpecifications";
+import { usePaystackPayment } from "@/hooks/usePaystack";
+import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
+import PaymentStatus from "@/components/SubscribeComponents/PaymentStatus";
+import { useInterswitchPayment } from "@/hooks/useInterswitch";
 
 interface Props {
   property: Property;
@@ -16,12 +20,49 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
   >(null);
   const [agreed, setagreed] = useState(false);
   const { openModal } = useModal();
-
+  const { contract_email, contract_subscriber_name_1 } = useSubscribeFormData();
+  const paystack = usePaystackPayment();
+  const interswitch = useInterswitchPayment();
   const handleContinue = () => {
-    if (selectedPaymentMethod == "Bank Transfer") {
-      openModal(<div>bank transfer</div>);
+    if (selectedPaymentMethod == "Interswitch") {
+      interswitch({
+        email: contract_email || "",
+        customerName: contract_subscriber_name_1 || "",
+        amount: 1000000, // in Naira
+        reference: "dgdgdg",
+        merchant_code: "merchant_code",
+        payment_item_id: "payable_code",
+        onSuccess: () => {
+          openModal(
+            <PaymentStatus
+              status="success"
+              text="Payment received successfully."
+            />
+          );
+        },
+        onClose: () => {
+          openModal(<PaymentStatus status="failed" text="Payment canceled." />);
+        },
+      });
     } else if (selectedPaymentMethod == "Paystack") {
-      console.log("paystack");
+      paystack({
+        email: contract_email || "",
+        amount: 10000000, // in Naira
+        reference: "sfusfui",
+        onSuccess: () => {
+          openModal(
+            <PaymentStatus
+              status="success"
+              text="Payment received successfully."
+            />
+          );
+
+          // TODO: call your backend API to confirm payment
+        },
+        onClose: () => {
+          openModal(<PaymentStatus status="failed" text="Payment canceled." />);
+        },
+      });
     } else if (selectedPaymentMethod == "Virtual Wallet") {
       console.log("virtual wallet");
     }
@@ -55,7 +96,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
                 ? "bg-adron-green text-white border-none "
                 : "bg-transparent border  border-gray-300"
             }`}
-            onClick={() => setSelectedPaymentMethod("Bank Transfer")}
+            onClick={() => setSelectedPaymentMethod("Interswitch")}
           >
             <Image
               height={100}
