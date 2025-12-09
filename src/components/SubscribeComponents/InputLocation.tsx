@@ -84,26 +84,6 @@ const InputLocation: React.FC<Props> = ({ property }) => {
               <div className="space-y-7">
                 <div className="space-y-1">
                   <div className="text-lg">Where are you located?</div>
-                  {/* <LocationAutocomplete
-                    value={values.location}
-                    onChange={(value) => setFieldValue("location", value)}
-                    onLocationSelect={(locationData) => {
-                      setFieldValue("addressDetails", {
-                        address: locationData.address,
-                        city: locationData.city || "",
-                        state: locationData.state || "",
-                        country: locationData.country || "",
-                        lat: locationData.lat,
-                        lng: locationData.lng,
-                      });
-                    }}
-                    placeholder="Type your address..."
-                    label="Location"
-                    required
-                    error={touched.location && (errors.location as string)}
-                    countryRestrictions={["us", "ca"]} // Optional: restrict to specific countries
-                  />{" "} */}
-
                   <LocationAutocomplete2
                     value={values.location}
                     onChange={(value) => setFieldValue("location", value)}
@@ -133,13 +113,6 @@ const InputLocation: React.FC<Props> = ({ property }) => {
                     debounce={400}
                     clearOnBlur={false}
                   />
-
-                  {/* <InputField
-                    name="location"
-                    type="text"
-                    placeholder="Enter your Address"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  /> */}
                 </div>
               </div>
               <div className="flex justify-center w-full gap-4 mt-4">

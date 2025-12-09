@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   description: "Adron Home Properties.",
   icons: "/logo.svg",
 };
+export const googleApiKey = "AIzaSyBPIyWllHG8je77s56Pyp69b5mzlghzD9U";
 
 export default function RootLayout({
   children,
@@ -34,6 +35,9 @@ export default function RootLayout({
     <html lang="en">
       <Script src="https://js.paystack.co/v1/inline.js" />
       <Script src="https://newwebpay.interswitchng.com/inline-checkout.js" />
+      <Script
+        src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=initGoogleMaps`}
+      />
       <GoogleAnalytics />
       <TawkTo />
       <body className={`${adronTitle.variable} antialiased`}>

@@ -96,6 +96,7 @@ export interface Property {
   unit_available: number;
   whatsapp_link: string;
   property_duration_limit: string | number;
+  payment_schedule: string[];
 }
 export interface PropertyType {
   name: string;

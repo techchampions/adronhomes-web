@@ -57,7 +57,11 @@ const SelectInput: React.FC<SelectInputProps> = ({
             {placeholder}
           </option>
           {options.map((option) => (
-            <option key={option.value} value={option.value}>
+            <option
+              key={option.value}
+              value={option.value}
+              className="capitalize"
+            >
               {option.label}
             </option>
           ))}

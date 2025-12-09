@@ -75,7 +75,7 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
             <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
               <div className="space-y-7">
                 <div className="space-y-1">
-                  <div className="text-lg">What`s your gender?</div>
+                  <div className="text-lg">What is your gender?</div>
                   <RadioGroup
                     name="gender"
                     options={GENDER_OPTIONS}
@@ -83,7 +83,7 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
                   />
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg">What`s your marital status?</div>
+                  <div className="text-lg">What is your marital status?</div>
                   <RadioGroup
                     name="marital_status"
                     options={MARITAL_OPTIONS}
@@ -91,7 +91,7 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
                   />
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg">What`s your date of birth?</div>
+                  <div className="text-lg">What is your date of birth?</div>
                   <DateInput name="dob" />
                 </div>
               </div>

@@ -26,6 +26,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useModal } from "../../store/modal.store";
 import Start from "@/components/SubscribeComponents/Start";
+import { useSubscribeFormData } from "../../store/subscribeFormData.state";
 
 interface Props {
   property: Property;
@@ -48,7 +49,9 @@ export default function SwiperPropertyCard2({ property }: Props) {
   const nextRef = useRef<HTMLButtonElement>(null);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const modal = useModal();
+  const { setSubscribeFormData } = useSubscribeFormData();
   const subscribe = () => {
+    setSubscribeFormData({ property: property });
     modal.openModal(<Start property={property} />);
   };
   useEffect(() => {

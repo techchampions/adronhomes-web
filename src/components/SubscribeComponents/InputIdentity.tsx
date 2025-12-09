@@ -8,6 +8,7 @@ import { Property } from "@/data/types/homepageTypes";
 import ImageInput from "@/components/FormComponents/ImageInput";
 import PropertySpecifications from "@/components/SubscribeComponents/PropertySpecifications";
 import NextOfKin from "@/components/SubscribeComponents/NextOfKin";
+import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 
 const validationSchema = Yup.object().shape({
   passport: Yup.mixed().required("required"),
@@ -16,14 +17,22 @@ const validationSchema = Yup.object().shape({
 interface Props {
   property: Property;
 }
-const initialValues = {
-  passport: "",
-  passport2: "",
-  id: "",
-};
 
 const InputIdentityInfo: React.FC<Props> = ({ property }) => {
   const action = useModal();
+  const {
+    setSubscribeFormData,
+    contract_profile_picture,
+    contract_profile_picture2,
+    contract_idFiles,
+  } = useSubscribeFormData();
+
+  const contract_ID = contract_idFiles ? contract_idFiles[0] : null;
+  const initialValues = {
+    passport: contract_profile_picture || null,
+    passport2: contract_profile_picture2 || null,
+    id: contract_ID,
+  };
   const goBack = () => {
     action.openModal(<NextOfKin property={property} />);
   };
@@ -45,11 +54,27 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={() => {
+          validateOnMount
+          onSubmit={(values) => {
+            if (values.passport) {
+              setSubscribeFormData({
+                contract_profile_picture: values.passport,
+              });
+            }
+            if (values.passport2) {
+              setSubscribeFormData({
+                contract_profile_picture2: values.passport2,
+              });
+            }
+            if (values.id) {
+              setSubscribeFormData({
+                contract_idFiles: [values.id],
+              });
+            }
             action.openModal(<PropertySpecifications property={property} />);
           }}
         >
-          {({ isValid, dirty }) => (
+          {({ isValid }) => (
             <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
               <div className="space-y-7">
                 <div className="space-y-1 grid grid-cols-2 gap-2">
@@ -62,6 +87,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
                     height={200}
                     className="!w-fit"
                   />
+
                   <ImageInput
                     name="passport2"
                     label="Co-owner's Photo"
@@ -94,7 +120,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
                   label="Proceed"
                   className="bg-adron-green rounded-lg"
                   type="submit"
-                  disabled={!isValid || !dirty}
+                  disabled={!isValid}
                   rightIcon={<ArrowRight />}
                 />
               </div>

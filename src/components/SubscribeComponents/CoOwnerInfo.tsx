@@ -64,7 +64,7 @@ const CoOwnerInfo: React.FC<Props> = ({ property }) => {
               <div className="space-y-7">
                 <div className="space-y-1">
                   <label htmlFor="" className="text-lg">
-                    What`s the name of co-owner1?
+                    What is the name of co-owner1?
                   </label>
                   <InputField
                     name="co_Owner1"
@@ -75,7 +75,7 @@ const CoOwnerInfo: React.FC<Props> = ({ property }) => {
                 </div>
                 <div className="space-y-1">
                   <label htmlFor="" className="text-lg">
-                    What`s the name of co-owner2?
+                    What is the name of co-owner2?
                   </label>
                   <InputField
                     name="co_Owner2"

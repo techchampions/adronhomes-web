@@ -33,14 +33,18 @@ const DURATION_OPTIONS = [
   { label: "4 Months", value: "4 Months" },
   { label: "7 Months", value: "7 Months" },
 ];
-const SCHEDULE_OPTIONS = [
-  { label: "Monthly", value: "Monthly" },
-  { label: "Quaterly", value: "Quaterly" },
-  { label: "Yearly", value: "Yearly" },
-];
+// let SCHEDULE_OPTIONS = [
+// { label: "Monthly", value: "Monthly" },
+// { label: "Quaterly", value: "Quaterly" },
+// { label: "Yearly", value: "Yearly" },
+// ];
 
 const PropertySpecifications: React.FC<Props> = ({ property }) => {
   const action = useModal();
+  const SCHEDULE_OPTIONS = property.payment_schedule.map((option) => ({
+    label: option,
+    value: option,
+  }));
   const goBack = () => {
     action.openModal(<InputIdentityInfo property={property} />);
   };

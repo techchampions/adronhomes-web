@@ -86,7 +86,7 @@ const OccupationInfo: React.FC<Props> = ({ property }) => {
               <div className="space-y-7">
                 <div className="space-y-1">
                   <label htmlFor="" className="text-lg">
-                    What`s your Occupation?
+                    What is your Occupation?
                   </label>
                   <InputField
                     name="occupation"
@@ -124,7 +124,7 @@ const OccupationInfo: React.FC<Props> = ({ property }) => {
                   <>
                     <div className="space-y-1">
                       <label htmlFor="" className="text-lg">
-                        What`s your employer`s name?
+                        What is your employer`s name?
                       </label>
                       <InputField
                         name="employer_name"
@@ -135,7 +135,7 @@ const OccupationInfo: React.FC<Props> = ({ property }) => {
                     </div>
                     <div className="space-y-1">
                       <label htmlFor="" className="text-lg">
-                        What`s your employer`s address?
+                        What is your employer`s address?
                       </label>
                       <InputField
                         name="employer_address"

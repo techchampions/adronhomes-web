@@ -71,7 +71,7 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
             <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
               <div className="space-y-7">
                 <div className="space-y-1">
-                  <div className="text-lg">What`s your name?</div>
+                  <div className="text-lg">What is your name?</div>
                   <InputField
                     name="fullName"
                     type="text"
@@ -80,7 +80,7 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
                   />
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg">What`s your email address?</div>
+                  <div className="text-lg">What is your Email address?</div>
                   <InputField
                     name="email"
                     type="text"
@@ -89,7 +89,7 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
                   />
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg">What`s your phone No.?</div>
+                  <div className="text-lg">What is your Phone Number?</div>
                   <InputField
                     name="phone"
                     type="text"
