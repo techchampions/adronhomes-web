@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import { Property } from "@/data/types/homepageTypes";
-import { ArrowDown, ArrowLeft, ArrowRight, CheckSquare2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckSquare2 } from "lucide-react";
 import Button from "@/components/Button";
 import PropertySpecifications from "@/components/SubscribeComponents/PropertySpecifications";
 import { useModal } from "../../../store/modal.store";

@@ -4,7 +4,7 @@ import { useModal } from "../../../store/modal.store";
 import { Property } from "@/data/types/homepageTypes";
 import { formatPrice } from "@/utils/formater";
 import Image from "next/image";
-import { ArrowLeft, CheckSquare2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 // import PropertySpecifications from "@/components/SubscribeComponents/PropertySpecifications";
 import { usePaystackPayment } from "@/hooks/usePaystack";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
@@ -19,7 +19,6 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     string | null
   >(null);
-  const [agreed, setagreed] = useState(false);
   const { openModal } = useModal();
   const { contract_email, contract_subscriber_name_1 } = useSubscribeFormData();
   const paystack = usePaystackPayment();
@@ -150,7 +149,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
           </div>
         </div>
         <div className="">
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <div className="cursor-pointer" onClick={() => setagreed(!agreed)}>
               <CheckSquare2
                 size={20}
@@ -164,7 +163,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
               </a>
               .
             </div>
-          </div>
+          </div> */}
 
           <div className="flex justify-between w-full gap-4 mt-4">
             <Button
@@ -172,7 +171,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
               // isLoading={isPaying}
               className="rounded-lg bg-black text-white"
               onClick={handleContinue}
-              disabled={!selectedPaymentMethod || !agreed}
+              disabled={!selectedPaymentMethod}
             />
           </div>
         </div>
