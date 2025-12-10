@@ -11,10 +11,11 @@ import InputIdentityInfo from "@/components/SubscribeComponents/InputIdentity";
 // import SelectPaymentMethod from "@/components/SubscribeComponents/SelectPaymentMethod";
 import { addMonths } from "date-fns";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
-import PropertyTerms from "@/components/SubscribeComponents/PropertyTerms";
+import PaymentSummary from "@/components/SubscribeComponents/PaymentSummary";
 
 const validationSchema = Yup.object().shape({
   property_size: Yup.string().required("required"),
+  property_purpose: Yup.string().required("required"),
   payment_duration: Yup.string().required("required"),
   payment_schedule: Yup.string().required("required"),
   start_date: Yup.string().required("required"),
@@ -25,15 +26,18 @@ interface Props {
 }
 
 const PropertySpecifications: React.FC<Props> = ({ property }) => {
+  let payableAmount = 0;
   const {
     setSubscribeFormData,
     land_size,
     payment_duration,
     payment_schedule,
+    property_purpose,
   } = useSubscribeFormData();
   const action = useModal();
   const initialValues = {
     property_size: land_size,
+    property_purpose: property_purpose,
     payment_duration: payment_duration,
     payment_schedule: payment_schedule,
     start_date: new Date(),
@@ -47,6 +51,11 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     label: `${option.size} ${option.measurement_unit}`,
     value: option.id,
   }));
+  const purposes = property.purpose ?? [];
+  const PURPOSE_OPTIONS = purposes.map((option) => ({
+    label: option,
+    value: option,
+  }));
   const goBack = () => {
     action.openModal(<InputIdentityInfo property={property} />);
   };
@@ -57,6 +66,19 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
 
     useEffect(() => {
       // const { paymentDuration, startDate } = values;
+      if (values.property_size && values.payment_duration) {
+        const selectedSize = values.property_size
+          ? property.land_sizes.find(
+              (item) => item.id.toString() === values.property_size
+            )
+          : null;
+        const selectedDuration = values.payment_duration
+          ? selectedSize?.durations.find(
+              (item) => item.id.toString() === values.payment_duration
+            )
+          : null;
+        payableAmount = selectedDuration?.price || 0;
+      }
 
       // Only calculate if both are available
       if (values.payment_duration && values.start_date) {
@@ -66,11 +88,15 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
           setFieldValue("end_date", newEndDate);
         }
       }
-    }, [values.start_date, values.payment_duration, setFieldValue]);
+    }, [
+      values.start_date,
+      values.payment_duration,
+      values.property_size,
+      setFieldValue,
+    ]);
 
     return null; // no UI
   };
-
   return (
     <div className="flex flex-col max-w-sm max-h-[70vh] overflow-y-scroll scrollbar-hide">
       <div
@@ -90,15 +116,17 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
           onSubmit={(values) => {
             setSubscribeFormData({
               land_size: values.property_size,
+              property_purpose: values.property_purpose,
               payment_duration: values.payment_duration,
               payment_schedule: values.payment_schedule,
               start_date: values.start_date.toISOString(),
               end_date: values.end_date,
+              payable_amount: payableAmount,
             });
-            action.openModal(<PropertyTerms property={property} />);
+            action.openModal(<PaymentSummary property={property} />);
           }}
         >
-          {({ isValid, dirty, values }) => {
+          {({ isValid, values }) => {
             const selectedSize = values.property_size
               ? property.land_sizes.find(
                   (item) => item.id.toString() === values.property_size
@@ -114,12 +142,21 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
             return (
               <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
                 <AutoEndDateUpdater />
+                {/* <AutoUpdatePayableAmount /> */}
                 <div className="space-y-7">
                   <div className="space-y-1">
                     <div className="text-lg">Select your property size</div>
                     <SelectInput
                       name="property_size"
                       options={SIZE_OPTIONS}
+                      className="py-3 bg-adron-body"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-lg">Select your property purpose</div>
+                    <SelectInput
+                      name="property_purpose"
+                      options={PURPOSE_OPTIONS}
                       className="py-3 bg-adron-body"
                     />
                   </div>
@@ -169,7 +206,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                     label="Proceed"
                     className="bg-adron-green rounded-lg"
                     type="submit"
-                    disabled={!isValid || !dirty}
+                    disabled={!isValid}
                     rightIcon={<ArrowRight />}
                   />
                 </div>

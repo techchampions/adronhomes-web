@@ -20,7 +20,8 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     string | null
   >(null);
   const { openModal } = useModal();
-  const { contract_email, contract_subscriber_name_1 } = useSubscribeFormData();
+  const { contract_email, contract_subscriber_name_1, payable_amount } =
+    useSubscribeFormData();
   const paystack = usePaystackPayment();
   const interswitch = useInterswitchPayment();
   const handleContinue = () => {
@@ -28,7 +29,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       interswitch({
         email: contract_email || "",
         customerName: contract_subscriber_name_1 || "",
-        amount: 1000000, // in Naira
+        amount: Number(payable_amount), // in Naira
         reference: "dgdgdg",
         merchant_code: "merchant_code",
         payment_item_id: "payable_code",
@@ -47,7 +48,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     } else if (selectedPaymentMethod == "Paystack") {
       paystack({
         email: contract_email || "",
-        amount: 10000000, // in Naira
+        amount: Number(payable_amount), // in Naira
         reference: "sfusfui",
         onSuccess: () => {
           openModal(
@@ -72,7 +73,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-sm max-w-sm">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}
@@ -84,8 +85,14 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
         <div className="text-2xl font-bold">Select Payment Method</div>
         <p className="text-gray-400 text-xs">
           Select your preferred payment method for your plan{" "}
-          <b className="text-black">({formatPrice(100000)})</b>.
+          {/* <b className="text-black">({formatPrice(Number(payable_amount))})</b>. */}
         </p>
+        <div className="grid grid-cols-2 text-sm border mt-2 border-adron-green rounded-lg p-2 bg-[#dcffb4]">
+          <div className="">Initial Deposit:</div>
+          <div className="text-right text-bold">
+            {formatPrice(Number(payable_amount))}
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col gap-4 mt-4 min-h-[300px] justify-between">

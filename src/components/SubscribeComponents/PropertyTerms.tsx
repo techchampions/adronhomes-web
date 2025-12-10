@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import { Property } from "@/data/types/homepageTypes";
-import { ArrowLeft, ArrowRight, CheckSquare2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckSquare2, Square } from "lucide-react";
 import Button from "@/components/Button";
-import PropertySpecifications from "@/components/SubscribeComponents/PropertySpecifications";
 import { useModal } from "../../../store/modal.store";
 import SelectPaymentMethod from "@/components/SubscribeComponents/SelectPaymentMethod";
+import PaymentSummary from "@/components/SubscribeComponents/PaymentSummary";
 interface Props {
   property: Property;
 }
 const PropertyTerms: React.FC<Props> = ({ property }) => {
   const modal = useModal();
-  const sanitizedHTML = DOMPurify.sanitize(property.description);
+  const sanitizedHTML = DOMPurify.sanitize(property.property_agreement);
   const [agreed, setagreed] = useState(false);
   const goBack = () => {
-    modal.openModal(<PropertySpecifications property={property} />);
+    modal.openModal(<PaymentSummary property={property} />);
   };
 
   return (
@@ -44,10 +44,11 @@ const PropertyTerms: React.FC<Props> = ({ property }) => {
           onClick={() => setagreed(!agreed)}
         >
           <div className="">
-            <CheckSquare2
-              size={20}
-              className={`${agreed ? "text-adron-green" : "text-gray-500"}`}
-            />
+            {agreed ? (
+              <CheckSquare2 size={20} className="text-adron-green" />
+            ) : (
+              <Square size={20} className="text-gray-500" />
+            )}
           </div>
           <div className="text-xs">
             Yes, I agree with the property terms and policies.

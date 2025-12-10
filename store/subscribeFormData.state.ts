@@ -34,6 +34,7 @@ type SubscribeFormData = {
   start_date: string;
   end_date: string;
   payable_amount: string | number;
+  property_purpose: string;
   setSubscribeFormData: (
     details: Partial<
       Omit<SubscribeFormData, "setSubscribeFormData" | "resetSubscribeFormData">
@@ -76,6 +77,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   payable_amount: "",
   start_date: "",
   end_date: "",
+  property_purpose: "",
   setSubscribeFormData: (details) => set((state) => ({ ...state, ...details })),
 
   resetSubscribeFormData: () =>
@@ -113,5 +115,6 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       payable_amount: "",
       start_date: "",
       end_date: "",
+      property_purpose: "",
     }),
 }));

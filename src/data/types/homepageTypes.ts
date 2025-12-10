@@ -82,6 +82,17 @@ export interface LandSize {
   durations: Duration[];
 }
 
+export interface PropertyDetail {
+  id: number;
+  name: string;
+  value: number;
+  type: string;
+  purpose: string;
+  property_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Property {
   id: number;
   name: string;
@@ -94,6 +105,7 @@ export interface Property {
   features: string[];
   overview: string;
   description: string;
+  property_agreement: string;
   street_address: string;
   country: string;
   state: string;
@@ -112,6 +124,8 @@ export interface Property {
   property_duration_limit: string | number;
   payment_schedule: string[];
   land_sizes: LandSize[];
+  details: PropertyDetail[];
+  initial_deposit: number;
 }
 export interface PropertyType {
   name: string;
