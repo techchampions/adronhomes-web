@@ -23,12 +23,12 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
   const action = useModal();
   const {
     setSubscribeFormData,
-    contract_next_of_kin_name,
+    contract_next_of_kin,
     contract_next_of_kin_phone,
     contract_next_of_kin_relationship,
   } = useSubscribeFormData();
   const initialValues = {
-    fullName: contract_next_of_kin_name || "",
+    fullName: contract_next_of_kin || "",
     relationship: contract_next_of_kin_relationship || "",
     phone: contract_next_of_kin_phone || "",
   };
@@ -54,7 +54,7 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
           validateOnMount
           onSubmit={(values) => {
             setSubscribeFormData({
-              contract_next_of_kin_name: values.fullName,
+              contract_next_of_kin: values.fullName,
               contract_next_of_kin_phone: values.phone,
               contract_next_of_kin_relationship: values.relationship,
             });

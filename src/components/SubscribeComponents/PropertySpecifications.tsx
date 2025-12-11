@@ -12,20 +12,50 @@ import InputIdentityInfo from "@/components/SubscribeComponents/InputIdentity";
 import { addMonths } from "date-fns";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 import PaymentSummary from "@/components/SubscribeComponents/PaymentSummary";
+import RadioGroup from "@/components/FormComponents/RadioGroup";
 
-const validationSchema = Yup.object().shape({
-  property_size: Yup.string().required("required"),
-  property_purpose: Yup.string().required("required"),
-  payment_duration: Yup.string().required("required"),
-  payment_schedule: Yup.string().required("required"),
-  start_date: Yup.string().required("required"),
-  end_date: Yup.string().required("required"),
-});
 interface Props {
   property: Property;
 }
 
 const PropertySpecifications: React.FC<Props> = ({ property }) => {
+  const validationSchema = Yup.object().shape({
+    property_size: Yup.string().required("required"),
+    property_purpose: Yup.string().required("required"),
+    payment_plan: Yup.string().required("required"),
+    payment_duration: Yup.string().when("payment_plan", {
+      is: "Installment",
+      then: (schema) => schema.required("required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    payment_schedule: Yup.string().when("payment_plan", {
+      is: "Installment",
+      then: (schema) => schema.required("required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    start_date: Yup.string().when("payment_plan", {
+      is: "Installment",
+      then: (schema) => schema.required("required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    end_date: Yup.string().when("payment_plan", {
+      is: "Installment",
+      then: (schema) => schema.required("required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+  });
+  // const schema = Yup.object().shape({
+  //   payment_plan: Yup.string().required("required"),
+  //   property_size: Yup.string().required("required"),
+  //   property_purpose: Yup.string().required("required"),
+  //   // payment_duration: Yup.string().required("required"),
+  //   // payment_schedule: Yup.string().required("required"),
+  //   // start_date: Yup.string().required("required"),
+  //   // end_date: Yup.string().required("required"),
+  // });
+  // const [validationSchema, setvalidationSchema] =
+  //   useState<typeof schema>(schema);
+
   let payableAmount = 0;
   const {
     setSubscribeFormData,
@@ -33,21 +63,25 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     payment_duration,
     payment_schedule,
     property_purpose,
+    payment_plan,
   } = useSubscribeFormData();
   const action = useModal();
   const initialValues = {
     property_size: land_size,
     property_purpose: property_purpose,
+    payment_plan: payment_plan,
     payment_duration: payment_duration,
     payment_schedule: payment_schedule,
     start_date: new Date(),
     end_date: "",
   };
-  const SCHEDULE_OPTIONS = property.payment_schedule.map((option) => ({
+  const schedule = property.payment_schedule ?? [];
+  const SCHEDULE_OPTIONS = schedule.map((option) => ({
     label: option,
     value: option,
   }));
-  const SIZE_OPTIONS = property.land_sizes.map((option) => ({
+  const land_sizes = property.land_sizes ?? [];
+  const SIZE_OPTIONS = land_sizes.map((option) => ({
     label: `${option.size} ${option.measurement_unit}`,
     value: option.id,
   }));
@@ -56,9 +90,42 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     label: option,
     value: option,
   }));
+  let PAYMENT_PLAN: typeof PURPOSE_OPTIONS = [];
+  if (property.payment_type === "installment") {
+    PAYMENT_PLAN = [
+      { label: "One Time", value: "One Time" },
+      { label: "Installment", value: "Installment" },
+    ];
+  }
   const goBack = () => {
     action.openModal(<InputIdentityInfo property={property} />);
   };
+
+  // const UpdateValidation = () => {
+  //   const { values, setFieldValue } = useFormikContext<typeof initialValues>();
+  //   useEffect(() => {
+  //     if (values.payment_plan === "Installment") {
+  //       const schema = Yup.object().shape({
+  //         payment_plan: Yup.string().required("required"),
+  //         property_size: Yup.string().required("required"),
+  //         property_purpose: Yup.string().required("required"),
+  //         payment_duration: Yup.string().required("required"),
+  //         payment_schedule: Yup.string().required("required"),
+  //         start_date: Yup.string().required("required"),
+  //         end_date: Yup.string().required("required"),
+  //       });
+  //       setvalidationSchema(schema);
+  //     } else {
+  //       const schema = Yup.object().shape({
+  //         payment_plan: Yup.string().required("required"),
+  //         property_size: Yup.string().required("required"),
+  //         property_purpose: Yup.string().required("required"),
+  //       });
+  //       setvalidationSchema(schema);
+  //     }
+  //   }, [values.payment_plan]);
+  //   return null;
+  // };
 
   // Component to auto-calculate endDate
   const AutoEndDateUpdater = () => {
@@ -80,8 +147,11 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
         payableAmount = selectedDuration?.price || 0;
       }
 
-      // Only calculate if both are available
-      if (values.payment_duration && values.start_date) {
+      if (
+        values.payment_plan === "Installment" &&
+        values.payment_duration &&
+        values.start_date
+      ) {
         const months = parseInt(String(values.payment_duration));
         if (!isNaN(months)) {
           const newEndDate = addMonths(new Date(values.start_date), months);
@@ -92,6 +162,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
       values.start_date,
       values.payment_duration,
       values.property_size,
+      values.payment_plan,
       setFieldValue,
     ]);
 
@@ -113,6 +184,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
+          validateOnMount
           onSubmit={(values) => {
             setSubscribeFormData({
               land_size: values.property_size,
@@ -138,12 +210,20 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                 value: option.id.toString(),
                 label: `${option.duration} months`,
               })) || [];
-
+            // getValidationSchema(values.payment_plan);
             return (
               <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
                 <AutoEndDateUpdater />
-                {/* <AutoUpdatePayableAmount /> */}
+                {/* <UpdateValidation /> */}
                 <div className="space-y-7">
+                  <div className="space-y-1">
+                    <div className="text-lg">Select payment plan</div>
+                    <RadioGroup
+                      name="payment_plan"
+                      options={PAYMENT_PLAN}
+                      orientation="horizontal"
+                    />
+                  </div>
                   <div className="space-y-1">
                     <div className="text-lg">Select your property size</div>
                     <SelectInput
@@ -160,41 +240,48 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                       className="py-3 bg-adron-body"
                     />
                   </div>
-                  <div className="space-y-1">
-                    <div className="text-lg">Select payment duration</div>
-                    <SelectInput
-                      name="payment_duration"
-                      options={DURATION_OPTIONS}
-                      className="py-3 bg-adron-body"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="text-lg">Select Payment schedule</div>
-                    <SelectInput
-                      name="payment_schedule"
-                      options={SCHEDULE_OPTIONS}
-                      className="py-3 bg-adron-body"
-                    />
-                  </div>
+
+                  {values.payment_plan === "Installment" && (
+                    <>
+                      <div className="space-y-1">
+                        <div className="text-lg">Select payment duration</div>
+                        <SelectInput
+                          name="payment_duration"
+                          options={DURATION_OPTIONS}
+                          className="py-3 bg-adron-body"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="text-lg">Select Payment schedule</div>
+                        <SelectInput
+                          name="payment_schedule"
+                          options={SCHEDULE_OPTIONS}
+                          className="py-3 bg-adron-body"
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="">
-                    <div className="">Start Date</div>
-                    <DatePickerInput
-                      name="start_date"
-                      minDate={new Date()}
-                      placeholder={`DD-MM-YYYY`}
-                    />
+                {values.payment_plan === "Installment" && (
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="">
+                      <div className="">Start Date</div>
+                      <DatePickerInput
+                        name="start_date"
+                        minDate={new Date()}
+                        placeholder={`DD-MM-YYYY`}
+                      />
+                    </div>
+                    <div className="">
+                      <div className="">End Date</div>
+                      <DatePickerInput
+                        name="end_date"
+                        placeholder="DD-MM-YYYY"
+                        readOnly
+                      />
+                    </div>
                   </div>
-                  <div className="">
-                    <div className="">End Date</div>
-                    <DatePickerInput
-                      name="end_date"
-                      placeholder="DD-MM-YYYY"
-                      readOnly
-                    />
-                  </div>
-                </div>
+                )}
                 <div className="flex justify-center w-full gap-4 mt-4">
                   {/* <Button
                   div="Back"

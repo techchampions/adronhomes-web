@@ -126,6 +126,7 @@ export interface Property {
   land_sizes: LandSize[];
   details: PropertyDetail[];
   initial_deposit: number;
+  payment_type: string;
 }
 export interface PropertyType {
   name: string;

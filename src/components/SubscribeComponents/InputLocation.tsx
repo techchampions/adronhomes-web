@@ -10,10 +10,12 @@ import InputAdditionalPersonalInfo from "@/components/SubscribeComponents/Additi
 import NextOfKin from "@/components/SubscribeComponents/NextOfKin";
 import LocationAutocomplete2 from "@/components/FormComponents/LocationInput2";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
+import InputField from "@/components/InputField";
 // import LocationAutocomplete from "@/components/FormComponents/LocationInput";
 
 const validationSchema = Yup.object().shape({
   location: Yup.string().required("required"),
+  nationality: Yup.string().required("required"),
   locationDetails: Yup.object()
     .shape({
       address: Yup.string(),
@@ -37,9 +39,11 @@ const InputLocation: React.FC<Props> = ({ property }) => {
     contract_state,
     contract_country,
     contract_town,
+    contract_nationality,
   } = useSubscribeFormData();
   const initialValues = {
     location: contract_residential_address || "",
+    nationality: contract_nationality || "",
     locationDetails: {
       address: contract_residential_address || "",
       city: contract_town || "",
@@ -75,6 +79,7 @@ const InputLocation: React.FC<Props> = ({ property }) => {
               contract_country: values.locationDetails.country,
               contract_state: values.locationDetails.state,
               contract_town: values.locationDetails.city,
+              contract_nationality: values.nationality,
             });
             action.openModal(<NextOfKin property={property} />);
           }}
@@ -112,6 +117,15 @@ const InputLocation: React.FC<Props> = ({ property }) => {
                     }}
                     debounce={400}
                     clearOnBlur={false}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <div className="text-lg">What is your nationality?</div>
+                  <InputField
+                    name="nationality"
+                    type="text"
+                    placeholder="E.g.(Nigerian, Canadian etc.)"
+                    className="text-2xl font-bold rounded-xl py-3"
                   />
                 </div>
               </div>

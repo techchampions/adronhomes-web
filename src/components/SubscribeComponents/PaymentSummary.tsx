@@ -61,7 +61,7 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
 
       <div className="">
         <div className="grid grid-cols-2 divide divide-y-1 gap-y-2 divide-gray-300">
-          <div className="text-gray-700">Infrasture Fees:</div>
+          <div className="text-gray-700">Infrastructure Fees:</div>
           <div className="text-right">{formatPrice(infrastructureFees)}</div>
           <div className="text-gray-700">Other Fees:</div>
           <div className="text-right">{formatPrice(otherFees)}</div>
@@ -77,7 +77,7 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
 
         <div className="mt-6 bg-adron-black text-white text-start px-4 md:px-6 py-2 rounded-xl font-semibold flex flex-col">
           <div className="text-xl">{formatPrice(Number(payable_amount))}</div>
-          <span className=" text-white/70">Total is Inital deposit.</span>
+          <span className=" text-white/70">Total Payable.</span>
         </div>
         <p className="text-xs text-gray-400 mt-2 flex items-center gap-2">
           <Info className="h-5 w-5" />
