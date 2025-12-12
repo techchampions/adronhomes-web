@@ -20,7 +20,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     string | null
   >(null);
   const { openModal } = useModal();
-  const { contract_email, contract_subscriber_name_1, payable_amount } =
+  const { contract_email, contract_subscriber_name_1, total_amount } =
     useSubscribeFormData();
   const paystack = usePaystackPayment();
   const interswitch = useInterswitchPayment();
@@ -29,7 +29,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       interswitch({
         email: contract_email || "",
         customerName: contract_subscriber_name_1 || "",
-        amount: Number(payable_amount), // in Naira
+        amount: Number(total_amount), // in Naira
         reference: "dgdgdg",
         merchant_code: "merchant_code",
         payment_item_id: "payable_code",
@@ -48,7 +48,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     } else if (selectedPaymentMethod == "Paystack") {
       paystack({
         email: contract_email || "",
-        amount: Number(payable_amount), // in Naira
+        amount: Number(total_amount), // in Naira
         reference: "sfusfui",
         onSuccess: () => {
           openModal(
@@ -61,7 +61,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
           // TODO: call your backend API to confirm payment
         },
         onClose: () => {
-          openModal(<PaymentStatus status="failed" text="Payment canceled." />);
+          // openModal(<PaymentStatus status="failed" text="Payment canceled." />);
         },
       });
     } else if (selectedPaymentMethod == "Virtual Wallet") {
@@ -85,12 +85,12 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
         <div className="text-2xl font-bold">Select Payment Method</div>
         <p className="text-gray-400 text-xs">
           Select your preferred payment method for your plan{" "}
-          {/* <b className="text-black">({formatPrice(Number(payable_amount))})</b>. */}
+          {/* <b className="text-black">({formatPrice(Number(total_amount))})</b>. */}
         </p>
-        <div className="grid grid-cols-2 text-sm border mt-2 border-adron-green rounded-lg p-2 bg-[#dcffb4]">
-          <div className="">Initial Deposit:</div>
+        <div className="grid grid-cols-2 text-sm border mt-2 border-adron-green rounded-lg p-2 bg-[#e2f7c9]">
+          <div className="">Total payable:</div>
           <div className="text-right text-bold">
-            {formatPrice(Number(payable_amount))}
+            {formatPrice(Number(total_amount))}
           </div>
         </div>
       </div>

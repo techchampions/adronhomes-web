@@ -17,7 +17,11 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
     payment_duration,
     payment_schedule,
     payable_amount,
+    initial_deposit,
+    payment_plan,
+    setSubscribeFormData,
   } = useSubscribeFormData();
+  console.log("plan", payment_plan);
   const modal = useModal();
   const feesList = property?.details || [];
   const otherFeesData = feesList.filter(
@@ -43,7 +47,11 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
       : payment_schedule === "quarterly"
       ? remPrice / (Number(payment_duration || 1) / 3)
       : 0;
-
+  console.log(payment_plan, initial_deposit, payable_amount);
+  const totalAmount =
+    payment_plan === "Installment"
+      ? Number(initial_deposit) + Number(payable_amount)
+      : Number(payable_amount);
   const goBack = () => {
     modal.openModal(<PropertySpecifications property={property} />);
   };
@@ -65,6 +73,8 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
           <div className="text-right">{formatPrice(infrastructureFees)}</div>
           <div className="text-gray-700">Other Fees:</div>
           <div className="text-right">{formatPrice(otherFees)}</div>
+          <div className="text-gray-700">Initial Deposit:</div>
+          <div className="text-right">{formatPrice(initial_deposit)}</div>
           <div className="text-sm col-span-2">
             After initial deposit you will be paying{" "}
             <u className="text-adron-green font-bold">
@@ -76,7 +86,7 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
         </div>
 
         <div className="mt-6 bg-adron-black text-white text-start px-4 md:px-6 py-2 rounded-xl font-semibold flex flex-col">
-          <div className="text-xl">{formatPrice(Number(payable_amount))}</div>
+          <div className="text-xl">{formatPrice(Number(totalAmount))}</div>
           <span className=" text-white/70">Total Payable.</span>
         </div>
         <p className="text-xs text-gray-400 mt-2 flex items-center gap-2">
@@ -90,6 +100,9 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
           label="Proceed"
           className="bg-adron-green rounded-lg"
           onClick={() => {
+            setSubscribeFormData({
+              total_amount: Number(totalAmount),
+            });
             modal.openModal(<PropertyTerms property={property} />);
           }}
           rightIcon={<ArrowRight />}

@@ -32,6 +32,7 @@ export interface PropertyDetail {
   name: string;
   purpose: string;
   value: number;
+  type: string;
   property_id: number;
   created_at: string;
   updated_at: string;
@@ -82,7 +83,7 @@ export interface Property {
   is_saved: boolean;
   is_discount: boolean;
   discount_name: string;
-  discount_percentage: number | string;
+  discount_percentage: number;
   no_of_bedroom: number;
   number_of_bathroom: number;
   year_built: string;
@@ -116,4 +117,23 @@ export interface Property {
   nearby_landmarks: string[] | null;
   title_document_type: string | null;
   property_files: string[];
+
+  land_sizes: LandSize[];
+
+  hasGym: boolean;
+  hasLights: boolean;
+  isLand: boolean;
+}
+export interface LandSize {
+  id: number;
+  size: string; // Could be number as string like "648"
+  measurement_unit: "sqm" | "sqft" | "acre" | "hectare" | string;
+  durations: Duration[];
+}
+export interface Duration {
+  id: number;
+  price: number;
+  citta_id: string;
+  duration: number; // in months or years
+  is_active: boolean;
 }

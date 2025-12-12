@@ -13,6 +13,7 @@ import { addMonths } from "date-fns";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 import PaymentSummary from "@/components/SubscribeComponents/PaymentSummary";
 import RadioGroup from "@/components/FormComponents/RadioGroup";
+import CurrencyInputField from "@/components/FormComponents/CurrencyInputField";
 
 interface Props {
   property: Property;
@@ -23,6 +24,11 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     property_size: Yup.string().required("required"),
     property_purpose: Yup.string().required("required"),
     payment_plan: Yup.string().required("required"),
+    initial_deposit: Yup.number().when("payment_plan", {
+      is: "Installment",
+      then: (schema) => schema.required("required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
     payment_duration: Yup.string().when("payment_plan", {
       is: "Installment",
       then: (schema) => schema.required("required"),
@@ -44,17 +50,6 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
       otherwise: (schema) => schema.notRequired(),
     }),
   });
-  // const schema = Yup.object().shape({
-  //   payment_plan: Yup.string().required("required"),
-  //   property_size: Yup.string().required("required"),
-  //   property_purpose: Yup.string().required("required"),
-  //   // payment_duration: Yup.string().required("required"),
-  //   // payment_schedule: Yup.string().required("required"),
-  //   // start_date: Yup.string().required("required"),
-  //   // end_date: Yup.string().required("required"),
-  // });
-  // const [validationSchema, setvalidationSchema] =
-  //   useState<typeof schema>(schema);
 
   let payableAmount = 0;
   const {
@@ -64,12 +59,14 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     payment_schedule,
     property_purpose,
     payment_plan,
+    initial_deposit,
   } = useSubscribeFormData();
   const action = useModal();
   const initialValues = {
     property_size: land_size,
     property_purpose: property_purpose,
     payment_plan: payment_plan,
+    initial_deposit: initial_deposit,
     payment_duration: payment_duration,
     payment_schedule: payment_schedule,
     start_date: new Date(),
@@ -133,7 +130,11 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
 
     useEffect(() => {
       // const { paymentDuration, startDate } = values;
-      if (values.property_size && values.payment_duration) {
+      if (
+        values.payment_plan === "Installment" &&
+        values.property_size &&
+        values.payment_duration
+      ) {
         const selectedSize = values.property_size
           ? property.land_sizes.find(
               (item) => item.id.toString() === values.property_size
@@ -145,6 +146,9 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
             )
           : null;
         payableAmount = selectedDuration?.price || 0;
+        console.log("duraPrice", payableAmount);
+      } else if (values.payment_plan === "One Time" && values.property_size) {
+        payableAmount = property.price;
       }
 
       if (
@@ -194,6 +198,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               start_date: values.start_date.toISOString(),
               end_date: values.end_date,
               payable_amount: payableAmount,
+              payment_plan: values.payment_plan,
+              initial_deposit: values.initial_deposit,
             });
             action.openModal(<PaymentSummary property={property} />);
           }}
@@ -243,6 +249,15 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
 
                   {values.payment_plan === "Installment" && (
                     <>
+                      <div className="space-y-1">
+                        <div className="text-lg">Enter Initial Deposit</div>
+                        <CurrencyInputField
+                          name="initial_deposit"
+                          placeholder="Initail Deposit"
+                          formatAsNaira
+                          className="text-2xl font-bold rounded-xl py-3"
+                        />
+                      </div>
                       <div className="space-y-1">
                         <div className="text-lg">Select payment duration</div>
                         <SelectInput

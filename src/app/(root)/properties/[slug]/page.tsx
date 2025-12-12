@@ -29,8 +29,10 @@ import { GiGate } from "react-icons/gi";
 import { PiRoadHorizonDuotone } from "react-icons/pi";
 import { MdOutlineLandscape } from "react-icons/md";
 import { GrDocumentUser } from "react-icons/gr";
-import Link from "next/link";
+// import Link from "next/link";
 import { FileStack, MapPinned } from "lucide-react";
+import { useModal } from "../../../../../store/modal.store";
+import Start from "@/components/SubscribeComponents/Start";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,6 +44,7 @@ const PropertyImageSlider = () => {
   const [requestSent, setRequestSent] = useState(false);
   const { data, isLoading, error } = useGetPropertyByID(slug);
   const { mutate: enquire, isPending } = useEnquireProperty();
+  const modal = useModal();
 
   if (isLoading || !data) return <Loader />;
   if (error) return <p>Error loading property.</p>;
@@ -81,6 +84,9 @@ const PropertyImageSlider = () => {
     email: Yup.string().email("Invalid email").required("Email is required"),
     phone: Yup.string().required("Phone is required"),
   });
+  const subscribe = () => {
+    modal.openModal(<Start property={item} />);
+  };
 
   const NextArrow = ({ onClick }: { onClick?: () => void }) => (
     <div
@@ -159,12 +165,17 @@ const PropertyImageSlider = () => {
                 />
               </a>
             ) : (
-              <Link
-                href={`https://user.adronhomes.com/dashboard/properties/${item.id}`}
-                className="bg-adron-green rounded-3xl h-10 flex items-center justify-center text-white flex-1 text-center text-sm"
-              >
-                SubScribe
-              </Link>
+              <Button
+                label="Subscribe"
+                className="px-6 py-3 text-sm bg-adron-green"
+                onClick={subscribe}
+              />
+              // <Link
+              //   href={`https://user.adronhomes.com/dashboard/properties/${item.id}`}
+              //   className="bg-adron-green rounded-3xl h-10 flex items-center justify-center text-white flex-1 text-center text-sm"
+              // >
+              //   SubScribe
+              // </Link>
             )}
           </div>
         </div>

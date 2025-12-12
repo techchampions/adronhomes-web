@@ -3,6 +3,8 @@ import { create } from "zustand";
 type SubscribeFormData = {
   marketID: string;
   soleOwner: string;
+  initial_deposit: number;
+  total_amount: number;
   contract_business_type: string;
   contract_subscriber_name_1: string;
   contract_subscriber_name_2: string;
@@ -47,6 +49,8 @@ type SubscribeFormData = {
 export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   marketID: "",
   soleOwner: "",
+  initial_deposit: 0,
+  total_amount: 0,
   contract_business_type: "",
   contract_subscriber_name_1: "",
   contract_subscriber_name_2: "",
@@ -86,6 +90,8 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
     set({
       marketID: "",
       soleOwner: "",
+      initial_deposit: 0,
+      total_amount: 0,
       contract_business_type: "",
       contract_subscriber_name_1: "",
       contract_subscriber_name_2: "",
