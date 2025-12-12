@@ -603,7 +603,7 @@ const PropertyImageSlider = () => {
                     htmlFor="location"
                     className="flex gap-1 items-center text-[10px] text-adron-gray-300"
                   >
-                    Intrest
+                    Interest
                   </label>
 
                   <SelectField
