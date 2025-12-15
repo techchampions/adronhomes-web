@@ -55,7 +55,7 @@ const PropertyImageSlider = () => {
   ) {
     address = `${data?.data.properties.street_address}, ${data?.data.properties.state} ${data?.data.properties.country}`;
   }
-  const images = data?.data.properties.photos;
+  const images = data?.data.properties.photos ?? [];
   const item = data?.data.properties;
   const description = data.data.properties.description;
   const sanitizedHTML = DOMPurify.sanitize(description);

@@ -5,7 +5,11 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ["adron.microf10.sg-host.com", "adrons.com"],
+    remotePatterns: [
+      new URL("https://adron.microf10.sg-host.com"),
+      new URL("https://adrons.com"),
+    ],
+    // domains: ["adron.microf10.sg-host.com", "adrons.com"],
   },
 };
 
