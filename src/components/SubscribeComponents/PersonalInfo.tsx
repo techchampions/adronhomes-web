@@ -3,13 +3,14 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import InputField from "../InputField";
 import { useModal } from "../../../store/modal.store";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import React from "react";
+import { ArrowLeft, ArrowRight, Info } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { Property } from "@/data/types/homepageTypes";
 import InputMarketerId from "@/components/SubscribeComponents/InputMarketerID";
 import OwnershipInfo from "@/components/SubscribeComponents/OwnershipInfo";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 import Start from "@/components/SubscribeComponents/Start";
+import { useIsUserExist } from "@/data/hooks";
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string().required("required"),
@@ -22,6 +23,8 @@ interface Props {
 
 const InputPersonalInfo: React.FC<Props> = ({ property }) => {
   const action = useModal();
+  const [emailToCheck, setEmailToCheck] = useState("");
+  const { data, isLoading, isError } = useIsUserExist(emailToCheck);
   const {
     setSubscribeFormData,
     marketID,
@@ -41,6 +44,15 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
       action.openModal(<Start property={property} />);
     }
   };
+  const CheckEmail = ({ email }: { email: string }) => {
+    useEffect(() => {
+      if (email && email !== emailToCheck) {
+        setEmailToCheck(email);
+      }
+    }, [email]);
+
+    return null;
+  };
   return (
     <div className="flex flex-col max-w-sm mx-h-[65vh]">
       <div
@@ -59,62 +71,76 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
           validationSchema={validationSchema}
           validateOnMount
           onSubmit={(values) => {
-            setSubscribeFormData({
-              contract_subscriber_name_1: values.fullName,
-              contract_email: values.email,
-              contract_sms: values.phone,
-            });
-            action.openModal(<OwnershipInfo property={property} />);
+            if (isError) {
+              setSubscribeFormData({
+                contract_subscriber_name_1: values.fullName,
+                contract_email: values.email,
+                contract_sms: values.phone,
+              });
+              action.openModal(<OwnershipInfo property={property} />);
+            }
           }}
         >
-          {({ isValid }) => (
-            <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
-              <div className="space-y-7">
-                <div className="space-y-1">
-                  <div className="text-lg">What is your name?</div>
-                  <InputField
-                    name="fullName"
-                    type="text"
-                    placeholder="Full Name"
-                    className="text-2xl font-bold rounded-xl py-3"
+          {({ isValid, values }) => {
+            return (
+              <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
+                <CheckEmail email={values.email} />
+                <div className="space-y-7">
+                  <div className="space-y-1">
+                    <div className="text-lg">What is your name?</div>
+                    <InputField
+                      name="fullName"
+                      type="text"
+                      placeholder="Full Name"
+                      className="text-2xl font-bold rounded-xl py-3"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-lg">What is your Email address?</div>
+                    <InputField
+                      name="email"
+                      type="text"
+                      placeholder="Email address"
+                      className="text-2xl font-bold rounded-xl py-3"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-lg">What is your Phone Number?</div>
+                    <InputField
+                      name="phone"
+                      type="text"
+                      placeholder="Phone number"
+                      className="text-2xl font-bold rounded-xl py-3"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-center w-full gap-4 mt-4">
+                  {/* <Button
+                    div="Back"
+                    icon={<ArrowLeft />}
+                    className="bg-black rounded-lg"
+                    onClick={goBack}
+                  /> */}
+                  <Button
+                    label={`${
+                      data?.success
+                        ? "User with email already exist"
+                        : "Proceed"
+                    }`}
+                    className={`${
+                      data?.success ? "bg-red-700" : "bg-adron-green"
+                    } rounded-lg`}
+                    type="submit"
+                    isLoading={isLoading}
+                    loadingText="Checking email..."
+                    disabled={!isValid || isLoading || data?.success}
+                    icon={data?.success ? <Info /> : null}
+                    rightIcon={data?.success ? null : <ArrowRight />}
                   />
                 </div>
-                <div className="space-y-1">
-                  <div className="text-lg">What is your Email address?</div>
-                  <InputField
-                    name="email"
-                    type="text"
-                    placeholder="Email address"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg">What is your Phone Number?</div>
-                  <InputField
-                    name="phone"
-                    type="text"
-                    placeholder="Phone number"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
-              </div>
-              <div className="flex justify-center w-full gap-4 mt-4">
-                {/* <Button
-                  div="Back"
-                  icon={<ArrowLeft />}
-                  className="bg-black rounded-lg"
-                  onClick={goBack}
-                /> */}
-                <Button
-                  label="Proceed"
-                  className="bg-adron-green rounded-lg"
-                  type="submit"
-                  disabled={!isValid}
-                  rightIcon={<ArrowRight />}
-                />
-              </div>
-            </Form>
-          )}
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </div>

@@ -16,6 +16,7 @@ import {
   getFAQs,
   getFeatured,
   getHomeListing,
+  getIfUserExists,
   getJobByID,
   getLatestOffers,
   getPropertyByID,
@@ -24,6 +25,7 @@ import {
   makeEnquire,
   PropertyFilters,
   sendPartnershipRequest,
+  UserExistsResponse,
 } from "./api";
 import { HomepageResponse } from "./types/homepageTypes";
 import { AboutPageResponse } from "./types/aboutPageTypes";
@@ -234,5 +236,12 @@ export const useGetCallContact = () => {
   return useQuery<SettingsResponse>({
     queryKey: ["settings", "call"],
     queryFn: () => getSettings("call"),
+  });
+};
+export const useIsUserExist = (email: string) => {
+  return useQuery<UserExistsResponse>({
+    queryKey: ["is_user_exist", email],
+    queryFn: () => getIfUserExists(email),
+    enabled: !!email,
   });
 };

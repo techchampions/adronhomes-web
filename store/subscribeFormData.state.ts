@@ -3,7 +3,8 @@ import { create } from "zustand";
 type SubscribeFormData = {
   marketID: string;
   soleOwner: string;
-  initial_deposit: number;
+  initial_deposit: string;
+  units: number;
   total_amount: number;
   contract_business_type: string;
   contract_subscriber_name_1: string;
@@ -18,6 +19,9 @@ type SubscribeFormData = {
   contract_town: string;
   contract_state: string;
   contract_country: string;
+  longitude: string;
+  latitude: string;
+  property_id: string;
   contract_email: string;
   contract_sms: string;
   contract_employer_address: string;
@@ -38,6 +42,8 @@ type SubscribeFormData = {
   payable_amount: string | number;
   property_purpose: string;
   payment_plan: string;
+  payment_method: string;
+  payment_type: string;
   setSubscribeFormData: (
     details: Partial<
       Omit<SubscribeFormData, "setSubscribeFormData" | "resetSubscribeFormData">
@@ -49,7 +55,8 @@ type SubscribeFormData = {
 export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   marketID: "",
   soleOwner: "",
-  initial_deposit: 0,
+  initial_deposit: "",
+  units: 1,
   total_amount: 0,
   contract_business_type: "",
   contract_subscriber_name_1: "",
@@ -84,13 +91,19 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   end_date: "",
   property_purpose: "",
   payment_plan: "",
+  longitude: "",
+  latitude: "",
+  payment_method: "",
+  payment_type: "",
+  property_id: "",
   setSubscribeFormData: (details) => set((state) => ({ ...state, ...details })),
 
   resetSubscribeFormData: () =>
     set({
       marketID: "",
       soleOwner: "",
-      initial_deposit: 0,
+      initial_deposit: "",
+      units: 1,
       total_amount: 0,
       contract_business_type: "",
       contract_subscriber_name_1: "",
@@ -125,5 +138,10 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       end_date: "",
       property_purpose: "",
       payment_plan: "",
+      longitude: "",
+      latitude: "",
+      payment_method: "",
+      payment_type: "",
+      property_id: "",
     }),
 }));

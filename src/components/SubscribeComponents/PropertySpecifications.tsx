@@ -14,6 +14,7 @@ import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 import PaymentSummary from "@/components/SubscribeComponents/PaymentSummary";
 import RadioGroup from "@/components/FormComponents/RadioGroup";
 import CurrencyInputField from "@/components/FormComponents/CurrencyInputField";
+import InputField from "@/components/InputField";
 
 interface Props {
   property: Property;
@@ -24,6 +25,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     property_size: Yup.string().required("required"),
     property_purpose: Yup.string().required("required"),
     payment_plan: Yup.string().required("required"),
+    units: Yup.number().required("required"),
     initial_deposit: Yup.number().when("payment_plan", {
       is: "Installment",
       then: (schema) => schema.required("required"),
@@ -60,10 +62,12 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     property_purpose,
     payment_plan,
     initial_deposit,
+    units,
   } = useSubscribeFormData();
   const action = useModal();
   const initialValues = {
     property_size: land_size,
+    units: units,
     property_purpose: property_purpose,
     payment_plan: payment_plan,
     initial_deposit: initial_deposit,
@@ -133,7 +137,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
       if (
         values.payment_plan === "Installment" &&
         values.property_size &&
-        values.payment_duration
+        values.payment_duration &&
+        values.units
       ) {
         const selectedSize = values.property_size
           ? property.land_sizes.find(
@@ -145,10 +150,10 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               (item) => item.id.toString() === values.payment_duration
             )
           : null;
-        payableAmount = selectedDuration?.price || 0;
+        payableAmount = (selectedDuration?.price || 0) * values.units;
         console.log("duraPrice", payableAmount);
       } else if (values.payment_plan === "One Time" && values.property_size) {
-        payableAmount = property.price;
+        payableAmount = property.price * values.units;
       }
 
       if (
@@ -167,6 +172,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
       values.payment_duration,
       values.property_size,
       values.payment_plan,
+      values.units,
       setFieldValue,
     ]);
 
@@ -200,6 +206,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               payable_amount: payableAmount,
               payment_plan: values.payment_plan,
               initial_deposit: values.initial_deposit,
+              units: values.units,
             });
             action.openModal(<PaymentSummary property={property} />);
           }}
@@ -244,6 +251,13 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                       name="property_purpose"
                       options={PURPOSE_OPTIONS}
                       className="py-3 bg-adron-body"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-lg">Select your number of units</div>
+                    <InputField
+                      name="units"
+                      className="text-2xl font-bold rounded-xl py-3"
                     />
                   </div>
 

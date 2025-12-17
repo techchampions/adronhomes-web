@@ -11,6 +11,9 @@ import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 import PaymentStatus from "@/components/SubscribeComponents/PaymentStatus";
 import { useInterswitchPayment } from "@/hooks/useInterswitch";
 import PropertyTerms from "@/components/SubscribeComponents/PropertyTerms";
+import { useSubscribe } from "@/hooks/useSubcribe";
+import { subscribePayload } from "@/data/api";
+import StartingPayment from "@/components/SubscribeComponents/StartingPayment";
 
 interface Props {
   property: Property;
@@ -20,48 +23,138 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     string | null
   >(null);
   const { openModal } = useModal();
-  const { contract_email, contract_subscriber_name_1, total_amount } =
-    useSubscribeFormData();
+  const {
+    contract_email,
+    contract_business_type,
+    contract_marital_status,
+    contract_gender,
+    contract_date_of_birth,
+    start_date,
+    end_date,
+    contract_nationality,
+    contract_next_of_kin,
+    contract_next_of_kin_relationship,
+    contract_residential_address,
+    contract_subscriber_name_1,
+    contract_subscriber_name_2,
+    contract_subscriber_name_3,
+    total_amount,
+    marketID,
+    payment_type,
+    payment_duration,
+    payment_schedule,
+    units,
+    property_purpose,
+    contract_town,
+    contract_state,
+    contract_country,
+    contract_occupation,
+    contract_employer,
+    contract_sms,
+    contract_employer_address,
+    contract_next_of_kin_phone,
+    contract_profile_picture,
+    contract_profile_picture2,
+    contract_idFiles,
+  } = useSubscribeFormData();
   const paystack = usePaystackPayment();
   const interswitch = useInterswitchPayment();
+  const { mutate: subscribe, isPending } = useSubscribe();
   const handleContinue = () => {
+    interface PaymentResponse {
+      success: boolean;
+      message: string;
+      payment_method: string;
+      reference: string;
+      payable_code: string;
+      merchant_code: string;
+    }
+    const payload: subscribePayload = {
+      marketID: marketID,
+      contract_business_type: contract_business_type,
+      contract_subscriber_name_1: contract_subscriber_name_1,
+      contract_subscriber_name_2: contract_subscriber_name_2,
+      contract_subscriber_name_3: contract_subscriber_name_3,
+      // contract_additional_name: contract_additional_name,
+      contract_marital_status: contract_marital_status,
+      contract_gender: contract_gender,
+      contract_date_of_birth: contract_date_of_birth,
+      contract_nationality: contract_nationality,
+      contract_residential_address: contract_residential_address,
+      contract_town: contract_town,
+      contract_state: contract_state,
+      contract_country: contract_country,
+      contract_email: contract_email,
+      contract_sms: contract_sms,
+      contract_employer_address: contract_employer_address,
+      contract_occupation: contract_occupation,
+      contract_employer: contract_employer,
+      contract_next_of_kin_phone: contract_next_of_kin_phone,
+      // contract_next_of_kin_address: contract_next_of_kin_address,
+      contract_next_of_kin: contract_next_of_kin,
+      contract_next_of_kin_relationship: contract_next_of_kin_relationship,
+      contract_profile_picture: contract_profile_picture,
+      contract_profile_picture_2: contract_profile_picture2,
+      means_of_ids: contract_idFiles,
+      payment_method: "interswitch",
+      payment_type: payment_type == "One Time" ? 1 : 2,
+      monthly_duration: Number(payment_duration),
+      property_id: Number(property?.id),
+      start_date: start_date,
+      end_date: end_date,
+      repayment_schedule: payment_schedule,
+      paid_amount: total_amount,
+      marketer_code: marketID,
+      number_of_unit: units,
+      purpose: property_purpose,
+    };
     if (selectedPaymentMethod == "Interswitch") {
-      interswitch({
-        email: contract_email || "",
-        customerName: contract_subscriber_name_1 || "",
-        amount: Number(total_amount), // in Naira
-        reference: "dgdgdg",
-        merchant_code: "merchant_code",
-        payment_item_id: "payable_code",
-        onSuccess: () => {
-          openModal(
-            <PaymentStatus
-              status="success"
-              text="Payment received successfully."
-            />
-          );
-        },
-        onClose: () => {
-          openModal(<PaymentStatus status="failed" text="Payment canceled." />);
+      subscribe(payload, {
+        onSuccess(data: PaymentResponse) {
+          interswitch({
+            email: contract_email || "",
+            customerName: contract_subscriber_name_1 || "",
+            amount: Number(total_amount), // in Naira
+            reference: data.reference,
+            merchant_code: data.merchant_code,
+            payment_item_id: data.payable_code,
+            onSuccess: () => {
+              openModal(
+                <PaymentStatus
+                  status="success"
+                  text="Payment received successfully."
+                />
+              );
+            },
+            onClose: () => {
+              openModal(
+                <PaymentStatus status="failed" text="Payment canceled." />
+              );
+            },
+          });
         },
       });
     } else if (selectedPaymentMethod == "Paystack") {
-      paystack({
-        email: contract_email || "",
-        amount: Number(total_amount), // in Naira
-        reference: "sfusfui",
-        onSuccess: () => {
-          openModal(
-            <PaymentStatus
-              status="success"
-              text="Payment received successfully."
-            />
-          );
+      subscribe(payload, {
+        onSuccess(data: PaymentResponse) {
+          paystack({
+            email: contract_email || "",
+            amount: Number(total_amount), // in Naira
+            reference: data.reference,
+            onSuccess: () => {
+              openModal(
+                <PaymentStatus
+                  status="success"
+                  text="Payment received successfully."
+                />
+              );
 
-          // TODO: call your backend API to confirm payment
-        },
-        onClose: () => {
-          // openModal(<PaymentStatus status="failed" text="Payment canceled." />);
+              // TODO: call your backend API to confirm payment
+            },
+            onClose: () => {
+              // openModal(<PaymentStatus status="failed" text="Payment canceled." />);
+            },
+          });
         },
       });
     } else if (selectedPaymentMethod == "Virtual Wallet") {
@@ -71,7 +164,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
   const goBack = () => {
     openModal(<PropertyTerms property={property} />);
   };
-
+  if (isPending) {
+    return <StartingPayment paymentMethod={selectedPaymentMethod || ""} />;
+  }
   return (
     <div className="flex flex-col w-sm max-w-sm">
       <div
@@ -99,7 +194,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
         <div className="flex flex-col gap-2">
           <div
             className={`flex items-center gap-4 p-3 rounded-xl cursor-pointer transition-all ${
-              selectedPaymentMethod === "Bank Transfer"
+              selectedPaymentMethod === "Interswitch"
                 ? "bg-adron-green text-white border-none "
                 : "bg-transparent border  border-gray-300"
             }`}
@@ -116,7 +211,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
               <p className="font-adron-mid text-sm">Interswitch</p>
               <p
                 className={`text-xs ${
-                  selectedPaymentMethod == "Bank Transfer"
+                  selectedPaymentMethod == "Interswitch"
                     ? `text-white`
                     : `text-gray-500`
                 } `}

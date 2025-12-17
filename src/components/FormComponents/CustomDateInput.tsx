@@ -5,8 +5,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { FaExclamationCircle } from "react-icons/fa";
 // CSS Modules, react-datepicker-cssmodules.css
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
-
+// import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import "react-datepicker/dist/react-datepicker.min.css";
+// OR
+import "react-datepicker/dist/react-datepicker.css";
 interface DatePickerInputProps {
   name: string;
   label?: string;

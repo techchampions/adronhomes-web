@@ -19,6 +19,7 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
     payable_amount,
     initial_deposit,
     payment_plan,
+    units,
     setSubscribeFormData,
   } = useSubscribeFormData();
   console.log("plan", payment_plan);
@@ -47,11 +48,18 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
       : payment_schedule === "quarterly"
       ? remPrice / (Number(payment_duration || 1) / 3)
       : 0;
-  console.log(payment_plan, initial_deposit, payable_amount);
+  console.log(
+    payment_plan,
+    initial_deposit,
+    payable_amount,
+    scheduledPaymentAmount
+  );
   const totalAmount =
     payment_plan === "Installment"
-      ? Number(initial_deposit) + Number(payable_amount)
-      : Number(payable_amount);
+      ? Number(initial_deposit) +
+        (property.initial_deposit || 0) * units +
+        +(Number(payable_amount) * units)
+      : Number(payable_amount) * units;
   const goBack = () => {
     modal.openModal(<PropertySpecifications property={property} />);
   };
@@ -68,20 +76,37 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
       <h4 className="text-2xl font-bold mt-7">Payment Summary</h4>
 
       <div className="">
-        <div className="grid grid-cols-2 divide divide-y-1 gap-y-2 divide-gray-300">
-          <div className="text-gray-700">Infrastructure Fees:</div>
-          <div className="text-right">{formatPrice(infrastructureFees)}</div>
-          <div className="text-gray-700">Other Fees:</div>
-          <div className="text-right">{formatPrice(otherFees)}</div>
-          <div className="text-gray-700">Initial Deposit:</div>
-          <div className="text-right">{formatPrice(initial_deposit)}</div>
-          <div className="text-sm col-span-2">
+        <div className="divide divide-y-1 space-y-2 divide-gray-300">
+          <div className="grid grid-cols-2 ">
+            <div className="text-gray-700">Infrastructure Fees:</div>
+            <div className="text-right">{formatPrice(infrastructureFees)}</div>
+          </div>
+          <div className="grid grid-cols-2 ">
+            <div className="text-gray-700">Other Fees:</div>
+            <div className="text-right">{formatPrice(otherFees)}</div>
+          </div>
+          <div className="grid grid-cols-2 ">
+            <div className="text-gray-700">Subscription form:</div>
+            <div className="text-right">
+              {formatPrice(property.initial_deposit || 0)} x{" "}
+              <span className="text-xs bg-gray-200 text-gray-700 px-2 rounded-sm">
+                {units} units
+              </span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 ">
+            <div className="text-gray-700">Initial Deposit:</div>
+            <div className="text-right">
+              {formatPrice(Number(initial_deposit))}
+            </div>
+            {/* <div className="text-sm col-span-2">
             After initial deposit you will be paying{" "}
             <u className="text-adron-green font-bold">
               {formatPrice(scheduledPaymentAmount)}
             </u>{" "}
             for {payment_duration} month(s){" "}
             {Number(payment_duration) > 1 ? payment_schedule : ""}.
+          </div> */}
           </div>
         </div>
 

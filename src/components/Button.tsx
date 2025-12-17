@@ -7,6 +7,7 @@ interface ButtonProps {
   label: string;
   onClick?: () => void;
   isLoading?: boolean;
+  loadingText?: string;
   disabled?: boolean;
   className?: string;
   icon?: React.ReactNode;
@@ -15,6 +16,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
   type = "button",
+  loadingText = "Loading...",
   label,
   onClick,
   isLoading = false,
@@ -55,7 +57,7 @@ const Button: React.FC<ButtonProps> = ({
               fill="currentColor"
             />
           </svg>
-          Loading...
+          {loadingText}
         </div>
       ) : (
         <div className="flex items-center justify-center">
