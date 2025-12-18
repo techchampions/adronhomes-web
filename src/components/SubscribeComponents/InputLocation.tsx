@@ -40,6 +40,8 @@ const InputLocation: React.FC<Props> = ({ property }) => {
     contract_country,
     contract_town,
     contract_nationality,
+    longitude,
+    latitude,
   } = useSubscribeFormData();
   const initialValues = {
     location: contract_residential_address || "",
@@ -49,8 +51,8 @@ const InputLocation: React.FC<Props> = ({ property }) => {
       city: contract_town || "",
       state: contract_state || "",
       country: contract_country || "",
-      lat: 0,
-      lng: 0,
+      lat: Number(latitude),
+      lng: Number(longitude),
     },
   };
   const goBack = () => {

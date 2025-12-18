@@ -8,6 +8,7 @@ import { useModal } from "../../../store/modal.store";
 import InputMarketerId from "@/components/SubscribeComponents/InputMarketerID";
 import InputPersonalInfo from "@/components/SubscribeComponents/PersonalInfo";
 import RadioGroup from "@/components/FormComponents/RadioGroup";
+import { useGetPropertyByID } from "@/data/hooks";
 
 const validationSchema = Yup.object({
   // For string values
@@ -28,10 +29,23 @@ const initialValues = {
 };
 const Start: React.FC<Props> = ({ property }) => {
   const modal = useModal();
+  const { data, isLoading } = useGetPropertyByID(String(property.id));
+  if (isLoading) {
+    return (
+      <div className="w-xs h-80 flex justify-center items-center">
+        <div className="w-10 h-10 border-b-2 rounded-full border-adron-green animate-spin"></div>
+      </div>
+    );
+  }
   const handleSubmit = (values: typeof initialValues) => {
     if (values.referred === "yes") {
-      modal.openModal(<InputMarketerId property={property} />);
-    } else modal.openModal(<InputPersonalInfo property={property} />);
+      modal.openModal(
+        <InputMarketerId property={data?.data.properties ?? property} />
+      );
+    } else
+      modal.openModal(
+        <InputPersonalInfo property={data?.data.properties ?? property} />
+      );
   };
   return (
     <div className="max-w-xs">

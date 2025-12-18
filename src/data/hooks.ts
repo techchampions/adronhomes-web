@@ -26,6 +26,8 @@ import {
   PropertyFilters,
   sendPartnershipRequest,
   UserExistsResponse,
+  verifyMarketer,
+  VerifyMarketerResponse,
 } from "./api";
 import { HomepageResponse } from "./types/homepageTypes";
 import { AboutPageResponse } from "./types/aboutPageTypes";
@@ -243,5 +245,12 @@ export const useIsUserExist = (email: string) => {
     queryKey: ["is_user_exist", email],
     queryFn: () => getIfUserExists(email),
     enabled: !!email,
+  });
+};
+export const useVerifyMarkerter = (id: string) => {
+  return useQuery<VerifyMarketerResponse>({
+    queryKey: ["verify-marketer", id],
+    queryFn: () => verifyMarketer(id),
+    enabled: !!id,
   });
 };

@@ -269,6 +269,19 @@ export const getIfUserExists = async (
   return response.data;
 };
 
+export interface VerifyMarketerResponse {
+  success: boolean;
+  user: {
+    first_name: string;
+  };
+}
+export const verifyMarketer = async (
+  id: string
+): Promise<VerifyMarketerResponse> => {
+  const response = await apiClient.get(`/referral-marketer/${id}`);
+  return response.data;
+};
+
 export const subscribe = async (payload: Partial<subscribePayload>) => {
   const response = await apiClient.post("/subscribe", payload, {
     headers: { "Content-Type": "multipart/form-data" },
