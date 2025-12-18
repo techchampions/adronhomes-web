@@ -14,6 +14,7 @@ import PropertyTerms from "@/components/SubscribeComponents/PropertyTerms";
 import { useSubscribe } from "@/hooks/useSubcribe";
 import { subscribePayload } from "@/data/api";
 import StartingPayment from "@/components/SubscribeComponents/StartingPayment";
+import SubscriptionSuccess from "@/components/SubscribeComponents/SubscriptionSuccess";
 
 interface Props {
   property: Property;
@@ -119,12 +120,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             merchant_code: data.merchant_code,
             payment_item_id: data.payable_code,
             onSuccess: () => {
-              openModal(
-                <PaymentStatus
-                  status="success"
-                  text="Payment received successfully."
-                />
-              );
+              openModal(<SubscriptionSuccess />);
             },
             onClose: () => {
               openModal(
@@ -142,12 +138,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
             amount: Number(total_amount), // in Naira
             reference: data.reference,
             onSuccess: () => {
-              openModal(
-                <PaymentStatus
-                  status="success"
-                  text="Payment received successfully."
-                />
-              );
+              openModal(<SubscriptionSuccess />);
 
               // TODO: call your backend API to confirm payment
             },

@@ -13,7 +13,7 @@ interface Props {
 }
 const PaymentSummary: React.FC<Props> = ({ property }) => {
   const {
-    // property_purpose,
+    property_purpose,
     payment_duration,
     payment_schedule,
     payable_amount,
@@ -25,19 +25,19 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
   } = useSubscribeFormData();
   console.log("plan", payment_plan);
   const modal = useModal();
-  // const feesList = property?.details || [];
-  // const otherFeesData = feesList.filter(
-  //   (item) => item.type === "others" && item.purpose === property_purpose
-  // );
-  // const infrastructureData = feesList.filter(
-  //   (item) =>
-  //     item.type === "infrastructure" && item.purpose === property_purpose
-  // );
+  const feesList = property?.details || [];
+  const otherFeesData = feesList.filter(
+    (item) => item.type === "others" && item.purpose === property_purpose
+  );
+  const infrastructureData = feesList.filter(
+    (item) =>
+      item.type === "infrastructure" && item.purpose === property_purpose
+  );
 
-  // const otherFees =
-  //   otherFeesData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
-  // const infrastructureFees =
-  //   infrastructureData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
+  const otherFees =
+    otherFeesData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
+  const infrastructureFees =
+    infrastructureData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
   let remPrice = property.price;
   if (remPrice != Number(payable_amount)) {
     remPrice = (property?.price || 0) - Number(payable_amount);
@@ -89,6 +89,24 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
             </div>
             <div className="text-right">
               {formatPrice(Number(propertyDuration?.price))} x{" "}
+              <span className="text-xs bg-gray-200 text-gray-700 px-2 rounded-sm">
+                {units} units
+              </span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 ">
+            <div className="text-gray-700">Infrastructure Fee:</div>
+            <div className="text-right">
+              {formatPrice(Number(infrastructureFees))} x{" "}
+              <span className="text-xs bg-gray-200 text-gray-700 px-2 rounded-sm">
+                {units} units
+              </span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 ">
+            <div className="text-gray-700">Other Fees:</div>
+            <div className="text-right">
+              {formatPrice(Number(otherFees))} x{" "}
               <span className="text-xs bg-gray-200 text-gray-700 px-2 rounded-sm">
                 {units} units
               </span>
