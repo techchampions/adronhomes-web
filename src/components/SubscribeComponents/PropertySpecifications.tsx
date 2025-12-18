@@ -135,9 +135,10 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     useEffect(() => {
       // const { paymentDuration, startDate } = values;
       if (
-        values.payment_plan === "Installment" &&
+        values.payment_plan &&
         values.property_size &&
         values.payment_duration &&
+        values.initial_deposit &&
         values.units
       ) {
         const selectedSize = values.property_size
@@ -150,10 +151,12 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               (item) => item.id.toString() === values.payment_duration
             )
           : null;
-        payableAmount = (selectedDuration?.price || 0) * values.units;
-        console.log("duraPrice", payableAmount);
-      } else if (values.payment_plan === "One Time" && values.property_size) {
-        payableAmount = property.price * values.units;
+        if (values.payment_plan === "One Time") {
+          //  payableAmount = property.price * values.units;
+          payableAmount = (selectedDuration?.price || 0) * values.units;
+        } else if (values.payment_plan === "Installment") {
+          payableAmount = Number(values.initial_deposit);
+        }
       }
 
       if (
@@ -173,6 +176,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
       values.property_size,
       values.payment_plan,
       values.units,
+      values.initial_deposit,
       setFieldValue,
     ]);
 
@@ -267,7 +271,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                         <div className="text-lg">Enter Initial Deposit</div>
                         <CurrencyInputField
                           name="initial_deposit"
-                          placeholder="Initail Deposit"
+                          placeholder="Initial Deposit"
                           formatAsNaira
                           className="text-2xl font-bold rounded-xl py-3"
                         />

@@ -13,30 +13,31 @@ interface Props {
 }
 const PaymentSummary: React.FC<Props> = ({ property }) => {
   const {
-    property_purpose,
+    // property_purpose,
     payment_duration,
     payment_schedule,
     payable_amount,
     initial_deposit,
     payment_plan,
     units,
+    land_size,
     setSubscribeFormData,
   } = useSubscribeFormData();
   console.log("plan", payment_plan);
   const modal = useModal();
-  const feesList = property?.details || [];
-  const otherFeesData = feesList.filter(
-    (item) => item.type === "others" && item.purpose === property_purpose
-  );
-  const infrastructureData = feesList.filter(
-    (item) =>
-      item.type === "infrastructure" && item.purpose === property_purpose
-  );
+  // const feesList = property?.details || [];
+  // const otherFeesData = feesList.filter(
+  //   (item) => item.type === "others" && item.purpose === property_purpose
+  // );
+  // const infrastructureData = feesList.filter(
+  //   (item) =>
+  //     item.type === "infrastructure" && item.purpose === property_purpose
+  // );
 
-  const otherFees =
-    otherFeesData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
-  const infrastructureFees =
-    infrastructureData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
+  // const otherFees =
+  //   otherFeesData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
+  // const infrastructureFees =
+  //   infrastructureData.reduce((sum, detail) => sum + detail.value, 0) ?? 0;
   let remPrice = property.price;
   if (remPrice != Number(payable_amount)) {
     remPrice = (property?.price || 0) - Number(payable_amount);
@@ -56,14 +57,19 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
   );
   const totalAmount =
     payment_plan === "Installment"
-      ? Number(initial_deposit) +
-        (property.initial_deposit || 0) * units +
-        +(Number(payable_amount) * units)
+      ? (property.initial_deposit || 0) * units + +Number(payable_amount)
       : Number(payable_amount) * units;
   const goBack = () => {
     modal.openModal(<PropertySpecifications property={property} />);
   };
-
+  const propertySize =
+    property?.land_sizes?.find(
+      (size) => Number(size.id) === Number(land_size)
+    ) || null;
+  const propertyDuration =
+    propertySize?.durations.find(
+      (duration) => duration.id === payment_duration
+    ) || null;
   return (
     <div className="w-sm max-w-sm space-y-5">
       <div
@@ -78,13 +84,17 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
       <div className="">
         <div className="divide divide-y-1 space-y-2 divide-gray-300">
           <div className="grid grid-cols-2 ">
-            <div className="text-gray-700">Infrastructure Fees:</div>
-            <div className="text-right">{formatPrice(infrastructureFees)}</div>
+            <div className="text-gray-700">
+              Price for {propertySize?.size} {propertySize?.measurement_unit}:
+            </div>
+            <div className="text-right">
+              {formatPrice(Number(propertyDuration?.price))} x{" "}
+              <span className="text-xs bg-gray-200 text-gray-700 px-2 rounded-sm">
+                {units} units
+              </span>
+            </div>
           </div>
-          <div className="grid grid-cols-2 ">
-            <div className="text-gray-700">Other Fees:</div>
-            <div className="text-right">{formatPrice(otherFees)}</div>
-          </div>
+
           <div className="grid grid-cols-2 ">
             <div className="text-gray-700">Subscription form:</div>
             <div className="text-right">
