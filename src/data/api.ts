@@ -19,6 +19,7 @@ import { VirtualTourResponse } from "./types/virtualTourPageTypes";
 import { CategoryResponse } from "@/data/types/PropertyCategory";
 import { ApiResponse } from "@/data/types/testimonialTypes";
 import { SettingsResponse } from "@/data/types/Settingstypes";
+import { RealEstatePayload } from "@/data/types/Payload";
 
 // Homepage data with type annotation
 export const fetchHomePageData = async (): Promise<HomepageResponse> => {
@@ -282,7 +283,7 @@ export const verifyMarketer = async (
   return response.data;
 };
 
-export const subscribe = async (payload: Partial<subscribePayload>) => {
+export const subscribe = async (payload: Partial<RealEstatePayload>) => {
   const response = await apiClient.post("/subscribe", payload, {
     headers: { "Content-Type": "multipart/form-data" },
   });
@@ -305,7 +306,7 @@ export interface subscribePayload {
   number_of_unit?: number;
   proof_of_payment?: File;
   bank_name?: string;
-
+  fdf: string;
   // Add contract details fields
   contract_business_type?: string;
   contract_subscriber_name_1?: string;

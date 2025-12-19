@@ -12,9 +12,10 @@ import PaymentStatus from "@/components/SubscribeComponents/PaymentStatus";
 import { useInterswitchPayment } from "@/hooks/useInterswitch";
 import PropertyTerms from "@/components/SubscribeComponents/PropertyTerms";
 import { useSubscribe } from "@/hooks/useSubcribe";
-import { subscribePayload } from "@/data/api";
+// import { subscribePayload } from "@/data/api";
 import StartingPayment from "@/components/SubscribeComponents/StartingPayment";
 import SubscriptionSuccess from "@/components/SubscribeComponents/SubscriptionSuccess";
+import { RealEstatePayload } from "@/data/types/Payload";
 
 interface Props {
   property: Property;
@@ -57,6 +58,9 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
     contract_profile_picture,
     contract_profile_picture2,
     contract_idFiles,
+    land_size,
+    latitude,
+    longitude,
   } = useSubscribeFormData();
   const paystack = usePaystackPayment();
   const interswitch = useInterswitchPayment();
@@ -70,7 +74,7 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       payable_code: string;
       merchant_code: string;
     }
-    const payload: subscribePayload = {
+    const payload: RealEstatePayload = {
       marketID: marketID,
       contract_business_type: contract_business_type,
       contract_subscriber_name_1: contract_subscriber_name_1,
@@ -92,22 +96,27 @@ const SelectPaymentMethod: React.FC<Props> = ({ property }) => {
       contract_employer: contract_employer,
       contract_next_of_kin_phone: contract_next_of_kin_phone,
       // contract_next_of_kin_address: contract_next_of_kin_address,
-      contract_next_of_kin: contract_next_of_kin,
+      contract_next_of_kin_name: contract_next_of_kin,
       contract_next_of_kin_relationship: contract_next_of_kin_relationship,
       contract_profile_picture: contract_profile_picture,
-      contract_profile_picture_2: contract_profile_picture2,
-      means_of_ids: contract_idFiles,
+      contract_profile_picture2: contract_profile_picture2,
+      contract_id_files: contract_idFiles,
       payment_method: "interswitch",
       payment_type: payment_type == "One Time" ? 1 : 2,
-      monthly_duration: Number(payment_duration),
-      property_id: Number(property?.id),
+      payment_duration: String(payment_duration),
+      property_id: String(property?.id),
       start_date: start_date,
       end_date: end_date,
-      repayment_schedule: payment_schedule,
+      payment_schedule: String(payment_schedule),
       paid_amount: total_amount,
-      marketer_code: marketID,
+      payable_amount: total_amount,
       number_of_unit: units,
-      purpose: property_purpose,
+      property_purpose: property_purpose,
+      land_size: String(land_size),
+      latitude: Number(latitude),
+      longitude: Number(longitude),
+      contract_employer_phone: "",
+      reference: "",
     };
     if (selectedPaymentMethod == "Interswitch") {
       subscribe(payload, {

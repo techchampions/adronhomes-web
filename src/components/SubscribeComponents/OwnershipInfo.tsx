@@ -47,10 +47,19 @@ const OwnershipInfo: React.FC<Props> = ({ property }) => {
   });
 
   const handleSubmit = (values: typeof initialValues) => {
-    setSubscribeFormData({
-      contract_business_type: values.purpose,
-      soleOwner: values.soleOwner,
-    });
+    if (values.soleOwner === "yes") {
+      setSubscribeFormData({
+        contract_business_type: values.purpose,
+        soleOwner: values.soleOwner,
+      });
+    } else {
+      setSubscribeFormData({
+        contract_business_type: values.purpose,
+        soleOwner: values.soleOwner,
+        contract_subscriber_name_2: "",
+        contract_subscriber_name_3: "",
+      });
+    }
     if (values.soleOwner === "yes") {
       modal.openModal(<OccupationInfo property={property} />);
     } else modal.openModal(<CoOwnerInfo property={property} />);

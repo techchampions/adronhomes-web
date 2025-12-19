@@ -25,6 +25,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     property_size: Yup.string().required("required"),
     property_purpose: Yup.string().required("required"),
     payment_plan: Yup.string().required("required"),
+    citta_id: Yup.number().required("required"),
     units: Yup.number().required("required"),
     initial_deposit: Yup.number().when("payment_plan", {
       is: "Installment",
@@ -63,10 +64,12 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     payment_plan,
     initial_deposit,
     units,
+    citta_id,
   } = useSubscribeFormData();
   const action = useModal();
   const initialValues = {
     property_size: land_size,
+    citta_id: citta_id,
     units: units,
     property_purpose: property_purpose,
     payment_plan: payment_plan,
@@ -151,6 +154,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               (item) => item.id.toString() === values.payment_duration
             )
           : null;
+        setFieldValue("citta_id", selectedDuration?.citta_id);
+
         if (values.payment_plan === "One Time") {
           //  payableAmount = property.price * values.units;
           payableAmount = (selectedDuration?.price || 0) * values.units;
@@ -211,6 +216,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               payment_plan: values.payment_plan,
               initial_deposit: values.initial_deposit,
               units: values.units,
+              citta_id: values.citta_id,
             });
             action.openModal(<PaymentSummary property={property} />);
           }}

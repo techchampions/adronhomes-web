@@ -35,6 +35,7 @@ type SubscribeFormData = {
   contract_profile_picture2: File | null;
   contract_idFiles: File[] | null;
   land_size: string | number;
+  citta_id: string;
   payment_duration: string | number;
   payment_schedule: string | number;
   start_date: string;
@@ -84,6 +85,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
   contract_profile_picture2: null,
   contract_idFiles: null,
   land_size: "",
+  citta_id: "",
   payment_duration: "",
   payment_schedule: "",
   payable_amount: "",
@@ -131,6 +133,7 @@ export const useSubscribeFormData = create<SubscribeFormData>((set) => ({
       contract_profile_picture2: null,
       contract_idFiles: null,
       land_size: "",
+      citta_id: "",
       payment_duration: "",
       payment_schedule: "",
       payable_amount: "",

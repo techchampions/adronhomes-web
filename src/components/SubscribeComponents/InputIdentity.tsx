@@ -25,6 +25,7 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
     contract_profile_picture,
     contract_profile_picture2,
     contract_idFiles,
+    soleOwner,
   } = useSubscribeFormData();
 
   const contract_ID = contract_idFiles ? contract_idFiles[0] : null;
@@ -87,15 +88,16 @@ const InputIdentityInfo: React.FC<Props> = ({ property }) => {
                     height={200}
                     className="!w-fit"
                   />
-
-                  <ImageInput
-                    name="passport2"
-                    label="Co-owner's Photo"
-                    infoText="Upload a clear photo of face"
-                    width={175}
-                    height={200}
-                    className="!w-fit"
-                  />
+                  {soleOwner === "no" && (
+                    <ImageInput
+                      name="passport2"
+                      label="Co-owner's Photo"
+                      infoText="Upload a clear photo of face"
+                      width={175}
+                      height={200}
+                      className="!w-fit"
+                    />
+                  )}
                 </div>
                 <div className="space-y-1">
                   {/* <div className="text-lg">What`s your phone No.?</div> */}
