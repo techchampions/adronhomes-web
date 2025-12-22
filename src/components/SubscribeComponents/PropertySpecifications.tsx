@@ -25,7 +25,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     property_size: Yup.string().required("required"),
     property_purpose: Yup.string().required("required"),
     payment_plan: Yup.string().required("required"),
-    citta_id: Yup.number().required("required"),
+    // citta_id: Yup.number().required("required"),
     units: Yup.number().required("required"),
     initial_deposit: Yup.number().when("payment_plan", {
       is: "Installment",
@@ -140,6 +140,24 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
       if (
         values.payment_plan &&
         values.property_size &&
+        values.payment_duration
+      ) {
+        const selectedSize = values.property_size
+          ? property.land_sizes.find(
+              (item) => item.id.toString() === values.property_size
+            )
+          : null;
+        const selectedDuration = values.payment_duration
+          ? selectedSize?.durations.find(
+              (item) => item.id.toString() === values.payment_duration
+            )
+          : null;
+        // console.log("d_citta", selectedDuration);
+        setFieldValue("citta_id", selectedDuration?.citta_id);
+      }
+      if (
+        values.payment_plan &&
+        values.property_size &&
         values.payment_duration &&
         values.initial_deposit &&
         values.units
@@ -154,7 +172,6 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               (item) => item.id.toString() === values.payment_duration
             )
           : null;
-        setFieldValue("citta_id", selectedDuration?.citta_id);
 
         if (values.payment_plan === "One Time") {
           //  payableAmount = property.price * values.units;
@@ -184,7 +201,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
       values.initial_deposit,
       setFieldValue,
     ]);
-
+    // console.log("citta", values.citta_id);
     return null; // no UI
   };
   return (
