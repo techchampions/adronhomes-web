@@ -12,7 +12,7 @@ import InputIdentityInfo from "@/components/SubscribeComponents/InputIdentity";
 import { addMonths } from "date-fns";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 import PaymentSummary from "@/components/SubscribeComponents/PaymentSummary";
-import RadioGroup from "@/components/FormComponents/RadioGroup";
+// import RadioGroup from "@/components/FormComponents/RadioGroup";
 import CurrencyInputField from "@/components/FormComponents/CurrencyInputField";
 import InputField from "@/components/InputField";
 
@@ -21,37 +21,61 @@ interface Props {
 }
 
 const PropertySpecifications: React.FC<Props> = ({ property }) => {
+  // const validationSchema = Yup.object().shape({
+  //   property_size: Yup.string().required("required"),
+  //   property_purpose: Yup.string().required("required"),
+  //   payment_plan: Yup.string().required("required"),
+  //   // citta_id: Yup.number().required("required"),
+  //   units: Yup.number().required("required"),
+  //   initial_deposit: Yup.number().when("payment_plan", {
+  //     is: "Installment",
+  //     then: (schema) => schema.required("required"),
+  //     otherwise: (schema) => schema.notRequired(),
+  //   }),
+  //   payment_duration: Yup.string().when("payment_plan", {
+  //     is: "Installment",
+  //     then: (schema) => schema.required("required"),
+  //     otherwise: (schema) => schema.notRequired(),
+  //   }),
+  //   payment_schedule: Yup.string().when("payment_plan", {
+  //     is: "Installment",
+  //     then: (schema) => schema.required("required"),
+  //     otherwise: (schema) => schema.notRequired(),
+  //   }),
+  //   start_date: Yup.string().when("payment_plan", {
+  //     is: "Installment",
+  //     then: (schema) => schema.required("required"),
+  //     otherwise: (schema) => schema.notRequired(),
+  //   }),
+  //   end_date: Yup.string().when("payment_plan", {
+  //     is: "Installment",
+  //     then: (schema) => schema.required("required"),
+  //     otherwise: (schema) => schema.notRequired(),
+  //   }),
+  // });
+
   const validationSchema = Yup.object().shape({
-    property_size: Yup.string().required("required"),
-    property_purpose: Yup.string().required("required"),
-    payment_plan: Yup.string().required("required"),
-    // citta_id: Yup.number().required("required"),
+    property_size: Yup.mixed().required("required"),
+    property_purpose: Yup.mixed().required("required"),
+    payment_plan: Yup.mixed().required("required"),
     units: Yup.number().required("required"),
-    initial_deposit: Yup.number().when("payment_plan", {
-      is: "Installment",
-      then: (schema) => schema.required("required"),
-      otherwise: (schema) => schema.notRequired(),
-    }),
-    payment_duration: Yup.string().when("payment_plan", {
-      is: "Installment",
-      then: (schema) => schema.required("required"),
-      otherwise: (schema) => schema.notRequired(),
-    }),
-    payment_schedule: Yup.string().when("payment_plan", {
-      is: "Installment",
-      then: (schema) => schema.required("required"),
-      otherwise: (schema) => schema.notRequired(),
-    }),
-    start_date: Yup.string().when("payment_plan", {
-      is: "Installment",
-      then: (schema) => schema.required("required"),
-      otherwise: (schema) => schema.notRequired(),
-    }),
-    end_date: Yup.string().when("payment_plan", {
-      is: "Installment",
-      then: (schema) => schema.required("required"),
-      otherwise: (schema) => schema.notRequired(),
-    }),
+    // initial_deposit: Yup.number().required("required"),
+    initial_deposit: Yup.number()
+      .required("Initial deposit is required")
+      .min(1, "Initial deposit must be at least ₦1")
+      .test(
+        "deposit-less-than-price",
+        "Initial deposit cannot be greater than price",
+        function (value) {
+          const { duration_price } = this.parent;
+          if (!duration_price || !value) return true; // Skip validation if either is empty
+          return value <= duration_price;
+        }
+      ),
+    payment_duration: Yup.mixed().required("required"),
+    payment_schedule: Yup.mixed().required("required"),
+    start_date: Yup.mixed().required("required"),
+    end_date: Yup.mixed().required("required"),
   });
 
   let payableAmount = 0;
@@ -61,10 +85,11 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     payment_duration,
     payment_schedule,
     property_purpose,
-    payment_plan,
+    // payment_plan,
     initial_deposit,
     units,
     citta_id,
+    end_date,
   } = useSubscribeFormData();
   const action = useModal();
   const initialValues = {
@@ -72,12 +97,13 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     citta_id: citta_id,
     units: units,
     property_purpose: property_purpose,
-    payment_plan: payment_plan,
-    initial_deposit: initial_deposit,
+    payment_plan: "Installment",
+    initial_deposit: Number(initial_deposit),
     payment_duration: payment_duration,
+    duration_price: 0,
     payment_schedule: payment_schedule,
     start_date: new Date(),
-    end_date: "",
+    end_date: end_date,
   };
   const schedule = property.payment_schedule ?? [];
   const SCHEDULE_OPTIONS = schedule.map((option) => ({
@@ -94,43 +120,16 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     label: option,
     value: option,
   }));
-  let PAYMENT_PLAN: typeof PURPOSE_OPTIONS = [];
-  if (property.payment_type === "installment") {
-    PAYMENT_PLAN = [
-      { label: "One Time", value: "One Time" },
-      { label: "Installment", value: "Installment" },
-    ];
-  }
+  // let PAYMENT_PLAN: typeof PURPOSE_OPTIONS = [];
+  // if (property.payment_type === "installment") {
+  //   PAYMENT_PLAN = [
+  //     { label: "One Time", value: "One Time" },
+  //     { label: "Installment", value: "Installment" },
+  //   ];
+  // }
   const goBack = () => {
     action.openModal(<InputIdentityInfo property={property} />);
   };
-
-  // const UpdateValidation = () => {
-  //   const { values, setFieldValue } = useFormikContext<typeof initialValues>();
-  //   useEffect(() => {
-  //     if (values.payment_plan === "Installment") {
-  //       const schema = Yup.object().shape({
-  //         payment_plan: Yup.string().required("required"),
-  //         property_size: Yup.string().required("required"),
-  //         property_purpose: Yup.string().required("required"),
-  //         payment_duration: Yup.string().required("required"),
-  //         payment_schedule: Yup.string().required("required"),
-  //         start_date: Yup.string().required("required"),
-  //         end_date: Yup.string().required("required"),
-  //       });
-  //       setvalidationSchema(schema);
-  //     } else {
-  //       const schema = Yup.object().shape({
-  //         payment_plan: Yup.string().required("required"),
-  //         property_size: Yup.string().required("required"),
-  //         property_purpose: Yup.string().required("required"),
-  //       });
-  //       setvalidationSchema(schema);
-  //     }
-  //   }, [values.payment_plan]);
-  //   return null;
-  // };
-
   // Component to auto-calculate endDate
   const AutoEndDateUpdater = () => {
     const { values, setFieldValue } = useFormikContext<typeof initialValues>();
@@ -153,6 +152,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
             )
           : null;
         // console.log("d_citta", selectedDuration);
+        setFieldValue("duration_price", selectedDuration?.price);
+        // setFieldValue("initial_deposit", selectedDuration?.price);s
         setFieldValue("citta_id", selectedDuration?.citta_id);
       }
       if (
@@ -221,6 +222,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           validateOnMount
+          validateOnBlur
+          validateOnChange
           onSubmit={(values) => {
             setSubscribeFormData({
               land_size: values.property_size,
@@ -231,14 +234,15 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
               end_date: values.end_date,
               payable_amount: payableAmount,
               payment_plan: values.payment_plan,
-              initial_deposit: values.initial_deposit,
+              initial_deposit: String(values.initial_deposit),
               units: values.units,
               citta_id: values.citta_id,
             });
             action.openModal(<PaymentSummary property={property} />);
           }}
         >
-          {({ isValid, values }) => {
+          {({ isValid, values, errors }) => {
+            console.log("Formik state:", { isValid, errors, values });
             const selectedSize = values.property_size
               ? property.land_sizes.find(
                   (item) => item.id.toString() === values.property_size
@@ -256,14 +260,14 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                 <AutoEndDateUpdater />
                 {/* <UpdateValidation /> */}
                 <div className="space-y-7">
-                  <div className="space-y-1">
+                  {/* <div className="space-y-1">
                     <div className="text-lg">Select payment plan</div>
                     <RadioGroup
                       name="payment_plan"
                       options={PAYMENT_PLAN}
                       orientation="horizontal"
                     />
-                  </div>
+                  </div> */}
                   <div className="space-y-1">
                     <div className="text-lg">Select your property size</div>
                     <SelectInput
@@ -272,33 +276,9 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                       className="py-3 bg-adron-body"
                     />
                   </div>
-                  <div className="space-y-1">
-                    <div className="text-lg">Select your property purpose</div>
-                    <SelectInput
-                      name="property_purpose"
-                      options={PURPOSE_OPTIONS}
-                      className="py-3 bg-adron-body"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="text-lg">Select your number of units</div>
-                    <InputField
-                      name="units"
-                      className="text-2xl font-bold rounded-xl py-3"
-                    />
-                  </div>
 
-                  {values.payment_plan === "Installment" && (
+                  {values.property_size && (
                     <>
-                      <div className="space-y-1">
-                        <div className="text-lg">Enter Initial Deposit</div>
-                        <CurrencyInputField
-                          name="initial_deposit"
-                          placeholder="Initial Deposit"
-                          formatAsNaira
-                          className="text-2xl font-bold rounded-xl py-3"
-                        />
-                      </div>
                       <div className="space-y-1">
                         <div className="text-lg">Select payment duration</div>
                         <SelectInput
@@ -307,37 +287,79 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                           className="py-3 bg-adron-body"
                         />
                       </div>
-                      <div className="space-y-1">
-                        <div className="text-lg">Select Payment schedule</div>
-                        <SelectInput
-                          name="payment_schedule"
-                          options={SCHEDULE_OPTIONS}
-                          className="py-3 bg-adron-body"
-                        />
-                      </div>
                     </>
                   )}
+                  {values.payment_duration && (
+                    <div className="space-y-1">
+                      <div className="text-lg">Select Payment schedule</div>
+                      <SelectInput
+                        name="payment_schedule"
+                        options={SCHEDULE_OPTIONS}
+                        className="py-3 bg-adron-body"
+                      />
+                    </div>
+                  )}
+                  {values.payment_duration && values.payment_schedule && (
+                    <div className="space-y-1">
+                      <div className="text-lg">
+                        Select your property purpose
+                      </div>
+                      <SelectInput
+                        name="property_purpose"
+                        options={PURPOSE_OPTIONS}
+                        className="py-3 bg-adron-body"
+                      />
+                    </div>
+                  )}
+                  {values.property_purpose && (
+                    <div className="space-y-1">
+                      <div className="text-lg">Select your number of units</div>
+                      <InputField
+                        name="units"
+                        className="text-2xl font-bold rounded-xl py-3"
+                      />
+                    </div>
+                  )}
+
+                  {values.payment_plan === "Installment" &&
+                    values.units &&
+                    values.payment_duration &&
+                    values.payment_schedule &&
+                    values.property_purpose && (
+                      <>
+                        <div className="space-y-1">
+                          <div className="text-lg">Enter Initial Deposit</div>
+                          <CurrencyInputField
+                            name="initial_deposit"
+                            placeholder="Initial Deposit"
+                            formatAsNaira
+                            className="text-2xl font-bold rounded-xl py-3"
+                          />
+                        </div>
+                      </>
+                    )}
                 </div>
-                {values.payment_plan === "Installment" && (
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="">
-                      <div className="">Start Date</div>
-                      <DatePickerInput
-                        name="start_date"
-                        minDate={new Date()}
-                        placeholder={`DD-MM-YYYY`}
-                      />
+                {values.payment_plan === "Installment" &&
+                  values.initial_deposit && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="">
+                        <div className="">Start Date</div>
+                        <DatePickerInput
+                          name="start_date"
+                          minDate={new Date()}
+                          placeholder={`DD-MM-YYYY`}
+                        />
+                      </div>
+                      <div className="">
+                        <div className="">End Date</div>
+                        <DatePickerInput
+                          name="end_date"
+                          placeholder="DD-MM-YYYY"
+                          readOnly
+                        />
+                      </div>
                     </div>
-                    <div className="">
-                      <div className="">End Date</div>
-                      <DatePickerInput
-                        name="end_date"
-                        placeholder="DD-MM-YYYY"
-                        readOnly
-                      />
-                    </div>
-                  </div>
-                )}
+                  )}
                 <div className="flex justify-center w-full gap-4 mt-4">
                   {/* <Button
                   div="Back"
@@ -349,7 +371,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                     label="Proceed"
                     className="bg-adron-green rounded-lg"
                     type="submit"
-                    disabled={!isValid}
+                    disabled={!isValid || false}
                     rightIcon={<ArrowRight />}
                   />
                 </div>

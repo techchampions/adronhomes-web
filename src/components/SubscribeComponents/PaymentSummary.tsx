@@ -68,8 +68,9 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
     ) || null;
   const propertyDuration =
     propertySize?.durations.find(
-      (duration) => duration.id === payment_duration
+      (duration) => duration.id === Number(payment_duration)
     ) || null;
+  console.log("duration", payment_duration);
   return (
     <div className="w-sm max-w-sm space-y-5">
       <div
