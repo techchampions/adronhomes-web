@@ -245,6 +245,7 @@ export const useIsUserExist = (email: string) => {
     queryKey: ["is_user_exist", email],
     queryFn: () => getIfUserExists(email),
     enabled: !!email,
+    retry: false,
   });
 };
 export const useVerifyMarkerter = (id: string) => {

@@ -2,7 +2,7 @@ import Button from "../Button";
 import { Formik, Form, useFormikContext } from "formik";
 import * as Yup from "yup";
 import { useModal } from "../../../store/modal.store";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import React, { useEffect } from "react";
 import { Property } from "@/data/types/homepageTypes";
 import SelectInput from "@/components/FormComponents/SelectInput";
@@ -15,6 +15,7 @@ import PaymentSummary from "@/components/SubscribeComponents/PaymentSummary";
 // import RadioGroup from "@/components/FormComponents/RadioGroup";
 import CurrencyInputField from "@/components/FormComponents/CurrencyInputField";
 import InputField from "@/components/InputField";
+import { formatPrice } from "@/utils/formater";
 
 interface Props {
   property: Property;
@@ -79,6 +80,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
   });
 
   let payableAmount = 0;
+  let durationPrice = 0;
   const {
     setSubscribeFormData,
     land_size,
@@ -98,7 +100,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     units: units,
     property_purpose: property_purpose,
     payment_plan: "Installment",
-    initial_deposit: Number(initial_deposit),
+    initial_deposit: initial_deposit,
     payment_duration: payment_duration,
     duration_price: 0,
     payment_schedule: payment_schedule,
@@ -153,6 +155,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
           : null;
         // console.log("d_citta", selectedDuration);
         setFieldValue("duration_price", selectedDuration?.price);
+        durationPrice = Number(selectedDuration?.price);
+        console.log(durationPrice);
         // setFieldValue("initial_deposit", selectedDuration?.price);s
         setFieldValue("citta_id", selectedDuration?.citta_id);
       }
@@ -278,16 +282,14 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                   </div>
 
                   {values.property_size && (
-                    <>
-                      <div className="space-y-1">
-                        <div className="text-lg">Select payment duration</div>
-                        <SelectInput
-                          name="payment_duration"
-                          options={DURATION_OPTIONS}
-                          className="py-3 bg-adron-body"
-                        />
-                      </div>
-                    </>
+                    <div className="space-y-1">
+                      <div className="text-lg">Select payment duration</div>
+                      <SelectInput
+                        name="payment_duration"
+                        options={DURATION_OPTIONS}
+                        className="py-3 bg-adron-body"
+                      />
+                    </div>
                   )}
                   {values.payment_duration && (
                     <div className="space-y-1">
@@ -326,17 +328,22 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                     values.payment_duration &&
                     values.payment_schedule &&
                     values.property_purpose && (
-                      <>
-                        <div className="space-y-1">
-                          <div className="text-lg">Enter Initial Deposit</div>
-                          <CurrencyInputField
-                            name="initial_deposit"
-                            placeholder="Initial Deposit"
-                            formatAsNaira
-                            className="text-2xl font-bold rounded-xl py-3"
-                          />
+                      <div className="space-y-1">
+                        <div className="text-lg">Enter Initial Deposit</div>
+                        <div className="flex items-center text-gray-400 text-xs gap-1">
+                          <Info size={15} />
+                          <span>
+                            the price of this property is{" "}
+                            {formatPrice(values.duration_price)}
+                          </span>
                         </div>
-                      </>
+                        <CurrencyInputField
+                          name="initial_deposit"
+                          placeholder="Initial Deposit"
+                          formatAsNaira
+                          className="text-2xl font-bold rounded-xl py-3"
+                        />
+                      </div>
                     )}
                 </div>
                 {values.payment_plan === "Installment" &&
