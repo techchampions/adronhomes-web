@@ -49,12 +49,6 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
       : payment_schedule === "quarterly"
       ? remPrice / (Number(payment_duration || 1) / 3)
       : 0;
-  console.log(
-    payment_plan,
-    initial_deposit,
-    payable_amount,
-    scheduledPaymentAmount
-  );
   const totalAmount =
     payment_plan === "Installment"
       ? (property.initial_deposit || 0) * units + +Number(payable_amount)
@@ -68,9 +62,9 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
     ) || null;
   const propertyDuration =
     propertySize?.durations.find(
-      (duration) => duration.id === Number(payment_duration)
+      (duration) => Number(duration.id) === Number(payment_duration)
     ) || null;
-  console.log("duration", payment_duration);
+  console.log(scheduledPaymentAmount);
   return (
     <div className="w-sm max-w-sm space-y-5">
       <div
