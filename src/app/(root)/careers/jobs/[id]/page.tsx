@@ -7,7 +7,10 @@ import { formatPrice } from "@/utils/formater";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { BiMoney } from "react-icons/bi";
-import { FaHome, FaMapMarker, FaShare } from "react-icons/fa";
+import { FaHome, FaMapMarker } from "react-icons/fa";
+import DOMPurify from "dompurify";
+import { Eye } from "lucide-react";
+
 // export async function generateStaticParams() {
 //   try {
 //     const response = await fetch(
@@ -46,6 +49,7 @@ const JobDetail = () => {
 
   if (isLoading) return <Loader />;
   if (error) return <p>Error loading property.</p>;
+  const sanitizedHTML = (content: string) => DOMPurify.sanitize(content);
   return (
     <div className="flex flex-col w-full px-8 mb-14">
       <div className="w-full h-[200px] relative my-20">
@@ -67,8 +71,8 @@ const JobDetail = () => {
               <p className="text-sm">{data?.job_post.job_type}</p>
             </div>
             <div className="flex gap-2">
-              <FaShare />
-              <p className="text-sm">share this job</p>
+              <Eye />
+              <p className="text-sm">{data?.job_post.views} views</p>
             </div>
             <div className="flex gap-2">
               <BiMoney />
@@ -77,34 +81,42 @@ const JobDetail = () => {
               </p>
             </div>
           </div>
-          <p className="text-sm text-adron-gray-500">
-            {" "}
-            {data?.job_post.description}{" "}
-          </p>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: sanitizedHTML(data?.job_post.description || ""),
+            }}
+            className="prose  prose-lg
+                  max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-inside [&>ol]:list-inside [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
+          />
           <div className="">
             <p className="font-bold">Key Responsibilities:</p>
-            {/* <ul className="list-disc ml-5 text-sm text-adron-gray-500">
-              {data?.job_post.key_responsibility.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: sanitizedHTML(data?.job_post.key_responsibility || ""),
+              }}
+              className="ml-5 prose  prose-lg
+                  max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-inside [&>ol]:list-inside [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
+            />
           </div>
           <div className="">
             <p className="font-bold">Requirements:</p>
-
-            {/* <ul className="list-disc ml-5 text-sm text-adron-gray-500">
-              {data?.job_post.requirements.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: sanitizedHTML(data?.job_post.requirements || ""),
+              }}
+              className="ml-5 prose  prose-lg
+                  max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-inside [&>ol]:list-inside [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
+            />
           </div>
           <div className="">
             <p className="font-bold">Preferred Qualifications:</p>
-            {/* <ul className="list-disc ml-5 text-sm text-adron-gray-500">
-              {data?.job_post.qualifications.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: sanitizedHTML(data?.job_post.qualifications || ""),
+              }}
+              className="ml-5 prose  prose-lg
+                  max-w-none prose-headings:font-bold [&>*]:text-gray-700 [&>*]:text-xs prose-headings:text-gray-900 [&>h2]:!font-adron-bold [&>h1]:text-3xl [&>h2]:text-2xl [&>h3]:text-xl [&>p]:my-5 [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:text-xs [&>a]:text-blue-600 [&>a]:no-underline [&>a]:border-b-2 [&>a]:border-blue-300 [&>a]:hover:border-blue-600 [&>strong]:text-gray-900 [&>ul]:list-inside [&>ol]:list-inside [&>ul]:list-disc [&>ol]:list-decimal [&>li]:my-1 blockquote:border-l-4 blockquote:border-gray-300 blockquote:pl-4 blockquote:italic [&>img]:rounded-lg [&>img]:shadow-md [&>table]:border [&>table]:border-gray-200 [&>th]:bg-gray-50 [&>th]:p-2 [&>td]:p-2 "
+            />
           </div>
         </div>
         <div className="w-full md:w-[40%]">
