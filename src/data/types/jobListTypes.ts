@@ -33,13 +33,14 @@ export interface JobsApiResponse {
 export interface JobDetail {
   id: number;
   compensation: number;
+  views: number;
   job_title: string;
   description: string;
   location: string;
   job_type: string;
-  key_responsibility: string[];
-  requirements: string[];
-  qualifications: string[];
+  key_responsibility: string;
+  requirements: string;
+  qualifications: string;
   image: string;
   created_at: string | null;
   updated_at: string | null;
