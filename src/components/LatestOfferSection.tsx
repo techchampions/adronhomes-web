@@ -44,7 +44,7 @@ export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
           </h2>
           <div className="flex flex-row gap-3 items-center mb-4 text-xs">
             <div className="flex flex-row w-fit bg-white/30 text-white rounded-full px-4 py-1.5">
-              Property Type: Land
+              Property Type:    {data[0].name}
             </div>
             <div className="flex flex-row w-fit bg-white/30 text-white rounded-full px-4 py-1.5">
               Property Size: 648 Sq M

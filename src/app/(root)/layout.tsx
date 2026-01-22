@@ -11,6 +11,8 @@ import TawkTo from "@/components/TawkTo";
 import CookieConsent from "@/components/CookieConsent";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import Script from "next/script";
+import PressOneWidget from "@/components/PressOneWidget";
 
 const adronTitle = Cormorant_Garamond({
   variable: "--font-adron-title",
@@ -30,8 +32,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleAnalytics />
-      <TawkTo />
+   <head>
+       
+        <Script
+          src="https://web.pressone.africa/pub-widget.js"
+          strategy="beforeInteractive"
+        />
+        <GoogleAnalytics />
+        <TawkTo />
+      </head>
+      {/* <GoogleAnalytics />
+      <TawkTo /> */}
+ 
+
       <body className={`${adronTitle.variable} antialiased`}>
         <ErrorBoundary>
           <Providers>
@@ -39,6 +52,7 @@ export default function RootLayout({
             <Navbar />
             <main className="mb-0">{children}</main>
             <Footer />
+                 <PressOneWidget />
           </Providers>
         </ErrorBoundary>
       </body>
