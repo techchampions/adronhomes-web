@@ -48,6 +48,7 @@ export interface LatestOffer {
   list_description: string[];
   created_at: string | null;
   updated_at: string | null;
+  listDescription: string[];
 }
 
 export interface AboutUs {
