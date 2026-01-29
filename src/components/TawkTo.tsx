@@ -27,14 +27,14 @@ const TawkTo = () => {
       zIndex: 1000,
       visibility: {
         desktop: {
-          position: "bl",       // bottom left
-          xOffset: "20",        // px from left edge
-          yOffset: "20",        // px from bottom
+          position: "bl",      
+          xOffset: "20", 
+          yOffset: "20",       
         },
         mobile: {
           position: "bl",
           xOffset: "16",
-          yOffset: "80",        // more space on mobile to avoid overlap
+          yOffset: "20",       
         },
       },
     };
