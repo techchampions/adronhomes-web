@@ -29,7 +29,7 @@ const HeroBanner: React.FC<Props> = ({ data, settings }) => {
       <div className="flex-1">
         {/* Company Stats */}
         <div className="mb-0 -mt-2 md:mb-6 md:mt-6 w-full md:w-[75%] mx-auto flex justify-center">
-          <div className="flex flex-row gap-4 md:gap-4 text-center">
+          <div className="flex flex-row gap-12 md:gap-24 text-center">
             {settings?.digital_count.map((stat, index) => (
               <div
                 key={index}
