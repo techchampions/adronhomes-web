@@ -2,6 +2,7 @@ import SocialIcons from "./SocialIcons";
 import { AutoCarousel, MobileAutoCarousel } from "./HomeCarousel";
 import React from "react";
 import { Settings, Slider } from "@/data/types/homepageTypes";
+import { formatCompactNumber } from "@/utils/formatNumbers";
 
 interface Props {
   data: Slider[];
@@ -27,8 +28,8 @@ const HeroBanner: React.FC<Props> = ({ data, settings }) => {
       </div>
       <div className="flex-1">
         {/* Company Stats */}
-        <div className="mb-0 -mt-2 md:mb-6 md:mt-6 w-full md:w-[75%] mx-auto">
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 text-center">
+        <div className="mb-0 -mt-2 md:mb-6 md:mt-6 w-full md:w-[75%] mx-auto flex justify-center">
+          <div className="flex flex-row gap-4 md:gap-4 text-center">
             {settings?.digital_count.map((stat, index) => (
               <div
                 key={index}
@@ -36,8 +37,8 @@ const HeroBanner: React.FC<Props> = ({ data, settings }) => {
         ${index >= 3 ? "hidden md:flex" : ""}
       `}
               >
-                <p className="text-5xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
-                  {stat.value || "20+"}
+                <p className="text-4xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
+                  {formatCompactNumber(stat.value).toString()}
                 </p>
                 <p className="text-[11px] md:text-[14px] text-adron-gray-500 font-Gotham">
                   {stat.name}
