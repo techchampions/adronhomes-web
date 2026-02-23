@@ -1,8 +1,8 @@
-import SocialIcons from "./SocialIcons";
-import { AutoCarousel, MobileAutoCarousel } from "./HomeCarousel";
-import React from "react";
 import { Settings, Slider } from "@/data/types/homepageTypes";
 import { formatCompactNumber } from "@/utils/formatNumbers";
+import React from "react";
+import { AutoCarousel, MobileAutoCarousel } from "./HomeCarousel";
+import SocialIcons from "./SocialIcons";
 
 interface Props {
   data: Slider[];
@@ -34,7 +34,7 @@ const HeroBanner: React.FC<Props> = ({ data, settings }) => {
               <div
                 key={index}
                 className={`flex flex-col items-center md:p-0 gap-1 md:gap-6
-        ${index >= 3 ? "hidden md:flex" : ""}
+        ${index >= 3 ? "hidden lg:flex" : ""}
       `}
               >
                 <p className="text-4xl md:text-7xl font-bold text-adron-gray-400 font-adron-title">
