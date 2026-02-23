@@ -1,19 +1,18 @@
 "use client";
-import { useGetClientsContact, useGetComplainsContact } from "@/data/hooks";
-import React from "react";
+import { useGetClientsContact } from "@/data/hooks";
 
 const FooterColumn4 = () => {
-  const { data: complaintdata, isLoading: loadingComp } =
-    useGetComplainsContact();
+  // const { data: complaintdata, isLoading: loadingComp } =
+  //   useGetComplainsContact();
   const { data: clientData, isLoading: loadingCli } = useGetClientsContact();
   const clientContact = clientData?.data.data ?? [];
-  const complaint = complaintdata?.data.data ?? [];
+  // const complaint = complaintdata?.data.data ?? [];
   const address = clientContact.find((item) => item.name === "Address");
   const email = clientContact.find((item) => item.name === "Email");
   const phone = clientContact.find((item) => item.name === "Phone Number");
-  const onComplaint = complaint.find(
-    (item) => item.name === "Online Complaint"
-  );
+  // const onComplaint = complaint.find(
+  //   (item) => item.name === "Online Complaint"
+  // );
 
   return (
     <div className="block">
@@ -32,14 +31,14 @@ const FooterColumn4 = () => {
         </>
       )}
 
-      <h4 className="font-bold mt-3 text-black">
+      {/* <h4 className="font-bold mt-3 text-black">
         Online Complaints & Resolution:
       </h4>
       {loadingComp ? (
         <p className="break-words">Loading...</p>
       ) : (
         <p className="break-words">{onComplaint?.value}</p>
-      )}
+      )} */}
     </div>
   );
 };
