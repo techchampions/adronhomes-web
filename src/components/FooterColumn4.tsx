@@ -26,7 +26,7 @@ const FooterColumn4 = () => {
       ) : (
         <>
           <p className=" mb-4">{address?.value}</p>
-          <p>{phone?.value}</p>
+          <p className="text-wrap break-words">{phone?.value}</p>
           <p className="text-wrap break-words">{email?.value}</p>
         </>
       )}
