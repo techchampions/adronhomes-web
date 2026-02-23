@@ -9,7 +9,7 @@ const CookieConsent: React.FC = () => {
   if (!isOpen) return null;
   if (acceptCookies) return null;
   return (
-    <div className="fixed inset-0 bg-black/50 z-50">
+    <div className="fixed inset-0 bg-black/50 z-[1500]">
       <div className="fixed inset-x-0 bottom-0 z-50 flex justify-center p-4">
         <div className="bg-white rounded-lg shadow-lg max-w-xl w-full p-4 relative">
           {/* Close Button */}

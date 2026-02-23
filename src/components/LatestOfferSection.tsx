@@ -5,6 +5,28 @@ import { LatestOffer } from "@/data/types/homepageTypes";
 import Link from "next/link";
 
 export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
+  const listDescription: string[] = (() => {
+    const raw = data?.[0]?.list_description;
+
+    if (!raw) return [];
+
+    if (Array.isArray(raw)) return raw;
+
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return [];
+    }
+  })();
+
+  function getAllExceptLast(arr: string[]) {
+    return arr.slice(0, -1);
+  }
+
+  function getLastOnly(arr: string[]) {
+    return arr.length ? arr[arr.length - 1] : null;
+  }
+  const lastItem = getLastOnly(listDescription);
   return (
     <div className="w-full overflow-hidden mt-5 relative">
       {/* Background image */}
@@ -43,16 +65,20 @@ export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
             {/* Treasure Parks and <br /> Gardens */}
           </h2>
           <div className="flex flex-row gap-3 items-center mb-4 text-xs">
-            <div className="flex flex-row w-fit bg-white/30 text-white rounded-full px-4 py-1.5">
-              Property Type: Land
-            </div>
-            <div className="flex flex-row w-fit bg-white/30 text-white rounded-full px-4 py-1.5">
-              Property Size: 648 Sq M
+            <div className="flex flex-row gap-3 items-center mb-4 text-xs">
+              {getAllExceptLast(listDescription).map((item, index) => (
+                <div
+                  key={index}
+                  className="flex flex-row w-fit bg-white/30 text-white rounded-full px-4 py-1.5"
+                >
+                  {item.replace(/[*"]/g, "").trim()}
+                </div>
+              ))}
             </div>
           </div>
           <div className="flex flex-row text-white items-center gap-2 text-sm">
-            <FaMapMarkerAlt className="text-white" /> Shimawa, Ogun State,
-            Nigeria
+            <FaMapMarkerAlt className="text-white" />{" "}
+            {lastItem && <div>{lastItem.replace(/[*"]/g, "").trim()}</div>}
           </div>
           <div className="w-[170px] mt-14">
             <Link href="/latest-offers">
