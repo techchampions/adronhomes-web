@@ -1,21 +1,25 @@
 "use client";
 
-import Slider from "react-slick";
-import Image from "next/image";
-import { useRef, useState } from "react";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import InputField from "@/components/InputField";
-import { FaHeart, FaMapMarker } from "react-icons/fa";
-import SelectField from "@/components/SelectField";
 import Button from "@/components/Button";
-import { IoIosCheckmarkCircleOutline, IoLogoWhatsapp } from "react-icons/io";
-import { useParams } from "next/navigation";
-import { useEnquireProperty, useGetPropertyByID } from "@/data/hooks";
+import InputField from "@/components/InputField";
 import Loader from "@/components/Loader";
+import SelectField from "@/components/SelectField";
+import { useEnquireProperty, useGetPropertyByID } from "@/data/hooks";
 import { formatDate, formatPrice } from "@/utils/formater";
 import DOMPurify from "dompurify";
+import { Form, Formik } from "formik";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useRef, useState } from "react";
+import { FaHeart, FaMapMarker } from "react-icons/fa";
+import { IoIosCheckmarkCircleOutline, IoLogoWhatsapp } from "react-icons/io";
+import Slider from "react-slick";
+import * as Yup from "yup";
 
+import { FileStack, MapPinned } from "lucide-react";
+import Link from "next/link";
+import { GiGate } from "react-icons/gi";
+import { GrDocumentUser } from "react-icons/gr";
 import {
   IoCarSportOutline,
   IoCheckmark,
@@ -23,14 +27,10 @@ import {
   IoConstructOutline,
 } from "react-icons/io5";
 import { LiaToiletSolid } from "react-icons/lia";
-import { TbBed } from "react-icons/tb";
 import { LuFence } from "react-icons/lu";
-import { GiGate } from "react-icons/gi";
-import { PiRoadHorizonDuotone } from "react-icons/pi";
 import { MdOutlineLandscape } from "react-icons/md";
-import { GrDocumentUser } from "react-icons/gr";
-import Link from "next/link";
-import { FileStack, MapPinned } from "lucide-react";
+import { PiRoadHorizonDuotone } from "react-icons/pi";
+import { TbBed } from "react-icons/tb";
 
 const PropertyImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -77,6 +77,7 @@ const PropertyImageSlider = () => {
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
     interest_option: Yup.string().required("Interest is required"),
+    discovery_method: Yup.string().required("required"),
     description: Yup.string().required("Message is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     phone: Yup.string().required("Phone is required"),
@@ -511,6 +512,7 @@ const PropertyImageSlider = () => {
               emall: "",
               phone: "",
               interest_option: item?.type.name,
+              discovery_method: "",
               property_id: item?.id,
               description: "",
             }}
@@ -612,36 +614,61 @@ const PropertyImageSlider = () => {
                     options={["Land", "House"]}
                   />
                 </div>
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="how did you hear about us"
+                    className="flex gap-1 items-center text-[10px] text-adron-gray-300"
+                  >
+                    How did you hear about us?
+                  </label>
+
+                  <SelectField
+                    name="discovery_method"
+                    placeholder="Select one"
+                    options={[
+                      "Google Search",
+                      "Facebook",
+                      "Instagram",
+                      "X.com",
+                      "Tik Tok",
+                      "Linkedin",
+                      "Marketer Referal",
+                      "Office walk-in",
+                    ]}
+                  />
+                </div>
               </div>
-              <div className="flex justify-between text-xs gap-1 mt-8">
+              <div className="grid grid-cols-2 text-xs gap-1 mt-8">
                 {requestSent ? (
                   <Button
                     label="Request Sent!"
                     icon={<IoCheckmark />}
-                    className="bg-adron-green flex-1 py-1"
+                    className="bg-adron-green flex-1 py-1 col-span-2"
                   />
                 ) : (
-                  <Button
-                    label="Submit"
-                    type="submit"
-                    isLoading={isPending}
-                    disabled={isPending || requestSent}
-                    className="bg-adron-green flex-1 py-1"
-                  />
+                  <>
+                    <Button
+                      label="Submit"
+                      type="submit"
+                      isLoading={isPending}
+                      disabled={isPending || requestSent}
+                      className="bg-adron-green"
+                    />
+                    <a href={`tel:${item.contact_number}`} className="">
+                      <Button label="Call" className="bg-black text-white" />
+                    </a>
+                    <a
+                      href={data.data.properties.whatsapp_link}
+                      className="col-span-3"
+                    >
+                      <Button
+                        label="WhatsApp"
+                        className="bg-green-500"
+                        icon={<IoLogoWhatsapp size={15} />}
+                      />
+                    </a>
+                  </>
                 )}
-                <a href={`tel:${item.contact_number}`} className="w-fit">
-                  <Button
-                    label="Call"
-                    className="bg-black text-white flex-[0.5] py-1 px-5"
-                  />
-                </a>
-                <a href={data.data.properties.whatsapp_link} className="w-fit">
-                  <Button
-                    label="Chat on WhatsApp"
-                    className="bg-green-500 px-3"
-                    icon={<IoLogoWhatsapp size={18} />}
-                  />
-                </a>
               </div>
             </Form>
           </Formik>
