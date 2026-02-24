@@ -1,4 +1,7 @@
 import { FAQResponse } from "@/data/types/FAQTypes";
+import { CategoryResponse } from "@/data/types/PropertyCategory";
+import { SettingsResponse } from "@/data/types/Settingstypes";
+import { ApiResponse } from "@/data/types/testimonialTypes";
 import apiClient from "./apiClient";
 import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
@@ -16,9 +19,6 @@ import {
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
 import { VirtualTourResponse } from "./types/virtualTourPageTypes";
-import { CategoryResponse } from "@/data/types/PropertyCategory";
-import { ApiResponse } from "@/data/types/testimonialTypes";
-import { SettingsResponse } from "@/data/types/Settingstypes";
 
 // Homepage data with type annotation
 export const fetchHomePageData = async (): Promise<HomepageResponse> => {
@@ -203,6 +203,8 @@ export const makeEnquire = async (payload: Partial<EnquirePayload>) => {
     formData.append("phone", payload.phone.toString());
   if (payload.interest_option !== undefined)
     formData.append("interest_option", payload.interest_option.toString());
+  if (payload.discovery_method !== undefined)
+    formData.append("discovery_method", payload.discovery_method.toString());
   if (payload.property_id !== undefined)
     formData.append("property_id", payload.property_id.toString());
   if (payload.description !== undefined)

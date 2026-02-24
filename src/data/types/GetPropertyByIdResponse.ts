@@ -16,6 +16,7 @@ export interface EnquirePayload {
   email: string;
   phone: string | number;
   interest_option: string;
+  discovery_method: string;
   property_id: string | number;
   description: string;
 }
