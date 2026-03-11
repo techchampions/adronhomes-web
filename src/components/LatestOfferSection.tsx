@@ -1,8 +1,8 @@
+import { LatestOffer } from "@/data/types/homepageTypes";
 import Image from "next/image";
+import Link from "next/link";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Button from "./Button";
-import { LatestOffer } from "@/data/types/homepageTypes";
-import Link from "next/link";
 
 export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
   const listDescription: string[] = (() => {
@@ -48,7 +48,7 @@ export default function LatestOfferSection({ data }: { data: LatestOffer[] }) {
 
       {/* Text content over the image */}
       <div className="absolute inset-0 flex items-center z-20 px-6 md:px-12">
-        <div className="flex flex-col space-y-0">
+        <div className="flex flex-col space-y-0 w-full md:w-2/3">
           <div className="flex flex-row items-center w-fit text-[11px] bg-white rounded-full px-3 py-1.5 gap-1.5">
             <Image
               src="/percent-icon.svg"

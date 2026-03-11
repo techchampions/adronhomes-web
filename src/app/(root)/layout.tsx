@@ -1,18 +1,19 @@
+import CookieConsent from "@/components/CookieConsent";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import Footer from "@/components/Footer";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Navbar from "@/components/Navbar";
+import PressOneWidget from "@/components/PressOneWidget";
+// import RouteTracker from "@/components/RouteTracker";
+import TawkTo from "@/components/TawkTo";
+import "leaflet/dist/leaflet.css"; // ✅ Add Leaflet CSS
 import type { Metadata } from "next";
 import { Cormorant_Garamond } from "next/font/google";
-import "../globals.css";
-import "leaflet/dist/leaflet.css"; // ✅ Add Leaflet CSS
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Providers } from "../Provider";
-import TawkTo from "@/components/TawkTo";
-import CookieConsent from "@/components/CookieConsent";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import ErrorBoundary from "@/components/ErrorBoundary";
 import Script from "next/script";
-import PressOneWidget from "@/components/PressOneWidget";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "../globals.css";
+import { Providers } from "../Provider";
 
 const adronTitle = Cormorant_Garamond({
   variable: "--font-adron-title",
@@ -32,18 +33,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-   <head>
-       
+      <head>
         <Script
           src="https://web.pressone.africa/pub-widget.js"
           strategy="beforeInteractive"
         />
         <GoogleAnalytics />
+        {/* <RouteTracker /> */}
         <TawkTo />
       </head>
-      {/* <GoogleAnalytics />
-      <TawkTo /> */}
- 
 
       <body className={`${adronTitle.variable} antialiased`}>
         <ErrorBoundary>
@@ -52,7 +50,7 @@ export default function RootLayout({
             <Navbar />
             <main className="mb-0">{children}</main>
             <Footer />
-                 <PressOneWidget />
+            <PressOneWidget />
           </Providers>
         </ErrorBoundary>
       </body>
