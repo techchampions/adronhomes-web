@@ -20,10 +20,26 @@ const adronTitle = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
+
+
 export const metadata: Metadata = {
-  title: "Adron Homes",
-  description: "Adron Home Properties.",
-  icons: "/logo.svg",
+  title: "Adron Homes - Find Your Dream Property",
+  description: "Discover premium properties and homes with Adron Homes. Your trusted real estate partner in Nigeria.",
+  keywords: ["real estate", "properties", "homes", "Adron Homes", "Nigeria property"],
+  openGraph: {
+    title: "Adron Homes - Find Your Dream Property",
+    description: "Discover premium properties and homes with Adron Homes.",
+    type: "website",
+    images: ["/logo.svg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Adron Homes - Find Your Dream Property",
+    description: "Discover premium properties and homes with Adron Homes.",
+    images: ["/logo.svg"],
+  },
+
+  icons: "/logo.svg", 
 };
 
 export default function RootLayout({
