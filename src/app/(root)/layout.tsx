@@ -21,7 +21,7 @@ const adronTitle = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
-
+const googleApiKey = process.env.GOOGLE_API_KEY;
 export const metadata: Metadata = {
   title: "Adron Homes - Find Your Dream Property",
   description:
@@ -47,7 +47,6 @@ export const metadata: Metadata = {
   },
   icons: "/logo.svg",
 };
-export const googleApiKey = "AIzaSyBPIyWllHG8je77s56Pyp69b5mzlghzD9U";
 
 export default function RootLayout({
   children,

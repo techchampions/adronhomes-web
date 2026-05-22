@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useLoadScript } from "@react-google-maps/api";
 import { Loader2, MapPin, X } from "lucide-react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface Location {
   place_id: string;
@@ -40,7 +40,7 @@ interface LocationAutocompleteProps {
 }
 
 // Your Google Maps API key (store this in .env.local)
-const GOOGLE_MAPS_API_KEY = "AIzaSyBPIyWllHG8je77s56Pyp69b5mzlghzD9U";
+const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_API_KEY;
 
 // const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
@@ -70,7 +70,7 @@ const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
 
   // Load Google Maps script
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY || "",
     libraries,
   });
 
