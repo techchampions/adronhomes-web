@@ -47,7 +47,6 @@ export const metadata: Metadata = {
   },
   icons: "/logo.svg",
 };
-export const googleApiKey = "AIzaSyBPIyWllHG8je77s56Pyp69b5mzlghzD9U";
 
 export default function RootLayout({
   children,
