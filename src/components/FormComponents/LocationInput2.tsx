@@ -14,6 +14,14 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import {
+  MapPin,
+  Loader2,
+  X,
+  ChevronDown,
+  Check,
+  AlertCircle,
+} from "lucide-react";
 
 interface AddressComponent {
   long_name: string;
