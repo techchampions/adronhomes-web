@@ -23,7 +23,7 @@ export default function Footer() {
     { name: "Facebook", value: "https://www.facebook.com/adronhomes" },
     { name: "Instagram", value: "https://www.instagram.com/adronhomes" },
     { name: "X", value: "https://twitter.com/adronhomes" },
-    { name: "Tiktok", value: "https://www.tiktok.com/@adronhomes" },
+    { name: "Tiktok", value: "www.tiktok.com/@adronhomesofficial" },
     { name: "Whatsapp", value: "+2348051011951" },
     {
       name: "Linkedin",

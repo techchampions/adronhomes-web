@@ -17,6 +17,7 @@ import Slider from "react-slick";
 import * as Yup from "yup";
 
 import { FileStack, MapPinned } from "lucide-react";
+import Link from "next/link";
 import { GiGate } from "react-icons/gi";
 import { GrDocumentUser } from "react-icons/gr";
 import {
