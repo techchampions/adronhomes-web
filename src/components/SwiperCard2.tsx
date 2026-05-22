@@ -1,0 +1,259 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperType } from "swiper/types";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
+import Button from "@/components/Button";
+import Start from "@/components/SubscribeComponents/Start";
+import { Property } from "@/data/types/homepageTypes";
+import { Property as PropertyPG } from "@/data/types/propertiesPageTypes";
+import { formatPrice } from "@/utils/formater";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  FaChevronLeft,
+  FaChevronRight,
+  FaHeart,
+  FaMapMarkerAlt,
+  FaRegHeart,
+} from "react-icons/fa";
+import { GiStreetLight } from "react-icons/gi";
+import { IoGiftOutline, IoLogoWhatsapp } from "react-icons/io5";
+import { useModal } from "../../store/modal.store";
+import { useSubscribeFormData } from "../../store/subscribeFormData.state";
+
+interface Props {
+  property: Property | PropertyPG;
+}
+
+export default function SwiperPropertyCard2({ property }: Props) {
+  const router = useRouter();
+  const features = property.features;
+  const allowedFeatures = ["Gym", "Light"];
+  const displayFeatures = features.filter((item) =>
+    allowedFeatures.includes(item)
+  );
+
+  const isRented =
+    property?.purpose?.includes("rent") ||
+    property?.purpose?.includes("Rent") ||
+    false;
+
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+  const modal = useModal();
+  const { setSubscribeFormData } = useSubscribeFormData();
+  const subscribe = () => {
+    setSubscribeFormData({ property_id: String(property.id) });
+    modal.openModal(<Start property_id={property.id} />);
+  };
+  useEffect(() => {
+    if (swiper && prevRef.current && nextRef.current) {
+      if (
+        typeof swiper.params.navigation === "object" &&
+        swiper.params.navigation !== null
+      ) {
+        swiper.params.navigation = {
+          ...swiper.params.navigation,
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        };
+      } else {
+        swiper.params.navigation = {
+          prevEl: prevRef.current,
+          nextEl: nextRef.current,
+        };
+      }
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, [swiper]);
+  let address = "All Adron locations";
+  if (property.street_address && property.state && property.country) {
+    address = `${property.street_address}, ${property.state} ${property.country}`;
+  }
+  // const features = property.features;
+  const photos = Array.isArray(property.photos) ? property.photos : [];
+  const hasPhotos = photos.length > 0;
+
+  return (
+    <div className="rounded-3xl">
+      <div className="relative w-full h-[250px] rounded-xl overflow-hidden">
+        {/* Swiper Carousel */}
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={1}
+          onInit={(swiperInstance) => setSwiper(swiperInstance)} // Store swiper instance when it's initialized
+          navigation={{
+            prevEl: prevRef.current,
+            nextEl: nextRef.current,
+          }}
+          modules={[Navigation]}
+          className="w-full h-full rounded-[40px]"
+        >
+          {hasPhotos ? (
+            photos.map((img, idx) => (
+              <SwiperSlide key={idx}>
+                <Image
+                  src={img}
+                  alt={`Image ${idx + 1}`}
+                  width={`100`}
+                  height={`100`}
+                  className="object-cover rounded-3xl h-full w-full"
+                />
+              </SwiperSlide>
+            ))
+          ) : (
+            <SwiperSlide>
+              {property.display_image ? (
+                <Image
+                  src={property.display_image}
+                  alt=""
+                  height={100}
+                  width={100}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="bg-gray-300 h-full w-full"></div>
+              )}
+            </SwiperSlide>
+          )}
+        </Swiper>
+
+        {/* Navigation Buttons */}
+        <button
+          ref={prevRef}
+          className="absolute cursor-pointer left-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
+        >
+          <FaChevronLeft size={30} />
+        </button>
+        <button
+          ref={nextRef}
+          className="absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 z-10 bg-white/50 bg-opacity-60 rounded-full p-2 shadow hover:bg-opacity-90"
+        >
+          <FaChevronRight size={30} />
+        </button>
+        {property.is_discount && (
+          <div className="bg-red-600 text-white text-xs px-3 py-1 rounded-full absolute top-2 right-5 z-20">
+            {property.discount_percentage}% off
+          </div>
+        )}
+        {property.unit_available < 1 && (
+          <div className="bg-red-600 text-white text-xs px-3 py-1 rounded-full absolute top-2 left-5 z-20">
+            sold out
+          </div>
+        )}
+        {/* {property.purpose && (
+          <div className="absolute bottom-3 right-5 bg-black/60 py-1 px-4 rounded-lg z-50 text-white text-xs">
+            {property.purpose}
+          </div>
+        )} */}
+      </div>
+
+      {/* Property Info */}
+      <div className="mt-4 space-y-2 bg-white p-6 rounded-3xl w-full">
+        <h4 className="text-lg font-adron-text-body font-semibold truncate">
+          {property.name}
+        </h4>
+        <div className="flex items-center text-xs text-gray-400 mt-1 gap-1">
+          <FaMapMarkerAlt className="" />
+          <span className=" w-full truncate">{address}</span>
+        </div>
+        {/* {`${property.street_address}, ${property.lga}, ${property.state} ${property.country}`} */}
+
+        <div className="text-lg font-black text-adron-black mt-4 flex justify-between items-center">
+          <span className={`w-[70%] truncate ${isRented && "text-cyan-700"}`}>
+            {isRented ? "for rent" : formatPrice(property.price ?? 0)}
+          </span>
+          <div className="mr-2 cursor-pointer">
+            {property ? (
+              <FaHeart className="text-adron-green" size={20} />
+            ) : (
+              <FaRegHeart className="text-gray-500" size={20} />
+            )}
+          </div>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <div className="flex items-center text-[10px] font-bold text-gray-500 gap-2">
+            <span className="flex items-center gap-1 truncate">
+              {/* <TfiRulerAlt2 />  */}
+              <Image src="/ruler.svg" width={14} height={14} alt="dumbbell" />
+              {property.size} SqM
+            </span>
+            {displayFeatures.map((feature, index) => (
+              <span key={index} className="flex items-center gap-1 truncate">
+                {feature === "Gym" ? (
+                  <Image
+                    src="/dumbbell.svg"
+                    width={14}
+                    height={14}
+                    alt="dumbbell"
+                  />
+                ) : feature === "Light" ? (
+                  <GiStreetLight />
+                ) : (
+                  <IoGiftOutline />
+                )}{" "}
+                {feature}
+              </span>
+            ))}
+            {/* <span className="flex items-center gap-1 truncate">
+              <GiStreetLight /> {property.features[1]}
+            </span>
+            <span className="flex items-center gap-1 truncate">
+              <img src="/dumbbell.svg" width={14} height={14} alt="dumbbell" />
+              {property.features[2]}
+            </span> */}
+          </div>
+          <div className="text-gray-400 flex items-center gap-1 text-xs">
+            {property.type.name}
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-[10px]">
+          <div className="">Payment Duration:</div>
+          <div className=" font-bold">
+            {property.property_duration_limit} month(s) max
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 items-center justify-between gap-2">
+          <Button
+            label="View Property"
+            className="bg-adron-green text-xs py-3"
+            onClick={() => router.push(`/properties/${property.slug}`)}
+          />
+          {isRented ? (
+            <Link
+              href={property.whatsapp_link}
+              className="flex items-center gap-2 rounded-full justify-center text-xs py-3 !bg-transparent !text-green-700 border hover:!bg-green-700 hover:!text-white"
+            >
+              <IoLogoWhatsapp size={20} />
+              Inquire
+            </Link>
+          ) : property.unit_available < 1 ? (
+            <Button
+              label="Sold out"
+              className="!bg-transparent !text-red-500 border text-xs py-3"
+            />
+          ) : (
+            <Button
+              onClick={subscribe}
+              label="Subscribe"
+              className="!bg-transparent !text-black border hover:!text-white hover:!bg-black text-xs py-3"
+              // onClick={() => navigate(`/invest-property/${property.id}`)}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

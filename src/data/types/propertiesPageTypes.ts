@@ -1,3 +1,5 @@
+import { PropertyType } from "@/data/types/GetPropertyByIdResponse";
+
 export interface PropertiesResponse {
   status: string;
   message: string;
@@ -42,7 +44,7 @@ export interface Property {
   photos: string[];
   size: string;
   price: number;
-  type: number;
+  type: PropertyType;
   slug: string;
   features: string[];
   overview: string;
@@ -74,4 +76,6 @@ export interface Property {
   discount_name: string;
   discount_percentage: number;
   unit_available: number;
+  property_duration_limit: number;
+  whatsapp_link: string;
 }

@@ -5,6 +5,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Navbar from "@/components/Navbar";
 import PressOneWidget from "@/components/PressOneWidget";
 // import RouteTracker from "@/components/RouteTracker";
+import ModalWrapper from "@/components/ModalWrapper";
 import TawkTo from "@/components/TawkTo";
 import "leaflet/dist/leaflet.css"; // ✅ Add Leaflet CSS
 import type { Metadata } from "next";
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   description: "Adron Home Properties.",
   icons: "/logo.svg",
 };
+export const googleApiKey = "AIzaSyBPIyWllHG8je77s56Pyp69b5mzlghzD9U";
 
 export default function RootLayout({
   children,
@@ -38,6 +40,11 @@ export default function RootLayout({
           src="https://web.pressone.africa/pub-widget.js"
           strategy="beforeInteractive"
         />
+        <Script src="https://js.paystack.co/v1/inline.js" />
+        <Script src="https://newwebpay.interswitchng.com/inline-checkout.js" />
+        <Script
+          src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=initGoogleMaps`}
+        />
         <GoogleAnalytics />
         {/* <RouteTracker /> */}
         <TawkTo />
@@ -47,6 +54,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <Providers>
             <CookieConsent />
+            <ModalWrapper />
             <Navbar />
             <main className="mb-0">{children}</main>
             <Footer />
