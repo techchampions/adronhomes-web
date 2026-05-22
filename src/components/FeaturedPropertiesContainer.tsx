@@ -1,10 +1,10 @@
 "use client";
+import Pagination from "@/components/Pagination";
 import { useGetFeatured } from "@/data/hooks";
-import Loader from "./Loader";
+import { useState } from "react";
 import ApiErrorBlock from "./ApiErrorBlock";
 import HomePropertyList from "./HomePagePropertyList";
-import Pagination from "@/components/Pagination";
-import { useState } from "react";
+import Loader from "./Loader";
 
 export default function FeaturedPropertiesContainer() {
   const [page, setPage] = useState(1);

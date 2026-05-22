@@ -68,6 +68,31 @@ export interface HandpackText {
   header: string;
   description: string;
 }
+export interface Duration {
+  id: number;
+  price: number;
+  citta_id: string;
+  duration: number; // in months or years
+  is_active: boolean;
+}
+
+export interface LandSize {
+  id: number;
+  size: string; // Could be number as string like "648"
+  measurement_unit: "sqm" | "sqft" | "acre" | "hectare" | string;
+  durations: Duration[];
+}
+
+export interface PropertyDetail {
+  id: number;
+  name: string;
+  value: number;
+  type: string;
+  purpose: string;
+  property_id: number;
+  created_at: string;
+  updated_at: string;
+}
 
 export interface Property {
   id: number;
@@ -76,7 +101,7 @@ export interface Property {
   photos: string[];
   size: string;
   price: number;
-  type: number;
+  type: PropertyType;
   slug: string;
   features: string[];
   overview: string;
@@ -95,8 +120,12 @@ export interface Property {
   discount_name: string;
   purpose: string[] | null;
   unit_available: number;
+  property_duration_limit: number;
+  whatsapp_link: string;
 }
-
+export interface PropertyType {
+  name: string;
+}
 export interface Locations {
   locationText: LocationText[];
   locationProperty: LocationProperty[];
