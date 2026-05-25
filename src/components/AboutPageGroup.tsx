@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
-import ProfileCard from "./ProfileCard";
 import { useAboutpage } from "@/data/hooks";
-import Loader from "./Loader";
+import Image from "next/image";
 import ApiErrorBlock from "./ApiErrorBlock";
+import Loader from "./Loader";
+import ProfileCard from "./ProfileCard";
 
 export default function AboutPageGroup() {
   const { data, isLoading, isError } = useAboutpage();
@@ -27,7 +27,7 @@ export default function AboutPageGroup() {
           <br /> Creating Endless Possibilities */}
           {data?.data.aboutUs[0].header}
         </h1>
-        <p className="text-adron-black font-bold text-left text-[14px] md:text-[15px] leading-relaxed">
+        <p className="text-adron-black whitespace-pre-line font-bold text-left text-[14px] md:text-[15px] leading-relaxed">
           {/* At Adron Homes, we are committed to delivering quality, accessible,
           and affordable housing solutions. Our mission is to <br /> make
           homeownership a reality for everyone. */}
@@ -140,6 +140,26 @@ export default function AboutPageGroup() {
                 opportunities available in the real estate market.
               </li> */}
             </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col-reverse justify-between md:flex-row gap-10 items-center px-4 md:px-18">
+          <div className="w-full md:w-[500px]">
+            <h2 className="text-[28px] md:text-5xl font-semibold mb-2">
+              {/* Our Culture */}
+              {data?.data.culture[0].header}
+            </h2>
+            <p className="text-adron-black text-[14px] whitespace-pre-line">
+              {data?.data.culture[0].description}
+            </p>
+          </div>
+          <div className="h-[350px] w-full md:h-[430px] md:w-[500px] relative rounded-[50px] overflow-hidden">
+            <Image
+              fill
+              src={data?.data.culture[0].image || ""}
+              alt="Culture"
+              className="rounded-[50px] object-cover"
+            />
           </div>
         </div>
       </div>
