@@ -10,7 +10,6 @@ const AboutUsSection = ({ data }: { data: AboutUs[] }) => {
         <div className="w-full md:w-[45%]">
           <div className="relative w-full h-[250px] md:h-[350px] overflow-hidden">
             <Image
-              // src="/images/home-about-us.png"
               src={data[0].image}
               alt="Modern skyscrapers viewed from below"
               fill
@@ -42,12 +41,8 @@ const AboutUsSection = ({ data }: { data: AboutUs[] }) => {
           </h2>
 
           {/* Description */}
-          <p className="text-gray-600 mb-8 text-sm leading-relaxed font-adron-text-body">
+          <p className="text-gray-600 mb-8 text-sm leading-relaxed whitespace-pre-line font-adron-text-body">
             {data[0].description}
-            {/* We are driven to keep our promise, expand our land bank, and provide{" "}
-            <br />
-            excellent services with affordable housing solutions. Our singular
-            mission <br /> is to exceed expectations. */}
           </p>
 
           {/* CTA Button */}

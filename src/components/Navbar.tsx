@@ -419,19 +419,19 @@
 
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
-import clsx from "clsx";
-import SocialIcons from "./SocialIcons";
-import { IoCaretDown, IoCaretForward } from "react-icons/io5";
 import {
   useGetAllPropertyCategory,
   useGetAllPropertyLocations,
   useHomepage,
 } from "@/data/hooks";
+import clsx from "clsx";
+import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { IoCaretDown, IoCaretForward } from "react-icons/io5";
+import SocialIcons from "./SocialIcons";
 
 // Define types for our dropdown state
 type ExpandedDropdowns = {
@@ -596,11 +596,8 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <ul className="hidden lg:flex space-x-10 text-sm relative">
-          {navLinks.map((link) => (
-            <li
-              key={link.href}
-              className={clsx("relative", link.dropdown && "group")}
-            >
+          {navLinks.map((link, i) => (
+            <li key={i} className={clsx("relative", link.dropdown && "group")}>
               <Link
                 href={link.href}
                 onClick={() => {
@@ -624,9 +621,9 @@ export default function Navbar() {
                 link.dropdownLinks.length > 0 && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                     <ul className="py-2">
-                      {link.dropdownLinks.map((drop) => (
+                      {link.dropdownLinks.map((drop, i) => (
                         <li
-                          key={drop.name}
+                          key={i}
                           className={clsx(
                             "relative",
                             drop.dropdown && "nested-group"
@@ -652,8 +649,8 @@ export default function Navbar() {
                             drop.dropdownLinks.length > 0 && (
                               <div className="absolute top-0 left-full ml-1 w-56 bg-white shadow-lg rounded-md opacity-0 invisible nested-group:hover:opacity-100 nested-group:hover:visible transition-all duration-300 z-50">
                                 <ul className="py-2">
-                                  {drop.dropdownLinks.map((subDrop) => (
-                                    <li key={subDrop.name} className="">
+                                  {drop.dropdownLinks.map((subDrop, i) => (
+                                    <li key={i} className="">
                                       <Link
                                         href={subDrop.href}
                                         className="flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -781,19 +778,21 @@ export default function Navbar() {
                                       drop.dropdownLinks &&
                                       drop.dropdownLinks.length > 0 && (
                                         <ul className="pl-4 mt-1 space-y-1">
-                                          {drop.dropdownLinks.map((subDrop) => (
-                                            <li key={subDrop.name}>
-                                              <Link
-                                                href={subDrop.href}
-                                                onClick={() =>
-                                                  setIsMobileMenuOpen(false)
-                                                }
-                                                className="text-xs block py-1 text-gray-500 hover:text-adron-green"
-                                              >
-                                                {subDrop.name}
-                                              </Link>
-                                            </li>
-                                          ))}
+                                          {drop.dropdownLinks.map(
+                                            (subDrop, i) => (
+                                              <li key={i}>
+                                                <Link
+                                                  href={subDrop.href}
+                                                  onClick={() =>
+                                                    setIsMobileMenuOpen(false)
+                                                  }
+                                                  className="text-xs block py-1 text-gray-500 hover:text-adron-green"
+                                                >
+                                                  {subDrop.name}
+                                                </Link>
+                                              </li>
+                                            )
+                                          )}
                                         </ul>
                                       )}
                                   </div>

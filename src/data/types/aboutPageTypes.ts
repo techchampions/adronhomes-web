@@ -33,10 +33,18 @@ export interface AboutPageData {
   values: ValuesSection[];
   leadershipText: LeadershipText[];
   leaderships: LeadershipMember[];
+  culture: CultureSection[];
 }
 
 export interface AboutPageResponse {
   status: string;
   message: string;
   data: AboutPageData;
+}
+export interface CultureSection {
+  name: string;
+  header: string;
+  description: string;
+  action_link: string;
+  image: string;
 }
