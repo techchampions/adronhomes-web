@@ -1,8 +1,8 @@
 "use client";
 
-import { Field, ErrorMessage, useField } from "formik";
-import { FaExclamationCircle } from "react-icons/fa";
+import { ErrorMessage, Field, useField } from "formik";
 import React from "react";
+import { FaExclamationCircle } from "react-icons/fa";
 
 interface InputFieldProps {
   type?:
@@ -14,6 +14,7 @@ interface InputFieldProps {
     | "checkbox"
     | "textarea";
   placeholder?: string;
+  label?: string;
   name: string;
   icon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -24,6 +25,7 @@ interface InputFieldProps {
 const InputField: React.FC<InputFieldProps> = ({
   type = "text",
   placeholder,
+  label,
   name,
   icon,
   rightIcon,
@@ -36,6 +38,10 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className="w-full">
+      {label && (
+        <div className="font-bold text-sm text-gray-700 mb-2">{label}</div>
+      )}
+
       <div
         className={`w-full relative flex ${
           isTextarea ? "flex-col" : "flex-row"

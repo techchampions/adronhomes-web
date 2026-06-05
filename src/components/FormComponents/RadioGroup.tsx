@@ -1,6 +1,6 @@
 import { useField } from "formik";
+import { Check, Info } from "lucide-react";
 import React from "react";
-import { FaExclamationCircle } from "react-icons/fa";
 
 interface Option {
   label: string;
@@ -12,6 +12,7 @@ interface RadioGroupProps {
   label?: string;
   options: Option[];
   className?: string;
+  optionClassName?: string;
   orientation?: "horizontal" | "vertical";
 }
 
@@ -20,6 +21,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   label,
   options,
   className = "",
+  optionClassName = "",
   orientation = "vertical",
 }) => {
   const [field, meta, helpers] = useField(name);
@@ -27,9 +29,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 
   return (
     <div className={`w-full ${className}`}>
-      {label && (
-        <p className="mb-2 font-medium text-gray-700 text-sm">{label}</p>
-      )}
+      {label && <p className="mb-2 font-bold text-gray-700 text-sm">{label}</p>}
 
       <div
         className={`flex gap-2 ${
@@ -46,11 +46,11 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                 ${
                   isSelected
                     ? !hasError
-                      ? "border-adron-green bg-primary/10"
+                      ? "border-adron-green bg-adron-green/20"
                       : "border-red-500"
                     : "border-gray-300"
                 }
-                ${hasError ? "border-red-500" : ""}
+                ${hasError ? "border-red-500" : ""} ${optionClassName}
               `}
             >
               <div className="flex items-center gap-3">
@@ -67,9 +67,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                     }
                   `}
                 >
-                  {isSelected && (
-                    <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-                  )}
+                  {isSelected && <Check className="h-3.5 w-3.5 text-white" />}
                 </div>
 
                 <span className="text-gray-800 text-sm capitalize">
@@ -94,7 +92,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
       {/* Error Message */}
       {hasError && (
         <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-          <FaExclamationCircle className="w-4 h-4" />
+          <Info className="w-4 h-4" />
           {meta.error}
         </p>
       )}

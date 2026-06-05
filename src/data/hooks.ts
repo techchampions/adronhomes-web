@@ -1,3 +1,8 @@
+import apiClient from "@/data/apiClient";
+import { FAQResponse } from "@/data/types/FAQTypes";
+import { CategoryResponse } from "@/data/types/PropertyCategory";
+import { SettingsResponse } from "@/data/types/Settingstypes";
+import { ApiResponse } from "@/data/types/testimonialTypes";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   applyForJob,
@@ -29,22 +34,18 @@ import {
   verifyMarketer,
   VerifyMarketerResponse,
 } from "./api";
-import { HomepageResponse } from "./types/homepageTypes";
 import { AboutPageResponse } from "./types/aboutPageTypes";
 import { ContactPageResponse } from "./types/contactPageTypes";
-import { VirtualTourResponse } from "./types/virtualTourPageTypes";
+import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
+import { HomepageResponse } from "./types/homepageTypes";
+import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import {
   PaginatedProperties,
   PropertiesResponse,
 } from "./types/propertiesPageTypes";
-import { GetPropertyByIdResponse } from "./types/GetPropertyByIdResponse";
-import { GetJobByIdResponse, JobsApiResponse } from "./types/jobListTypes";
 import { PropertyLocationResponse } from "./types/PropertyLocationTypes";
 import { PropertiesTypeResponse } from "./types/propertyTypes";
-import { FAQResponse } from "@/data/types/FAQTypes";
-import { CategoryResponse } from "@/data/types/PropertyCategory";
-import { ApiResponse } from "@/data/types/testimonialTypes";
-import { SettingsResponse } from "@/data/types/Settingstypes";
+import { VirtualTourResponse } from "./types/virtualTourPageTypes";
 
 // Query hook for homepage data with
 export const useHomepage = () => {
@@ -253,5 +254,60 @@ export const useVerifyMarkerter = (id: string) => {
     queryKey: ["verify-marketer", id],
     queryFn: () => verifyMarketer(id),
     enabled: !!id,
+  });
+};
+
+export const useGetBusinessType = () => {
+  return useQuery<UnpaginatedApiResponse<BusinessType[]>>({
+    queryKey: ["citta-business-type"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/citta/business-types`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaGenders = () => {
+  return useQuery<UnpaginatedApiResponse<BusinessType[]>>({
+    queryKey: ["citta-genders"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/citta/genders`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaMaritalStatus = () => {
+  return useQuery<UnpaginatedApiResponse<BusinessType[]>>({
+    queryKey: ["citta-marital-statuses"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/citta/marital-statuses`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaCountries = () => {
+  return useQuery<UnpaginatedApiResponse<BusinessType[]>>({
+    queryKey: ["citta-countries"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/citta/countries`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaPurposes = () => {
+  return useQuery<UnpaginatedApiResponse<BusinessType[]>>({
+    queryKey: ["citta-purposes"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/citta/purposes`);
+      return res.data;
+    },
+  });
+};
+export const useGetCittaBranches = () => {
+  return useQuery<UnpaginatedApiResponse<BusinessType[]>>({
+    queryKey: ["citta-branches"],
+    queryFn: async () => {
+      const res = await apiClient.get(`/citta/branches`);
+      return res.data;
+    },
   });
 };

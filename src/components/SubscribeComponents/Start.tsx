@@ -62,8 +62,11 @@ const Start: React.FC<Props> = ({ property_id }) => {
         {({ isValid, dirty }) => (
           <Form className="mt-5 space-y-8">
             <div className=" space-y-4">
-              <div className="">Were you referred by a Marketer?</div>
-              <RadioGroup name="referred" options={options} />
+              <RadioGroup
+                name="referred"
+                options={options}
+                label="Were you referred by a Marketer?"
+              />
             </div>
             <div className="flex items-center justify-between gap-4">
               <Button

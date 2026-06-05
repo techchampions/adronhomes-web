@@ -5,6 +5,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Navbar from "@/components/Navbar";
 import PressOneWidget from "@/components/PressOneWidget";
 // import RouteTracker from "@/components/RouteTracker";
+import FacebookMetaScript from "@/components/FacebookMetaScript";
 import ModalWrapper from "@/components/ModalWrapper";
 import TawkTo from "@/components/TawkTo";
 import "leaflet/dist/leaflet.css"; // ✅ Add Leaflet CSS
@@ -125,6 +126,20 @@ export default function RootLayout({
         <Script
           src={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places&callback=initGoogleMaps`}
         />
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-302H8BY6RY"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+        
+            gtag('config', 'G-302H8BY6RY');
+          `}
+        </Script>
         <GoogleAnalytics />
         {/* <RouteTracker /> */}
         <TawkTo />
@@ -133,6 +148,7 @@ export default function RootLayout({
       <body className={`${adronTitle.variable} antialiased`}>
         <ErrorBoundary>
           <Providers>
+            <FacebookMetaScript />
             <CookieConsent />
             <ModalWrapper />
             <Navbar />
