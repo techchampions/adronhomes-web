@@ -1,3 +1,4 @@
+import SelectInput from "@/components/FormComponents/SelectInput";
 import InputMarketerId from "@/components/SubscribeComponents/InputMarketerID";
 import OwnershipInfo from "@/components/SubscribeComponents/OwnershipInfo";
 import Start from "@/components/SubscribeComponents/Start";
@@ -53,6 +54,13 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
 
     return null;
   };
+  const TITLE_OPTIONS = [
+    { value: "Mr", label: "Mr" },
+    { value: "Mrs", label: "Mrs" },
+    { value: "Miss", label: "Miss" },
+    { value: "Mst", label: "Mst" },
+  ];
+
   return (
     <div className="flex flex-col max-w-sm mx-h-[65vh]">
       <div
@@ -86,41 +94,52 @@ const InputPersonalInfo: React.FC<Props> = ({ property }) => {
               <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
                 <CheckEmail email={values.email} />
                 <div className="space-y-7">
-                  <div className="space-y-1">
-                    <div className="text-lg">What is your name?</div>
-                    <InputField
-                      name="fullName"
-                      type="text"
-                      placeholder="Full Name"
+                  <div className="grid grid-cols-4 gap-2">
+                    <SelectInput
+                      name="contract_title"
+                      options={TITLE_OPTIONS}
+                      label="Title"
+                      placeholder="Title"
                       className="text-2xl font-bold rounded-xl py-3"
                     />
+                    <div className="col-span-3">
+                      <InputField
+                        name="fullName"
+                        type="text"
+                        label="Full name"
+                        placeholder="Full Name"
+                        className="text-2xl font-bold rounded-xl py-3"
+                      />
+                    </div>
                   </div>
+
                   <div className="space-y-1">
-                    <div className="text-lg">What is your Email address?</div>
                     <InputField
                       name="email"
                       type="text"
+                      //   isReadOnly
+                      label="What is your email address"
                       placeholder="Email address"
                       className="text-2xl font-bold rounded-xl py-3"
                     />
                   </div>
                   <div className="space-y-1">
-                    <div className="text-lg">What is your Phone Number?</div>
                     <InputField
                       name="phone"
                       type="text"
+                      label="What is your phone number"
                       placeholder="Phone number"
                       className="text-2xl font-bold rounded-xl py-3"
                     />
                   </div>
                 </div>
-                <div className="flex justify-center w-full gap-4 mt-4">
-                  {/* <Button
-                    div="Back"
+                <div className="flex justify-center w-full gap-2 mt-4">
+                  <Button
+                    label="Back"
                     icon={<ArrowLeft />}
                     className="bg-black rounded-lg"
                     onClick={goBack}
-                  /> */}
+                  />
                   <Button
                     label={`${
                       data?.success

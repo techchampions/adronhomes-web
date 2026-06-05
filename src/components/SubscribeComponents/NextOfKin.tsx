@@ -63,42 +63,43 @@ const NextOfKin: React.FC<Props> = ({ property }) => {
         >
           {({ isValid }) => (
             <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
-              <div className="space-y-7">
-                <div className="space-y-1">
-                  <div className="text-lg">What is his/her name?</div>
-                  <InputField
-                    name="fullName"
-                    type="text"
-                    placeholder="Full Name"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg">What is your relationship?</div>
-                  <InputField
-                    name="relationship"
-                    type="text"
-                    placeholder="Relationship (eg. Brother, sister)"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg">What is his/her phone No.?</div>
-                  <InputField
-                    name="phone"
-                    type="text"
-                    placeholder="Phone number"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
-                </div>
+              <div className="space-y-5">
+                <InputField
+                  name="fullName"
+                  type="text"
+                  label="What is his/her name?"
+                  placeholder="Full Name"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
+
+                <InputField
+                  name="relationship"
+                  type="text"
+                  label="What is your relationship?"
+                  placeholder="Relationship (eg. Brother, sister)"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
+                <InputField
+                  name="phone"
+                  type="text"
+                  placeholder="Phone number"
+                  label="What is his/her phone No.?"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
+                <InputField
+                  name="address"
+                  placeholder="Address"
+                  label="What's his/her address?"
+                  className="text-2xl font-bold rounded-xl py-3"
+                />
               </div>
-              <div className="flex justify-center w-full gap-4 mt-4">
-                {/* <Button
-                  div="Back"
+              <div className="flex justify-center w-full gap-2 mt-4">
+                <Button
+                  label="Back"
                   icon={<ArrowLeft />}
-                  className="bg-black rounded-lg"
+                  className="bg-black rounded-lg hidden sm:block"
                   onClick={goBack}
-                /> */}
+                />
                 <Button
                   label="Proceed"
                   className="bg-adron-green rounded-lg"

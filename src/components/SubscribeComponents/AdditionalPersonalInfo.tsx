@@ -1,7 +1,9 @@
 import DateInput from "@/components/FormComponents/DateInput";
 import RadioGroup from "@/components/FormComponents/RadioGroup";
+import RadioGroupSkeleton from "@/components/FormComponents/RadioGroupSkeleton";
 import InputLocation from "@/components/SubscribeComponents/InputLocation";
 import OccupationInfo from "@/components/SubscribeComponents/OcupationInfo";
+import { useGetCittaGenders, useGetCittaMaritalStatus } from "@/data/hooks";
 import { Property } from "@/data/types/GetPropertyByIdResponse";
 import { Form, Formik } from "formik";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -19,18 +21,25 @@ const validationSchema = Yup.object().shape({
 interface Props {
   property: Property;
 }
-const GENDER_OPTIONS = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-  //   { value: "others", label: "others" },
-];
-const MARITAL_OPTIONS = [
-  { value: "single", label: "single" },
-  { value: "married", label: "married" },
-  { value: "divorced", label: "divorced" },
-];
 const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
   const action = useModal();
+  const { data: genderDataResponse, isLoading, isError } = useGetCittaGenders();
+  const {
+    data: maritalDataResponse,
+    isLoading: gettingMarital,
+    isError: MaritalError,
+  } = useGetCittaMaritalStatus();
+  const GENDER_OPTIONS =
+    genderDataResponse?.data.map((item) => ({
+      value: item.pName,
+      label: item.pName,
+    })) || [];
+  const MARITAL_OPTIONS =
+    maritalDataResponse?.data.map((item) => ({
+      value: item.pName,
+      label: item.pName,
+    })) || [];
+
   const {
     setSubscribeFormData,
     contract_gender,
@@ -75,33 +84,52 @@ const InputAdditionalPersonalInfo: React.FC<Props> = ({ property }) => {
             <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
               <div className="space-y-7">
                 <div className="space-y-1">
-                  <div className="text-lg">What is your gender?</div>
-                  <RadioGroup
-                    name="gender"
-                    options={GENDER_OPTIONS}
-                    orientation="horizontal"
-                  />
+                  {isLoading || isError ? (
+                    <RadioGroupSkeleton
+                      label={true}
+                      optionsCount={2}
+                      orientation="horizontal"
+                      className="my-4"
+                    />
+                  ) : (
+                    <RadioGroup
+                      label="What is your gender?"
+                      name="gender"
+                      options={GENDER_OPTIONS}
+                      orientation="horizontal"
+                    />
+                  )}
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg">What is your marital status?</div>
-                  <RadioGroup
-                    name="marital_status"
-                    options={MARITAL_OPTIONS}
-                    orientation="horizontal"
-                  />
+                  {gettingMarital || MaritalError ? (
+                    <RadioGroupSkeleton
+                      label={true}
+                      optionsCount={2}
+                      orientation="horizontal"
+                      className="my-4"
+                    />
+                  ) : (
+                    <RadioGroup
+                      label="What is your marital status?"
+                      name="marital_status"
+                      options={MARITAL_OPTIONS}
+                      orientation="horizontal"
+                      optionClassName="min-w-[calc(33.3%-8px)]"
+                    />
+                  )}
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg">What is your date of birth?</div>
-                  <DateInput name="dob" />
+                  {/* <div className="text-lg">What is your date of birth?</div> */}
+                  <DateInput name="dob" label="What is your date of birth" />
                 </div>
               </div>
-              <div className="flex justify-center w-full gap-4 mt-4">
-                {/* <Button
-                  div="Back"
+              <div className="flex justify-center w-full gap-2 mt-4">
+                <Button
+                  label="Back"
                   icon={<ArrowLeft />}
-                  className="bg-black rounded-lg"
+                  className="bg-gray-800 rounded-lg hidden sm:flex"
                   onClick={goBack}
-                /> */}
+                />
                 <Button
                   label="Proceed"
                   className="bg-adron-green rounded-lg"

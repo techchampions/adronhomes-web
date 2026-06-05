@@ -62,7 +62,7 @@ const PaymentSummary: React.FC<Props> = ({ property }) => {
     ) || null;
   const propertyDuration =
     propertySize?.durations.find(
-      (duration) => Number(duration.id) === Number(payment_duration)
+      (duration) => Number(duration.duration) === Number(payment_duration)
     ) || null;
   console.log(scheduledPaymentAmount);
   return (

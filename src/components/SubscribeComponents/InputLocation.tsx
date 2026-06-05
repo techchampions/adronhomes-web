@@ -1,31 +1,24 @@
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import Button from "../Button";
-// import InputField from "../InputField";
-import LocationAutocomplete2 from "@/components/FormComponents/LocationInput2";
+import SelectInput from "@/components/FormComponents/SelectInput";
+import InlineLoading from "@/components/InlineLoading";
 import InputField from "@/components/InputField";
 import InputAdditionalPersonalInfo from "@/components/SubscribeComponents/AdditionalPersonalInfo";
 import NextOfKin from "@/components/SubscribeComponents/NextOfKin";
+import { useGetCittaCountries } from "@/data/hooks";
 import { Property } from "@/data/types/GetPropertyByIdResponse";
+import { Form, Formik } from "formik";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import React from "react";
+import * as Yup from "yup";
 import { useModal } from "../../../store/modal.store";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
-// import LocationAutocomplete from "@/components/FormComponents/LocationInput";
+import Button from "../Button";
 
 const validationSchema = Yup.object().shape({
-  location: Yup.string().required("required"),
+  address: Yup.string().required("required"),
   nationality: Yup.string().required("required"),
-  locationDetails: Yup.object()
-    .shape({
-      address: Yup.string(),
-      city: Yup.string(),
-      state: Yup.string(),
-      country: Yup.string(),
-      lat: Yup.number(),
-      lng: Yup.number(),
-    })
-    .required("required"),
+  city: Yup.string().required(),
+  state: Yup.string().required(),
+  country: Yup.string().required(),
 });
 interface Props {
   property: Property;
@@ -34,32 +27,36 @@ interface Props {
 const InputLocation: React.FC<Props> = ({ property }) => {
   const action = useModal();
   const {
+    data: countriesDataResponse,
+    isLoading,
+    isError,
+  } = useGetCittaCountries();
+  const COUNTRIES =
+    countriesDataResponse?.data.map((item) => ({
+      value: item.pName,
+      label: item.pName,
+    })) || [];
+
+  const {
     setSubscribeFormData,
     contract_residential_address,
     contract_state,
     contract_country,
     contract_town,
     contract_nationality,
-    longitude,
-    latitude,
   } = useSubscribeFormData();
   const initialValues = {
-    location: contract_residential_address || "",
     nationality: contract_nationality || "",
-    locationDetails: {
-      address: contract_residential_address || "",
-      city: contract_town || "",
-      state: contract_state || "",
-      country: contract_country || "",
-      lat: Number(latitude),
-      lng: Number(longitude),
-    },
+    address: contract_residential_address || "",
+    state: contract_state || "",
+    city: contract_town || "",
+    country: contract_country || "",
   };
   const goBack = () => {
     action.openModal(<InputAdditionalPersonalInfo property={property} />);
   };
   return (
-    <div className="flex flex-col w-sm max-w-sm mx-h-[65vh]">
+    <div className="flex flex-col w-sm max-w-xs md:max-w-md max-h-[85vh] md:max-h-[75vh]">
       <div
         className="flex items-center gap-2 cursor-pointer absolute top-4 left-4"
         onClick={goBack}
@@ -77,67 +74,94 @@ const InputLocation: React.FC<Props> = ({ property }) => {
           validateOnMount
           onSubmit={(values) => {
             setSubscribeFormData({
-              contract_residential_address: values.locationDetails.address,
-              contract_country: values.locationDetails.country,
-              contract_state: values.locationDetails.state,
-              contract_town: values.locationDetails.city,
+              contract_residential_address: values.address,
+              contract_country: values.country,
+              contract_state: values.state,
+              contract_town: values.city,
               contract_nationality: values.nationality,
             });
             action.openModal(<NextOfKin property={property} />);
           }}
         >
-          {({ isValid, values, setFieldValue }) => (
+          {({ isValid }) => (
             <Form className="flex flex-col gap-8 justify-between min-h-[220px]">
               <div className="space-y-7">
-                <div className="space-y-1">
-                  <div className="text-lg">Where are you located?</div>
-                  <LocationAutocomplete2
-                    value={values.location}
-                    onChange={(value) => setFieldValue("location", value)}
-                    onSelect={(locationData) => {
-                      setFieldValue("locationDetails", {
-                        address:
-                          locationData.formattedAddress || locationData.address,
-                        city: locationData.city || "",
-                        state: locationData.state || "",
-                        country: locationData.country || "",
-                        lat: locationData.lat,
-                        lng: locationData.lng,
-                      });
-                    }}
-                    onError={(error) => {
-                      console.error("Location error:", error);
-                    }}
-                    placeholder="Enter your address"
-                    // label="Your Location"
-                    helperText="Start typing to see suggestions"
-                    required
-                    // error={touched.location && (errors.location as string)}
-                    searchOptions={{
-                      // componentRestrictions: { country: "ng" }, // Restrict to US
-                      types: ["address"], // Search for addresses only
-                    }}
-                    debounce={400}
-                    clearOnBlur={false}
-                  />
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg">What is your nationality?</div>
-                  <InputField
-                    name="nationality"
-                    type="text"
-                    placeholder="E.g.(Nigerian, Canadian etc.)"
-                    className="text-2xl font-bold rounded-xl py-3"
-                  />
+                <div className="space-y-4 ">
+                  <div className="text-lg font-adron-bold">
+                    What is your location and Nationality?
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {isLoading || isError ? (
+                      <div className="">
+                        <div className="text-sm text-gray-700 font-bold mb-2">
+                          Country
+                        </div>
+                        <div className="bg-gray-100 rounded-xl p-3">
+                          <InlineLoading
+                            size="sm"
+                            text="Loading countries..."
+                            className="text-gray-500"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <SelectInput
+                        label="Country"
+                        name="country"
+                        placeholder="Select country"
+                        options={COUNTRIES}
+                      />
+                    )}
+                    <InputField
+                      name="state"
+                      label="State"
+                      placeholder="Enter your state"
+                      className="text-2xl font-bold rounded-xl py-3"
+                    />
+                    {isLoading || isError ? (
+                      <div className="">
+                        <div className="text-sm text-gray-700 font-bold mb-2">
+                          Country
+                        </div>
+                        <div className="bg-gray-100 rounded-xl p-3">
+                          <InlineLoading
+                            size="sm"
+                            text="Loading countries..."
+                            className="text-gray-500"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <SelectInput
+                        name="nationality"
+                        label="Nationality"
+                        options={COUNTRIES}
+                        placeholder="Select country"
+                        // className="text-2xl font-bold rounded-xl py-3"
+                      />
+                    )}
+                    <InputField
+                      name="city"
+                      label="Town"
+                      className="text-2xl font-bold rounded-xl py-3"
+                    />
+                    <div className="col-span-2">
+                      <InputField
+                        name="address"
+                        label="Address"
+                        className="text-2xl font-bold rounded-xl py-3"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex justify-center w-full gap-4 mt-4">
-                {/* <Button
-                  div="Back"
+              <div className="flex justify-center w-full gap-2 mt-4">
+                <Button
+                  label="Back"
                   icon={<ArrowLeft />}
-                  className="bg-black rounded-lg"
+                  className="bg-gray-800 rounded-lg hidden sm:block"
                   onClick={goBack}
-                /> */}
+                />
                 <Button
                   label="Proceed"
                   className="bg-adron-green rounded-lg"

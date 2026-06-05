@@ -13,7 +13,9 @@ import { addMonths } from "date-fns";
 import { useSubscribeFormData } from "../../../store/subscribeFormData.state";
 // import RadioGroup from "@/components/FormComponents/RadioGroup";
 import CurrencyInputField from "@/components/FormComponents/CurrencyInputField";
+import InlineLoading from "@/components/InlineLoading";
 import InputField from "@/components/InputField";
+import { useGetCittaPurposes } from "@/data/hooks";
 import { Property } from "@/data/types/GetPropertyByIdResponse";
 import { formatPrice } from "@/utils/formater";
 
@@ -22,42 +24,15 @@ interface Props {
 }
 
 const PropertySpecifications: React.FC<Props> = ({ property }) => {
-  // const validationSchema = Yup.object().shape({
-  //   property_size: Yup.string().required("required"),
-  //   property_purpose: Yup.string().required("required"),
-  //   payment_plan: Yup.string().required("required"),
-  //   // citta_id: Yup.number().required("required"),
-  //   units: Yup.number().required("required"),
-  //   initial_deposit: Yup.number().when("payment_plan", {
-  //     is: "Installment",
-  //     then: (schema) => schema.required("required"),
-  //     otherwise: (schema) => schema.notRequired(),
-  //   }),
-  //   payment_duration: Yup.string().when("payment_plan", {
-  //     is: "Installment",
-  //     then: (schema) => schema.required("required"),
-  //     otherwise: (schema) => schema.notRequired(),
-  //   }),
-  //   payment_schedule: Yup.string().when("payment_plan", {
-  //     is: "Installment",
-  //     then: (schema) => schema.required("required"),
-  //     otherwise: (schema) => schema.notRequired(),
-  //   }),
-  //   start_date: Yup.string().when("payment_plan", {
-  //     is: "Installment",
-  //     then: (schema) => schema.required("required"),
-  //     otherwise: (schema) => schema.notRequired(),
-  //   }),
-  //   end_date: Yup.string().when("payment_plan", {
-  //     is: "Installment",
-  //     then: (schema) => schema.required("required"),
-  //     otherwise: (schema) => schema.notRequired(),
-  //   }),
-  // });
+  const {
+    data: purposeDataResponse,
+    isLoading,
+    isError,
+  } = useGetCittaPurposes();
 
   const validationSchema = Yup.object().shape({
     property_size: Yup.mixed().required("required"),
-    property_purpose: Yup.mixed().required("required"),
+    purpose: Yup.mixed().required("required"),
     payment_plan: Yup.mixed().required("required"),
     units: Yup.number().required("required"),
     // initial_deposit: Yup.number().required("required"),
@@ -94,41 +69,41 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
     end_date,
   } = useSubscribeFormData();
   const action = useModal();
+  const today = new Date();
   const initialValues = {
     property_size: land_size,
     citta_id: citta_id,
     units: units,
-    property_purpose: property_purpose,
+    purpose: property_purpose,
     payment_plan: "Installment",
     initial_deposit: initial_deposit,
     payment_duration: payment_duration,
     duration_price: 0,
     payment_schedule: payment_schedule,
-    start_date: new Date(),
+    start_date: today,
     end_date: end_date,
   };
-  const schedule = property.payment_schedule ?? [];
+  const schedule = property?.payment_schedule ?? [];
   const SCHEDULE_OPTIONS = schedule.map((option) => ({
     label: option,
     value: option,
   }));
-  const land_sizes = property.land_sizes ?? [];
+  const land_sizes = property?.land_sizes ?? [];
   const SIZE_OPTIONS = land_sizes.map((option) => ({
     label: `${option.size} ${option.measurement_unit}`,
     value: option.id,
   }));
-  const purposes = property.purpose ?? [];
+  const purposes = property?.purpose || [];
+  const contract_purposes = purposeDataResponse?.data ?? [];
+  const CONTRACT_PURPOSE_OPTIONS = contract_purposes.map((option) => ({
+    label: option.pName,
+    value: option.pName,
+  }));
   const PURPOSE_OPTIONS = purposes.map((option) => ({
     label: option,
     value: option,
   }));
-  // let PAYMENT_PLAN: typeof PURPOSE_OPTIONS = [];
-  // if (property.payment_type === "installment") {
-  //   PAYMENT_PLAN = [
-  //     { label: "One Time", value: "One Time" },
-  //     { label: "Installment", value: "Installment" },
-  //   ];
-  // }
+
   const goBack = () => {
     action.openModal(<InputIdentityInfo property={property} />);
   };
@@ -144,13 +119,13 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
         values.payment_duration
       ) {
         const selectedSize = values.property_size
-          ? property.land_sizes.find(
+          ? property?.land_sizes.find(
               (item) => item.id.toString() === values.property_size
             )
           : null;
         const selectedDuration = values.payment_duration
           ? selectedSize?.durations.find(
-              (item) => item.id.toString() === values.payment_duration
+              (item) => item.duration.toString() === values.payment_duration
             )
           : null;
         // console.log("d_citta", selectedDuration);
@@ -168,7 +143,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
         values.units
       ) {
         const selectedSize = values.property_size
-          ? property.land_sizes.find(
+          ? property?.land_sizes.find(
               (item) => item.id.toString() === values.property_size
             )
           : null;
@@ -192,8 +167,9 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
         values.start_date
       ) {
         const months = parseInt(String(values.payment_duration));
+        const startDate = new Date(values.start_date);
         if (!isNaN(months)) {
-          const newEndDate = addMonths(new Date(values.start_date), months);
+          const newEndDate = addMonths(startDate, months);
           setFieldValue("end_date", newEndDate);
         }
       }
@@ -231,7 +207,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
           onSubmit={(values) => {
             setSubscribeFormData({
               land_size: values.property_size,
-              property_purpose: values.property_purpose,
+              property_purpose: values.purpose,
               payment_duration: values.payment_duration,
               payment_schedule: values.payment_schedule,
               start_date: values.start_date.toISOString(),
@@ -255,7 +231,7 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
 
             const DURATION_OPTIONS =
               selectedSize?.durations?.map((option) => ({
-                value: option.id.toString(),
+                value: option.duration.toString(),
                 label: `${option.duration} months`,
               })) || [];
             // getValidationSchema(values.payment_plan);
@@ -264,17 +240,9 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                 <AutoEndDateUpdater />
                 {/* <UpdateValidation /> */}
                 <div className="space-y-7">
-                  {/* <div className="space-y-1">
-                    <div className="text-lg">Select payment plan</div>
-                    <RadioGroup
-                      name="payment_plan"
-                      options={PAYMENT_PLAN}
-                      orientation="horizontal"
-                    />
-                  </div> */}
                   <div className="space-y-1">
-                    <div className="text-lg">Select your property size</div>
                     <SelectInput
+                      label="Select your property size"
                       name="property_size"
                       options={SIZE_OPTIONS}
                       className="py-3 bg-adron-body"
@@ -283,8 +251,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
 
                   {values.property_size && (
                     <div className="space-y-1">
-                      <div className="text-lg">Select payment duration</div>
                       <SelectInput
+                        label="Select payment duration"
                         name="payment_duration"
                         options={DURATION_OPTIONS}
                         className="py-3 bg-adron-body"
@@ -293,8 +261,8 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                   )}
                   {values.payment_duration && (
                     <div className="space-y-1">
-                      <div className="text-lg">Select Payment schedule</div>
                       <SelectInput
+                        label="Select Payment schedule"
                         name="payment_schedule"
                         options={SCHEDULE_OPTIONS}
                         className="py-3 bg-adron-body"
@@ -303,20 +271,35 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                   )}
                   {values.payment_duration && values.payment_schedule && (
                     <div className="space-y-1">
-                      <div className="text-lg">
-                        Select your property purpose
-                      </div>
-                      <SelectInput
-                        name="property_purpose"
-                        options={PURPOSE_OPTIONS}
-                        className="py-3 bg-adron-body"
-                      />
+                      {isLoading || isError ? (
+                        <div className="space-y-2">
+                          <div className="">Select your property purpose</div>
+                          <div className="bg-gray-100 p-3 rounded-xl">
+                            <InlineLoading text="Loading purposes..." />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-7">
+                          <SelectInput
+                            label="Select your property purposes"
+                            name="purpose"
+                            options={PURPOSE_OPTIONS}
+                            className="py-3 bg-adron-body"
+                          />
+                          <SelectInput
+                            label="Select your property contract purpose"
+                            name="contract_purpose"
+                            options={CONTRACT_PURPOSE_OPTIONS}
+                            className="py-3 bg-adron-body"
+                          />
+                        </div>
+                      )}
                     </div>
                   )}
-                  {values.property_purpose && (
+                  {values.purpose && (
                     <div className="space-y-1">
-                      <div className="text-lg">Select your number of units</div>
                       <InputField
+                        label="Select your number of units"
                         name="units"
                         className="text-2xl font-bold rounded-xl py-3"
                       />
@@ -327,9 +310,11 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                     values.units &&
                     values.payment_duration &&
                     values.payment_schedule &&
-                    values.property_purpose && (
+                    values.purpose && (
                       <div className="space-y-1">
-                        <div className="text-lg">Enter Initial Deposit</div>
+                        <div className="text-sm font-bold">
+                          Enter Initial Deposit
+                        </div>
                         <div className="flex items-center text-gray-400 text-xs gap-1">
                           <Info size={15} />
                           <span>
@@ -350,16 +335,16 @@ const PropertySpecifications: React.FC<Props> = ({ property }) => {
                   values.initial_deposit && (
                     <div className="grid grid-cols-2 gap-2">
                       <div className="">
-                        <div className="">Start Date</div>
                         <DatePickerInput
+                          label="Start Date"
                           name="start_date"
                           minDate={new Date()}
                           placeholder={`DD-MM-YYYY`}
                         />
                       </div>
                       <div className="">
-                        <div className="">End Date</div>
                         <DatePickerInput
+                          label="End Date"
                           name="end_date"
                           placeholder="DD-MM-YYYY"
                           readOnly
