@@ -6,7 +6,7 @@ const GoogleAnalytics = () => {
     <>
       {/* Google Analytics */}
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-VZ4Z26L5L0"
+        src="https://www.googletagmanager.com/gtm.js?id=GTM-TXZ59XR9"
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
